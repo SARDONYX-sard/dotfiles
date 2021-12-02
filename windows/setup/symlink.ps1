@@ -91,7 +91,7 @@ foreach ($file in $files) {
       # Copy or SymbolicLink
       if ($file.mode -eq "copy") {
         Write-Host "Copying..." -ForegroundColor Green
-        Copy-Item -r $file.target $file.path
+        Copy-Item $file.target $file.path
       }
       else {
         Write-Host "Making symbolic link..." -ForegroundColor Green
