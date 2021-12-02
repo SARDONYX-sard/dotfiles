@@ -14,10 +14,9 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
 $files = @(
   @{ target = "init.vim"; path = ""; name = ".vimrc" }
-  @{ target = ".gitconfig"; path = ""; name = ".gitconfig" }
   @{ target = "init.vim"; path = "AppData/Local/nvim" }
   @{ target = "ginit.vim"; path = "AppData/Local/nvim" }
-  @{ target = "windows/config/windows-terminal.json"; fullpath = Join-Path $env:LocalAppData "Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"; mode = "copy" }
+  @{ target = "windows/config/settings.json"; fullpath = Join-Path $env:LocalAppData "Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"; mode = "copy" }
 
   #? Passing whitespace as a whole object will not result in a path error.
   @{ target = "windows/config/init.ahk"; fullpath = Join-Path $env:AppData  "Microsoft/Windows/Start Menu/Programs/Startup/init.ahk" }
@@ -69,19 +68,21 @@ foreach ($file in $files) {
   # ------------------------------------------------------------------------------------------------
   function Set-SymbolicLink {
     Write-Host ""
-    Write-Host "now: $($file.path + "/" + $file.name)"
-    if (Test-Path ($file.path + "/" + $file.name)) {
+    Write-Host "now: $(Join-Path $file.path $file.name)"
+
+    $fullPathName = Join-Path $file.path $file.name
+    if (Test-Path $fullPathName) {
       Write-Host "Already exists." -ForegroundColor Blue
       if ($force) {
-        Write-Warning "Deleting..."
-      (Get-Item ($file.path + "/" + $file.name)).Delete()
+        Write-Host "Recreating..." -ForegroundColor Yellow
+      (Get-Item $fullPathName).Delete()
       }
       else {
         continue
       }
     }
 
-    if (!(Test-Path ($file.path + "/" + $file.name))) {
+    if (!(Test-Path $fullPathName)) {
 
       if (!(Test-Path ($file.path))) {
         mkdir ($file.path)
@@ -91,7 +92,7 @@ foreach ($file in $files) {
       # Copy or SymbolicLink
       if ($file.mode -eq "copy") {
         Write-Host "Copying..." -ForegroundColor Green
-        Copy-Item $file.target $file.path
+        Copy-Item $file.target -Destination $file.path -Force
       }
       else {
         Write-Host "Making symbolic link..." -ForegroundColor Green
