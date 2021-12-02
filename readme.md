@@ -8,6 +8,8 @@
 
 - [dotfiles](#dotfiles)
   - [Table of Contents](#table-of-contents)
+  - [How to install](#how-to-install)
+  - [Progress](#progress)
   - [Complete the builder](#complete-the-builder)
   - [Incomplete](#incomplete)
   - [Warning'!'](#warning)
@@ -15,6 +17,26 @@
   - [Workarounds I've done for coding](#workarounds-ive-done-for-coding)
   - [Reference sites](#reference-sites)
   - [License](#license)
+
+## How to install
+
+Execute the following command.
+
+- windows
+
+```powershell
+Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
+```
+
+## Progress
+
+- Completed
+
+  - Windows settings
+
+- Incomplete
+
+  - Linux settings
 
 ## Complete the builder
 
@@ -55,3 +77,7 @@ Some of them are left in the comments, but I'll include them here as well.
 ## License
 
 Unlicense
+
+```
+
+```

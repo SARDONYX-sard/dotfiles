@@ -6,21 +6,33 @@
 
 - [dotfiles](#dotfiles)
   - [目次](#目次)
-  - [完成箇所](#完成箇所)
-  - [未完成箇所](#未完成箇所)
+  - [インストール方法](#インストール方法)
+  - [進捗状況](#進捗状況)
   - [注意'!'](#注意)
   - [手動でやらなければならないこと](#手動でやらなければならないこと)
   - [コーディングに際して行った回避策](#コーディングに際して行った回避策)
   - [参考サイト](#参考サイト)
   - [ライセンス](#ライセンス)
 
-## 完成箇所
+## インストール方法
 
-- Windows settings
+以下のコマンドを実行します。
 
-## 未完成箇所
+- windows
 
-- Linux settings
+```powershell
+Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
+```
+
+## 進捗状況
+
+- 完成箇所
+
+  - Windows settings
+
+- 未完成箇所
+
+  - Linux settings
 
 ## 注意'!'
 
