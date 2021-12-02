@@ -17,7 +17,7 @@ $files = @(
   @{ target = ".gitconfig"; path = ""; name = ".gitconfig" }
   @{ target = "init.vim"; path = "AppData/Local/nvim" }
   @{ target = "ginit.vim"; path = "AppData/Local/nvim" }
-  @{ target = "windows/config/windows-terminal.json"; fullpath = Join-Path $env:LocalAppData "Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json" }
+  @{ target = "windows/config/windows-terminal.json"; fullpath = Join-Path $env:LocalAppData "Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"; mode = "copy" }
 
   #? Passing whitespace as a whole object will not result in a path error.
   @{ target = "windows/config/init.ahk"; fullpath = Join-Path $env:AppData  "Microsoft/Windows/Start Menu/Programs/Startup/init.ahk" }
@@ -82,13 +82,21 @@ foreach ($file in $files) {
     }
 
     if (!(Test-Path ($file.path + "/" + $file.name))) {
-      Write-Host "Making symbolic link..." -ForegroundColor Green
 
       if (!(Test-Path ($file.path))) {
         mkdir ($file.path)
       }
 
-      New-Item -ItemType SymbolicLink @file | Out-Null
+
+      # Copy or SymbolicLink
+      if ($file.mode -eq "copy") {
+        Write-Host "Copying..." -ForegroundColor Green
+        Copy-Item -r $file.target $file.path
+      }
+      else {
+        Write-Host "Making symbolic link..." -ForegroundColor Green
+        New-Item -ItemType SymbolicLink @file | Out-Null
+      }
       if (!$?) { Write-Error "${@file} is null. Failed to create symbolic link." }
     }
   }
