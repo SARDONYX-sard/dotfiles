@@ -76,7 +76,7 @@ options:
 -h, -Help    : Get help.               このヘルプを表示します
 "@
 
-  if ($d -or $Dir) { code "D:\ドキュメント\PowerShell\" -r }
+  if ($d -or $Dir) { pwsh -NoProfile -Command "`$profile" | Split-Path | code - -r }
   if ($r -or $Reload) { Set-Profile }
   if ($v -or $Vim) { nvim $PROFILE }
   if ($h -or $Help) { Write-Host $helpDocument }
