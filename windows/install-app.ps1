@@ -1,10 +1,10 @@
-~/dotfiles/windows/setup/scoop-install.ps1
-~/dotfiles/windows/setup/git-setting.ps1
 
 
 Set-Location $HOME
 git clone https://github.com/SARDONYX-sard/dotfiles $HOME/dotfiles
 
+~/dotfiles/windows/setup/scoop-install.ps1
+~/dotfiles/windows/setup/git-setting.ps1
 
 #? $HOME env not working. So use `~`
 ~/dotfiles/windows/setup/symlink.ps1
