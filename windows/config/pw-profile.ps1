@@ -1,9 +1,4 @@
-# Install-Module WslInterop
-Import-WslCommand "awk", "emacs", "grep", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail" # , "ls", "man", "vim"
-
-Set-Alias c clear
-
-# if ((Get-Process | Select-String docker)) {
+#>
 #   Write-Warning "Docker & Kubernetes isn't running."
 # }
 # else {
@@ -23,7 +18,7 @@ Set-Alias g git
 Set-Alias gen Get-SnippetGenerator
 Set-Alias s scoop
 Set-Alias w Get-Env
-Set-Alias wget  Invoke-WebRequest
+
 
 # like which alias
 function Get-Env { which python | Split-Path  | Invoke-Item }
@@ -62,21 +57,7 @@ function prof {
     }
   }
 
-  $helpDocument = @"
-$PROFILE を編集するコマンド
-prof         : Edit "$PROFILE" (default)
-
-prof <option>
-
-options:
-
--d, -Dir     : Enter directory.        $PROFILE ディレクトリに入ります
--r, -Reload  : Reload profile.         プロファイルを再読み込みします
--v, -Vim     : Open profile with vim.  neovimでプロファイルを開きます
--h, -Help    : Get help.               このヘルプを表示します
-"@
-
-  if ($d -or $Dir) { pwsh -NoProfile -Command "`$profile" | Split-Path | code - -r }
+  if ($d -or $Dir) { powershell -NoProfile -Command "`$profile" | Split-Path | code - -r }
   if ($r -or $Reload) { Set-Profile }
   if ($v -or $Vim) { nvim $PROFILE }
   if ($h -or $Help) { Write-Host $helpDocument }
@@ -108,19 +89,7 @@ function push { git push ${$} }
 # treee(npm module) aliases
 # --------------------------------------------------------------------------------------------------
 function tree ($cmd) {
-  $errorMsg = @"
-Error:
-該当するNodeモジュールがありません。以下のコマンドを実行し、tree-cliをインストールしてください
-npm install -g tree-cli
 
-・node.jsがない場合は、https://nodejs.org/ を参照してください
-"@
-
-  $helpMsg = @"
-tree            : ソースツリーを実行します
-tree o          : 第2層までのnode_modulesを除くtreeをtree.txtに書き込みます
-tree h, help    : このヘルプを表示します
-"@
 
   if ((Get-Command treee).Name -ne "treee.ps1") { Write-Host $errorMsg }
 
@@ -175,14 +144,10 @@ $WslDefaultParameterValues["ls"] = "--color=auto --human-readable --group-direct
 # Set-ToLF
 function tolf($extension) {
   if ($extension) {
-    return Get-ChildItem -Recurse -File -Filter *.$extension
-    | ForEach-Object { ((Get-Content $_.FullName -Raw) -replace "`r`n", "\`n")
-    | Set-Content -encoding UTF8 -NoNewline $_.FullName }
+    return Get-ChildItem -Recurse -File -Filter *.$extension | ForEach-Object { ((Get-Content $_.FullName -Raw) -replace "`r`n", "\`n") | Set-Content -encoding UTF8 -NoNewline $_.FullName }
   }
 
-  Get-ChildItem -Recurse -File
-  | ForEach-Object { ((Get-Content $_.FullName -Raw) -replace "`r`n", "\`n")
-  | Set-Content -encoding UTF8 -NoNewline $_.FullName }
+  Get-ChildItem -Recurse -File | ForEach-Object { ((Get-Content $_.FullName -Raw) -replace "`r`n", "\`n") | Set-Content -encoding UTF8 -NoNewline $_.FullName }
 }
 
 function su {
@@ -205,7 +170,7 @@ function Prompt {
   }
   # Custom color for Windows console
   if ( $Host.Name -eq "ConsoleHost" ) {
-    Write-Host ("┌──[") -nonewline -foregroundcolor DarkGreen
+    Write-Host ("[") -nonewline -foregroundcolor DarkGreen
     write-host (Get-ShortenPath([string] (Get-Location).Path)) -nonewline -foregroundcolor White
     Write-Host ("]") -nonewline -foregroundcolor Green
     Write-Host (" ") -nonewline
@@ -218,7 +183,6 @@ function Prompt {
     Write-Host ("]") -nonewline -foregroundcolor DarkGreen
     Write-Host (" ") -foregroundcolor DarkGray
 
-    Write-Host ("└─") -nonewline -foregroundcolor DarkGreen
     Write-Host ($isAdmin) -nonewline -foregroundcolor DarkCyan
   }
   # Default color for the rest
@@ -235,92 +199,21 @@ function Get-ShortenPath([string] $path) {
   return $path.Replace($HOME, '~').Replace('^[^:]+::', '').Replace('\(.?)([^\])[^\]*(?=\)', '$1$2')
 }
 
-# --------------------------------------------------------------------------------------------------
-# Anaconda3
-# --------------------------------------------------------------------------------------------------
-#region conda initialize
-function ve ($cmd) {
-  function Set-Activate {
-    Write-Output "conda venv ($Args) enabled."
-    return (& "conda.exe" "shell.powershell" "activate" $Args[0]) | Out-String | Invoke-Expression
-  }
-
-  function Set-Deactivate {
-    Write-Output "conda venv disenabled."
-    return (& "conda.exe" "shell.powershell" "deactivate")
-    | Out-String | Invoke-Expression
-  }
-
-  $helpDocument = @"
-Anaconda3 仮想環境(virtual environment)管理コマンド
-
-ve <command>
-
-Usage:
-
-ve              : Enter base.  仮想環境(base)に入ります
-ve <venv name>  : Activate.    仮想環境(作成済みの環境)に入ります
-ve d            : Deactivate.  仮想環境から出ます
-ve h            : Get help.    このヘルプを表示します
-"@
-
-
-  switch -Regex ($cmd) {
-    "^(?:d|deactivate)$" { Set-Deactivate }
-    "^(?:h|help)$" { Write-Output $helpDocument }
-    Default {
-      if ($Args[0]) {
-        # !! Contents within this block are managed by 'conda init' !!
-        Write-Output "Type 've h' to get help."
-        Write-Output "conda venv (base) enabled."
-        return (& "conda.exe" "shell.powershell" "hook") | Out-String | Invoke-Expression
-      }
-      else {
-        Set-Activate
-      }
-
-    }
-  }
-}
-#endregions
-
-
-# --------------------------------------------------------------------------------------------------
-# PowerShell Prompt Theme
-# --------------------------------------------------------------------------------------------------
-Import-Module posh-git
-Import-Module oh-my-posh
-Set-PoshPrompt Paradox
-Set-PoshPrompt -Theme 'gmay'
-
-$env:RunFromPowershell = 1
-
-
-# --------------------------------------------------------------------------------------------------
-# Remove vim env
-# --------------------------------------------------------------------------------------------------
-$env_to_del = @(
-  "VIM"
-  "VIMRUNTIME"
-  "MYVIMRC"
-  "MYGVIMRC"
-)
-
-foreach ($var in $env_to_del) {
-  Remove-Item env:$var -ErrorAction SilentlyContinue
-}
-
-
-# -- fzf の設定
-if ( Get-Command bat -ea 0 ) {
-  $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"bat --pager=never --color=always --style=numbers --line-range :300 {}`""
-}
-else {
-  $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"cat {}`""
-}
-
-# Console の設定(https://docs.microsoft.com/ja-jp/dotnet/api/system.console.bufferheight?view=net-6.0)
-try {
-  [console]::BufferHeight = [math]::Max(3000, [console]::BufferHeight)
-}
-catch { }
+<##
+ # Copyright (c) 2021 SARDONYX
+ #
+ # This software is released under the MIT License.
+ # https://opensource.org/licenses/MIT
+#>
+<##
+ # Copyright (c) 2021 SARDONYX
+ #
+ # This software is released under the MIT License.
+ # https://opensource.org/licenses/MIT
+#>
+<##
+ # Copyright (c) 2021 SARDONYX
+ #
+ # This software is released under the MIT License.
+ # https://opensource.org/licenses/MIT
+#>
