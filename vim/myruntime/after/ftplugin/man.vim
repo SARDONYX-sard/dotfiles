@@ -1,0 +1,2 @@
+
+sil! unmap <buffer> q
