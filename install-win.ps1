@@ -1,11 +1,8 @@
 Write-Host "Installing Windows development environment..." -ForegroundColor Green
 
-try {
+if (!(Get-Command scoop)) {
   # Install scoop(https://scoop.sh/)
   Invoke-WebRequest -useb get.scoop.sh | Invoke-Expression
-}
-catch {
-  powershell -ExecutionPolicy RemoteSigned -File "./install-win.ps1"
 }
 
 # For sudo, say, gitignore, etc commands. (https://github.com/lukesampson/psutils)
