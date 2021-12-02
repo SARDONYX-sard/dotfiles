@@ -1,0 +1,197 @@
+{
+	"$schema" : "https://aka.ms/winget-packages.schema.2.0.json",
+	"CreationDate" : "2021-12-01T01:26:18.683-00:00",
+	"Sources" :
+	[
+		{
+			"Packages" :
+			[
+				{
+					"PackageIdentifier" : "Microsoft.VisualStudio.2022.Community"
+				},
+				{
+					"PackageIdentifier" : "AIMP.AIMP"
+				},
+				{
+					"PackageIdentifier" : "Amazon.Kindle"
+				},
+				{
+					"PackageIdentifier" : "Google.AndroidStudio"
+				},
+				{
+					"PackageIdentifier" : "Canonical.Ubuntu"
+				},
+				{
+					"PackageIdentifier" : "CrystalDewWorld.CrystalDiskMark"
+				},
+				{
+					"PackageIdentifier" : "dbeaver.dbeaver"
+				},
+				{
+					"PackageIdentifier" : "DeepL.DeepL"
+				},
+				{
+					"PackageIdentifier" : "Docker.DockerDesktop"
+				},
+				{
+					"PackageIdentifier" : "voidtools.Everything"
+				},
+				{
+					"PackageIdentifier" : "GIMP.GIMP"
+				},
+				{
+					"PackageIdentifier" : "Glarysoft.GlaryUtilities"
+				},
+				{
+					"PackageIdentifier" : "Google.Chrome"
+				},
+				{
+					"PackageIdentifier" : "commercialhaskell.stack"
+				},
+				{
+					"PackageIdentifier" : "CodecGuide.K-LiteCodecPack.Basic"
+				},
+				{
+					"PackageIdentifier" : "LINE.LINE"
+				},
+				{
+					"PackageIdentifier" : "LLVM.LLVM"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.AzureStorageEmulator"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.Edge"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.EdgeWebView2Runtime"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.WindowsTerminal.Preview"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.WindowsTerminal"
+				},
+				{
+					"PackageIdentifier" : "Canonical.Multipass"
+				},
+				{
+					"PackageIdentifier" : "Insecure.Nmap"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.OneDrive"
+				},
+				{
+					"PackageIdentifier" : "Postman.Postman"
+				},
+				{
+					"PackageIdentifier" : "ProtonTechnologies.ProtonVPN"
+				},
+				{
+					"PackageIdentifier" : "AngusJohnson.ResourceHacker"
+				},
+				{
+					"PackageIdentifier" : "JetBrains.Toolbox"
+				},
+				{
+					"PackageIdentifier" : "Ubisoft.Connect"
+				},
+				{
+					"PackageIdentifier" : "VideoLAN.VLC"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VC++2013Redist-x64"
+				},
+				{
+					"PackageIdentifier" : "alcpu.CoreTemp"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VC++2010Redist-x64"
+				},
+				{
+					"PackageIdentifier" : "Oracle.JavaRuntimeEnvironment"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VC++2012Redist-x86"
+				},
+				{
+					"PackageIdentifier" : "stnkl.EverythingToolbar"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.PowerToys"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.WindowsSDK"
+				},
+				{
+					"PackageIdentifier" : "Yarn.Yarn"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VC++2008Redist-x64"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VC++2005Redist-x86"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.dotnet"
+				},
+				{
+					"PackageIdentifier" : "Oracle.VirtualBox"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VisualStudioCode"
+				},
+				{
+					"PackageIdentifier" : "BlenderFoundation.Blender"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.dotnet"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VC++2013Redist-x86"
+				},
+				{
+					"PackageIdentifier" : "Python.Python.2"
+				},
+				{
+					"PackageIdentifier" : "MAMP.MAMP"
+				},
+				{
+					"PackageIdentifier" : "Nvidia.GeForceExperience"
+				},
+				{
+					"PackageIdentifier" : "Google.ChromeRemoteDesktop"
+				},
+				{
+					"PackageIdentifier" : "EclipseAdoptium.Temurin.17"
+				},
+				{
+					"PackageIdentifier" : "Gluon.SceneBuilder"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VC++2010Redist-x86"
+				},
+				{
+					"PackageIdentifier" : "UnityTechnologies.UnityHub"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VC++2015-2019Redist-x86"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VC++2012Redist-x64"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VC++2015-2019Redist-x64"
+				}
+			],
+			"SourceDetails" :
+			{
+				"Argument" : "https://winget.azureedge.net/cache",
+				"Identifier" : "Microsoft.Winget.Source_8wekyb3d8bbwe",
+				"Name" : "winget",
+				"Type" : "Microsoft.PreIndexed.Package"
+			}
+		}
+	],
+	"WinGetVersion" : "1.1.12663"
+}
