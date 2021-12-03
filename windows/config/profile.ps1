@@ -26,7 +26,7 @@ Set-Alias w Get-Env
 Set-Alias wget  Invoke-WebRequest
 
 # like which alias
-function Get-Env { which python | Split-Path  | Invoke-Item }
+function Get-Env { which $args | Split-Path  | Invoke-Item }
 
 function Set-PrevLocation { Set-Location -; Write-Host "Returned to previous directory." -ForegroundColor Blue }
 function .. { Set-Location .. }
@@ -318,9 +318,3 @@ if ( Get-Command bat -ea 0 ) {
 else {
   $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"cat {}`""
 }
-
-# Console の設定(https://docs.microsoft.com/ja-jp/dotnet/api/system.console.bufferheight?view=net-6.0)
-try {
-  [console]::BufferHeight = [math]::Max(3000, [console]::BufferHeight)
-}
-catch { }
