@@ -1,3 +1,19 @@
+<#
+.SYNOPSIS
+  Batch to install apps on scoop
+
+.DESCRIPTION
+  Batch to install apps on scoop
+.EXAMPLE
+  windows\setup\scoop-install.ps1
+.EXAMPLE
+  # Install Languages too.
+  windows\setup\scoop-install.ps1 -Languages
+#>
+Param (
+  [switch]$Languages
+)
+
 # --------------------------------------------------------------------------------------------------
 # Aliases(to like pnpm commands) reference: JP(https://qiita.com/nimzo6689/items/53c63439f56ccd2d38c1)
 # --------------------------------------------------------------------------------------------------
@@ -29,13 +45,12 @@ scoop alias add ls 'scoop list' 'Show installed apps list'
 scoop alias add s 'scoop search $args[0]' 'Search Scoop apps'
 
 
-
-
 # --------------------------------------------------------------------------------------------------
 # Global initialization
 # --------------------------------------------------------------------------------------------------
 Write-Host "Next, install app by scoop..." -ForegroundColor Green
 scoop install 7zip git --global
+
 
 # --------------------------------------------------------------------------------------------------
 # Add fetch destination
@@ -63,12 +78,14 @@ scoop install psutils
 scoop install https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/oh-my-posh.json
 scoop install CodeNewRoman-NF-Mono
 
+
 # --------------------------------------------------------------------------------------------------
 # Convenience
 # --------------------------------------------------------------------------------------------------
 scoop install hadolint # Docker linter
 scoop install shfmt # Makefile formatter
 scoop install pandoc # Markdown to PDF
+scoop install autohotkey # (For windows\config\init.ahk file)
 scoop install resource-hacker # exe icon edit
 
 scoop install bat # Syntax highlighting and Git integration(https://github.com/sharkdp/bat)
@@ -86,12 +103,18 @@ scoop install neovim
 
 
 # --------------------------------------------------------------------------------------------------
-# Languages
+# Languages(option)
 # --------------------------------------------------------------------------------------------------
-scoop install python39
-scoop install nodejs-lts # Nodejs Package Manager(e.g: nodejs-lts (16.13.0))
-scoop install deno
+if ($Languages) {
+  scoop install deno
+  scoop install nodejs-lts # Nodejs Package Manager(e.g: nodejs-lts (16.13.0))
+  scoop install python # latest python version (e.g. python3.10)
+}
 
-Write-Host "Please include the following by yourself." -ForegroundColor Blue
+
+# --------------------------------------------------------------------------------------------------
+# INFO
+# --------------------------------------------------------------------------------------------------
+Write-Host "You can include the npm global package if you like." -ForegroundColor Blue
 Write-Host "  - global npm packages(Option)" -ForegroundColor Blue
 Write-Host "      windows\setup\options\global-libs\nodejs.ps1 -Manager pnpm"
