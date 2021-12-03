@@ -97,12 +97,12 @@ function volume {
 # git aliases
 # --------------------------------------------------------------------------------------------------
 function gitConf { git config --global -e }
-function add { git add ${$} }
+function add { git add $args }
 function cl($url) { git clone $url }
-function cm { git commit ${$} }
+function cm { git commit $args }
 function gil { git log }
-function pull { git pull ${$} }
-function push { git push ${$} }
+function pull { git pull $args }
+function push { git push $args }
 
 # --------------------------------------------------------------------------------------------------
 # treee(npm module) aliases
@@ -118,18 +118,36 @@ npm install -g tree-cli
 
   $helpMsg = @"
 tree            : ソースツリーを実行します
-tree o          : 第2層までのnode_modulesを除くtreeをtree.txtに書き込みます
+tree o          : 第2層までのnode_modulesを除くtreeを、tree.txtとして書き込みます
 tree h, help    : このヘルプを表示します
+
+
+--help       :詳細な使用状況を出力します。
+--version    : tree-cli のバージョンを出力します。
+--debug      : デバッグ情報を表示します。
+--fullpath   : 各ファイルのフルパス・プレフィックスを表示します。
+--ignore     : 指定したディレクトリやファイルを無視します - 配列をカンマ区切りの文字列(e.g.: 'node_modules/, .git/, .gitignore')として受け取ります
+--link       : シンボリックリンクがディレクトリを指している場合、ディレクトリであるかのようにそれに従います。再帰を引き起こすシンボリックリンクは検出された時点で回避されます。
+--noreport   : ツリー一覧の最後にファイルとディレクトリのレポートを表示することを省略し、コンソールへのツリーの表示を省略します。
+--base       : ルートディレクトリを指定します。cwd rootからの相対パスでも、絶対パスでも構いません。この引数はオプションです。
+-a           : すべてのファイルを表示します。デフォルトでは、tree は隠しファイル (ドット '.' で始まるファイル) を表示しません。
+              また、ファイルシステムの構造体である '.' (現在のディレクトリ) と '..' (前のディレクトリ) を表示することはありません。
+              (前のディレクトリ)を表示しません。
+-d           : ディレクトリのみをリストアップします。
+-f           : ディレクトリには '/'、ソケットファイルには '='、FIFO には '|' を付加します。
+-i           :ツリーにインデント行を表示しないようにします。-fオプションと併用すると便利です。
+-l           : ディレクトリツリーの最大表示深度を指定します。
+-o           : 出力をファイル名に送ります。
 "@
 
   if ((Get-Command treee).Name -ne "treee.ps1") { Write-Host $errorMsg }
 
   switch ($cmd) {
-    "o" { treee -l 2 --ignore 'node_modules' -o tree.txt }
+    "o" { treee -l 2 --ignore 'node_modules' -o ./tree.txt }
     "node" { treee -l 2 --ignore 'node_modules' }
     "h" { Write-Output $helpMsg }
     "help" { Write-Output $helpMsg }
-    Default { treee ${$} }
+    Default { treee $args }
   }
 }
 
@@ -138,9 +156,9 @@ tree h, help    : このヘルプを表示します
 # --------------------------------------------------------------------------------------------------
 function wg ($cmd) {
   switch -Regex ($cmd) {
-    "^(?:i|install)$" { winget install ${$} }
-    "^(?:uni|uninstall)$" { winget uninstall ${$} }
-    "^(?:s|search)$" { winget search ${$} }
+    "^(?:i|install)$" { winget install $args }
+    "^(?:uni|uninstall)$" { winget uninstall $args }
+    "^(?:s|search)$" { winget search $args }
     "^(?:ls|list)$" {
       if ($Args[0] -ne "") {
         winget list $Args[0]
@@ -149,7 +167,7 @@ function wg ($cmd) {
         winget list
       }
     }
-    "^(?:up|upgrade)$" { winget upgrade ${$} }
+    "^(?:up|upgrade)$" { winget upgrade $args }
 
     Default { winget $cmd }
   }
@@ -175,13 +193,13 @@ $WslDefaultParameterValues["ls"] = "--color=auto --human-readable --group-direct
 # Set-ToLF
 function tolf($extension) {
   if ($extension) {
-    return Get-ChildItem -Recurse -File -Filter *.$extension
-    | ForEach-Object { ((Get-Content $_.FullName -Raw) -replace "`r`n", "\`n")
+    return Get-ChildItem -Recurse -File -Filter *.$extension `
+    | ForEach-Object { ((Get-Content $_.FullName -Raw) -replace "`r`n", "\`n") `
     | Set-Content -encoding UTF8 -NoNewline $_.FullName }
   }
 
-  Get-ChildItem -Recurse -File
-  | ForEach-Object { ((Get-Content $_.FullName -Raw) -replace "`r`n", "\`n")
+  Get-ChildItem -Recurse -File `
+  | ForEach-Object { ((Get-Content $_.FullName -Raw) -replace "`r`n", "\`n") `
   | Set-Content -encoding UTF8 -NoNewline $_.FullName }
 }
 
