@@ -21,7 +21,7 @@ Set-Alias w Get-Env
 
 
 # like which alias
-function Get-Env { which python | Split-Path  | Invoke-Item }
+function Get-Env { which $args | Split-Path  | Invoke-Item }
 
 function Set-PrevLocation { Set-Location -; Write-Host "Returned to previous directory." -ForegroundColor Blue }
 function .. { Set-Location .. }
@@ -31,7 +31,6 @@ function Move-HomeDir { Set-Location ~ }
 function Get-SnippetGenerator { Start-Process https://snippet-generator.app/ }
 
 function prof {
-  [CmdletBinding()]
   param (
     [switch]$d,
     [switch]$Dir,
@@ -96,8 +95,6 @@ function tree ($cmd) {
   switch ($cmd) {
     "o" { treee -l 2 --ignore 'node_modules' -o tree.txt }
     "node" { treee -l 2 --ignore 'node_modules' }
-    "h" { Write-Output $helpMsg }
-    "help" { Write-Output $helpMsg }
     Default { treee ${$} }
   }
 }
@@ -135,20 +132,6 @@ function ll() { wsl ls -alF }
 function la() { wsl ls -A }
 
 function l() { wsl ls -CF }
-
-$WslDefaultParameterValues = @{}
-$WslDefaultParameterValues["grep"] = "-E --color=auto"
-$WslDefaultParameterValues["less"] = "-i"
-$WslDefaultParameterValues["ls"] = "--color=auto --human-readable --group-directories-first"
-
-# Set-ToLF
-function tolf($extension) {
-  if ($extension) {
-    return Get-ChildItem -Recurse -File -Filter *.$extension | ForEach-Object { ((Get-Content $_.FullName -Raw) -replace "`r`n", "\`n") | Set-Content -encoding UTF8 -NoNewline $_.FullName }
-  }
-
-  Get-ChildItem -Recurse -File | ForEach-Object { ((Get-Content $_.FullName -Raw) -replace "`r`n", "\`n") | Set-Content -encoding UTF8 -NoNewline $_.FullName }
-}
 
 function su {
   if ( Get-Command pwsh -ea 0 ) {
@@ -198,22 +181,3 @@ function Get-ShortenPath([string] $path) {
   # 3. make path shorter like tabs in Vim, handle paths starting with \ and . correctly
   return $path.Replace($HOME, '~').Replace('^[^:]+::', '').Replace('\(.?)([^\])[^\]*(?=\)', '$1$2')
 }
-
-<##
- # Copyright (c) 2021 SARDONYX
- #
- # This software is released under the MIT License.
- # https://opensource.org/licenses/MIT
-#>
-<##
- # Copyright (c) 2021 SARDONYX
- #
- # This software is released under the MIT License.
- # https://opensource.org/licenses/MIT
-#>
-<##
- # Copyright (c) 2021 SARDONYX
- #
- # This software is released under the MIT License.
- # https://opensource.org/licenses/MIT
-#>
