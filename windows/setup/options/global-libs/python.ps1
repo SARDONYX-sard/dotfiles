@@ -26,16 +26,17 @@ $libs = @(
   @{ name = "flake8"; description = "linter." }
 
   # Manager(For update libs)
-  @{ name = "pipx"; description = "(need pip>=19)Install and Run Python Applications in Isolated Environments."; }
-  @{ name = "poetry"; description = "python package manager."; installer = "pipx install poetry" } #? Install with pipx to avoid conflict errors.
-  @{ name = "pip-review"; description = "update modules." }
 
-  @{ name = "notebook"; description = "jupyter notebook." }
+  @{ name = "pip-review"; description = "update modules." }
+  @{ name = "pipx"; description = "(need pip>=19)Install and Run Python Applications in Isolated Environments."; }
+  #? Install with pipx to avoid conflict errors. Add poetry to path by `ensurepath` command.
+  @{ name = "poetry"; description = "python package manager."; installer = "pipx install poetry;pipx ensurepath" }
   # Other language
   @{ name = "fprettify"; description = "fortran formatter." }
 
   # Conveniences
   @{ name = "cython"; description = "C." }
+  @{ name = "notebook"; description = "jupyter notebook." }
   @{ name = "selenium"; description = "E2E testing library." }
 
   # Editor
