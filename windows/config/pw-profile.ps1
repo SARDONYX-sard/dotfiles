@@ -77,12 +77,12 @@ function volume {
 # git aliases
 # --------------------------------------------------------------------------------------------------
 function gitConf { git config --global -e }
-function add { git add ${$} }
+function add { git add $args }
 function cl($url) { git clone $url }
-function cm { git commit ${$} }
+function cm { git commit $args }
 function gil { git log }
-function pull { git pull ${$} }
-function push { git push ${$} }
+function pull { git pull $args }
+function push { git push $args }
 
 # --------------------------------------------------------------------------------------------------
 # treee(npm module) aliases
@@ -95,7 +95,7 @@ function tree ($cmd) {
   switch ($cmd) {
     "o" { treee -l 2 --ignore 'node_modules' -o tree.txt }
     "node" { treee -l 2 --ignore 'node_modules' }
-    Default { treee ${$} }
+    Default { treee $args }
   }
 }
 
@@ -104,9 +104,9 @@ function tree ($cmd) {
 # --------------------------------------------------------------------------------------------------
 function wg ($cmd) {
   switch -Regex ($cmd) {
-    "^(?:i|install)$" { winget install ${$} }
-    "^(?:uni|uninstall)$" { winget uninstall ${$} }
-    "^(?:s|search)$" { winget search ${$} }
+    "^(?:i|install)$" { winget install $args }
+    "^(?:uni|uninstall)$" { winget uninstall $args }
+    "^(?:s|search)$" { winget search $args }
     "^(?:ls|list)$" {
       if ($Args[0] -ne "") {
         winget list $Args[0]
@@ -115,7 +115,7 @@ function wg ($cmd) {
         winget list
       }
     }
-    "^(?:up|upgrade)$" { winget upgrade ${$} }
+    "^(?:up|upgrade)$" { winget upgrade $args }
 
     Default { winget $cmd }
   }
