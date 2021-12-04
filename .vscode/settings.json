@@ -24,6 +24,7 @@
     "pipx",
     "pshazz",
     "quotepath",
+    "Readline",
     "safecrlf",
     "shfmt",
     "Shougo",
