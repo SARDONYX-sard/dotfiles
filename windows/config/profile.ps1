@@ -1,8 +1,10 @@
 # Install-Module WslInterop
 Import-WslCommand "awk", "emacs", "grep", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail" # , "ls", "man", "vim"
 
-Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t'  # Search for file paths in the current directory
-Set-PsFzfOption -PSReadlineChordReverseHistory 'Ctrl+r' #  Search command history
+# heavy processing ...
+# Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t'  # Search for file paths in the current directory
+# Set-PsFzfOption -PSReadlineChordReverseHistory 'Ctrl+r' #  Search command history
+
 Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }; # Tab completion
 
 Set-Alias c clear
