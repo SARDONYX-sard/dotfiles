@@ -1,6 +1,10 @@
 # Install-Module WslInterop
 Import-WslCommand "awk", "emacs", "grep", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail" # , "ls", "man", "vim"
 
+Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t'  # Search for file paths in the current directory
+Set-PsFzfOption -PSReadlineChordReverseHistory 'Ctrl+r' #  Search command history
+Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }; # Tab completion
+
 Set-Alias c clear
 
 # if ((Get-Process | Select-String docker)) {
@@ -102,7 +106,7 @@ function volume {
 # --------------------------------------------------------------------------------------------------
 function gitConf { git config --global -e }
 function add { git add $args }
-function cl($url) { git clone $url }
+function cl { git clone $args }
 function cm { git commit $args }
 function gil { git log }
 function pull { git pull $args }
@@ -336,8 +340,10 @@ foreach ($var in $env_to_del) {
 # -- fzf の設定
 if ( Get-Command bat -ea 0 ) {
   $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"bat --pager=never --color=always --style=numbers --line-range :300 {}`""
+  # $env:FZF_CTRL_T_OPTS = '--preview "bat  --color=always --style=header,grid --line-range :100 {}"'
+}
+if ( Get-Command rg -ea 0 ) {
   $env:FZF_CTRL_T_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-  $env:FZF_CTRL_T_OPTS = '--preview "bat  --color=always --style=header,grid --line-range :100 {}"'
 }
 else {
   $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"cat {}`""
