@@ -117,6 +117,15 @@ if ($Languages) {
 
 
 # --------------------------------------------------------------------------------------------------
+# PsFzf(after need to install fzf)
+# --------------------------------------------------------------------------------------------------
+Install-Module -Name PSFzf # PSFzf install
+Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t'  # Search for file paths in the current directory
+Set-PsFzfOption -PSReadlineChordReverseHistory 'Ctrl+r' #  Search command history
+Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }; # Tab completion
+
+
+# --------------------------------------------------------------------------------------------------
 # INFO
 # --------------------------------------------------------------------------------------------------
 Write-Host "You can include the npm global package if you like." -ForegroundColor Blue
