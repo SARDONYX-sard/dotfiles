@@ -35,6 +35,10 @@ function Move-HomeDir { Set-Location ~ }
 
 function Get-SnippetGenerator { Start-Process https://snippet-generator.app/ }
 
+function prog {
+  Set-Location "D:\Programing\";
+}
+
 function prof {
   [CmdletBinding()]
   param (
@@ -173,7 +177,7 @@ function wg ($cmd) {
   }
 }
 
-function wua { winget upgrade --all }
+function wua { sudo winget upgrade --all }
 
 # --------------------------------------------------------------------------------------------------
 # wsl aliases
@@ -332,6 +336,8 @@ foreach ($var in $env_to_del) {
 # -- fzf の設定
 if ( Get-Command bat -ea 0 ) {
   $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"bat --pager=never --color=always --style=numbers --line-range :300 {}`""
+  $env:FZF_CTRL_T_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  $env:FZF_CTRL_T_OPTS = '--preview "bat  --color=always --style=header,grid --line-range :100 {}"'
 }
 else {
   $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"cat {}`""
