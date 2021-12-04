@@ -44,6 +44,10 @@ scoop alias add ls 'scoop list' 'Show installed apps list'
 
 scoop alias add s 'scoop search $args[0]' 'Search Scoop apps'
 
+# reset(To nvm like)
+scoop alias add rs 'scoop reset $args[0]' 'Reset an app to resolve conflicts'
+scoop alias add use 'scoop reset $args[0]' 'Reset an app to resolve conflicts'
+
 
 # --------------------------------------------------------------------------------------------------
 # Global initialization
