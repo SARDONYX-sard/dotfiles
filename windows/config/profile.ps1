@@ -1,35 +1,45 @@
-# Install-Module WslInterop
-Import-WslCommand "awk", "emacs", "grep", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail" # , "ls", "man", "vim"
+#! use `CRLF` for powershell compatibility
 
-# heavy processing ...
+# --------------------------------------------------------------------------------------------------
+# Module settings
+# --------------------------------------------------------------------------------------------------
+try {
+  # Install-Module WslInterop
+  Import-WslCommand "awk", "emacs", "grep", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail"# , "ls", "man", "vim"
+}
+catch {
+}
+
+# PsFzf (This option is heavy processing.)
+Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }; # Tab completion
 # Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t'  # Search for file paths in the current directory
 # Set-PsFzfOption -PSReadlineChordReverseHistory 'Ctrl+r' #  Search command history
 
-Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }; # Tab completion
+# --------------------------------------------------------------------------------------------------
+# Aliases
+# --------------------------------------------------------------------------------------------------
+# Virtual machine
+if (!(Get-Process | Select-String docker)) {
+  Set-Alias k kubectl
+  Set-Alias mk minikube
+  Set-Alias dc docker-compose
+  Set-Alias dk docker
+}
+else {
+  # Write-Warning "Docker & Kubernetes isn't running."
+}
 
-Set-Alias c clear
-
-# if ((Get-Process | Select-String docker)) {
-#   Write-Warning "Docker & Kubernetes isn't running."
-# }
-# else {
-#   Set-Alias kb kubectl
-#   Set-Alias dc docker-compose
-#   Set-Alias dk docker
-# }
-Set-Alias k kubectl
-Set-Alias mk minikube
-Set-Alias dc docker-compose
-Set-Alias dk docker
-
+# Move directory
 Set-Alias bb Set-PrevLocation
 Set-Alias ~ Move-HomeDir
 
+# Utils
+Set-Alias c clear
 Set-Alias g git
 Set-Alias gen Get-SnippetGenerator
 Set-Alias s scoop
 Set-Alias w Get-Env
-Set-Alias wget  Invoke-WebRequest
+
 
 # like which alias
 function Get-Env { which $args | Split-Path  | Invoke-Item }
@@ -41,9 +51,7 @@ function Move-HomeDir { Set-Location ~ }
 
 function Get-SnippetGenerator { Start-Process https://snippet-generator.app/ }
 
-function prog {
-  Set-Location "D:\Programing\";
-}
+function prog { Set-Location "D:\Programing\" }
 
 function prof {
   [CmdletBinding()]
@@ -86,7 +94,9 @@ options:
 -h, -Help    : Get help.               このヘルプを表示します
 "@
 
-  if ($d -or $Dir) { pwsh -NoProfile -Command "$HOME/dotfiles" | Split-Path | code - -r }
+  if ($d -or $Dir) {
+    if (Test-Path $PROFILE) { code "$HOME\dotfiles" }
+  }
   if ($r -or $Reload) { Set-Profile }
   if ($v -or $Vim) { nvim $PROFILE }
   if ($h -or $Help) { Write-Host $helpDocument }
@@ -203,14 +213,14 @@ $WslDefaultParameterValues["ls"] = "--color=auto --human-readable --group-direct
 # Set-ToLF
 function tolf($extension) {
   if ($extension) {
-    return Get-ChildItem -Recurse -File -Filter *.$extension `
-    | ForEach-Object { ((Get-Content $_.FullName -Raw) -replace "`r`n", "\`n") `
-    | Set-Content -encoding UTF8 -NoNewline $_.FullName }
+    return Get-ChildItem -Recurse -File -Filter *.$extension |
+    ForEach-Object { ((Get-Content $_.FullName -Raw) -replace "`r`n", "\`n")  |
+      Set-Content -encoding UTF8 -NoNewline $_.FullName }
   }
 
   Get-ChildItem -Recurse -File `
   | ForEach-Object { ((Get-Content $_.FullName -Raw) -replace "`r`n", "\`n") `
-  | Set-Content -encoding UTF8 -NoNewline $_.FullName }
+    | Set-Content -encoding UTF8 -NoNewline $_.FullName }
 }
 
 function su {
@@ -275,8 +285,7 @@ function ve ($cmd) {
 
   function Set-Deactivate {
     Write-Output "conda venv disenabled."
-    return (& "conda.exe" "shell.powershell" "deactivate")
-    | Out-String | Invoke-Expression
+    return (& "conda.exe" "shell.powershell" "deactivate") | Out-String | Invoke-Expression
   }
 
   $helpDocument = @"
