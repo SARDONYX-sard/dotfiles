@@ -86,7 +86,7 @@ options:
 -h, -Help    : Get help.               このヘルプを表示します
 "@
 
-  if ($d -or $Dir) { pwsh -NoProfile -Command "`$profile" | Split-Path | code - -r }
+  if ($d -or $Dir) { pwsh -NoProfile -Command "$HOME/dotfiles" | Split-Path | code - -r }
   if ($r -or $Reload) { Set-Profile }
   if ($v -or $Vim) { nvim $PROFILE }
   if ($h -or $Help) { Write-Host $helpDocument }
@@ -343,9 +343,9 @@ foreach ($var in $env_to_del) {
 if ( Get-Command bat -ea 0 ) {
   $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"bat --pager=never --color=always --style=numbers --line-range :300 {}`""
   # $env:FZF_CTRL_T_OPTS = '--preview "bat  --color=always --style=header,grid --line-range :100 {}"'
-}
-if ( Get-Command rg -ea 0 ) {
-  $env:FZF_CTRL_T_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  if ( Get-Command rg -ea 0 ) {
+    $env:FZF_CTRL_T_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  }
 }
 else {
   $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"cat {}`""
