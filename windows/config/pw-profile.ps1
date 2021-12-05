@@ -1,11 +1,5 @@
-#>
-#   Write-Warning "Docker & Kubernetes isn't running."
-# }
-# else {
-#   Set-Alias kb kubectl
-#   Set-Alias dc docker-compose
-#   Set-Alias dk docker
-# }
+Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }; # Tab completion
+
 Set-Alias k kubectl
 Set-Alias mk minikube
 Set-Alias dc docker-compose
