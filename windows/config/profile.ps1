@@ -19,15 +19,10 @@ Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }; # Ta
 # Aliases
 # --------------------------------------------------------------------------------------------------
 # Virtual machine
-if (!(Get-Process | Select-String docker)) {
-  Set-Alias k kubectl
-  Set-Alias mk minikube
-  Set-Alias dc docker-compose
-  Set-Alias dk docker
-}
-else {
-  # Write-Warning "Docker & Kubernetes isn't running."
-}
+Set-Alias k kubectl
+Set-Alias mk minikube
+Set-Alias dc docker-compose
+Set-Alias dk docker
 
 # Move directory
 Set-Alias bb Set-PrevLocation
@@ -328,7 +323,8 @@ ve h            : Get help.    このヘルプを表示します
 Import-Module posh-git
 Import-Module oh-my-posh
 Set-PoshPrompt Paradox
-Set-PoshPrompt -Theme 'gmay'
+# Set-PoshPrompt -Theme 'gmay'
+Set-PoshPrompt -Theme 'night-owl'
 
 $env:RunFromPowershell = 1
 
