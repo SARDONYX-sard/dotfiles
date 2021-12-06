@@ -1,3 +1,3 @@
-Import-Module -Name oh-my-posh
-Install-Module -Name WslInterop
-Install-Module -Name PSFzf
+Import-Module -Name oh-my-posh -Force
+Install-Module -Name WslInterop -Force
+Install-Module -Name PSFzf -Force
