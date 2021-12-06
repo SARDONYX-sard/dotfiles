@@ -339,6 +339,7 @@ Set-PoshPrompt -Theme 'night-owl'
 
 $env:RunFromPowershell = 1
 
+Write-Host (Get-Date -Format g) -ForegroundColor DarkCyan
 
 # --------------------------------------------------------------------------------------------------
 # Remove vim env
