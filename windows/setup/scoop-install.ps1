@@ -28,13 +28,13 @@ scoop alias add remove 'scoop uninstall $args[0]' 'Remove Scoop apps.'
 
 # upgrade
 scoop alias add upgrade 'scoop update *' 'Update all apps.'
+scoop alias add up 'scoop upgrade' 'Update all apps.'
 
 # Delete the cache as well during cleanup.
-scoop alias add prune 'scoop cleanup $args[0] --cache' 'Clean Scoop apps by removing old versions and caches.'
+scoop alias add prune 'scoop cleanup * --cache' 'Clean Scoop apps by removing old versions and caches.'
 
 # Update all & show status
 scoop alias add outdated 'scoop update; scoop status' 'Show all outdated Scoop apps.'
-scoop alias add up 'scoop update; scoop status' 'Show all outdated Scoop apps.'
 
 # reinstall
 scoop alias add ri 'scoop uninstall $args[0]; scoop install $args[0]' 'Uninstall and then install app'
