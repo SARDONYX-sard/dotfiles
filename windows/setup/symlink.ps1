@@ -11,19 +11,23 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
   exit $?
 }
 
+$terminalPath = Join-Path $env:LocalAppData "Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
+$terminalPreviewPath = $terminalPath.Replace("Terminal", "TerminalPreview")
 
 $files = @(
+  # vim
   @{ target = "init.vim"; path = ""; name = ".vimrc" }
   @{ target = "init.vim"; path = "AppData/Local/nvim" }
   @{ target = "ginit.vim"; path = "AppData/Local/nvim" }
-  @{ target = "windows/config/settings.json"; fullpath = Join-Path $env:LocalAppData "Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"; mode = "copy" }
 
-  #? Passing whitespace as a whole object will not result in a path error.
+  # Terminal
+  @{ target = "windows\data\windows-terminal\settings.json"; fullpath = $terminalPath; mode = "copy" }
+  @{ target = "windows\data\windows-terminal-preview\settings.json"; fullpath = $terminalPreviewPath; mode = "copy" }
+
   @{ target = "windows/config/init.ahk"; fullpath = Join-Path $env:AppData  "Microsoft/Windows/Start Menu/Programs/Startup/init.ahk" }
 
   # oh-my-posh theme (custom)
   @{ target = "windows\data\gmay.omp.json"; fullpath = Join-Path (Split-Path (pwsh -NoProfile -Command "`$profile")) "\Modules\oh-my-posh\themes\gmay.omp.json" }
-
 
   "windows/config/.bash_profile"
   "windows/config/.bashrc"
@@ -46,8 +50,11 @@ foreach ($file in $files) {
     $file = @{target = $file; path = "" }
   }
 
-  $target_name = Split-Path $file.target -Leaf
-  $file.target = Join-Path "$HOME/dotfiles" $file.target
+  $isDrive = (Split-Path $file.target) -match "^C:\\"
+  if ($isDrive -ne $true) {
+    $target_name = Split-Path $file.target -Leaf
+    $file.target = Join-Path "$HOME/dotfiles" $file.target
+  }
 
   if ( !$file.path ) { $file.path = "$HOME" }
   else { $file.path = Join-Path "$HOME" $file.path }
@@ -100,6 +107,8 @@ foreach ($file in $files) {
       }
       else {
         Write-Host "Making symbolic link..." -ForegroundColor Green
+
+        #? Passing whitespace as a whole object will not result in a path error.
         New-Item -ItemType SymbolicLink @file | Out-Null
       }
       if (!$?) { Write-Error "${@file} is null. Failed to create symbolic link." }
