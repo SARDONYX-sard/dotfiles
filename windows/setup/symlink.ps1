@@ -27,7 +27,12 @@ $files = @(
   @{ target = "windows/config/init.ahk"; fullpath = Join-Path $env:AppData  "Microsoft/Windows/Start Menu/Programs/Startup/init.ahk" }
 
   # oh-my-posh theme (custom)
-  @{ target = "windows\data\gmay.omp.json"; fullpath = Join-Path (Split-Path (pwsh -NoProfile -Command "`$profile")) "\Modules\oh-my-posh\themes\gmay.omp.json" }
+  @{ target  = "windows\data\custom-oh-my-posh\themes\gmay.omp.json";
+    fullpath = Join-Path (Split-Path (pwsh -NoProfile -Command "`$profile")) "\Modules\oh-my-posh\themes\gmay.omp.json"
+  }
+  @{ target  = "windows\data\custom-oh-my-posh\themes\night-owl.omp.json";
+    fullpath = Join-Path (Split-Path (pwsh -NoProfile -Command "`$profile")) "\Modules\oh-my-posh\themes\night-owl.omp.json"
+  }
 
   "windows/config/.bash_profile"
   "windows/config/.bashrc"
