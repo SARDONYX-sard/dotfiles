@@ -3,8 +3,14 @@ e.g.: nodejs.ps1 -Manager pnpm
 #>
 
 param (
-  [ValidateSet("npm" , "pnpm", "yarn")]$Manager = "npm"
+  [ValidateSet("npm" , "pnpm", "yarn")]$m = "npm",
+  [ValidateSet("npm" , "pnpm", "yarn")]$Manager = "npm",
+  [switch]$rm,
+  [switch]$Uninstall
 )
+
+if ($m) { $Manager = $m }
+if ($rm) { $Uninstall = $rm }
 
 Write-Host "$Manager has been selected."
 
@@ -32,7 +38,11 @@ $libs = @(
   # Transpiler
   @{ name = "typescript"; description = "Super set of JS." }
   @{ name = "ts-node"; description = "TypeScript execution environment." }
+  @{ name = "@types/node"; description = "Type of Nodejs" } # for ts-node
+
   @{ name = "@swc/cli"; description = "CLI for super-fast alternative for babel" }
+  @{ name = "@swc/core"; description = "Super-fast alternative for babel" } # swc/cli peer dependency
+
   @{ name = "assemblyscript"; description = "Definitely not a TypeScript to WebAssembly compiler." }
 
   # React Native
@@ -46,7 +56,9 @@ $libs = @(
 
 # Setup
 if ($Manager -eq "pnpm") {
-  npm i -g pnpm;
+  if ((Get-Command pnpm).Name -notmatch "pnpm") {
+    npm i -g pnpm;
+  }
 }
 elseif ($Manager -eq "yarn") {
   if ((Get-Command yarn).Name -notmatch "yarn") {
@@ -54,20 +66,39 @@ elseif ($Manager -eq "yarn") {
   }
 }
 
-function install_lib($libName) {
+function manage_lib($libName) {
   if ($lib.Description) {
     Write-Host "";
-    Write-Host "INFO: $($lib.name)" -ForegroundColor Blue;
+    if ($Uninstall -eq $true) {
+      Write-Host "Uninstall $($lib.name)" -ForegroundColor Green;
+    }
+    else {
+      Write-Host "Installing...: $($lib.name)" -ForegroundColor Green;
+    }
+
+  }
+
+  if ($lib.Description) {
     Write-Host "INFO: $($lib.description)" -ForegroundColor Blue;
   }
 
-  switch ($Manager) {
-    "pnpm" { pnpm add -g $libName; }
-    "yarn" { yarn add -g $libName; }
-    Default { npm install -g $libName; }
+  if ($Uninstall) {
+    switch ($Manager) {
+      "pnpm" { pnpm remove -g $libName; }
+      "yarn" { yarn remove -g $libName; }
+      Default { npm uninstall -g $libName; }
+    }
+  }
+  else {
+    switch ($Manager) {
+      "pnpm" { pnpm add -g $libName; }
+      "yarn" { yarn add -g $libName; }
+      Default { npm install -g $libName; }
+    }
   }
 }
 
+
 foreach ($lib in $libs) {
-  install_lib $lib.name;
+  manage_lib $lib.name;
 }
