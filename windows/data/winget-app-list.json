@@ -151,9 +151,6 @@
 					"PackageIdentifier" : "Microsoft.VC++2013Redist-x86"
 				},
 				{
-					"PackageIdentifier" : "Python.Python.2"
-				},
-				{
 					"PackageIdentifier" : "MAMP.MAMP"
 				},
 				{

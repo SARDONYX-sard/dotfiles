@@ -113,6 +113,7 @@ if ($Languages) {
   scoop install deno
   scoop install nodejs-lts # Nodejs Package Manager(e.g: nodejs-lts (16.13.0))
   scoop install python # latest python version (e.g. python3.10)
+  scoop install python27 # latest python version (e.g. python2.7)
 }
 
 
