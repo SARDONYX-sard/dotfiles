@@ -34,8 +34,8 @@ $files = @(
     fullpath = Join-Path (Split-Path (pwsh -NoProfile -Command "`$profile")) "\Modules\oh-my-posh\themes\night-owl.omp.json"
   }
 
-  @{ target = "windows/config/.bash_profile"; fullpath = Join-Path $HOME  "scoop\apps\msys2\current\home" (Split-Path $HOME -Leaf) ".bash_profile" }
-  @{ target = "windows/config/.bashrc"; fullpath = Join-Path $HOME  "scoop\apps\msys2\current\home" (Split-Path $HOME -Leaf) ".bashrc" }
+  "windows/config/.bash_profile"
+  "windows/config/.bashrc"
 )
 
 # If you have a profile, add it and add it to $files.
@@ -54,20 +54,22 @@ function Set-Msys2Symlink {
   $myss2Home = @{ target = $HOME; path = Join-Path $HOME "scoop\apps\msys2\current\home\$UserName"; }
 
   Write-Host ""
-  Write-Host "now: $(Join-Path $myss2Home.path)"
+  Write-Host "now: $($myss2Home.path)"
 
-  if (Test-Path $fullPathName) {
+  if (Test-Path $myss2Home.path) {
     Write-Host "Already exists." -ForegroundColor Blue
     if ($force) {
       Write-Host "Recreating..." -ForegroundColor Yellow
         (Get-Item $myss2Home.path).Delete()
     }
     else {
-      return;
+      Write-Host "Skipping..." -ForegroundColor Yellow
+      return
     }
+    Write-Host "Making symbolic link..." -ForegroundColor Green
+    New-Item -ItemType SymbolicLink @myss2Home | Out-Null
+    if (!$?) { Write-Error "${@myss2Home} is null. Failed to create symbolic link." }
   }
-  New-Item -ItemType SymbolicLink @myss2Home | Out-Null
-  if (!$?) { Write-Error "${@myss2Home} is null. Failed to create symbolic link." }
 }
 
 Set-Msys2Symlink
