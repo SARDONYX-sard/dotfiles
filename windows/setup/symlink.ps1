@@ -21,8 +21,8 @@ $files = @(
   @{ target = "ginit.vim"; path = "AppData/Local/nvim" }
 
   # Terminal
-  @{ target = "windows\data\windows-terminal\settings.json"; fullpath = $terminalPath; mode = "copy" }
-  @{ target = "windows\data\windows-terminal-preview\settings.json"; fullpath = $terminalPreviewPath; mode = "copy" }
+  @{ target = "windows\data\windows-terminal\settings.json"; fullpath = $terminalPath; } # mode = "copy" }
+  @{ target = "windows\data\windows-terminal-preview\settings.json"; fullpath = $terminalPreviewPath; } # mode = "copy" }
 
   @{ target = "windows/config/init.ahk"; fullpath = Join-Path $env:AppData  "Microsoft/Windows/Start Menu/Programs/Startup/init.ahk" }
 
@@ -34,8 +34,8 @@ $files = @(
     fullpath = Join-Path (Split-Path (pwsh -NoProfile -Command "`$profile")) "\Modules\oh-my-posh\themes\night-owl.omp.json"
   }
 
-  "windows/config/.bash_profile"
-  "windows/config/.bashrc"
+  @{ target = "windows/config/.bash_profile"; fullpath = Join-Path $HOME  "scoop\apps\msys2\current\home" (Split-Path $HOME -Leaf) ".bash_profile" }
+  @{ target = "windows/config/.bashrc"; fullpath = Join-Path $HOME  "scoop\apps\msys2\current\home" (Split-Path $HOME -Leaf) ".bashrc" }
 )
 
 # If you have a profile, add it and add it to $files.
@@ -47,6 +47,30 @@ if ( (Get-Command powershell -ea 0) -and (powershell -NoProfile -Command "`$prof
   $files += @(@{target = "windows/config/profile.ps1"; fullpath = @($(powershell -NoProfile -Command "`$profile"))[0] })
 }
 
+
+
+function Set-Msys2Symlink {
+  $UserName = Split-Path $HOME -Leaf
+  $myss2Home = @{ target = $HOME; path = Join-Path $HOME "scoop\apps\msys2\current\home\$UserName"; }
+
+  Write-Host ""
+  Write-Host "now: $(Join-Path $myss2Home.path)"
+
+  if (Test-Path $fullPathName) {
+    Write-Host "Already exists." -ForegroundColor Blue
+    if ($force) {
+      Write-Host "Recreating..." -ForegroundColor Yellow
+        (Get-Item $myss2Home.path).Delete()
+    }
+    else {
+      return;
+    }
+  }
+  New-Item -ItemType SymbolicLink @myss2Home | Out-Null
+  if (!$?) { Write-Error "${@myss2Home} is null. Failed to create symbolic link." }
+}
+
+Set-Msys2Symlink
 
 foreach ($file in $files) {
   if ($file.GetType() -eq [string]) {
