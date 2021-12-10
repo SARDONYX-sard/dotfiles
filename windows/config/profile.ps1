@@ -3,28 +3,27 @@
 # --------------------------------------------------------------------------------------------------
 # Module settings
 # --------------------------------------------------------------------------------------------------
-try {
+if ($PSVersionTable.PSEdition -eq "Core") {
   # Install-Module WslInterop
   Import-WslCommand "awk", "emacs", "grep", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail"# , "ls", "man", "vim"
-}
-catch {
-}
 
-# PsFzf (This option is heavy processing.)
-Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }; # Tab completion
-# Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t'  # Search for file paths in the current directory
-# Set-PsFzfOption -PSReadlineChordReverseHistory 'Ctrl+r' #  Search command history
+  # PsFzf (This option is heavy processing.)
+  Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }; # Tab completion
+  # Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t'  # Search for file paths in the current directory
+  # Set-PsFzfOption -PSReadlineChordReverseHistory 'Ctrl+r' #  Search command history
 
-# fzf
-if ( Get-Command bat -ea 0 ) {
-  $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"bat --pager=never --color=always --style=numbers --line-range :300 {}`""
-  if ( Get-Command rg -ea 0 ) {
-    $env:FZF_CTRL_T_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  # fzf
+  if ( Get-Command bat -ea 0 ) {
+    $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"bat --pager=never --color=always --style=numbers --line-range :300 {}`""
+    if ( Get-Command rg -ea 0 ) {
+      $env:FZF_CTRL_T_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+    }
+  }
+  else {
+    $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"cat {}`""
   }
 }
-else {
-  $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"cat {}`""
-}
+
 
 # --------------------------------------------------------------------------------------------------
 # Aliases
@@ -249,7 +248,10 @@ function Prompt {
   }
   # Custom color for Windows console
   if ( $Host.Name -eq "ConsoleHost" ) {
-    Write-Host ("┌──[") -nonewline -foregroundcolor DarkGreen
+    if ($PSVersionTable.PSEdition -eq "Core") {
+      Write-Host ("┌──") -nonewline -foregroundcolor DarkGreen
+    }
+    Write-Host ("[") -nonewline -foregroundcolor DarkGreen
     write-host (Get-ShortenPath([string] (Get-Location).Path)) -nonewline -foregroundcolor White
     Write-Host ("]") -nonewline -foregroundcolor Green
     Write-Host (" ") -nonewline
@@ -261,8 +263,9 @@ function Prompt {
     Write-Host (hostname) -NoNewline -ForegroundColor DarkCyan
     Write-Host ("]") -nonewline -foregroundcolor DarkGreen
     Write-Host (" ") -foregroundcolor DarkGray
-
-    Write-Host ("└─") -nonewline -foregroundcolor DarkGreen
+    if ($PSVersionTable.PSEdition -eq "Core") {
+      Write-Host ("└─") -nonewline -foregroundcolor DarkGreen
+    }
     Write-Host ($isAdmin) -nonewline -foregroundcolor DarkCyan
   }
   # Default color for the rest
@@ -331,15 +334,18 @@ ve h            : Get help.    このヘルプを表示します
 # --------------------------------------------------------------------------------------------------
 # PowerShell Prompt Theme
 # --------------------------------------------------------------------------------------------------
-Import-Module posh-git
-Import-Module oh-my-posh
-Set-PoshPrompt Paradox
-# Set-PoshPrompt -Theme 'gmay'
-Set-PoshPrompt -Theme 'night-owl'
+if ($PSVersionTable.PSEdition -eq "Core") {
+  Import-Module posh-git
+  Import-Module oh-my-posh
+  Set-PoshPrompt Paradox
+  # Set-PoshPrompt -Theme 'gmay'
+  Set-PoshPrompt -Theme 'night-owl'
 
-$env:RunFromPowershell = 1
+  $env:RunFromPowershell = 1
 
-Write-Host (Get-Date -Format g) -ForegroundColor DarkCyan
+  Write-Host (Get-Date -Format g) -ForegroundColor DarkCyan
+}
+
 
 # --------------------------------------------------------------------------------------------------
 # Remove vim env
