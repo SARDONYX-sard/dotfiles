@@ -5,7 +5,7 @@
 # --------------------------------------------------------------------------------------------------
 if ($PSVersionTable.PSEdition -eq "Core") {
   # Install-Module WslInterop
-  Import-WslCommand "awk", "emacs", "grep", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail"# , "ls", "man", "vim"
+  Import-WslCommand "awk", "emacs", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail", "man", #"ls", "vim"
 
   # PsFzf (This option is heavy processing.)
   Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }; # Tab completion
@@ -41,6 +41,7 @@ Set-Alias ~ Move-HomeDir
 # Utils
 Set-Alias c clear
 Set-Alias g git
+Set-Alias grep rg
 Set-Alias gen Get-SnippetGenerator
 Set-Alias s scoop
 Set-Alias w Get-Env
