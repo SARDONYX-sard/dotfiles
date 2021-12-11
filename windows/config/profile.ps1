@@ -6,6 +6,10 @@
 if ($PSVersionTable.PSEdition -eq "Core") {
   # Install-Module WslInterop
   Import-WslCommand "awk", "emacs", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail", "man"#, "ls", "vim"
+  $WslDefaultParameterValues = @{}
+  $WslDefaultParameterValues["grep"] = "-E --color=auto"
+  $WslDefaultParameterValues["less"] = "-i"
+  $WslDefaultParameterValues["ls"] = "--color=auto --human-readable --group-directories-first"
 
   # PsFzf (This option is heavy processing.)
   Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }; # Tab completion
@@ -210,11 +214,6 @@ function ll() { wsl ls -alF }
 function la() { wsl ls -A }
 
 function l() { wsl ls -CF }
-
-$WslDefaultParameterValues = @{}
-$WslDefaultParameterValues["grep"] = "-E --color=auto"
-$WslDefaultParameterValues["less"] = "-i"
-$WslDefaultParameterValues["ls"] = "--color=auto --human-readable --group-directories-first"
 
 # Set-ToLF
 function tolf($extension) {
