@@ -42,6 +42,7 @@ $libs = @(
 
   @{ name = "@swc/cli"; description = "CLI for super-fast alternative for babel" }
   @{ name = "@swc/core"; description = "Super-fast alternative for babel" } # swc/cli peer dependency
+  @{ name = "@napi-rs/cli"; description = "Tool to write Node-API in Rust instead of C/C++." } # swc/cli peer dependency
 
   @{ name = "assemblyscript"; description = "Definitely not a TypeScript to WebAssembly compiler." }
 
