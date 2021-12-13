@@ -29,11 +29,14 @@ function I {
 export PATH="$HOME/.pyenv/pyenv-win/bin:$PATH"
 export PATH="$HOME/.pyenv/pyenv-win/versions/3.8.10:$PATH"
 
+usrPath="/usr/share"
+
 # ---- git の情報を表示
 # shellcheck disable=SC1091
-[ -f "/c/msys64/usr/share/git/completion/git-prompt.sh" ] && source /c/msys64/usr/share/git/completion/git-prompt.sh
+[ -f "${usrPath}/git/completion/git-prompt.sh" ] && source ${usrPath}/git/completion/git-prompt.sh
 # shellcheck disable=SC1091
-[ -f "/c/msys64/usr/share/git/completion/git-completion.bash" ] && source /c/msys64/usr/share/git/completion/git-completion.bash
+[ -f "${usrPath}/git/completion/git-completion.bash" ] && source ${usrPath}/git/completion/git-completion.bash
+
 export GIT_PS1_SHOWDIRTYSTATE=true
 export PS1='\[\033[32m\]\u@ \[\033[1;33m\]\w\[\033[34m\]$(__git_ps1)\[\033[00m\]'$'\n\$ '
 
