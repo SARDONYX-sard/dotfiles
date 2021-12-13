@@ -2,10 +2,10 @@
 
 $HelperDir = "$HOME/dotfiles/windows/config/powershell-profile/helper";
 
-Invoke-Expression "$HelperDir/completion.ps1"
-Invoke-Expression "$HelperDir/functions.ps1"
-Invoke-Expression "$HelperDir/aliases.ps1"
-Invoke-Expression "$HelperDir/shell-design.ps1"
+. "$($HelperDir)/completion.ps1"
+. "$($HelperDir)/functions.ps1"
+. "$($HelperDir)/aliases.ps1"
+. "$($HelperDir)/shell-design.ps1"
 
 # --------------------------------------------------------------------------------------------------
 # Module settings
