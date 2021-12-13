@@ -201,8 +201,8 @@ function su {
 # wsl aliases
 # --------------------------------------------------------------------------------------------------
 # ls aliases
-# function ll() { wsl ls -alF }
+function ll() { wsl ls -alF }
 
-# function la() { wsl ls -A }
+function la() { wsl ls -A }
 
-# function l() { wsl ls -CF }
+function l() { wsl ls -CF }
