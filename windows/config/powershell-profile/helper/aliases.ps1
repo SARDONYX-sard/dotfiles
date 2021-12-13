@@ -1,34 +1,3 @@
-#! use `CRLF` for powershell compatibility
-
-# --------------------------------------------------------------------------------------------------
-# Module settings
-# --------------------------------------------------------------------------------------------------
-if ($PSVersionTable.PSEdition -eq "Core") {
-  # Install-Module WslInterop
-  Import-WslCommand "awk", "emacs", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail", "man"#, "ls", "vim"
-  $WslDefaultParameterValues = @{}
-  $WslDefaultParameterValues["grep"] = "-E --color=auto"
-  $WslDefaultParameterValues["less"] = "-i"
-  $WslDefaultParameterValues["ls"] = "--color=auto --human-readable --group-directories-first"
-
-  # PsFzf (This option is heavy processing.)
-  Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }; # Tab completion
-  # Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t'  # Search for file paths in the current directory
-  # Set-PsFzfOption -PSReadlineChordReverseHistory 'Ctrl+r' #  Search command history
-
-  # fzf
-  if ( Get-Command bat -ea 0 ) {
-    $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"bat --pager=never --color=always --style=numbers --line-range :300 {}`""
-    if ( Get-Command rg -ea 0 ) {
-      $env:FZF_CTRL_T_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-    }
-  }
-  else {
-    $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"cat {}`""
-  }
-}
-
-
 # --------------------------------------------------------------------------------------------------
 # Aliases
 # --------------------------------------------------------------------------------------------------
@@ -50,9 +19,10 @@ Set-Alias gen Get-SnippetGenerator
 Set-Alias s scoop
 Set-Alias w Get-Env
 
-
-# like which alias
-function Get-Env { which $args | Split-Path  | Invoke-Item }
+# --------------------------------------------------------------------------------------------------
+# Functions for realizing aliases.
+# --------------------------------------------------------------------------------------------------
+function Get-Env { which $args | Split-Path  | Invoke-Item } # like which alias
 
 function Set-PrevLocation { Set-Location -; Write-Host "Returned to previous directory." -ForegroundColor Blue }
 function .. { Set-Location .. }
@@ -205,17 +175,6 @@ function wg ($cmd) {
 
 function wua { sudo winget upgrade --all }
 
-# --------------------------------------------------------------------------------------------------
-# wsl aliases
-# --------------------------------------------------------------------------------------------------
-# ls aliases
-function ll() { wsl ls -alF }
-
-function la() { wsl ls -A }
-
-function l() { wsl ls -CF }
-
-# Set-ToLF
 function tolf($extension) {
   if ($extension) {
     return Get-ChildItem -Recurse -File -Filter *.$extension |
@@ -237,126 +196,13 @@ function su {
   }
 }
 
-# --------------------------------------------------------------------------------------------------
-# PowerShell Prompt(Kali-Linux like)
-# --------------------------------------------------------------------------------------------------
-function Prompt {
-  $promptString = "PowerShell " + $(Get-Location) + ">"
-  $isAdmin = '$'
-  if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([System.Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    $isAdmin = '#'
-  }
-  # Custom color for Windows console
-  if ( $Host.Name -eq "ConsoleHost" ) {
-    if ($PSVersionTable.PSEdition -eq "Core") {
-      Write-Host ("┌──") -nonewline -foregroundcolor DarkGreen
-    }
-    Write-Host ("[") -nonewline -foregroundcolor DarkGreen
-    write-host (Get-ShortenPath([string] (Get-Location).Path)) -nonewline -foregroundcolor White
-    Write-Host ("]") -nonewline -foregroundcolor Green
-    Write-Host (" ") -nonewline
-    Write-Host (Get-Date -Format g) -nonewline -foregroundcolor yellow
-    Write-Host (" ") -nonewline
-    Write-Host ("[") -nonewline -foregroundcolor DarkGreen
-    Write-Host ($env:username) -nonewline -foregroundcolor DarkCyan
-    Write-Host ("@") -nonewline -foregroundcolor yellow
-    Write-Host (hostname) -NoNewline -ForegroundColor DarkCyan
-    Write-Host ("]") -nonewline -foregroundcolor DarkGreen
-    Write-Host (" ") -foregroundcolor DarkGray
-    if ($PSVersionTable.PSEdition -eq "Core") {
-      Write-Host ("└─") -nonewline -foregroundcolor DarkGreen
-    }
-    Write-Host ($isAdmin) -nonewline -foregroundcolor DarkCyan
-  }
-  # Default color for the rest
-  else {
-    Write-Host $promptString -NoNewline
-  }
-
-  return " "
-}
-function Get-ShortenPath([string] $path) {
-  # 1. Replace home path to "~"
-  # 2. remove prefix for UNC paths
-  # 3. make path shorter like tabs in Vim, handle paths starting with \ and . correctly
-  return $path.Replace($HOME, '~').Replace('^[^:]+::', '').Replace('\(.?)([^\])[^\]*(?=\)', '$1$2')
-}
 
 # --------------------------------------------------------------------------------------------------
-# Anaconda3
+# wsl aliases
 # --------------------------------------------------------------------------------------------------
-#region conda initialize
-function ve ($cmd) {
-  function Set-Activate {
-    Write-Output "conda venv ($Args) enabled."
-    return (& "conda.exe" "shell.powershell" "activate" $Args[0]) | Out-String | Invoke-Expression
-  }
+# ls aliases
+# function ll() { wsl ls -alF }
 
-  function Set-Deactivate {
-    Write-Output "conda venv disenabled."
-    return (& "conda.exe" "shell.powershell" "deactivate") | Out-String | Invoke-Expression
-  }
+# function la() { wsl ls -A }
 
-  $helpDocument = @"
-Anaconda3 仮想環境(virtual environment)管理コマンド
-
-ve <command>
-
-Usage:
-
-ve              : Enter base.  仮想環境(base)に入ります
-ve <venv name>  : Activate.    仮想環境(作成済みの環境)に入ります
-ve d            : Deactivate.  仮想環境から出ます
-ve h            : Get help.    このヘルプを表示します
-"@
-
-
-  switch -Regex ($cmd) {
-    "^(?:d|deactivate)$" { Set-Deactivate }
-    "^(?:h|help)$" { Write-Output $helpDocument }
-    Default {
-      if ($Args[0]) {
-        # !! Contents within this block are managed by 'conda init' !!
-        Write-Output "Type 've h' to get help."
-        Write-Output "conda venv (base) enabled."
-        return (& "conda.exe" "shell.powershell" "hook") | Out-String | Invoke-Expression
-      }
-      else {
-        Set-Activate
-      }
-
-    }
-  }
-}
-#endregions
-
-
-# --------------------------------------------------------------------------------------------------
-# PowerShell Prompt Theme
-# --------------------------------------------------------------------------------------------------
-if ($PSVersionTable.PSEdition -eq "Core") {
-  Import-Module posh-git
-  Import-Module oh-my-posh
-  Set-PoshPrompt Paradox
-  # Set-PoshPrompt -Theme 'gmay'
-  Set-PoshPrompt -Theme 'night-owl'
-
-  $env:RunFromPowershell = 1
-
-  Write-Host (Get-Date -Format g) -ForegroundColor DarkCyan
-}
-
-
-# --------------------------------------------------------------------------------------------------
-# Remove vim env
-# --------------------------------------------------------------------------------------------------
-$env_to_del = @(
-  "VIM"
-  "VIMRUNTIME"
-  "MYVIMRC"
-  "MYGVIMRC"
-)
-
-foreach ($var in $env_to_del) {
-  Remove-Item env:$var -ErrorAction SilentlyContinue
-}
+# function l() { wsl ls -CF }
