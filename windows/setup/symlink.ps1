@@ -40,13 +40,12 @@ $files = @(
 
 # If you have a profile, add it and add it to $files.
 if ( (Get-Command pwsh -ea 0) -and (pwsh -NoProfile -Command "`$profile")) {
-  $files += @(@{target = "windows/config/profile.ps1"; fullpath = @($(pwsh -NoProfile -Command "`$profile"))[0] })
+  $files += @(@{target = "windows/config/powershell-profile/profile.ps1"; fullpath = @($(pwsh -NoProfile -Command "`$profile"))[0] })
 }
 
 if ( (Get-Command powershell -ea 0) -and (powershell -NoProfile -Command "`$profile")) {
-  $files += @(@{target = "windows/config/profile.ps1"; fullpath = @($(powershell -NoProfile -Command "`$profile"))[0] })
+  $files += @(@{target = "windows/config/powershell-profile/profile.ps1"; fullpath = @($(powershell -NoProfile -Command "`$profile"))[0] })
 }
-
 
 
 function Set-Msys2Symlink {
