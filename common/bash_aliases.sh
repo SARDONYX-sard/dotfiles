@@ -13,7 +13,7 @@ alias ~='cd ~'
 
 alias l="ls -GF"     # show grid `G`
 alias la="ls -aGF"   # show dotfile `a` show grid `G`
-alias ll='ls -la'    # list permission status
+alias ll='ls -al'    # list permission status
 alias lla="ls -alGF" # list grid permission status
 if (which exa >/dev/null 2>&1); then
   alias ls='exa --color=auto --time-style=long-iso -FH --icons' # need rust
