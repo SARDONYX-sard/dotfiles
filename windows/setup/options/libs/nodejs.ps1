@@ -19,6 +19,9 @@ $libs = @(
   @{ name = "fs-extra"; }
   @{ name = "nexe"; description = "exe generator." }
 
+  # Optimization
+  @{ name = "svgo"; description = "A Node.js-based tool for optimizing SVG." }
+
   # For update libs
   @{ name = "conventional-changelog-cli"; description = "Generate a changelog from git metadata." }
   @{ name = "license-checker"; description = "Automated auditing, performance metrics." }
@@ -67,7 +70,7 @@ elseif ($Manager -eq "yarn") {
   }
 }
 
-function manage_lib($libName) {
+function manage_lib($lib) {
   if ($lib.Description) {
     Write-Host "";
     if ($Uninstall -eq $true) {
@@ -85,21 +88,21 @@ function manage_lib($libName) {
 
   if ($Uninstall) {
     switch ($Manager) {
-      "pnpm" { pnpm remove -g $libName; }
-      "yarn" { yarn remove -g $libName; }
-      Default { npm uninstall -g $libName; }
+      "pnpm" { pnpm remove -g $lib.name; }
+      "yarn" { yarn remove -g $lib.name; }
+      Default { npm uninstall -g $lib.name; }
     }
   }
   else {
     switch ($Manager) {
-      "pnpm" { pnpm add -g $libName; }
-      "yarn" { yarn add -g $libName; }
-      Default { npm install -g $libName; }
+      "pnpm" { pnpm add -g $lib.name; }
+      "yarn" { yarn add -g $lib.name; }
+      Default { npm install -g $lib.name; }
     }
   }
 }
 
 
 foreach ($lib in $libs) {
-  manage_lib $lib.name;
+  manage_lib $lib;
 }
