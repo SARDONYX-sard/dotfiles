@@ -75,12 +75,25 @@ options:
 "@
 
   if ($d -or $Dir) {
-    if (Test-Path $PROFILE) { code "$HOME\dotfiles" }
+    if (Test-Path $PROFILE) {
+      code "$HOME\dotfiles"
+      return
+    }
   }
-  if ($r -or $Reload) { Set-Profile }
-  if ($v -or $Vim) { nvim $PROFILE }
-  if ($h -or $Help) { Write-Host $helpDocument }
-  else { code $PROFILE }
+  if ($r -or $Reload) {
+    Set-Profile
+    return
+  }
+  if ($v -or $Vim) {
+    nvim $PROFILE
+    return
+  }
+  if ($h -or $Help) {
+    Write-Host $helpDocument
+    return
+  }
+
+  code $PROFILE
 }
 
 function volume {
