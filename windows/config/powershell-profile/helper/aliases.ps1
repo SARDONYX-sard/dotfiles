@@ -12,6 +12,7 @@ Set-Alias bb Set-PrevLocation
 Set-Alias ~ Move-HomeDir
 
 # Utils
+Set-Alias ls lsd
 Set-Alias c clear
 Set-Alias g git
 Set-Alias grep rg
@@ -214,8 +215,10 @@ function su {
 # wsl aliases
 # --------------------------------------------------------------------------------------------------
 # ls aliases
-function ll() { wsl ls -alF }
+if (Get-Command lsd) {
+  function ll() { lsd -alF }
 
-function la() { wsl ls -A }
+  function la() { lsd -A }
 
-function l() { wsl ls -CF }
+  function l() { lsd -CF }
+}
