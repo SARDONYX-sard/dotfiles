@@ -216,9 +216,8 @@ function su {
 # --------------------------------------------------------------------------------------------------
 # ls aliases
 if (Get-Command lsd) {
-  function ll() { lsd -alF }
-
-  function la() { lsd -A }
-
-  function l() { lsd -CF }
+  function l() { lsd -F } # show grid `G`
+  function la() { lsd -aF } # show dotfile `a` show grid `G`
+  function ll() { lsd -al } # list permission status
+  function lla() { lsd -alF } # list grid permission status
 }
