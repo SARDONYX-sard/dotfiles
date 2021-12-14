@@ -95,8 +95,10 @@ scoop install resource-hacker # exe icon edit
 scoop install fzf # A command-line fuzzy finder(https://github.com/junegunn/fzf)
 
 # Instead of command
-scoop install bat # instead of `cat` Syntax highlighting and Git integration(https://github.com/sharkdp/bat)
-scoop install lsd # instead of `ls` commnad with color
+scoop install bat   # instead of `cat` Syntax highlighting and Git integration(https://github.com/sharkdp/bat)
+scoop install fd    # instead of `find` commnad with color
+scoop install lsd   # instead of `ls` commnad with color
+scoop install procs # instead of `ps` commnad with color
 
 scoop install concfg # Import and export Windows console settings (https://github.com/lukesampson/concfg)
 # scoop install pshazz # Git and Mercurial tab completion, etc... (https://github.com/lukesampson/pshazz)
