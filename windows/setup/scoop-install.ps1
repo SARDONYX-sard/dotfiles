@@ -96,7 +96,7 @@ scoop install bat # Syntax highlighting and Git integration(https://github.com/s
 scoop install fzf # A command-line fuzzy finder(https://github.com/junegunn/fzf)
 
 scoop install concfg # Import and export Windows console settings (https://github.com/lukesampson/concfg)
-scoop install pshazz # Git and Mercurial tab completion, etc... (https://github.com/lukesampson/pshazz)
+# scoop install pshazz # Git and Mercurial tab completion, etc... (https://github.com/lukesampson/pshazz)
 scoop install Capture2Text # Can read text from video.
 
 # --------------------------------------------------------------------------------------------------
