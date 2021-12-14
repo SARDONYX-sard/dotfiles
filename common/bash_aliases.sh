@@ -1,39 +1,37 @@
 #!/bin/bash
 # echo "[$(tput setaf 4)info$(tput sgr0)/enter] common/bash_aliases.sh"
 
-alias ~='cd ~'
-alias -- -='cd -'
-
-# Represented by number of dots
-alias ..='cd ..'
-alias ...='cd ../..'
+# Change directory aliases
 alias ....='cd ../../..'
-
-# Expressed in numbers
+alias ...='cd ../..'
 alias ..2='cd ../..'
 alias ..3='cd ../../..'
+alias ..='cd ..'
+alias ~='cd ~'
 
 # some more ls aliases
-alias l="ls -GF"
-alias la="ls -aGF"
-alias ll='ls -lA'
-alias lla="ls -alGF"
-alias ls='ls --color=auto --show-control-chars --time-style=long-iso -FH -A'
+
+alias l="ls -GF"     # show grid `G`
+alias la="ls -aGF"   # show dotfile `a` show grid `G`
+alias ll='ls -la'    # list permission status
+alias lla="ls -alGF" # list grid permission status
+if (which exa >/dev/null 2>&1); then
+  alias ls='exa --color=auto --time-style=long-iso -FH --icons' # need rust
+fi
 
 alias relogin='exec $SHELL -l'
 alias re=relogin
 
 alias c=clear
-alias cls=reset
 
 alias df='df -h'
 alias du='du -h'
 alias du1='du -d1'
 
 # -- vim
-alias g+='g++ -Wall -Wextra -Wpedantic -fsanitize=undefined -g'
 alias v="vim"
 alias vi="vim -u NONE"
+alias g+='g++ -Wall -Wextra -Wpedantic -fsanitize=undefined -g'
 alias vim="nvim"
 
 # -- man
@@ -43,12 +41,11 @@ function man_vim() {
 alias man=man_vim
 
 # -- git
-alias g="git"
+alias gs="git status --short"
+alias gp="git push"
 alias ga="git add"
 alias gc="git commit"
 alias gl="git log"
-alias gp="git push"
-alias gs="git status --short"
 
 # -- some
 alias dk="docker"
@@ -56,9 +53,11 @@ alias dc="docker-compose"
 alias tf="terraform"
 
 # enable color support of ls, less and man, and also add handy aliases
-alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+if (which rg >/dev/null 2>&1); then
+  alias grep='rg --color' # need rust
+fi
 
 # read after .bashrc
 alias chrome='/mnt/c/ProgramFiles(x86)/Google/Chrome/Application/chrome.exe'
