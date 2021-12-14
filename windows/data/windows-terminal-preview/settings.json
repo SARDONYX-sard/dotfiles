@@ -41,6 +41,7 @@
                 "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u81ea\u7136\\night-3078326_960_720.jpg",
                 "backgroundImageOpacity": 0.0,
                 "bellStyle": "none",
+                "colorScheme": "Campbell",
                 "font": 
                 {
                     "face": "CodeNewRoman NF"
@@ -48,7 +49,7 @@
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
                 "name": "PowerShell Core",
-                "opacity": 89,
+                "opacity": 77,
                 "source": "Windows.Terminal.PowershellCore",
                 "useAcrylic": false
             },
