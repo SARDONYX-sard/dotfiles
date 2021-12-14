@@ -86,7 +86,7 @@ options:
     return
   }
   if ($v -or $Vim) {
-    nvim $PROFILE
+    nvim "$HOME\dotfiles\windows\config\powershell-profile\profile.ps1"
     return
   }
   if ($h -or $Help) {
@@ -94,7 +94,7 @@ options:
     return
   }
 
-  code $PROFILE
+  code "$($HelperDir)/shell-design.ps1" "$($HelperDir)/aliases.ps1" "$($HelperDir)/functions.ps1" "$HOME\dotfiles\windows\config\powershell-profile\profile.ps1"
 }
 
 function volume {
@@ -102,7 +102,7 @@ function volume {
   | Select-Object Name, @{ name = "Size"; expression = { `
         [math]::round((Get-ChildItem $_.FullName -Recurse -Force `
           | Measure-Object Length -Sum `
-        ).Sum / 1MB ) `
+        ).Sum / 1.0MB ).ToString() + " MiB" `
     }
   }
 }
