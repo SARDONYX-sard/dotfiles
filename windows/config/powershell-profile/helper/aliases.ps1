@@ -18,13 +18,15 @@ Set-Alias gen Get-SnippetGenerator
 Set-Alias s scoop
 Set-Alias w which
 
+#! Only pwsh is enabled because powershell cannot overwrite existing aliases.
 # Instead of commnad by Rust
-Set-Alias cat bat
-Set-Alias find fd
-Set-Alias grep rg
-Set-Alias ls lsd
-Set-Alias ps procs
-
+if ($PSVersionTable.PSEdition -eq "Core") {
+  Set-Alias cat bat
+  Set-Alias find fd
+  Set-Alias grep rg
+  Set-Alias ls lsd
+  Set-Alias ps procs
+}
 
 # --------------------------------------------------------------------------------------------------
 # Functions for realizing aliases.
