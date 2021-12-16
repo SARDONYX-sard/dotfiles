@@ -18,6 +18,11 @@ Set-Alias gen Get-SnippetGenerator
 Set-Alias s scoop
 Set-Alias w which
 
+# Node.js
+Set-Alias n npm
+Set-Alias pn pnpm
+Set-Alias y yarn
+
 #! Only pwsh is enabled because powershell cannot overwrite existing aliases.
 # Instead of commnad by Rust
 if ($PSVersionTable.PSEdition -eq "Core") {
@@ -39,7 +44,7 @@ function which {
     [switch]$Verbose
   )
 
-  $result = (Get-Command $Args)
+  $result = (Get-Command $args)
 
   if ($d -or $Detail) {
     return $result
@@ -50,12 +55,12 @@ function which {
 
   $path = $result.Definition
 
-  if ($path -match "scoop") { $path = scoop which $Args } # Solving the scoop path display problem
+  if ($path -match "shims") { $path = scoop which $args } # Solving the scoop path display problem
   $path
 }
 
 # which open directory environment path
-function wo { which $Arg | Split-Path | Invoke-Item }
+function wo ($cmd) { which $cmd | Split-Path | Invoke-Item }
 
 function Set-PrevLocation { Set-Location -; Write-Host "Returned to previous directory." -ForegroundColor Blue }
 function .. { Set-Location .. }
