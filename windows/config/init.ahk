@@ -10,26 +10,26 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;------------------------------------------------------------------------------
 ; us to jis(https://ossyaritoori.hatenablog.com/entry/2020/09/16/Autohotkeyを用いてWindowsでUS配列キーボードをJIS配列設定で使)
 ;------------------------------------------------------------------------------
-*"::send, @
-*&::send, {^}
-*'::send, &
-*(::send, *
-*)::send, (
-*+0::send, )
-*=::send, _
-*^::send, =
-*~::send, {+}
-*@::send, [
-*`::send, {{}
-*[::send, ]
-*{::send, {}}
-*]::send, \
-*}::send, |
-*+::send, :k
-+*::send, "
-*vkBA::send, '
-VKF4::send, {``} ; VKF4 = shift
-+VKF4::sendk,{~}
+; *"::send, @
+; *&::send, {^}
+; *'::send, &
+; *(::send, *
+; *)::send, (
+; *+0::send, )
+; *=::send, _
+; *^::send, =
+; *~::send, {+}
+; *@::send, [
+; *`::send, {{}
+; *[::send, ]
+; *{::send, {}}
+; *]::send, \
+; *}::send, |
+; *+::send, :k
+; +*::send, "
+; *vkBA::send, '
+; VKF4::send, {``} ; VKF4 = shift
+; +VKF4::send,{~}
 
 
 ;------------------------------------------------------------------------------
