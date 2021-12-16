@@ -1,10 +1,38 @@
+; This is AutoHotkey script.
+; Software that allows you to change the keyboard input, installed by scoop.
+
+
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
+; us to jis(https://ossyaritoori.hatenablog.com/entry/2020/09/16/Autohotkeyを用いてWindowsでUS配列キーボードをJIS配列設定で使)
+*"::send, @
+*&::send, {^}
+*'::send, &
+*(::send, *
+*)::send, (
+*+0::send, )
+*=::send, _
+*^::send, =
+*~::send, {+}
+*@::send, [
+*`::send, {{}
+*[::send, ]
+*{::send, {}}
+*]::send, \
+*}::send, |
+*+::send, :k
++*::send, "
+*vkBA::send, '
+VKF4::send, {``} ; VKF4 = shift
++VKF4::sendk,{~}
 
 
+;------------------------------------------------------------------------------
+; Ctrl + h|m|i|[
+;------------------------------------------------------------------------------
 ^h::
 Send, {Backspace}
 return
@@ -21,8 +49,9 @@ return
 Send, {Escape}
 return
 
-; Alt + Shift + hjkl
-
+;------------------------------------------------------------------------------
+; Alt + Shift + h|j|k|l
+;------------------------------------------------------------------------------
 !+h::
 Send, {Left}
 return
@@ -39,6 +68,9 @@ return
 Send, {Right}
 return
 
+;------------------------------------------------------------------------------
+; 無変換 + b|f|n|p|a|e|h|d|m|u (Only JIS keyboard)
+;------------------------------------------------------------------------------
 vk1D & b::
 Send, {Left}
 return
