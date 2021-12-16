@@ -16,7 +16,7 @@ Set-Alias c clear
 Set-Alias g git
 Set-Alias gen Get-SnippetGenerator
 Set-Alias s scoop
-Set-Alias w Get-Env
+Set-Alias w Get-EnvPath
 
 # Instead of commnad by Rust
 Set-Alias cat bat
@@ -30,7 +30,31 @@ Set-Alias ps procs
 # --------------------------------------------------------------------------------------------------
 # Functions for realizing aliases.
 # --------------------------------------------------------------------------------------------------
-function Get-Env { which $args | Split-Path  | Invoke-Item } # like which alias
+function Get-EnvPath {
+  param (
+    [switch]$d,
+    [switch]$Detail,
+    [switch]$v,
+    [switch]$Verbose
+  )
+
+  $result = (Get-Command $Args)
+
+  if ($d -or $Detail) {
+    return $result
+  }
+  elseif ($v -or $Verbose) {
+    return $result | Format-List
+  }
+
+  # open envpath folder
+  $path = $result.Definition
+  if ($path -match "shims") {
+    $path = scoop which $Args
+  }
+  $path | Split-Path | Invoke-Item
+} # like which alias
+
 
 function Set-PrevLocation { Set-Location -; Write-Host "Returned to previous directory." -ForegroundColor Blue }
 function .. { Set-Location .. }
