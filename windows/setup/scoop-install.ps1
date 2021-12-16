@@ -99,6 +99,7 @@ scoop install bat   # instead of `cat` Syntax highlighting and Git integration(h
 scoop install fd    # instead of `find` commnad with color
 scoop install lsd   # instead of `ls` commnad with color
 scoop install procs # instead of `ps` commnad with color
+scoop install ripgrep # instead of `grep` commnad with color
 
 scoop install concfg # Import and export Windows console settings (https://github.com/lukesampson/concfg)
 # scoop install pshazz # Git and Mercurial tab completion, etc... (https://github.com/lukesampson/pshazz)
