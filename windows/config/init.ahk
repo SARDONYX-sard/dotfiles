@@ -7,7 +7,9 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
+;------------------------------------------------------------------------------
 ; us to jis(https://ossyaritoori.hatenablog.com/entry/2020/09/16/Autohotkeyを用いてWindowsでUS配列キーボードをJIS配列設定で使)
+;------------------------------------------------------------------------------
 *"::send, @
 *&::send, {^}
 *'::send, &
