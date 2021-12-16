@@ -19,6 +19,7 @@ Set-Alias s scoop
 Set-Alias w Get-Env
 
 # Instead of commnad by Rust
+Set-Alias cat bat
 Set-Alias find fd
 Set-Alias grep rg
 Set-Alias ls lsd
