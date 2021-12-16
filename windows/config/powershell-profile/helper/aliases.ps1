@@ -12,13 +12,19 @@ Set-Alias bb Set-PrevLocation
 Set-Alias ~ Move-HomeDir
 
 # Utils
-Set-Alias ls lsd
 Set-Alias c clear
 Set-Alias g git
-Set-Alias grep rg
 Set-Alias gen Get-SnippetGenerator
 Set-Alias s scoop
 Set-Alias w Get-Env
+
+# Instead of commnad by Rust
+Set-Alias find fd
+Set-Alias grep rg
+Set-Alias ls lsd
+Set-Alias ps procs
+
+
 
 # --------------------------------------------------------------------------------------------------
 # Functions for realizing aliases.
