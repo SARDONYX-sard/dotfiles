@@ -1,7 +1,7 @@
-windows\setup\options\libs\msys2.ps1
-windows\setup\options\libs\nodejs.ps1 -Manager pnpm
-windows\setup\options\libs\python.ps1 -Manager pip
-windows\setup\options\libs\ruby.ps1
+windows\bin\installers\msys2.ps1
+windows\bin\installers\nodejs.ps1 -Manager pnpm
+windows\bin\installers\python.ps1 -Manager pip
+windows\bin\installers\ruby.ps1
 
 if (Test-Path dotnet-core-uninstall) {
   Write-Host "Manual install dotnet-core-uninstall(to remove Microsoft SDK)"

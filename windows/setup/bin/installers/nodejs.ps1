@@ -1,19 +1,33 @@
 <#
-e.g.: nodejs.ps1 -Manager pnpm
+.SYNOPSIS
+  Install nodejs-lts and global libraries
+.DESCRIPTION
+  Install nodejs-lts and global libraries.
+.EXAMPLE
+  # Install libraries.
+  nodejs.ps1 -Manager npm
+  nodejs.ps1 -Manager yarn
+  nodejs.ps1 -Manager pnpm
+
+  # Uninstall libraries.
+  nodejs.ps1 -Manager npm -Uninstall
+  nodejs.ps1 -Manager yarn -Uninstall
+  nodejs.ps1 -Manager pnpm -Uninstall
 #>
 
 param (
   [ValidateSet("npm" , "pnpm", "yarn")]$m = "npm",
   [ValidateSet("npm" , "pnpm", "yarn")]$Manager = "npm",
-  [switch]$rm,
+  [switch]$uni,
   [switch]$Uninstall
 )
 
 if ($m) { $Manager = $m }
-if ($rm) { $Uninstall = $rm }
+if ($uni) { $Uninstall = $uni }
 
-Write-Host "$Manager has been selected."
-
+# --------------------------------------------------------------------------------------------------
+# Install global library
+# --------------------------------------------------------------------------------------------------
 $libs = @(
   # Basic
   @{ name = "fs-extra"; }
@@ -58,15 +72,49 @@ $libs = @(
   @{ name = "vsce"; }
 )
 
-# Setup
-if ($Manager -eq "pnpm") {
-  if ((Get-Command pnpm).Name -notmatch "pnpm") {
-    npm i -g pnpm;
+
+# --------------------------------------------------------------------------------------------------
+# Installer functions
+# --------------------------------------------------------------------------------------------------
+function check_nodejs_available {
+  if ((Get-Command -Name node) -eq $false) {
+    Write-Warning "Nodejs is not installed."
+
+    if (Get-Command -Name scoop) {
+      Write-Host "Trying to install with scoop..." -ForegroundColor Cyan;
+      scoop install nodejs-lts # Nodejs Package Manager(e.g: nodejs-lts (16.13.0))
+    }
+    else {
+      Write-Error "Scoop is not installed."
+      Write-Host @'
+You can install it in one of the following ways.
+
+Manually install:
+    Go to https://nodejs.org
+
+    LTS version with longer security support is recommended.
+
+
+Install with Scoop:
+    Execute the following commands.↓
+
+    Invoke-WebRequest -useb get.scoop.sh | Invoke-Expression
+    scoop install nodejs-lts
+'@
+    }
   }
 }
-elseif ($Manager -eq "yarn") {
-  if ((Get-Command yarn).Name -notmatch "yarn") {
-    npm i -g yarn;
+
+function setup_manager {
+  if ($Manager -eq "pnpm") {
+    if ((Get-Command pnpm).Name -notmatch "pnpm") {
+      npm i -g pnpm;
+    }
+  }
+  elseif ($Manager -eq "yarn") {
+    if ((Get-Command yarn).Name -notmatch "yarn") {
+      npm i -g yarn;
+    }
   }
 }
 
@@ -102,7 +150,21 @@ function manage_lib($lib) {
   }
 }
 
+function main {
+  check_nodejs_available
+  setup_manager
 
-foreach ($lib in $libs) {
-  manage_lib $lib;
+  Write-Host "$Manager has been selected."
+  try {
+    foreach ($lib in $libs) {
+      manage_lib $lib;
+    }
+  }
+  catch {
+    Write-Error "$($_.Exception.Message)";
+    return;
+  }
+  Write-Host "Successes: Finished working on all libraries." -ForegroundColor Green;
 }
+
+main
