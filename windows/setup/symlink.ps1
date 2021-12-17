@@ -1,5 +1,7 @@
-
 Param([switch]$f, [switch]$force)
+
+$HelperDir = "$HOME/dotfiles/windows/config/powershell-profile/helper";
+. "$($HelperDir)/functions.ps1"
 
 Write-Host "Linking Symbolic links..." -ForegroundColor Green
 
@@ -48,31 +50,9 @@ if ( (Get-Command powershell -ea 0) -and (powershell -NoProfile -Command "`$prof
 }
 
 
-function Set-Msys2Symlink {
-  $UserName = Split-Path $HOME -Leaf
-  $myss2Home = @{ target = $HOME; path = Join-Path $HOME "scoop\apps\msys2\current\home\$UserName"; }
-
-  Write-Host ""
-  Write-Host "now: $($myss2Home.path)"
-
-  if (Test-Path $myss2Home.path) {
-    Write-Host "Already exists." -ForegroundColor Blue
-    if ($force) {
-      Write-Host "Recreating..." -ForegroundColor Yellow
-        (Get-Item $myss2Home.path).Delete()
-    }
-    else {
-      Write-Host "Skipping..." -ForegroundColor Yellow
-      return
-    }
-    Write-Host "Making symbolic link..." -ForegroundColor Green
-    New-Item -ItemType SymbolicLink @myss2Home | Out-Null
-    if (!$?) { Write-Error "${@myss2Home} is null. Failed to create symbolic link." }
-  }
-}
-
-Set-Msys2Symlink
-
+# ------------------------------------------------------------------------------------------------
+# Create Symbolic link
+# ------------------------------------------------------------------------------------------------
 foreach ($file in $files) {
   if ($file.GetType() -eq [string]) {
     if (!$file) { continue }
@@ -104,47 +84,23 @@ foreach ($file in $files) {
     mkdir $file.path
   }
 
-  # ------------------------------------------------------------------------------------------------
-  # Create Symbolic link
-  # ------------------------------------------------------------------------------------------------
-  function Set-SymbolicLink {
-    Write-Host ""
-    Write-Host "now: $(Join-Path $file.path $file.name)"
-
-    $fullPathName = Join-Path $file.path $file.name
-    if (Test-Path $fullPathName) {
-      Write-Host "Already exists." -ForegroundColor Blue
-      if ($force) {
-        Write-Host "Recreating..." -ForegroundColor Yellow
-      (Get-Item $fullPathName).Delete()
-      }
-      else {
-        continue
-      }
-    }
-
-    if (!(Test-Path $fullPathName)) {
-
-      if (!(Test-Path ($file.path))) {
-        mkdir ($file.path)
-      }
-
-
-      # Copy or SymbolicLink
-      if ($file.mode -eq "copy") {
-        Write-Host "Copying..." -ForegroundColor Green
-        Copy-Item $file.target -Destination $file.path -Force
-      }
-      else {
-        Write-Host "Making symbolic link..." -ForegroundColor Green
-
-        #? Passing whitespace as a whole object will not result in a path error.
-        New-Item -ItemType SymbolicLink @file | Out-Null
-      }
-      if (!$?) { Write-Error "${@file} is null. Failed to create symbolic link." }
-    }
-  }
-
-  Set-SymbolicLink
+  if ($Force) { Set-SymLink -Hash $file -Force }
+  else { Set-SymLink -Hash $file }
   # Write-Output @file | Out-File result.txt -Append # for debug
+}
+
+# create symlink from `pwsh's modules` to `powershell's modules`
+$pwshModulePath = @($(pwsh -NoProfile -Command "`$profile"))[0] | Split-Path | Join-Path { $_ } "Modules" | Split-Path
+$powershellPath = @($(powershell -NoProfile -Command "`$profile"))[0] | Split-Path
+
+# msys2 HomeDir
+$UserName = (Split-Path $HOME -Leaf)
+
+if ($Force) {
+  Set-SymLink -Hash @{ target = $HOME; path = Join-Path $HOME "scoop\apps\msys2\current\home\$UserName"; } -Force
+  Set-SymLink -Hash @{ target = $pwshModulePath; path = $powershellPath; name = "Modules" } -Force
+}
+else {
+  Set-SymLink -Hash @{ target = $pwshModulePath; path = $powershellPath; name = "Modules" }
+  Set-SymLink -Hash @{ target = $HOME; path = Join-Path $HOME "scoop\apps\msys2\current\home\$UserName"; }
 }

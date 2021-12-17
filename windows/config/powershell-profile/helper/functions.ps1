@@ -1,4 +1,80 @@
 # --------------------------------------------------------------------------------------------------
+# Util
+# --------------------------------------------------------------------------------------------------
+function Set-Symlink {
+  [CmdletBinding()]
+  param (
+    [string]$FromFileOrDirPath,
+    [string]$ToFileOrDirPath,
+    [hashtable]$Hash,
+    [switch]$Force
+  )
+  $file = $null # Does not use ternary operators for `powershell compatibility`
+  if ($Hash) { $file = $Hash }
+
+  if ($File) {
+    Write-Host ""
+    Write-Host "now: $(Join-Path $file.path $file.name)"
+
+    $fullPathName = Join-Path $file.path $file.name
+    if (Test-Path $fullPathName) {
+      Write-Host "Already exists." -ForegroundColor Blue
+      if ($force) {
+        Write-Host "Recreating..." -ForegroundColor Yellow
+      (Get-Item $fullPathName).Delete()
+      }
+      else { return }
+    }
+
+    if (!(Test-Path $fullPathName)) {
+
+      if (!(Test-Path ($file.path))) {
+        mkdir ($file.path)
+      }
+
+
+      # Copy or SymbolicLink
+      if ($file.mode -eq "copy") {
+        Write-Host "Copying..." -ForegroundColor Green
+        Copy-Item $file.target -Destination $file.path -Force
+      }
+      else {
+        Write-Host "Making symbolic link..." -ForegroundColor Green
+
+        #? Passing whitespace as a whole object will not result in a path error.
+        New-Item -ItemType SymbolicLink @file | Out-Null
+      }
+      if (!$?) { Write-Error "${@file} is null. Failed to create symbolic link." }
+    }
+
+    return
+  }
+
+  Write-Host ""
+  Write-Host "now: $(Join-Path $FromFileOrDirPath)"
+
+  if (Test-Path $ToFileOrDirPath) {
+    Write-Host "Already exists." -ForegroundColor Blue
+    if ($force) {
+      Write-Host "Recreating..." -ForegroundColor Yellow
+        (Get-Item $fullPathName).Delete()
+    }
+    else { return }
+  }
+
+  if (!(Test-Path $ToFileOrDirPath)) {
+    if (!(Test-Path ($ToDirPath))) { mkdir ($ToDirPath) }
+
+    $name = Split-Path $ToFileOrDirPath -Leaf
+    $ToDirPath = Split-Path $ToFileOrDirPath
+    Write-Host "Making symbolic link..." -ForegroundColor Green
+    New-Item -Value $FromFileOrDirPath -Path $ToDirPath -Name $Name -ItemType SymbolicLink | Out-Null
+    if (!$?) { Write-Error "${@file} is null. Failed to create symbolic link." }
+  }
+}
+
+
+# --------------------------------------------------------------------------------------------------
 # Anaconda3
 # --------------------------------------------------------------------------------------------------
 #region conda initialize
