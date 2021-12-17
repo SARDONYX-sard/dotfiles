@@ -9,11 +9,10 @@ PATH=/usr/local/heroku/bin:$PATH
 # go, ruby, node.js, 複数言語管理マネージャ
 # ! herokuのパスよりasdfのパスを下に記述すること!
 # ? 理由: heroku内のnode.jsによるバージョンの上書きを防ぐため。
-# shellcheck disable=SC1091
 . "$HOME"/.asdf/asdf.sh
+. "$HOME"/.asdf/completions/asdf.bash
 
 # rust
-# shellcheck disable=SC1091
 . "$HOME/.cargo/env"
 
 # Docker
