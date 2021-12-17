@@ -30,10 +30,10 @@ How to install with Scoop:
 
   Example:
     Node.js only
-      windows\setup\options\global-libs\nodejs.ps1 -Manager pnpm
+      windows\bin\installers\nodejs.ps1 -Manager pnpm
 
     All languages(Node.js, Ruby, python and msys2 libs)
-      windows\setup\options\global-libs\all-languages.ps1
+      windows\bin\installers\all-languages.ps1
 '@
 
 # -- install dein.vim
