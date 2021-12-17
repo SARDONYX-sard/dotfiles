@@ -25,38 +25,21 @@ if ($isDebug -eq $false) {
 Specification
 
 target(require):
-  target is the actual directory or file. Relative or absolute path from `$HOME/dotfiles`
-  (e.g.: "windows/config/.bashrc")
-path(option):
-  the directory where the symbolic link will be output
-  (e.g.: "$HOME")
+  1. target is the actual directory or file. Relative from `$HOME/dotfiles` or absolute path.
+  #! 2. A single string will be converted to target even if it is not specified as target.
+  (e.g.: @{"windows/config/.bashrc" } → @{ target= "$HOME/dotfiles/windows/config/.bashrc" })
+
+which one(optional):
+  path(option):
+    1. The path is relative to $HOME/dotfiles.
+    (e.g.: "windows/config")
+  fullpath(option):
+    1. Path to derive path; if name is not specified, the last path will be used for name.
+    (e.g.: "$HOME")
+
 name(option):
-  the name of the symbolic file
+  1. the name of the symbolic file
   (e.g.: ".bashrc")
-
-1. If there is a path, combine it with the $HOME directory.
-Example:
-
-      @{ path = scoop/current }
-      ↓
-      @{ path = $HOME/scoop/current }
-
-
-2. If there is fullpath If there is a fullpath, overwrite the string excluding the last path of the fullpath with overwrite path.
-Example:
-
-      @{ fullpath = windows/modules/dirs }
-      ↓
-      @{ path = windows/modules }
-
-3. if there is no path or fullpath, path will contain $HOME
-Example:
-
-      @{ "windows/config/.bashrc" }
-      ↓
-      @{ target= "windows/config/.bashrc"; path = "$HOME/windows/config/.bashrc"; name= "bashrc" }
-
-4. If you write it, only one of fullpath or path is needed.
 #>
 
 $pwshProfilePath = @($(pwsh -NoProfile -Command "`$profile"))[0]
