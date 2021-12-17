@@ -15,8 +15,16 @@ alias l="ls -GF"     # show grid `G`
 alias la="ls -aGF"   # show dotfile `a` show grid `G`
 alias ll='ls -al'    # list permission status
 alias lla="ls -alGF" # list grid permission status
+
 if (which exa >/dev/null 2>&1); then
   alias ls='exa --color=auto --time-style=long-iso -FH --icons' # need rust
+elif (which lsd >/dev/null 2>&1); then
+  alias l="lsd -F"     # Append indicator `F`
+  alias la="lsd -aF"   # show dotfile `a`, Append indicator `F`
+  alias ll='lsd -al'   # show dotfile `a`, list permission status `l`
+  alias lla="lsd -alF" # show dotfile `a`, list permission status `l`, Append indicator `F`
+
+  alias ls='lsd' # need rust or scoop(scoop install lsd)
 fi
 
 alias relogin='exec $SHELL -l'
