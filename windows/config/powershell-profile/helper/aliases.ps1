@@ -253,8 +253,8 @@ function su {
 # --------------------------------------------------------------------------------------------------
 # ls aliases
 if (Get-Command lsd) {
-  function l() { lsd -F } # show grid `G`
-  function la() { lsd -aF } # show dotfile `a` show grid `G`
-  function ll() { lsd -al } # list permission status
-  function lla() { lsd -alF } # list grid permission status
+  function l() { lsd -F } # Append indicator `F`
+  function la() { lsd -aF } # show dotfile `a`, Append indicator `F`
+  function ll() { lsd -al } # show dotfile `a`, list permission status `l`
+  function lla() { lsd -alF } # show dotfile `a`, list permission status `l`, Append indicator `F`
 }
