@@ -7,9 +7,18 @@ $HelperDir = "$HOME/dotfiles/windows/config/powershell-profile/helper";
 . "$($HelperDir)/aliases.ps1"
 . "$($HelperDir)/shell-design.ps1"
 
+# Bell OFF
+if ((Get-PSReadlineOption).BellStyle -eq "Audible") {
+  Set-PSReadlineOption -BellStyle None
+}
+
 # --------------------------------------------------------------------------------------------------
 # Module settings
 # --------------------------------------------------------------------------------------------------
+# msys2
+#! Without this, msys2 will not inherit windows environment variables.
+if (Get-Command msys2 -ea 0) { $env:MSYS2_PATH_TYPE = "inherit" }
+
 if ($PSVersionTable.PSEdition -eq "Core") {
   # Install-Module WslInterop
   Import-WslCommand "awk", "emacs", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail", "man"#, "ls", "vim"
@@ -34,6 +43,7 @@ if ($PSVersionTable.PSEdition -eq "Core") {
     $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"cat {}`""
   }
 }
+
 
 # --------------------------------------------------------------------------------------------------
 # Remove vim env
