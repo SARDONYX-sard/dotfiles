@@ -30,7 +30,7 @@ scoop alias add remove 'scoop uninstall $args[0]' 'Remove Scoop apps.'
 scoop alias add upgrade 'scoop update *' 'Update all apps.'
 scoop alias add up 'scoop upgrade' 'Update all apps.'
 
-# Delete the cache as well during cleanup.
+# Delete cache
 scoop alias add prune 'scoop cleanup * --cache' 'Clean Scoop apps by removing old versions and caches.'
 
 # Update all & show status
@@ -102,8 +102,9 @@ scoop install procs # instead of `ps` commnad with color
 scoop install ripgrep # instead of `grep` commnad with color
 
 scoop install concfg # Import and export Windows console settings (https://github.com/lukesampson/concfg)
-# scoop install pshazz # Git and Mercurial tab completion, etc... (https://github.com/lukesampson/pshazz)
+scoop install pshazz # Git and Mercurial tab completion, etc... (https://github.com/lukesampson/pshazz)
 scoop install Capture2Text # Can read text from video.
+
 
 # --------------------------------------------------------------------------------------------------
 # Editor
@@ -117,21 +118,5 @@ scoop install neovim
 # --------------------------------------------------------------------------------------------------
 if ($Languages) {
   scoop install deno
-  scoop install nodejs-lts # Nodejs Package Manager(e.g: nodejs-lts (16.13.0))
-  scoop install python # latest python version (e.g. python3.10)
-  scoop install python27 # latest python version (e.g. python2.7)
+  scoop install python27 # latest python version (e.g. python2.7) for other software.
 }
-
-
-# --------------------------------------------------------------------------------------------------
-# Modules
-# --------------------------------------------------------------------------------------------------
-Install-Module -Name PSFzf # PsFzf(to use fzf on windows)
-
-
-# --------------------------------------------------------------------------------------------------
-# INFO
-# --------------------------------------------------------------------------------------------------
-Write-Host "You can include the npm global package if you like." -ForegroundColor Blue
-Write-Host "  - global npm packages(Option)" -ForegroundColor Blue
-Write-Host "      windows\setup\options\global-libs\nodejs.ps1 -Manager pnpm"
