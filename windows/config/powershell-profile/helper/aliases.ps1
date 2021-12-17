@@ -16,7 +16,7 @@ Set-Alias c clear
 Set-Alias g git
 Set-Alias gen Get-SnippetGenerator
 Set-Alias s scoop
-Set-Alias w which
+Set-Alias wh which
 
 # Node.js
 Set-Alias n npm
@@ -60,7 +60,7 @@ function which {
 }
 
 # which open directory environment path
-function wo ($cmd) { which $cmd | Split-Path | Invoke-Item }
+function w ($cmd) { which $cmd | Split-Path | Invoke-Item }
 
 function Set-PrevLocation { Set-Location -; Write-Host "Returned to previous directory." -ForegroundColor Blue }
 function .. { Set-Location .. }
