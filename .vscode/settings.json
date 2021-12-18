@@ -44,6 +44,12 @@
     "wsltty"
   ],
   "files.associations": {
-    "*.json": "jsonc"
+    "*.json": "jsonc",
+    "*.txt": "txt",
+    "*.vim": "viml",
+    ".editorconfig": "properties",
+    "git-config.txt": "properties",
+    ".gitignore": "ignore",
+    "LICENSE": "txt"
   }
 }
