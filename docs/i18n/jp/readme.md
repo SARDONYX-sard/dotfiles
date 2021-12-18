@@ -7,6 +7,8 @@
 - [dotfiles](#dotfiles)
   - [目次](#目次)
   - [インストール方法](#インストール方法)
+    - [windows](#windows)
+    - [GNU/Linux](#gnulinux)
   - [進捗状況](#進捗状況)
   - [注意'!'](#注意)
   - [手動でやらなければならないこと](#手動でやらなければならないこと)
@@ -18,10 +20,50 @@
 
 以下のコマンドを実行します。
 
-- windows
+### windows
+
+以下のコマンドを実行します。
 
 ```powershell
 Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
+```
+
+### GNU/Linux
+
+WSLまたはLinux上で可能です。
+
+Linux(WSLではない)でinstall-wsl.shを実行した場合、linux単体の使用を想定したシンボリックリンクになります。
+
+WSLでinstall-wsl.shを実行した場合、Windows側からシンボリックリンクをWSLに繋ぎます。
+
+- Linux(WSLではない)の場合
+
+以下のコマンドを実行します。
+
+```bash
+# Can be done on Windows or linux
+git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME
+
+cd ~/dotfiles
+bash "install-wsl.sh"
+```
+
+- WSL(Windows Subsystem for Linux)
+
+1.PowerShellで以下のコマンドを実行します。
+
+```powershell
+git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME
+```
+
+2.WSLで以下のコマンドを実行します。
+
+```bash
+# reference: (https://www.reddit.com/r/bashonubuntuonwindows/comments/8dhhrr/is_it_possible_to_get_the_windows_username_from/)
+
+export USERNAME=`cmd.exe /c echo %username%`
+cd /mnt/c/Users/${USERNAME}/dotfiles
+bash "install-wsl.sh"
 ```
 
 ## 進捗状況
@@ -29,15 +71,17 @@ Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.
 - 完成箇所
 
   - Windows settings
+  - Linux settings
 
 - 未完成箇所
 
-  - Linux settings
+  - 細かなバグ修正
+  - 再現性の未確認(とくにWSL)
+  - テストコードの追加
 
 ## 注意'!'
 
-- これは私の開発環境のセットアップリポジトリです。
-  あなたが何をしているのか分かっていないのであれば、むやみにこのコードを実行しないでください。
+- これは私の開発環境のセットアップリポジトリです。 あなたが何をしているのか分かっていないのであれば、むやみにこのコードを実行しないでください。
   安易に実行すると、現在のあなたの開発環境が私の開発環境の設定に上書きされてしまいます。
 
 - いくつかの設定は、日本語になっており、英語話者向けではない可能性があります。
@@ -47,8 +91,7 @@ Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.
 
 ## 手動でやらなければならないこと
 
-- `.gitconfig`の`user`の設定の書き換え
-- [PowerShell-WSL-Interop](https://github.com/mikebattista/PowerShell-WSL-Interop)のインストール
+- `hard coded`とコメントが書かれたユーザー名の書き換え。(エディターの検索機能を使ってください)
 
 ## コーディングに際して行った回避策
 
