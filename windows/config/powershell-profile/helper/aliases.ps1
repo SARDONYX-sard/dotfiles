@@ -45,6 +45,9 @@ function which {
   )
 
   $result = (Get-Command $args)
+  if ($result.CommandType -eq "Alias") {
+    $result = Get-Command $result.Definition
+  }
 
   if ($d -or $Detail) {
     return $result
