@@ -74,6 +74,7 @@ $files = @(
 
   "windows/config/.bash_profile"
   "windows/config/.bashrc"
+  "common/.zshrc"
 )
 
 
