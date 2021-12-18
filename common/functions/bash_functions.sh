@@ -33,9 +33,11 @@ function cd() {
 }
 
 # wrap the git command to either run windows git or linux
+isBool=isWinDir
+
 function git {
-  if isWinDir; then
-    git.exe "$@"
+  if [[ $isBool = "true" ]]; then
+    git.ps1 "$@"
   else
     /usr/bin/git "$@"
   fi
@@ -44,12 +46,9 @@ function git {
 # checks to see if we are in a windows or linux dir
 function isWinDir {
   case $PWD/ in
-  /mnt/*)
-    return "$(true)"
-    ;;
-  *)
-    return "$(false)"
-    ;;
+  /mnt/*) ;;
+  /c/*) echo "true" ;;
+  *) echo "false" ;;
   esac
 }
 
@@ -105,4 +104,67 @@ Examples:
     echo "Read .zshrc"
     ;;
   esac
+}
+
+# --------------------------------------------------------------------------------------------------
+# fzf convenience functions
+# --------------------------------------------------------------------------------------------------
+# fshow - git commit browser
+function fshow() {
+  git log --graph --color=always \
+    --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+    fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+      --bind "ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {}
+FZF-EOF"
+}
+
+# fd - cd to selected directory
+function fd() {
+  local dir
+  dir=$(find "${1:-.}" -path '*/\.*' -prune \
+    -o -type d -print 2>/dev/null | fzf +m) &&
+    cd "$dir" || return
+}
+
+# worktree移動
+function cdworktree() {
+  # カレントディレクトリがGitリポジトリ上かどうか
+
+  if ! git rev-parse; then
+    echo "$(tput setaf 1)"fatal: Not a git repository."$(tput sgr0)"
+
+    return
+  fi
+
+  local selectedWorkTreeDir
+  selectedWorkTreeDir=$(git worktree list | fzf | awk '{print $1}')
+
+  if [ "$selectedWorkTreeDir" = "" ]; then
+    # Ctrl-C.
+    return
+  fi
+
+  cd "${selectedWorkTreeDir}" || return
+}
+
+function fadd() {
+  local out q n addfiles
+  while out=$(
+    git status --short |
+      awk '{if (substr($0,2,1) !~ / /) print $2}' |
+      fzf --multi --exit-0 --expect=ctrl-d
+  ); do
+    q=$(head -1 <<<"$out")
+    n=$(($(wc -l <<<"$out") - 1))
+    addfiles=($(echo $(tail "-$n" <<<"$out")))
+    [[ -z "$addfiles" ]] && continue
+    if [ "$q" = ctrl-d ]; then
+      git diff --color=always "$addfiles" | less -R
+    else
+      git add "$addfiles"
+    fi
+  done
 }
