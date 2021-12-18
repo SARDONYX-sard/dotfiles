@@ -16,9 +16,9 @@ alias la="ls -aGF"   # show dotfile `a` show grid `G`
 alias ll='ls -al'    # list permission status
 alias lla="ls -alGF" # list grid permission status
 
-if (which exa >/dev/null 2>&1); then
+if (which exa) >/dev/null 2>&1; then
   alias ls='exa --color=auto --time-style=long-iso -FH --icons' # need rust
-elif (which lsd >/dev/null 2>&1); then
+elif (which lsd) >/dev/null 2>&1; then
   alias l="lsd -F"     # Append indicator `F`
   alias la="lsd -aF"   # show dotfile `a`, Append indicator `F`
   alias ll='lsd -al'   # show dotfile `a`, list permission status `l`
@@ -55,7 +55,7 @@ alias ga="git add"
 alias gc="git commit"
 alias gl="git log"
 
-# -- some
+# -- Virtual Container
 alias dk="docker"
 alias dc="docker-compose"
 alias tf="terraform"
@@ -63,7 +63,7 @@ alias tf="terraform"
 # enable color support of ls, less and man, and also add handy aliases
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-if (which rg >/dev/null 2>&1); then
+if (which rg) >/dev/null 2>&1; then
   alias grep='rg --color' # need rust
 fi
 
