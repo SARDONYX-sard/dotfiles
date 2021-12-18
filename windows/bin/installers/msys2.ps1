@@ -29,24 +29,17 @@ Install with Scoop:
   }
 }
 
-
-function install_libs {
-  # need 1.07 GB of disk space
-  pacman -S git --noconfirm
-  pacman -Sy ccache --noconfirm
-  pacman -Sy findutils --noconfirm
-  pacman -Sy make --noconfirm
-  pacman -Sy mingw-w64-x86_64-toolchain --noconfirm
-  pacman -Sy ncurses-devel --noconfirm
-  pacman -Sy openssh --noconfirm
-  pacman -Sy subversion --noconfirm
-}
-
 function main {
   check_msys2_available;
 
-  ridk install 3;
-  install_libs;
+  Write-Host "msys2 is available!" -ForegroundColor Green;
+  Write-Host @'
+Next:
+    Execute the following commands.↓
+
+    msys2 # Enter the msys2(bash) shell.
+    $HOME/dotfiles/windows/bin/installers/pacman.sh # Install libraries with pacman.
+'@
 }
 
 main
