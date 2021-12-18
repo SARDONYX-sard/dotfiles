@@ -92,6 +92,7 @@
             {
                 "backgroundImage": "D:\\\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\\\u30d0\u30c3\u30af\u30a2\u30c3\u30d7\u95a2\u4fc2\\\u80cc\u666f\u7528\\cat-and-butterfly.png",
                 "backgroundImageOpacity": 0.0,
+                "bellStyle": "none",
                 "font": 
                 {
                     "face": "CodeNewRoman NF"
