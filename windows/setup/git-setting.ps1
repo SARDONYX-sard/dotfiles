@@ -14,7 +14,7 @@ param (
   Invoke-Expression "$HOME/dotfiles/windows/setup/git-setting.ps1"
 
 .NOTES
-  Need $HOME/dotfiles/windows/data/git-config.txt
+  Need $HOME/dotfiles/common/data/git-config.txt
 #>
 
 function main {
@@ -31,7 +31,7 @@ function main {
     Write-Host "Created backup of .gitconfig to $HOME/.gitconfig.bak" -ForegroundColor Green
   }
 
-  windows\data\git-config.txt > $gitConfigPath
+  Get-Content common\data\git-config.txt > $gitConfigPath
   Write-Host "Successes: Wrote to $HOME/.gitconfig" -ForegroundColor Green
 }
 

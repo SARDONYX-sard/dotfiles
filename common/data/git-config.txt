@@ -1,5 +1,7 @@
 # Git setting: info JP(https://qiita.com/hayamofu/items/d8103e789196bcd8b489)
 [user]
+#! Hard-coded the user name for UFN restriction.
+#! You need to change it to your windows user name.
 name = SARDONYX-sard
 email = 68905624+SARDONYX-sard@users.noreply.github.com
 [core]
