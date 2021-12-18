@@ -1,0 +1,94 @@
+{
+  "tsdetect.doNothingIfConfigExists": false,
+  "diagnostic.errorSign": ">>",
+  "diagnostic.warningSign": "--",
+  "diagnostic.infoSign": "..",
+  "diagnostic.hintSign": "..",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "go",
+    "rust",
+    "vue",
+    "svelte",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "tf"
+  ],
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": ["terraform", "tf"],
+      "initializationOptions": {}
+    }
+    // "protobuf": {
+    //   "command": "protocol-buffers-language-server",
+    //   "args": ["--logfile=/tmp/prbuf-lsp.log", "--loglevel=debug"],
+    //   "filetypes": ["proto"]
+    // }
+  },
+  "diagnostic-languageserver.linters": {
+    "hadolint": {
+      "command": "hadolint",
+      "sourceName": "hadolint",
+      "args": ["-f", "json", "-t", "style", "-"],
+      "parseJson": {
+        "line": "line",
+        "column": "column",
+        "security": "level",
+        "message": "${message} [${code}]"
+      },
+      "securities": {
+        "error": "error",
+        "warning": "warning",
+        "info": "info",
+        "style": "hint"
+      }
+    },
+    "shellcheck": {
+      "command": "shellcheck",
+      "debounce": 100,
+      "args": ["--format", "json", "-x", "-"],
+      "sourceName": "shellcheck",
+      "parseJson": {
+        "line": "line",
+        "column": "column",
+        "endLine": "endLine",
+        "endColumn": "endColumn",
+        "message": "${message} [${code}]",
+        "security": "level"
+      },
+      "securities": {
+        "error": "error",
+        "warning": "warning",
+        "info": "info",
+        "style": "hint"
+      }
+    }
+  },
+  "diagnostic-languageserver.filetypes": {
+    "sh": "shellcheck",
+    "dockerfile": "hadolint"
+  },
+  "coc.source.neosnippet.priority": 40,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "tsserver.formatOnType": true,
+  "eslint.format.enable": true,
+  "eslint.autoFixOnSave": true,
+  "emmet.priority": 30,
+  "deno.codeLens.references": false,
+  "deno.codeLens.referencesAllFunctions": false,
+  "deno.codeLens.implementations": false,
+  "codeLens.enable": false,
+  "go.goplsOptions": {
+    "staticcheck": true
+  },
+  "coc.preferences.enableMessageDialog": false,
+  "prettier.onlyUseLocalVersion": true,
+  "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.experimental.procAttrMacros": true,
+  "rust-analyzer.cargo.loadOutDirsFromCheck": true
+}
