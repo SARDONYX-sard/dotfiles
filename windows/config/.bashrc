@@ -6,8 +6,6 @@ case $- in
 *) return ;;
 esac
 
-echo 'windows/.bashrc'
-
 # ---- vim の環境変数を削除
 unset VIM
 unset VIMRUNTIME
@@ -29,18 +27,37 @@ function I {
 export PATH="$HOME/.pyenv/pyenv-win/bin:$PATH"
 export PATH="$HOME/.pyenv/pyenv-win/versions/3.8.10:$PATH"
 
+# --------------------------------------------------------------------------------------------------
+# Prompt Design
+# --------------------------------------------------------------------------------------------------
 usrPath="/usr/share"
 
 # ---- git の情報を表示
-# shellcheck disable=SC1091
 [ -f "${usrPath}/git/completion/git-prompt.sh" ] && source ${usrPath}/git/completion/git-prompt.sh
-# shellcheck disable=SC1091
 [ -f "${usrPath}/git/completion/git-completion.bash" ] && source ${usrPath}/git/completion/git-completion.bash
 
 export GIT_PS1_SHOWDIRTYSTATE=true
 export PS1='\[\033[32m\]\u@ \[\033[1;33m\]\w\[\033[34m\]$(__git_ps1)\[\033[00m\]'$'\n\$ '
 
-# shellcheck disable=SC1091
-source "${HOME}/dotfiles/windows/config/bash_aliases.sh"
-# shellcheck disable=SC1091
-source "${HOME}/dotfiles/windows/config/bash_functions.sh"
+# --------------------------------------------------------------------------------------------------
+#  aliases and functions
+# --------------------------------------------------------------------------------------------------
+# Common
+source "${HOME}"/dotfiles/common/read-common-settings.sh
+
+# Msys2(Windows)-only
+if [ -e /c/ ]; then
+  function wincmd() {
+    CMD=$1
+    shift
+    $CMD "$*" 2>&1 | iconv -f CP932 -t UTF-8
+  }
+
+  alias cmd='winpty cmd'
+  alias pwsh='winpty powershell'
+  alias ipconfig='wincmd ipconfig'
+  alias netstat='wincmd netstat'
+  alias netsh='wincmd netsh'
+  alias ping='wincmd /c/windows/system32/ping'
+  alias s='scoop'
+fi
