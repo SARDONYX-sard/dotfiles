@@ -2,29 +2,65 @@
 
 [日本語](./docs/i18n/jp/readme.md)
 
-- This project is currently under development. If you run it carelessly, you may get errors.
+- This project is currently under development. If you run it carelessly, you may
+  get errors.
 
 ## Table of Contents
 
 - [dotfiles](#dotfiles)
   - [Table of Contents](#table-of-contents)
   - [How to install](#how-to-install)
+    - [windows](#windows)
+    - [GNU/Linux](#gnulinux)
   - [Progress](#progress)
   - [Warning'!'](#warning)
   - [Things you have to do manually](#things-you-have-to-do-manually)
   - [Workarounds I've done for coding](#workarounds-ive-done-for-coding)
   - [Reference sites](#reference-sites)
-  - [Directory structure](#directory-structure)
   - [License](#license)
 
 ## How to install
 
 Execute the following command.
 
-- windows
+### windows
+
+以下のコマンドを実行します。
 
 ```powershell
 Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
+```
+
+### GNU/Linux
+
+- Linux (not WSL)
+
+Execute the following command.
+
+```bash
+# Can be done on Windows or linux
+git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME
+
+cd ~/dotfiles
+bash "install-wsl.sh"
+```
+
+- WSL(Windows Subsystem for Linux)
+
+1.Execute the following command in PowerShell.
+
+```powershell
+git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME
+```
+
+2.Execute the following command in WSL.
+
+```bash
+# reference: (https://www.reddit.com/r/bashonubuntuonwindows/comments/8dhhrr/is_it_possible_to_get_the_windows_username_from/)
+
+export USERNAME=`cmd.exe /c echo %username%`
+cd /mnt/c/Users/${USERNAME}/dotfiles
+install-wsl.sh
 ```
 
 ## Progress
@@ -32,141 +68,42 @@ Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.
 - Completed
 
   - Windows settings
+  - Linux settings
 
 - Incomplete
 
-  - Linux settings
+  - Minor bug fixes
+  - Unchecked reproducibility (especially WSL)
+  - Add test code
 
 ## Warning'!'
 
-- This is the setup repository for my development environment.
-  If you do not know what you are doing, do not run this code unnecessarily.
-  If you run it easily, your current development environment will be overwritten by my development environment settings.
+- This is the setup repository for my development environment. If you do not
+  know what you are doing, do not run this code unnecessarily. If you run it
+  easily, your current development environment will be overwritten by my
+  development environment settings.
 
 - Some settings are in Japanese and may not be suitable for English speakers.
 
-- This project is based on the dotfiles project from [here](https://github.com/LumaKernel/dotfiles).
-  A huge thanks to him...
+- This project is based on the dotfiles project from
+  [here](https://github.com/LumaKernel/dotfiles). A huge thanks to him...
 
 ## Things you have to do manually
 
-- Rewrite the `user` setting in `.gitconfig`.
-
-- Install [PowerShell-WSL-Interop](https://github.com/mikebattista/PowerShell-WSL-Interop).
+- Rewrite the user name with `hard coded` and comments. (Please use the search
+  function of the editor).
 
 ## Workarounds I've done for coding
 
 Some of them are left in the comments, but I'll include them here as well.
 
-- In `git clone`, `~` is not expanded and becomes a directory called `~`. For this reason, we use the `$HOME` variable.
+- In `git clone`, `~` is not expanded and becomes a directory called `~`. For
+  this reason, we use the `$HOME` variable.
 - Running the `ps1` file did not expand `$HOME`, so the `~` variable is used.
 
 ## Reference sites
 
 - <https://github.com/LumaKernel/dotfiles>
-
-## Directory structure
-
-```shell
-dotfiles
-├── .editorconfig
-├── .vscode
-|  └── settings.json
-├── common
-|  ├── .bash_aliases
-|  ├── .env_path.sh
-|  └── bash_functions.sh
-├── docs
-|  ├── i18n
-|  |  └── jp
-|  ├── npm-global-list.md
-|  └── scoop-list.md
-├── ginit.vim
-├── init.vim
-├── install-win.ps1
-├── LICENSE
-├── linux
-|  ├── .bashrc
-|  ├── .bash_aliases
-|  └── .zshrc
-├── readme.md
-├── tree.txt
-├── vim
-|  ├── dein-setting.vim
-|  ├── efm-settings.yml
-|  ├── gvim.vim
-|  ├── mapping.vim
-|  ├── myruntime
-|  |  ├── after
-|  |  ├── autoload
-|  |  ├── ftdetect
-|  |  ├── ftplugin
-|  |  ├── lua
-|  |  └── plugin
-|  ├── nvim.vim
-|  ├── option-basic.vim
-|  ├── plugin-install
-|  |  ├── coc.toml
-|  |  ├── common-lazy.toml
-|  |  ├── common.toml
-|  |  ├── ddc.toml
-|  |  ├── huge-lazy.toml
-|  |  ├── huge.toml
-|  |  └── vim-lsp.toml
-|  ├── readme.md
-|  ├── setup-powershell.vim
-|  ├── snippets
-|  |  ├── cp-cpp
-|  |  ├── cpp.snip
-|  |  ├── css.snip
-|  |  ├── dockerfile.snip
-|  |  ├── dosini.snip
-|  |  ├── help.snip
-|  |  ├── html.snip
-|  |  ├── htmldjango.snip
-|  |  ├── javascript.snip
-|  |  ├── json.snip
-|  |  ├── jst.snip
-|  |  ├── make.snip
-|  |  ├── markdown.snip
-|  |  ├── ps1.snip
-|  |  ├── python.snip
-|  |  ├── rust.snip
-|  |  ├── sh.snip
-|  |  ├── toml.snip
-|  |  ├── typescript.snip
-|  |  ├── vim.snip
-|  |  ├── vimshell.snip
-|  |  └── yaml.snip
-|  ├── sonictemplate
-|  |  ├── typescript
-|  |  └── vim
-|  ├── spellfile.utf-8.add
-|  └── spellfile.utf-8.add.spl
-└── windows
-   ├── config
-   |  ├── .bashrc
-   |  ├── .bash_profile
-   |  ├── bash_aliases.sh
-   |  ├── bash_functions.sh
-   |  ├── init.ahk
-   |  ├── init.reg
-   |  ├── profile.ps1
-   |  ├── pw-profile.ps1
-   |  └── settings.json
-   ├── data
-   |  ├── requirements.txt
-   |  └── winget-app-list.json
-   ├── install-app.ps1
-   └── setup
-      ├── git-setting.ps1
-      ├── options
-      ├── scoop-install.ps1
-      └── symlink.ps1
-
-directory: 200 file: 91
-
-```
 
 ## License
 
