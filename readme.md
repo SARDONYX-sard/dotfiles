@@ -21,11 +21,9 @@
 
 ## How to install
 
-Execute the following command.
-
 ### windows
 
-以下のコマンドを実行します。
+Execute the following command.
 
 ```powershell
 Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
