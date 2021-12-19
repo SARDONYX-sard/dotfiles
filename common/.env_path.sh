@@ -10,7 +10,9 @@ PATH=/usr/local/heroku/bin:$PATH
 # ! herokuのパスよりasdfのパスを下に記述すること!
 # ? 理由: heroku内のnode.jsによるバージョンの上書きを防ぐため。
 . "$HOME"/.asdf/asdf.sh
-. "$HOME"/.asdf/completions/asdf.bash
+if [ ! "$SHELL" = "/bin/zsh" ]; then
+  . "$HOME"/.asdf/completions/asdf.bash
+fi
 
 # rust
 . "$HOME/.cargo/env"
