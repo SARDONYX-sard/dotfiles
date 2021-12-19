@@ -58,9 +58,10 @@ git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME
 
 2.WSLで以下のコマンドを実行します。
 
-```bash
-# reference: (https://www.reddit.com/r/bashonubuntuonwindows/comments/8dhhrr/is_it_possible_to_get_the_windows_username_from/)
+- USERNAME問題についての参照URL:
+  [reddit](https://www.reddit.com/r/bashonubuntuonwindows/comments/8dhhrr/is_it_possible_to_get_the_windows_username_from/)
 
+```bash
 export USERNAME=`cmd.exe /c echo %username%`
 cd /mnt/c/Users/${USERNAME}/dotfiles
 bash "install-wsl.sh"
