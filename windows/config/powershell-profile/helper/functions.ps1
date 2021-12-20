@@ -100,7 +100,9 @@ function Convert-Img {
     [String]$p = "*.png",
     [String]$ImagePath,
     [String]$o = "jpg",
-    [String]$Output
+    [String]$Output,
+    [Switch]$h,
+    [Switch]$Help
   )
 
   if ( Get-Command magisk -ea 0 ) {
@@ -108,6 +110,20 @@ function Convert-Img {
     ImageMagick not installed. Please following the commands.
 
     scoop install imagemagick
+"@
+  }
+
+  if ($Help) {
+    Write-Host @"
+    Convert image to other format.
+
+    Usage:
+      Convert-Img [options] [path]
+
+    Options:
+      -p, --path     [string]  Path to image. glob or a file. default: *.png
+      -o, --output   [string]  Output format. default: jpg
+      -h, --help     [switch]  Show help.
 "@
   }
 
