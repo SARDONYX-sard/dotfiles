@@ -133,7 +133,7 @@ options:
     return
   }
 
-  code "$($HelperDir)/shell-design.ps1" "$($HelperDir)/aliases.ps1" "$($HelperDir)/functions.ps1" "$HOME\dotfiles\windows\config\powershell-profile\profile.ps1"
+  code "$HOME\dotfiles"
 }
 
 function volume {
