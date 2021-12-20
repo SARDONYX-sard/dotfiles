@@ -13,9 +13,9 @@ if ((Get-PSReadlineOption).BellStyle -eq "Audible") {
 # --------------------------------------------------------------------------------------------------
 # Module settings
 # --------------------------------------------------------------------------------------------------
-Set-PSReadLineOption -PredictionSource History # need `PSReadLine` module
 
 if ($PSVersionTable.PSEdition -eq "Core") {
+  Set-PSReadLineOption -PredictionSource History # need `PSReadLine` module
   Import-Module DockerCompletion
   Import-WslCommand "awk", "emacs", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail", "man"#, "ls", "vim"
   $WslDefaultParameterValues = @{}
