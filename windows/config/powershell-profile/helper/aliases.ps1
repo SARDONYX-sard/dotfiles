@@ -2,8 +2,7 @@
 # Aliases
 # --------------------------------------------------------------------------------------------------
 # Virtual machine
-Set-Alias k kubectl
-Set-Alias mk minikube
+Set-Alias k k9s
 Set-Alias dc docker-compose
 Set-Alias dk docker
 
