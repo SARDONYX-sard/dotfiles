@@ -73,6 +73,23 @@ function Set-Symlink {
   }
 }
 
+# --------------------------------------------------------------------------------------------------
+# All update
+# --------------------------------------------------------------------------------------------------
+function Update-AllLibs {
+  Write-Host "Updating Scoop libraries..." -ForegroundColor Green
+  s up
+  s prune
+  Write-Host "Updating npm libraries..." -ForegroundColor Green
+  npm up -g
+  Write-Host "Updating pnpm libraries..." -ForegroundColor Green
+  pnpm update -g
+  Write-Host "Updating python libraries..." -ForegroundColor Green
+  pip-review -a
+  Write-Host "Updating winget libraries..." -ForegroundColor Green
+  wua
+}
+
 
 # --------------------------------------------------------------------------------------------------
 # Anaconda3
