@@ -92,6 +92,37 @@ function Update-AllLibs {
 
 
 # --------------------------------------------------------------------------------------------------
+# All update
+# --------------------------------------------------------------------------------------------------
+function Convert-Img {
+  param (
+    [Parameter()]
+    [String]$p = "*.png",
+    [String]$ImagePath,
+    [String]$o = "jpg",
+    [String]$Output
+  )
+
+  if ( Get-Command magisk -ea 0 ) {
+    Write-Error @"
+    ImageMagick not installed. Please following the commands.
+
+    scoop install imagemagick
+"@
+  }
+
+  if ($p) { $ImagePath = $p }
+  if ($o) { $Output = $o }
+
+  $images = Get-ChildItem -Path $ImagePath -Recurse | Write-Output
+  foreach ($image in $images) {
+    $OutputFile = [io.path]::ChangeExtension($image, $o)
+    magick $image  $OutputFile
+  }
+}
+
+
+# --------------------------------------------------------------------------------------------------
 # Anaconda3
 # --------------------------------------------------------------------------------------------------
 #region conda initialize
