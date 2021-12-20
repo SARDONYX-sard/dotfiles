@@ -23,16 +23,34 @@ function ap() {
   function display_help {
     cat <<EOS
 Usage: ap [options] <command> <args>...
-  ap install(i) <package>
-  ap install-tarball <file>
-  ap search <package>
-  ap info <package>
-  ap remove(uni) <package>
-  ap update [args]...
-  ap upgrade(up) [args]...
-Options:
-  -h | --help		Show this screen.
-  -v | --verbose 	Display the command to be passed through.
+
+<command>:
+Install
+    i <package>
+    install <package>
+Reinstall
+    ri <package>
+    reinstall <package>
+Search
+    s <package>
+    search <package>
+Uninstall
+    uni <package>
+    rm <package>
+    remove <package>
+Update
+    update [args]...
+    up [args]...
+    upgrade [args]...
+    ua                :Update & Upgrade packages all
+Show list
+    ls [args]...
+    list [args]...
+
+[options]:
+  -h | --help         :Show this screen.
+  -v | --verbose      :Display the command to be passed through.
+  --dry_run           :Check the generated command without executing the command.
 EOS
   }
 
@@ -90,6 +108,12 @@ EOS
     shift
     CMD_ARGS="upgrade $*"
     ;;
+  'ua')
+    shift
+    CMD_ARGS="update
+sudo apt list --upgradable
+sudo apt upgrade"
+    ;;
   'uni' | 'rm' | 'remove')
     shift
     CMD_ARGS="remove $*"
@@ -113,7 +137,6 @@ EOS
   if [ "$dry_run" = true ]; then
     echo "$CMD $CMD_ARGS"
   else
-    echo "$CMD $CMD_ARGS"
     if [[ ${CMD_ARGS} =~ ^list.*$ ]] || [[ ${CMD_ARGS} =~ ^search.*$ ]]; then
       eval "$CMD $CMD_ARGS"
       return 0
@@ -121,5 +144,6 @@ EOS
 
     CMD="sudo $CMD"
     eval "$CMD $CMD_ARGS"
+    return 0
   fi
 }
