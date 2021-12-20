@@ -111,7 +111,7 @@
                 "colorScheme": "Campbell",
                 "commandline": "cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "hidden": true,
+                "hidden": false,
                 "name": "\u30b3\u30de\u30f3\u30c9 \u30d7\u30ed\u30f3\u30d7\u30c8",
                 "opacity": 84,
                 "useAcrylic": false
