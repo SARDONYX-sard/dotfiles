@@ -1,11 +1,21 @@
 # --------------------------------------------------------------------------------------------------
 # Modules
 # --------------------------------------------------------------------------------------------------
-Install-Module -Name PSFzf -Force # PsFzf(to use fzf on windows)
-
 # Modules that run only on PowerShell Core
 if ($PSVersionTable.PSEdition -eq "Core") {
-  Import-Module -Name oh-my-posh -Force
-  Install-Module -Name WslInterop -Force
-  Install-Module -Name WslInterop -Force
+  $CoreOnlyLibs = @()
+  Install-Module -Name $CoreOnlyLibs -Scope CurrentUser -Force
+}
+
+$libs = @(
+  'DockerCompletion',
+  'PSFzf', # To use fzf on windows(`fzf` is installed by scoop)
+  'PSReadLine', # Autosuggestions
+  'WslInterop', # use WSL commands on pwsh(nothing `wsl` prefix)
+  'oh-my-posh'
+)
+foreach ($lib in $libs) {
+  if (!(Get-Module -ListAvailable $lib -ErrorAction SilentlyContinue)) {
+    Install-Module -Name $lib -Scope CurrentUser -Force
+  }
 }
