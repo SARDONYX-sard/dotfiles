@@ -84,15 +84,22 @@ scoop install CodeNewRoman-NF-Mono
 
 
 # --------------------------------------------------------------------------------------------------
+# Code Conventions
+# --------------------------------------------------------------------------------------------------
+# Formatter
+scoop install shfmt # Makefile formatter
+
+# Linter
+scoop install hadolint # Docker linter
+
+
+# --------------------------------------------------------------------------------------------------
 # Convenience
 # --------------------------------------------------------------------------------------------------
-scoop install hadolint # Docker linter
-scoop install shfmt # Makefile formatter
-scoop install pandoc # Markdown to PDF
-scoop install autohotkey # (For windows\config\init.ahk file)
+# Helper
+scoop install Capture2Text # Can read text from video.
+scoop install autohotkey # Keyboard config (For windows\config\init.ahk file)
 scoop install resource-hacker # exe icon edit
-
-scoop install fzf # A command-line fuzzy finder(https://github.com/junegunn/fzf)
 
 # Instead of command
 scoop install bat   # instead of `cat` Syntax highlighting and Git integration(https://github.com/sharkdp/bat)
@@ -101,9 +108,17 @@ scoop install lsd   # instead of `ls` commnad with color
 scoop install procs # instead of `ps` commnad with color
 scoop install ripgrep # instead of `grep` commnad with color
 
+# Terminal helper
 scoop install concfg # Import and export Windows console settings (https://github.com/lukesampson/concfg)
+scoop install fzf # A command-line fuzzy finder written in go.(https://github.com/junegunn/fzf)
 scoop install pshazz # Git and Mercurial tab completion, etc... (https://github.com/lukesampson/pshazz)
-scoop install Capture2Text # Can read text from video.
+
+
+# --------------------------------------------------------------------------------------------------
+# File converter
+# --------------------------------------------------------------------------------------------------
+scoop install imagemagick # Image converter
+scoop install pandoc # Markdown to PDF
 
 
 # --------------------------------------------------------------------------------------------------
@@ -111,6 +126,12 @@ scoop install Capture2Text # Can read text from video.
 # --------------------------------------------------------------------------------------------------
 scoop install vim
 scoop install neovim
+
+
+# --------------------------------------------------------------------------------------------------
+# Performance
+# --------------------------------------------------------------------------------------------------
+scoop install hyperfine # A benchmarking tool written in rust.(https://github.com/sharkdp/hyperfine)
 
 
 # --------------------------------------------------------------------------------------------------
