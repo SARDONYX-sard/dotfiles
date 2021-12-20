@@ -1,5 +1,4 @@
 #! use `CRLF` for powershell compatibility
-
 $HelperDir = "$HOME/dotfiles/windows/config/powershell-profile/helper";
 
 . "$($HelperDir)/completion.ps1"
@@ -11,14 +10,13 @@ $HelperDir = "$HOME/dotfiles/windows/config/powershell-profile/helper";
 if ((Get-PSReadlineOption).BellStyle -eq "Audible") {
   Set-PSReadlineOption -BellStyle None
 }
-
 # --------------------------------------------------------------------------------------------------
 # Module settings
 # --------------------------------------------------------------------------------------------------
-
+Set-PSReadLineOption -PredictionSource History # need `PSReadLine` module
 
 if ($PSVersionTable.PSEdition -eq "Core") {
-  # Install-Module WslInterop
+  Import-Module DockerCompletion
   Import-WslCommand "awk", "emacs", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail", "man"#, "ls", "vim"
   $WslDefaultParameterValues = @{}
   $WslDefaultParameterValues["grep"] = "-E --color=auto"
@@ -41,7 +39,6 @@ if ($PSVersionTable.PSEdition -eq "Core") {
     $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"cat {}`""
   }
 }
-
 
 # --------------------------------------------------------------------------------------------------
 # Remove vim env
