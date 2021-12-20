@@ -12,13 +12,14 @@ Invoke-Expression "$HOME/dotfiles/windows/setup/scoop-install.ps1"
 # Git settings
 Invoke-Expression "$HOME/dotfiles/windows/setup/git-setting.ps1"
 
+#! Module loading must be done before symlink, otherwise symlink settings will not be reflected.
+# Install powershell modules
+Invoke-Expression "$HOME/dotfiles/windows/setup/pwsh-modules.ps1"
+
 # Connect each file (or directory) to dotfiles with a symbolic link.
 ~/dotfiles/windows/setup/symlink.ps1 #? $HOME env not working. So use `~`
 
 winget import "$HOME/dotfiles/windows/data/winget-app-list.json"
-
-# Install powershell modules
-Invoke-Expression "$HOME/dotfiles/windows/setup/pwsh-modules.ps1"
 
 # --------------------------------------------------------------------------------------------------
 # Option: Install languages or Libraries
