@@ -159,12 +159,14 @@ function fadd() {
   ); do
     q=$(head -1 <<<"$out")
     n=$(($(wc -l <<<"$out") - 1))
-    addfiles=($(echo $(tail "-$n" <<<"$out")))
-    [[ -z "$addfiles" ]] && continue
+    addfiles=$(tail "-$n" <<<"$out")
+    for value in "${addfiles[@]}"; do
+      [[ -z "$value" ]] && continue
+    done
     if [ "$q" = ctrl-d ]; then
-      git diff --color=always "$addfiles" | less -R
+      git diff --color=always "${addfiles[@]}" | less -R
     else
-      git add "$addfiles"
+      git add "${addfiles[@]}"
     fi
   done
 }
