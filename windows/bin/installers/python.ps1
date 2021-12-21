@@ -40,6 +40,7 @@ $libs = @(
   @{ name = "pip-review"; description = "update modules." }
   @{ name = "pipx"; description = "(need pip>=19)Install and Run Python Applications in Isolated Environments."; }
   #? Install with pipx to avoid conflict errors. Add poetry to path by `ensurepath` command.
+  # There is one on scoop, but the deprecation statement appeared.
   @{ name = "poetry"; description = "python package manager."; installer = "pipx install poetry;pipx ensurepath" }
   # Other language
   @{ name = "fprettify"; description = "fortran formatter." }
