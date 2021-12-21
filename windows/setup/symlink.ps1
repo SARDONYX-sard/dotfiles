@@ -2,6 +2,21 @@ Param([switch]$f, [switch]$force, [switch]$d, [switch]$isDebug)
 $force = $f.IsPresent -or $force.IsPresent
 $isDebug = $d.IsPresent -or $isDebug.IsPresent
 
+<#
+.SYNOPSIS
+  Create Symlink formaat
+.DESCRIPTION
+  Create Symlink formaat and give formatted data to Set-Symlink function
+.EXAMPLE
+  # Debug mode. Output `result.txt` file not called Set-Symlink function.
+  pwsh symlink.ps1 -d
+
+  # Force mode.
+  pwsh symlink.ps1 -f
+.OUTPUTS
+  Symlink files
+#>
+
 # Import SymLink function
 $HelperDir = "$HOME/dotfiles/windows/config/powershell-profile/helper";
 . "$($HelperDir)/functions.ps1"
