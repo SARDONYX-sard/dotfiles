@@ -31,7 +31,7 @@ function main {
     Write-Host "Created backup of .gitconfig to $HOME/.gitconfig.bak" -ForegroundColor Green
   }
 
-  Get-Content common\data\git-config.txt > $gitConfigPath
+  [System.IO.File]::ReadAllText("common\data\git-config.txt")  > $gitConfigPath
   Write-Host "Successes: Wrote to $HOME/.gitconfig" -ForegroundColor Green
 }
 
