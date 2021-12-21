@@ -27,8 +27,7 @@ Specification
 target(require):
   1. target is the actual directory or file. Relative from `$HOME/dotfiles` or absolute path.
   #! 2. A single string will be converted to target even if it is not specified as target.
-  (e.g.: @{"windows/config/.bashrc" } → @{ target= "$HOME/dotfiles/windows/config/.bashrc" })
-
+  e.g.: @{"windows/config/.bashrc" } → @{ target= "$HOME/dotfiles/windows/config/.bashrc", path= "$HOME/.bashrc"; name= ".bashrc" }
 which one(optional):
   path(option):
     1. The path is relative to $HOME/dotfiles.
@@ -52,29 +51,21 @@ $files = @(
   @{ target = "ginit.vim"; path = "AppData/Local/nvim" }
 
   # Terminal
-  $terminalPath = Join-Path $env:LocalAppData "Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
+  $terminalPath = [IO.Path]::Combine($env:LocalAppData, "Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json")
   $terminalPreviewPath = $terminalPath.Replace("Terminal", "TerminalPreview")
   @{ target = "windows\data\windows-terminal.json"; fullpath = $terminalPath; name = "settings.json" } # mode = "copy" }
   @{ target = "windows\data\windows-terminal-preview.json"; fullpath = $terminalPreviewPath; name = "settings.json" } # mode = "copy" }
 
   # AutoHotkey (Keyboard keyconfig)
-  @{ target = "windows/config/init.ahk"; fullpath = Join-Path $env:AppData  "Microsoft/Windows/Start Menu/Programs/Startup/init.ahk" }
-
-  # oh-my-posh theme (custom)
-  @{ target  = "windows\data\oh-my-posh-themes\gmay.omp.json";
-    fullpath = Join-Path (Split-Path (pwsh -NoProfile -Command "`$profile")) "\Modules\oh-my-posh\themes\gmay.omp.json"
-  }
-  @{ target  = "windows\data\oh-my-posh-themes\night-owl.omp.json";
-    fullpath = Join-Path (Split-Path (pwsh -NoProfile -Command "`$profile")) "\Modules\oh-my-posh\themes\night-owl.omp.json"
-  }
+  @{ target = "windows/config/init.ahk"; fullpath = [IO.Path]::Combine($env:AppData, "Microsoft/Windows/Start Menu/Programs/Startup/init.ahk") }
 
   # msys2 HomeDir
   $UserName = (Split-Path $HOME -Leaf)
-  @{ target = $HOME; fullpath = Join-Path $HOME "scoop\apps\msys2\current\home\$UserName"; }
+  @{ target = $HOME; fullpath = [IO.Path]::Combine($HOME, "scoop\apps\msys2\current\home\$UserName"); }
 
   "windows/config/.bash_profile"
   "windows/config/.bashrc"
-  "common/.zshrc"
+  "linux/.zshrc"
 )
 
 
@@ -83,8 +74,8 @@ if ( (Get-Command pwsh -ea 0) -and (pwsh -NoProfile -Command "`$profile")) {
   $files += @(@{target = "windows/config/powershell-profile/profile.ps1"; fullpath = $pwshProfilePath })
 
   # create symlink from `pwsh's modules` to `powershell's modules`
-  $pwshModulePath = $pwshProfilePath | Split-Path | Join-Path { $_ } "Modules" | Split-Path
-  $powershellModulePath = $powerShellProfilePath | Split-Path | Join-Path { $_ } "Modules" | Split-Path
+  $pwshModulePath = [IO.Path]::Combine(($pwshProfilePath | Split-Path), "Modules")
+  $powershellModulePath = [IO.Path]::Combine(($powerShellProfilePath | Split-Path), "Modules")
   $files += @(@{ target = $pwshModulePath; fullpath = $powershellModulePath; })
 }
 
@@ -117,13 +108,13 @@ function create_symlink($files) {
 
     $isDrive = (Split-Path $file.target) -match "^[A-Z]:\\"
     if ($isDrive -eq $false) {
-      $file.target = Join-Path "$HOME/dotfiles" $file.target
+      $file.target = [IO.Path]::Combine("$HOME/dotfiles", $file.target)
       if (!$file.name) { $file.name = Split-Path $file.target -Leaf }
     }
 
 
     if ( !$file.path ) { $file.path = "$HOME" }
-    else { $file.path = Join-Path "$HOME" $file.path }
+    else { $file.path = [IO.Path]::Combine($HOME, $file.path) }
 
     if (!$file.name) { $file.name = Split-Path $file.path -Leaf }
 
