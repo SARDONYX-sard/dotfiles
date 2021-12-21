@@ -16,10 +16,18 @@ set -euxo pipefail
 #           Ubuntu      →     windows      => Not recommended!
 
 # reference: (https://www.reddit.com/r/bashonubuntuonwindows/comments/8dhhrr/is_it_possible_to_get_the_windows_username_from/)
+# WSL can assign windows $HOME.
 HOME_DIR="$HOME"
-if [ -e /mnt/c ]; then # Current shell is WSL?
-  WINDOWS_USER=$(/mnt/c/Windows/System32/cmd.exe /c 'echo %USERNAME%' | sed -e 's/\r//g')
-  HOME_DIR="/mnt/c/Users/$WINDOWS_USER"
+
+if [ -e /mnt/c ]; then
+  # windows home directory
+  WIN_HOME=$(which scoop | sed -E 's/scoop.*//g')
+  export WIN_HOME
+  # windows user name
+  WIN_USER=$(echo "$WIN_HOME" | sed -E 's/.*Users\///g' | sed -E 's/\///g')
+  export WIN_USER
+
+  HOME_DIR=$WIN_HOME
 fi
 
 # If the link is to a directory, it will fail.
@@ -36,8 +44,7 @@ sudo ln -sf "$HOME_DIR"/dotfiles/ginit.vim "$HOME"/.config/nvim/ginit.vim
 # dot rc
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.bash_profile "$HOME"/.bash_profile
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.bashrc "$HOME"/.bashrc
-
-sudo ln -sf "$HOME_DIR"/dotfiles/common/.zshrc "$HOME"/.zshrc
+sudo ln -sf "$HOME_DIR"/dotfiles/linux/.zshrc "$HOME"/.zshrc
 
 # vim plugins
 mkdir -p "$HOME_DIR"/.config/nvim
