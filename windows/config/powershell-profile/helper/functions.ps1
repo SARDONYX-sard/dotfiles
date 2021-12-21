@@ -87,6 +87,7 @@ function Update-AllLibs {
   pnpm update -g
   Write-Host "Updating python libraries..." -ForegroundColor Green
   pip-review -a
+  pipx upgrade-all
   Write-Host "Updating winget libraries..." -ForegroundColor Green
   wua
 }
