@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# Homebrew for oh-my-posh linux
+if (! which brew) >/dev/null 2>&1; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+else
+  echo "brew not found"
+fi
+
 # for personal's bash files
 PATH="$PATH:$HOME/bin"
 
@@ -10,9 +17,7 @@ PATH=/usr/local/heroku/bin:$PATH
 # ! herokuのパスよりasdfのパスを下に記述すること!
 # ? 理由: heroku内のnode.jsによるバージョンの上書きを防ぐため。
 . "$HOME"/.asdf/asdf.sh
-if [ ! "$SHELL" = "/bin/zsh" ]; then
-  . "$HOME"/.asdf/completions/asdf.bash
-fi
+[ ! "$SHELL" = "/bin/zsh" ] && . "$HOME"/.asdf/completions/asdf.bash
 
 # rust
 . "$HOME/.cargo/env"
