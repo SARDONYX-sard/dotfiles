@@ -6,7 +6,6 @@ sudo apt autoremove -y
 
 sudo apt install clang -y
 sudo apt install exuberant-ctags -y
-sudo apt install fd-find -y
 sudo apt install curl git zip cargo -y
 sudo apt install python3 python3-venv python3-pip -y
 sudo apt install source-highlight -y
