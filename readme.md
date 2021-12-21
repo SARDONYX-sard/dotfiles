@@ -1,23 +1,29 @@
 # dotfiles
 
-[日本語](./docs/i18n/jp/readme.md)
+English | [日本語](./docs/i18n/jp/readme.md)
 
-- This project is currently under development. If you run it carelessly, you may
-  get errors.
+- We have confirmed that the files work by themselves, but we have not tested
+  the integration, so we cannot guarantee that they work.
 
 ## Table of Contents
 
 - [dotfiles](#dotfiles)
   - [Table of Contents](#table-of-contents)
+  - [Author's operating environment](#authors-operating-environment)
   - [How to install](#how-to-install)
     - [windows](#windows)
     - [GNU/Linux](#gnulinux)
   - [Progress](#progress)
-  - [Warning'!'](#warning)
+  - [Note '!'](#note-)
   - [Things you have to do manually](#things-you-have-to-do-manually)
-  - [Workarounds I've done for coding](#workarounds-ive-done-for-coding)
-  - [Reference sites](#reference-sites)
+  - [How it works](#how-it-works)
+  - [Reference site](#reference-site)
   - [License](#license)
+
+## Author's operating environment
+
+- Windows11 Home
+- WSL(Ubuntu)
 
 ## How to install
 
@@ -31,6 +37,14 @@ Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.
 
 ### GNU/Linux
 
+This is possible on WSL or Linux. The execution behavior for each is as follows.
+
+Linux (not WSL): The dotfiles will be placed in $HOME in linux, and symbolic
+links will be placed around it.
+
+WSL: The dotfiles are placed on the Windows side, and the symbolic link is
+connected to WSL from there.
+
 - Linux (not WSL)
 
 Execute the following command.
@@ -40,7 +54,7 @@ Execute the following command.
 git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME
 
 cd ~/dotfiles
-bash "install-wsl.sh"
+sudo bash "install-wsl.sh"
 ```
 
 - WSL(Windows Subsystem for Linux)
@@ -53,13 +67,13 @@ git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME
 
 2.Execute the following command in WSL.
 
-USERNAME problem reference:
+USERNAME problem reference
 [reddit](https://www.reddit.com/r/bashonubuntuonwindows/comments/8dhhrr/is_it_possible_to_get_the_windows_username_from/)
 
 ```bash
 export USERNAME=`cmd.exe /c echo %username%`
 cd /mnt/c/Users/${USERNAME}/dotfiles
-install-wsl.sh
+sudo bash ". /install-wsl.sh"
 ```
 
 ## Progress
@@ -75,7 +89,7 @@ install-wsl.sh
   - Unchecked reproducibility (especially WSL)
   - Add test code
 
-## Warning'!'
+## Note '!'
 
 - This is the setup repository for my development environment. If you do not
   know what you are doing, do not run this code unnecessarily. If you run it
@@ -90,10 +104,10 @@ install-wsl.sh
 ## Things you have to do manually
 
 - Rewrite the user name with `Hard coded` and comments. (Please use the search
-  function of the editor).(Use the search function of the editor.) However,
-  since the path of `scoop` is currently used to find the user name of
-  `windows`, there is little need to rewrite the path of `scoop` if it can be
-  recognized by WSL.
+  function of the editor).
+- (Use the search function of the editor.) However, since the path of `scoop` is
+  currently used to find the user name of `windows`, if the path of `scoop` can
+  be recognized by WSL, there is almost no need to rewrite it.
 
 - At least you have to rewrite the Git config username and email address.
 - You can register by running the following command in a terminal.
@@ -103,17 +117,21 @@ git config --global user.name "Your name"
 git config --global user.email "Your email address"
 ```
 
-## Workarounds I've done for coding
+## How it works
 
-Some of them are left in the comments, but I'll include them here as well.
+See below.
 
-- In `git clone`, `~` is not expanded and becomes a directory called `~`. For
-  this reason, we use the `$HOME` variable.
-- Running the `ps1` file did not expand `$HOME`, so the `~` variable is used.
+[windows flow](./docs/i18n/en/windows-flow.md)
 
-## Reference sites
+[linux-flow](./docs/i18n/en/linux-flow.md)
+
+## Reference site
 
 - <https://github.com/LumaKernel/dotfiles>
+
+- [Everything you wanted to know about hashtables](https://docs.microsoft.com/en/powershell/scripting/learn/deep-dives/everything-about-hashtable?view=powershell-7.2)
+
+- [Optimizing your $Profile](https://devblogs.microsoft.com/powershell/optimizing-your-profile/)
 
 ## License
 
