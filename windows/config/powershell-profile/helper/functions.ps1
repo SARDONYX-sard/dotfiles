@@ -12,11 +12,12 @@ function Set-Symlink {
   $file = $null # Does not use ternary operators for `powershell compatibility`
   if ($Hash) { $file = $Hash }
 
-  if ($File) {
+  if ($file) {
+    $PathName = [IO.Path]::Combine($file.path, $file.name)
     Write-Host ""
-    Write-Host "now: $(Join-Path $file.path $file.name)"
+    Write-Host "now: $($PathName)"
 
-    $fullPathName = Join-Path $file.path $file.name
+    $fullPathName = $PathName
     if (Test-Path $fullPathName) {
       Write-Host "Already exists." -ForegroundColor Blue
       if ($force) {
@@ -51,7 +52,7 @@ function Set-Symlink {
   }
 
   Write-Host ""
-  Write-Host "now: $(Join-Path $FromFileOrDirPath)"
+  Write-Host "now: $FromFileOrDirPath"
 
   if (Test-Path $ToFileOrDirPath) {
     Write-Host "Already exists." -ForegroundColor Blue
@@ -74,7 +75,7 @@ function Set-Symlink {
 }
 
 # --------------------------------------------------------------------------------------------------
-# All update
+# Convinience functions
 # --------------------------------------------------------------------------------------------------
 function Update-AllLibs {
   Write-Host "Updating Scoop libraries..." -ForegroundColor Green
@@ -90,10 +91,6 @@ function Update-AllLibs {
   wua
 }
 
-
-# --------------------------------------------------------------------------------------------------
-# All update
-# --------------------------------------------------------------------------------------------------
 function Convert-Img {
   param (
     [Parameter()]
@@ -135,6 +132,15 @@ function Convert-Img {
     $OutputFile = [io.path]::ChangeExtension($image, $o)
     magick $image  $OutputFile
   }
+}
+
+function Get-PoshThemesAll {
+  $ThemesPath = [IO.Path]::Combine("$(which oh-my-posh | Split-Path | Split-Path)", "themes")
+  if (($null -eq $ThemesPath) -or !(Test-Path $ThemesPath) ) {
+    Write-Host "Themes path not found." -ForegroundColor Red
+    return
+  }
+  Get-PoshThemes -Path $ThemesPath
 }
 
 

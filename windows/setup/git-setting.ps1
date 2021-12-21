@@ -18,7 +18,7 @@ param (
 #>
 
 function main {
-  $gitConfigPath = Join-Path $HOME ".gitconfig"
+  $gitConfigPath = [IO.Path]::Combine($HOME, ".gitconfig")
 
   $hasGitConfig = Test-Path $gitConfigPath
 
