@@ -231,12 +231,12 @@ function wua { sudo winget upgrade --all }
 function tolf($extension) {
   if ($extension) {
     return Get-ChildItem -Recurse -File -Filter *.$extension |
-    ForEach-Object { ((Get-Content $_.FullName -Raw) -replace "`r`n", "\`n")  |
+    ForEach-Object { (([System.IO.File]::ReadAllText($_.FullName)) -replace "`r`n", "\`n")  |
       Set-Content -encoding UTF8 -NoNewline $_.FullName }
   }
 
   Get-ChildItem -Recurse -File `
-  | ForEach-Object { ((Get-Content $_.FullName -Raw) -replace "`r`n", "\`n") `
+  | ForEach-Object { (([System.IO.File]::ReadAllText($_.FullName)) -replace "`r`n", "\`n") `
     | Set-Content -encoding UTF8 -NoNewline $_.FullName }
 }
 
