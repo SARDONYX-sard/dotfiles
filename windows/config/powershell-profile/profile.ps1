@@ -1,60 +1,18 @@
 #! use `CRLF` for powershell compatibility
-# Measure-Script {
+# Measure-Script {j
 
 $HelperDir = "$HOME/dotfiles/windows/config/powershell-profile/helper";
 
+. "$($HelperDir)/aliases.ps1"
 . "$($HelperDir)/completion.ps1"
 . "$($HelperDir)/functions.ps1"
-. "$($HelperDir)/aliases.ps1"
-. "$($HelperDir)/shell-design.ps1"
+. "$($HelperDir)/module-settings.ps1"
 
-# Bell OFF
-if ((Get-PSReadlineOption).BellStyle -eq "Audible") {
-  Set-PSReadlineOption -BellStyle None
-}
-# --------------------------------------------------------------------------------------------------
-# Module settings
-# --------------------------------------------------------------------------------------------------
+function prompt {
+  . "$($HelperDir)/shell-design.ps1"
 
-if ($PSVersionTable.PSEdition -eq "Core") {
-  Invoke-Expression (&scoop-search --hook) # Makes scoop search 50 times faster.
-  Set-PSReadLineOption -PredictionSource History # need `PSReadLine` module
-  Import-Module DockerCompletion
-  Import-WslCommand "awk", "emacs", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail", "man"#, "ls", "vim"
-  $WslDefaultParameterValues = @{}
-  $WslDefaultParameterValues["grep"] = "-E --color=auto"
-  $WslDefaultParameterValues["less"] = "-i"
-  $WslDefaultParameterValues["ls"] = "--color=auto --human-readable --group-directories-first"
-
-  # PsFzf (This option is heavy processing.)
-  Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }; # Tab completion
-  # Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t'  # Search for file paths in the current directory
-  # Set-PsFzfOption -PSReadlineChordReverseHistory 'Ctrl+r' #  Search command history
-
-  # fzf
-  if ( Get-Command bat -ea 0 ) {
-    $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"bat --pager=never --color=always --style=numbers --line-range :300 {}`""
-    if ( Get-Command rg -ea 0 ) {
-      $env:FZF_CTRL_T_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-    }
-  }
-  else {
-    $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"cat {}`""
-  }
-}
-
-# --------------------------------------------------------------------------------------------------
-# Remove vim env
-# --------------------------------------------------------------------------------------------------
-$env_to_del = @(
-  "VIM"
-  "VIMRUNTIME"
-  "MYVIMRC"
-  "MYGVIMRC"
-)
-
-foreach ($var in $env_to_del) {
-  Remove-Item env:$var -ErrorAction SilentlyContinue
+  # Bell OlFF
+  if ((Get-PSReadlineOption).BellStyle -eq "Audible") { Set-PSReadlineOption -BellStyle None }
 }
 
 # msys2
