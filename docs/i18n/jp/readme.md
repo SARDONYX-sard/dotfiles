@@ -56,8 +56,8 @@ git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME
 
 2.WSLで以下のコマンドを実行します。
 
-- USERNAME問題についての参照URL:
-  [reddit](https://www.reddit.com/r/bashonubuntuonwindows/comments/8dhhrr/is_it_possible_to_get_the_windows_username_from/)
+USERNAME問題についての参照URL:
+[reddit](https://www.reddit.com/r/bashonubuntuonwindows/comments/8dhhrr/is_it_possible_to_get_the_windows_username_from/)
 
 ```bash
 export USERNAME=`cmd.exe /c echo %username%`
@@ -90,7 +90,16 @@ bash "install-wsl.sh"
 
 ## 手動でやらなければならないこと
 
-- `hard coded`とコメントが書かれたユーザー名の書き換え。(エディターの検索機能を使ってください)
+- `Hard coded`とコメントが書かれたユーザー名の書き換え。(エディターの検索機能を使ってください)
+- ただし現状`scoop`のパスから`windows`のユーザー名を割り出しているため`scoop`のパスがWSLでも認識できる状態ならほとんど書き換える必要がありません。
+
+- 少なくともGit configのユーザ名とメールアドレスは、書き換えなければなりません。
+- ターミナル内で以下のコマンドを実行することで登録できます。
+
+```bash
+git config --global user.name "ユーザ名"
+git config --global user.email "メールアドレス"
+```
 
 ## コーディングに際して行った回避策
 

@@ -53,8 +53,8 @@ git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME
 
 2.Execute the following command in WSL.
 
-- USERNAME problem reference:
-  [reddit](https://www.reddit.com/r/bashonubuntuonwindows/comments/8dhhrr/is_it_possible_to_get_the_windows_username_from/)
+USERNAME problem reference:
+[reddit](https://www.reddit.com/r/bashonubuntuonwindows/comments/8dhhrr/is_it_possible_to_get_the_windows_username_from/)
 
 ```bash
 export USERNAME=`cmd.exe /c echo %username%`
@@ -89,8 +89,19 @@ install-wsl.sh
 
 ## Things you have to do manually
 
-- Rewrite the user name with `hard coded` and comments. (Please use the search
-  function of the editor).
+- Rewrite the user name with `Hard coded` and comments. (Please use the search
+  function of the editor).(Use the search function of the editor.) However,
+  since the path of `scoop` is currently used to find the user name of
+  `windows`, there is little need to rewrite the path of `scoop` if it can be
+  recognized by WSL.
+
+- At least you have to rewrite the Git config username and email address.
+- You can register by running the following command in a terminal.
+
+```bash
+git config --global user.name "Your name"
+git config --global user.email "Your email address"
+```
 
 ## Workarounds I've done for coding
 
