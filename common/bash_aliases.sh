@@ -52,7 +52,7 @@ alias gl="git log"
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 if (which rg) >/dev/null 2>&1; then
-  alias grep='rg --color' # need rust or apt
+  alias grep='rg' # need rust or apt
 fi
 
 # --------------------------------------------------------------------------------------------------
