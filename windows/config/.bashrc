@@ -28,6 +28,26 @@ export PATH="$HOME/.pyenv/pyenv-win/bin:$PATH"
 export PATH="$HOME/.pyenv/pyenv-win/versions/3.8.10:$PATH"
 
 # --------------------------------------------------------------------------------------------------
+# Constant variables
+# --------------------------------------------------------------------------------------------------
+# WSL can assign windows $HOME.
+HOME_DIR="$HOME"
+
+if [ -e /mnt/c ] || [ -e /c ]; then
+  # windows home directory
+  WIN_HOME=$(which scoop | sed -E 's/scoop.*//g')
+  export WIN_HOME
+  # windows user name
+  WIN_USER=$(echo "$WIN_HOME" | sed -E 's/.*Users\///g' | sed -E 's/\///g')
+  export WIN_USER
+
+  HOME_DIR=$WIN_HOME
+fi
+
+export COMMON="${HOME_DIR}/dotfiles/common"
+export zsh_profile="$COMMON/zsh-profile"
+
+# --------------------------------------------------------------------------------------------------
 # Prompt Design
 # --------------------------------------------------------------------------------------------------
 usrPath="/usr/share"
