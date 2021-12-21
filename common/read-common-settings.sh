@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+#* This file cannot be executed by itself.
+#* (It can be run after constant-values.sh has been executed and dependent variables have been registered.)
+
+#* The following constants are required.
+#* - COMMON
+
 function readFile {
   FILE_PATH=$1
   if [ -f "$FILE_PATH" ]; then
@@ -9,24 +15,16 @@ function readFile {
   fi
 }
 
-HOME_DIR="$HOME"
-if [ -e /mnt/c ]; then # Current shell is WSL ?
-  #! Hard-coded the user name for UFN restriction.
-  #! You need to change it to your windows user name.
-  WINDOWS_USER='SARDONYX'
-  HOME_DIR="/mnt/c/Users/$WINDOWS_USER"
-  readFile "${HOME_DIR}/dotfiles/common/.env_path.sh" # env path
-fi
-
-DIR_PATH="${HOME_DIR}/dotfiles/common"
+# not read msys2
+[ -e /mnt/c ] && readFile "${COMMON}/.env_path.sh"
 
 # customs
-readFile "${DIR_PATH}/bash_aliases.sh"   # alias
-readFile "${DIR_PATH}/functions/bash_functions.sh" # functions
+readFile "${COMMON}/bash_aliases.sh"
+readFile "${COMMON}/functions/bash_functions.sh"
 
 # command wrapper
 if (which apt) >/dev/null 2>&1; then
-  source "${DIR_PATH}"/functions/apt-wrapper.sh
+  source "${COMMON}"/functions/apt-wrapper.sh
 elif (which pacman) >/dev/null 2>&1; then
-  source "${DIR_PATH}"/functions/pacman-wrapper.sh
+  source "${COMMON}"/functions/pacman-wrapper.sh
 fi
