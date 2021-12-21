@@ -14,8 +14,8 @@ alias ~='cd ~'
 # --------------------------------------------------------------------------------------------------
 # some more aliases
 # --------------------------------------------------------------------------------------------------
-if (which bat) >/dev/null 2>&1; then
-  alias cat='bat' # need rust or apt
+if (which bat) >/dev/null 2>&1; then # dev/null reference (https://qiita.com/ritukiii/items/b3d91e97b71ecd41d4ea)
+  alias cat='bat'                    # need rust or apt
 elif (which batcat) >/dev/null 2>&1; then
   alias cat='batcat' # need rust or apt
 fi
