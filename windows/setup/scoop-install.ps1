@@ -49,13 +49,7 @@ scoop alias add rs 'scoop reset $args[0]' 'Reset an app to resolve conflicts'
 scoop alias add use 'scoop reset $args[0]' 'Reset an app to resolve conflicts'
 
 
-# --------------------------------------------------------------------------------------------------
-# Global initialization
-# --------------------------------------------------------------------------------------------------
 Write-Host "Next, install app by scoop..." -ForegroundColor Green
-scoop install 7zip git --global
-
-
 # --------------------------------------------------------------------------------------------------
 # Add fetch destination
 # --------------------------------------------------------------------------------------------------

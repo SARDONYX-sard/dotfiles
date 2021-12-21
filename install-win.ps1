@@ -5,6 +5,7 @@ if (!(Get-Command scoop)) {
   Invoke-WebRequest -useb get.scoop.sh | Invoke-Expression
 }
 
+scoop install 7zip git --global # for auto `git clone`
 # For sudo, say, gitignore, etc commands. (https://github.com/lukesampson/psutils)
 scoop install psutils
 
