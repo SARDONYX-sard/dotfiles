@@ -27,12 +27,14 @@ uname -a | grep microsoft >/dev/null 2>/dev/null
 export is_wsl=$((!$?))
 
 # Setting up symlink
-bash ~/dotfiles/linux/symlink.sh
+bash"$HOME_DIR"/dotfiles/linux/symlink.sh
 
 # -- Setting up git
 cat "$HOME_DIR"/dotfiles/common/data/git-config.txt >"$HOME"/.gitconfig
 
 # -- Installation by package manager, etc.
-bash "$HOME_DIR"/dotfiles/linux/install.sh
+bash "$HOME_DIR"/dotfiles/linux/bin/all-installer.sh
 
-# chsh -s /bin/zsh # Change shell to zsh.(option)
+if [ "$1" = "zsh" ]; then
+  chsh -s /bin/zsh # Change shell to zsh.(option)
+fi
