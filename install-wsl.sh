@@ -5,8 +5,21 @@ if [ "$(whoami)" != "root" ] && [ "$SUDO_USER" != "" ]; then
   exit 1
 fi
 
-if [ ! -d "$HOME"/dotfiles ]; then
-  echo "Not found $HOME/dotfiles/ dirctory."
+HOME_DIR="$HOME"
+
+if [ -e /mnt/c ] || [ -e /c ]; then
+  # windows home directory
+  WIN_HOME=$(which scoop | sed -E 's/scoop.*//g')
+  export WIN_HOME
+  # windows user name
+  WIN_USER=$(echo "$WIN_HOME" | sed -E 's/.*Users\///g' | sed -E 's/\///g')
+  export WIN_USER
+
+  HOME_DIR=$WIN_HOME
+fi
+
+if [ ! -d "$HOME_DIR"/dotfiles ]; then
+  echo "Not found $HOME_DIR/dotfiles/ dirctory."
   exit 1
 fi
 
@@ -17,9 +30,9 @@ export is_wsl=$((!$?))
 bash ~/dotfiles/linux/symlink.sh
 
 # -- Setting up git
-cat "$HOME"/dotfiles/common/data/git-config.txt >"$HOME"/.gitconfig
+cat "$HOME_DIR"/dotfiles/common/data/git-config.txt >"$HOME"/.gitconfig
 
 # -- Installation by package manager, etc.
-bash "$HOME"/dotfiles/linux/install.sh
+bash "$HOME_DIR"/dotfiles/linux/install.sh
 
 # chsh -s /bin/zsh # Change shell to zsh.(option)
