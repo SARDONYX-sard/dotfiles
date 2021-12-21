@@ -2,7 +2,12 @@
 
 日本語 | [English](./../../../readme.md)
 
-- ファイル単体での動作は確認していますが、統合テストは行っていないので、動作保証はいたしかねます。
+<p align="center">
+  <img src="./docs/images/../../../../images/powershell-core.png" alt="powershell-core" height="300" width="400"/>
+  <img src=".../../../../images/wsl-ubuntu.png" alt="wsl-ubuntu"  height="300" width="400"/>
+</p>
+
+- ファイル単体での動作は一応確認していますが、統合テストは行っていないので、動作保証はいたしかねます。
 
 ## 目次
 

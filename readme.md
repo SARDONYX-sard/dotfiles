@@ -2,6 +2,11 @@
 
 English | [日本語](./docs/i18n/jp/readme.md)
 
+<p style="display:flex;justify-content:space-around;">
+    <img src="./docs/images/powershell-core.png" alt="powershell-core" height="300" width="400"/>
+    <img src="./docs/images/wsl-ubuntu.png" alt="wsl-ubuntu"  height="300" width="400"/>
+</p>
+
 - We have confirmed that the files work by themselves, but we have not tested
   the integration, so we cannot guarantee that they work.
 
