@@ -17,12 +17,12 @@
 
 param (
   [ValidateSet("npm" , "pnpm", "yarn")]$m = "npm",
-  [ValidateSet("npm" , "pnpm", "yarn")]$Manager = "npm",
+  [ValidateSet("npm" , "pnpm", "yarn")]$Manager = $null,
   [switch]$uni,
   [switch]$Uninstall
 )
 
-if ($m) { $Manager = $m }
+if (!$Manager) { $Manager = $m }
 if ($uni) { $Uninstall = $uni }
 
 # --------------------------------------------------------------------------------------------------
