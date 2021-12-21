@@ -100,7 +100,9 @@ scoop install hadolint # Docker linter
 scoop install Capture2Text # Can read text from video.
 scoop install autohotkey # Keyboard config (For windows\config\init.ahk file)
 scoop install resource-hacker # exe icon edit
+
 scoop install scoop-search # Makes scoop search 50 times faster.(https://github.com/shilangyu/scoop-search)
+scoop install dockercompletion
 
 # Instead of command
 scoop install bat   # instead of `cat` Syntax highlighting and Git integration(https://github.com/sharkdp/bat)

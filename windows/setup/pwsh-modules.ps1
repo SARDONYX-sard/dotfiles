@@ -8,11 +8,10 @@ if ($PSVersionTable.PSEdition -eq "Core") {
 }
 
 $libs = @(
-  'DockerCompletion',
   'PSFzf', # To use fzf on windows(`fzf` is installed by scoop)
+  'PSProfiler', # Measure reading time of $PFOFILE (https://github.com/IISResetMe/PSProfiler)
   'PSReadLine', # Autosuggestions
-  'WslInterop', # use WSL commands on pwsh(nothing `wsl` prefix)
-  'oh-my-posh'
+  'WslInterop' # use WSL commands on pwsh(nothing `wsl` prefix)
 )
 foreach ($lib in $libs) {
   if (!(Get-Module -ListAvailable $lib -ErrorAction SilentlyContinue)) {
