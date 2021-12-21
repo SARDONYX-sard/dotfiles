@@ -21,11 +21,13 @@
 #>
 
 param (
-  [ValidateSet("pip" , "conda")]$Manager = "pip",
+  [ValidateSet("pip" , "conda")]$m = "pip",
+  [ValidateSet("pip" , "conda")]$Manager = $null,
   [switch]$uni,
   [switch]$Uninstall
 )
 
+if (!$Manager) { $Manager = $m }
 
 # --------------------------------------------------------------------------------------------------
 # Install global library
