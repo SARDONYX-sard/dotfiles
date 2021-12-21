@@ -116,15 +116,29 @@ if ! shopt -oq posix; then
 fi
 
 # --------------------------------------------------------------------------------------------------
+# Constant variables
+# --------------------------------------------------------------------------------------------------
+# WSL can assign windows $HOME.
+HOME_DIR="$HOME"
+
+if [ -e /mnt/c ]; then
+  # windows home directory
+  WIN_HOME=$(which scoop | sed -E 's/scoop.*//g')
+  export WIN_HOME
+  # windows user name
+  WIN_USER=$(echo "$WIN_HOME" | sed -E 's/.*Users\///g' | sed -E 's/\///g')
+  export WIN_USER
+
+  HOME_DIR=$WIN_HOME
+fi
+
+export COMMON="${HOME_DIR}/dotfiles/common"
+export zsh_profile="$COMMON/zsh-profile"
+
+# --------------------------------------------------------------------------------------------------
 # Read other modules
 # --------------------------------------------------------------------------------------------------
-# other aliases, functions, env paths
-HOME_DIR="$HOME"
-if [ -e /mnt/c ]; then # Current shell is WSL?
-  WINDOWS_USER='SARDONYX'
-  HOME_DIR="/mnt/c/Users/$WINDOWS_USER"
-fi
-[[ -f "${HOME_DIR}"/dotfiles/common/read-common-settings.sh ]] && source "${HOME_DIR}"/dotfiles/common/read-common-settings.sh
+[[ -f "$COMMON/read-common-settings.sh" ]] && source "$COMMON/read-common-settings.sh" # env-paths, aliases, functions
 
 # fuzzy finder
 [ -f ~/.fzf.bash ] && source "$HOME"/.fzf.bash
