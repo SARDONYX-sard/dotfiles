@@ -1,4 +1,6 @@
 #! use `CRLF` for powershell compatibility
+# Measure-Script {
+
 $HelperDir = "$HOME/dotfiles/windows/config/powershell-profile/helper";
 
 . "$($HelperDir)/completion.ps1"
@@ -15,6 +17,7 @@ if ((Get-PSReadlineOption).BellStyle -eq "Audible") {
 # --------------------------------------------------------------------------------------------------
 
 if ($PSVersionTable.PSEdition -eq "Core") {
+  Invoke-Expression (&scoop-search --hook) # Makes scoop search 50 times faster.
   Set-PSReadLineOption -PredictionSource History # need `PSReadLine` module
   Import-Module DockerCompletion
   Import-WslCommand "awk", "emacs", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail", "man"#, "ls", "vim"
@@ -58,3 +61,4 @@ foreach ($var in $env_to_del) {
 #! This statement must be at the end of the profile or the command will be lost for some reason.
 #! Without this, msys2 will not inherit windows environment variables.
 if (Get-Command msys2 -ea 0) { $env:MSYS2_PATH_TYPE = "inherit" }
+# }
