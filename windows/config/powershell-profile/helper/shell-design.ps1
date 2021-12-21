@@ -1,6 +1,7 @@
 # --------------------------------------------------------------------------------------------------
-# PowerShell Prompt(Kali-Linux like)
+# PowerShell Prompt Theme
 # --------------------------------------------------------------------------------------------------
+# PowerShell Prompt(Kali-Linux like)
 function Prompt {
   $promptString = "PowerShell " + $(Get-Location) + ">"
   $isAdmin = '$'
@@ -43,18 +44,13 @@ function Get-ShortenPath([string] $path) {
   return $path.Replace($HOME, '~').Replace('^[^:]+::', '').Replace('\(.?)([^\])[^\]*(?=\)', '$1$2')
 }
 
-
-# --------------------------------------------------------------------------------------------------
-# PowerShell Prompt Theme
-# --------------------------------------------------------------------------------------------------
-if ($PSVersionTable.PSEdition -eq "Core") {
-  Import-Module posh-git
-  Import-Module oh-my-posh
-  Set-PoshPrompt Paradox
-  # Set-PoshPrompt -Theme 'gmay'
-  Set-PoshPrompt -Theme 'night-owl'
-
-  $env:RunFromPowershell = 1
-
+# oh-my-posh
+function Set-PowerShellPromptTheme {
   Write-Host (Get-Date -Format g) -ForegroundColor DarkCyan
+  oh-my-posh --init --shell pwsh --config "$HOME\dotfiles\windows\data\oh-my-posh-themes\my-custom.json" | Invoke-Expression
+  $env:RunFromPowershell = 1
+}
+
+if ($PSVersionTable.PSEdition -eq "Core") {
+  Set-PowerShellPromptTheme
 }
