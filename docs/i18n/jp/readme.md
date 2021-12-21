@@ -1,12 +1,13 @@
 # dotfiles
 
-日本語 | [English](./../../../readme.md)
+[English](https://github.com/SARDONYX-sard/dotfiles) | 日本語
 
 <p align="center">
   <img src="./docs/images/../../../../images/powershell-core.png" alt="powershell-core" height="300" width="400"/>
   <img src=".../../../../images/wsl-ubuntu.png" alt="wsl-ubuntu"  height="300" width="400"/>
 </p>
 
+- プロンプトの背景画像は付いてきません。
 - ファイル単体での動作は一応確認していますが、統合テストは行っていないので、動作保証はいたしかねます。
 
 ## 目次
@@ -117,9 +118,9 @@ git config --global user.email "メールアドレス"
 
 下記をご覧ください。
 
-[windowsフロー](./docs/i18n/jp/windows-flow.md)
+[windowsフロー](./windows-flow.md)
 
-[linuxフロー](./docs/i18n/jp/linux-flow.md)
+[linuxフロー](./linux-flow.md)
 
 ## 参考サイト
 

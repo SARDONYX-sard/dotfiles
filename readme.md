@@ -7,6 +7,7 @@ English | [日本語](./docs/i18n/jp/readme.md)
     <img src="./docs/images/wsl-ubuntu.png" alt="wsl-ubuntu"  height="300" width="400"/>
 </p>
 
+- It does not come with a background image for the prompt.
 - We have confirmed that the files work by themselves, but we have not tested
   the integration, so we cannot guarantee that they work.
 
