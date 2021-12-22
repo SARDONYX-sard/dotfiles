@@ -13,7 +13,7 @@
 # WSL can assign windows $HOME.
 HOME_DIR="$HOME"
 
-if [ -e /mnt/c ] || [ -e /c ]; then
+if [ -e /mnt/c ]; then
   # windows home directory
   WIN_HOME=$(realpath -s $(which scoop | sed -E 's/scoop.*//g'))
   export WIN_HOME
