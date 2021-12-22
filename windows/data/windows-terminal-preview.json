@@ -80,6 +80,7 @@
         "name": "Ubuntu",
         "opacity": 85,
         "source": "Windows.Terminal.Wsl",
+        "startingDirectory": "\\\\wsl.localhost\\Ubuntu\\home\\sardonyx",
         "useAcrylic": false
       },
       {
@@ -94,6 +95,7 @@
         "name": "kali-linux",
         "opacity": 85,
         "source": "Windows.Terminal.Wsl",
+        "startingDirectory": "\\\\wsl.localhost\\kali-linux\\home\\sardonyx",
         "useAcrylic": false
       },
       {
@@ -102,18 +104,31 @@
         "bellStyle": "none",
         "colorScheme": "Campbell",
         "commandline": "cmd.exe",
+        "font": {
+          "face": "CodeNewRoman NF"
+        },
         "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-        "hidden": false,
+        "hidden": true,
         "name": "\u30b3\u30de\u30f3\u30c9 \u30d7\u30ed\u30f3\u30d7\u30c8",
         "opacity": 84,
         "useAcrylic": false
       },
       {
+        "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u81ea\u7136\\night-3078326_960_720.jpg",
+        "backgroundImageOpacity": 0.0,
         "bellStyle": "none",
-        "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
-        "hidden": true,
-        "name": "Azure Cloud Shell",
-        "source": "Windows.Terminal.Azure"
+        "colorScheme": "Campbell",
+        "commandline": "pwsh -Command \"& {mingw64.ps1 -shell zsh }\"",
+        "font": {
+          "face": "CodeNewRoman NF"
+        },
+        "guid": "{91ac1de2-3700-4767-a146-bcce0e1170b4}",
+        "hidden": false,
+        "icon": "C:\\Users\\SARDONYX\\scoop\\apps\\msys2\\current\\mingw64.ico",
+        "name": "MinGW64",
+        "opacity": 84,
+        "startingDirectory": "%USERPROFILE%",
+        "useAcrylic": false
       }
     ]
   },
