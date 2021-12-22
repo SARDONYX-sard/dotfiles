@@ -55,10 +55,6 @@ name(option):
   1. the name of the symbolic file
   (e.g.: ".bashrc")
 #>
-
-$pwshProfilePath = @($(pwsh -NoProfile -Command "`$profile"))[0]
-$powerShellProfilePath = @($(powerShell -NoProfile -Command "`$profile"))[0]
-
 $files = @(
   # vim
   @{ target = "init.vim"; path = ""; name = ".vimrc" }
@@ -83,6 +79,8 @@ $files = @(
   "linux/.zshrc"
 )
 
+$pwshProfilePath = @($(pwsh -NoProfile -Command "`$profile"))[0]
+$powerShellProfilePath = @($(powerShell -NoProfile -Command "`$profile"))[0]
 
 # If you have a profile, add it and add it to $files.
 if ( (Get-Command pwsh -ea 0) -and (pwsh -NoProfile -Command "`$profile")) {
