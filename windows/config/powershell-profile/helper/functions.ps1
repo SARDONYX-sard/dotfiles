@@ -78,18 +78,29 @@ function Set-Symlink {
 # Convinience functions
 # --------------------------------------------------------------------------------------------------
 function Update-AllLibs {
-  Write-Host "Updating Scoop libraries..." -ForegroundColor Green
-  s up
-  s prune
-  Write-Host "Updating npm libraries..." -ForegroundColor Green
-  npm up -g
-  Write-Host "Updating pnpm libraries..." -ForegroundColor Green
-  pnpm update -g
-  Write-Host "Updating python libraries..." -ForegroundColor Green
-  pip-review -a
-  pipx upgrade-all
-  Write-Host "Updating winget libraries..." -ForegroundColor Green
-  wua
+  # --------------------------------------------------------------------------------------------------
+  # Install global library
+  # --------------------------------------------------------------------------------------------------
+  $Libs = @(
+    # JavaScript
+    @{ name = "Scoop"; installer = "scoop update *;scoop cleanup * --cache" }
+
+    @{ name = "npm"; installer = "npm up -g" }
+    @{ name = "pnpm"; installer = "pnpm up -g" }
+    @{ name = "deno"; installer = "deno upgrade" }
+
+    # python
+    @{ name = "pip-review"; installer = "pip-review -a" }
+    @{ name = "pipx"; installer = "pipx upgrade-all" }
+
+    # Software
+    @{ name = "winget"; installer = "sudo winget upgrade --all" }
+  )
+
+  foreach ($Lib in $Libs) {
+    Write-Host "${Lib.name} libs or itself is updating..." -ForegroundColor Green
+    $Lib.installer | Invoke-Expression
+  }
 }
 
 function Convert-Img {
