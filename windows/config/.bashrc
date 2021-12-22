@@ -33,7 +33,7 @@ export PATH="$HOME/.pyenv/pyenv-win/versions/3.8.10:$PATH"
 # WSL can assign windows $HOME.
 HOME_DIR="$HOME"
 
-if [ -e /mnt/c ] || [ -e /c ]; then
+if [ -e /mnt/c ]; then
   # windows home directory
   WIN_HOME=$(which scoop | sed -E 's/scoop.*//g')
   export WIN_HOME
@@ -63,7 +63,7 @@ export PS1='\[\033[32m\]\u@ \[\033[1;33m\]\w\[\033[34m\]$(__git_ps1)\[\033[00m\]
 #  aliases and functions
 # --------------------------------------------------------------------------------------------------
 # Common
-source "${HOME}"/dotfiles/common/read-common-settings.sh
+source "${HOME_DIR}"/dotfiles/common/read-common-settings.sh
 
 # Msys2(Windows)-only
 if [ -e /c/ ]; then
