@@ -8,6 +8,8 @@ if ($PSVersionTable.PSEdition -eq "Core") {
   $WslDefaultParameterValues["less"] = "-i"
   $WslDefaultParameterValues["ls"] = "--color=auto --human-readable --group-directories-first"
 
+  Set-PSReadLineOption -PredictionSource History #* Core only module
+
   # PsFzf
   Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }; # Tab completion
 
