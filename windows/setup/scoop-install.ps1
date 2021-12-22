@@ -56,7 +56,7 @@ Write-Host "Next, install app by scoop..." -ForegroundColor Green
 scoop bucket add extras
 scoop bucket add versions
 scoop bucket add nerd-fonts # For Terminal(oh-my-posh design) font(https://github.com/matthewjberger/scoop-nerd-fonts)
-scoop bucket add games
+# scoop bucket add games # Option Citra(3DS Emu) etc.
 
 
 # --------------------------------------------------------------------------------------------------
@@ -108,7 +108,7 @@ scoop install ripgrep # instead of `grep` commnad with color
 # Terminal helper
 scoop install concfg # Import and export Windows console settings (https://github.com/lukesampson/concfg)
 scoop install fzf # A command-line fuzzy finder written in go.(https://github.com/junegunn/fzf)
-scoop install pshazz # Git and Mercurial tab completion, etc... (https://github.com/lukesampson/pshazz)
+scoop isntall posh-git # Git tab completion (https://github.com/dahlbyk/posh-git)
 
 
 # --------------------------------------------------------------------------------------------------
