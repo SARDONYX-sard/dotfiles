@@ -1,18 +1,23 @@
 #! use `CRLF` for powershell compatibility
-# Measure-Script {j
+# Measure-Script {
 
 $HelperDir = "$HOME/dotfiles/windows/config/powershell-profile/helper";
 
+#! These files could not be lazily loaded.
 . "$($HelperDir)/aliases.ps1"
 . "$($HelperDir)/completion.ps1"
 . "$($HelperDir)/functions.ps1"
 . "$($HelperDir)/module-settings.ps1"
 
+
+# This function is lazy load. Put off heavy processing to speed up startup.
+# If lazy loading is possible, put it in the remaining functions as much as possible.
 function prompt {
+  . "$($HelperDir)/lazy-load-module.ps1"
   . "$($HelperDir)/shell-design.ps1"
 
-  # Bell OlFF
-  if ((Get-PSReadlineOption).BellStyle -eq "Audible") { Set-PSReadlineOption -BellStyle None }
+  Set-PSReadlineOption -BellStyle None
+  Set-PSReadLineOption -PredictionSource History #* Core only module
 }
 
 # msys2
