@@ -47,7 +47,7 @@ function Get-ShortenPath([string] $path) {
 # oh-my-posh
 function Set-OhMyPoshTheme {
   # Write-Host (Get-Date -Format g) -ForegroundColor DarkCyan
-  oh-my-posh --init --shell pwsh --config "$HOME\dotfiles\windows\data\oh-my-posh-themes\my-custom.json" | Invoke-Expression
+  oh-my-posh --init --shell pwsh --config "$HOME\dotfiles\common\data\oh-my-posh-themes\my-custom.json" | Invoke-Expression
   $env:RunFromPowershell = 1
 }
 
