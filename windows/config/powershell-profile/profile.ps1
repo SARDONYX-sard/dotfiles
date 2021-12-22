@@ -11,10 +11,10 @@ $HelperDir = "$HOME/dotfiles/windows/config/powershell-profile/helper";
 
 
 # This function is lazy load. Put off heavy processing to speed up startup.
-# If lazy loading is possible, put it in the remaining functions as much as possible.
+# If lazy loading is possible, put it in the this function as much as possible.
 function prompt {
-  . "$($HelperDir)/lazy-load-module.ps1"
   . "$($HelperDir)/shell-design.ps1"
+  . "$($HelperDir)/lazy-load-module.ps1"
 
   Set-PSReadlineOption -BellStyle None
   Set-PSReadLineOption -PredictionSource History #* Core only module
