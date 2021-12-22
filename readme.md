@@ -109,6 +109,10 @@ sudo bash ". /install-wsl.sh"
 
 ## Things you have to do manually
 
+- The windows-terminal configuration file is automatically generated and is not
+  suitable for your environment. You will need to adapt the user name and other
+  settings to your PC.
+
 - Rewrite the user name with `Hard coded` and comments. (Please use the search
   function of the editor).
 - (Use the search function of the editor.) However, since the path of `scoop` is
