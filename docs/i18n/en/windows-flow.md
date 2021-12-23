@@ -30,7 +30,7 @@ This page explains what each step of the installation process by
 ## windows\setup\install-app.ps1
 
 - This is the command center for the windows setup process that runs multiple
-  `ps1` modules. 1.
+  `ps1` modules.
 
 1. go to $HOME and use `git clone` to get the dotfiles.
 

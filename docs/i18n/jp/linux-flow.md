@@ -24,7 +24,7 @@ WSL環境をdotfilesで整えたい場合、さきに`install-win.ps1`を実行�
 - さきに`install-win.ps1`を実行した場合、この操作はすでに自動終了しているので必要ありません。
 
 ```powershell
-git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME
+git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
 ```
 
 ## install-wsl.sh
