@@ -22,6 +22,8 @@ English | [日本語](./docs/i18n/jp/readme.md)
   - [Progress](#progress)
   - [Note '!'](#note-)
   - [Things you have to do manually](#things-you-have-to-do-manually)
+    - [Windows-Terminal](#windows-terminal)
+    - [.gitconfig](#gitconfig)
   - [How it works](#how-it-works)
   - [Reference site](#reference-site)
   - [License](#license)
@@ -57,7 +59,7 @@ Execute the following command.
 
 ```bash
 # Can be done on Windows or linux
-git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME
+git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
 
 cd ~/dotfiles
 sudo bash "install-wsl.sh"
@@ -65,15 +67,15 @@ sudo bash "install-wsl.sh"
 
 - WSL(Windows Subsystem for Linux)
 
-1.Execute the following command in PowerShell.
+1.Execute the following command in PowerShell.(Not required if you have already run the [Windows dotfiles](###Windows) configuration.)
 
 ```powershell
-git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME
+git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
 ```
 
 2.Execute the following command in WSL.
 
-USERNAME problem reference
+USERNAME problem reference:
 [reddit](https://www.reddit.com/r/bashonubuntuonwindows/comments/8dhhrr/is_it_possible_to_get_the_windows_username_from/)
 
 ```bash
@@ -109,18 +111,23 @@ sudo bash ". /install-wsl.sh"
 
 ## Things you have to do manually
 
-- The windows-terminal configuration file is automatically generated and is not
-  suitable for your environment. You will need to adapt the user name and other
-  settings to your PC.
-
 - Rewrite the user name with `Hard coded` and comments. (Please use the search
   function of the editor).
+
 - (Use the search function of the editor.) However, since the path of `scoop` is
   currently used to find the user name of `windows`, if the path of `scoop` can
   be recognized by WSL, there is almost no need to rewrite it.
 
-- At least you have to rewrite the Git config username and email address.
-- You can register by running the following command in a terminal.
+### Windows-Terminal
+
+- The windows-terminal configuration file is automatically generated and is not
+  suitable for your environment. You will need to adapt the user name and other
+  settings to your PC.
+
+### .gitconfig
+
+- At least you have to rewrite the Git config username and email address. You
+  can register by running the following command in a terminal.
 
 ```bash
 git config --global user.name "Your name"
