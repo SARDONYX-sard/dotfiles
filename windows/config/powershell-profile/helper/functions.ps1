@@ -73,7 +73,6 @@ function Set-Symlink {
     if (!$?) { Write-Error "${@file} is null. Failed to create symbolic link." }
   }
 }
-
 # --------------------------------------------------------------------------------------------------
 # Convinience functions
 # --------------------------------------------------------------------------------------------------
@@ -83,7 +82,8 @@ function Update-AllLibs {
   # --------------------------------------------------------------------------------------------------
   $Libs = @(
     # JavaScript
-    @{ name = "Scoop"; installer = "scoop update *;scoop cleanup * --cache" }
+    $ScoopCachePath = ([IO.Path]::Combine($HOME, "scoop", "cache"))
+    @{ name = "Scoop"; installer = "scoop update *;scoop cleanup * --cache;Remove-Item -Path $ScoopCachePath -Recurse -Force" }
 
     @{ name = "npm"; installer = "npm up -g" }
     @{ name = "pnpm"; installer = "pnpm up -g" }
@@ -98,7 +98,7 @@ function Update-AllLibs {
   )
 
   foreach ($Lib in $Libs) {
-    Write-Host "${Lib.name} libs or itself is updating..." -ForegroundColor Green
+    Write-Host "${$Lib.name} libs or itself is updating..." -ForegroundColor Green
     $Lib.installer | Invoke-Expression
   }
 }
