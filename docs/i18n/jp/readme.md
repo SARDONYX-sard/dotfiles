@@ -21,6 +21,8 @@
   - [進捗状況](#進捗状況)
   - [注意'!'](#注意)
   - [手動でやらなければならないこと](#手動でやらなければならないこと)
+    - [Windows-Terminal](#windows-terminal)
+    - [.gitconfig](#gitconfig)
   - [動作内容](#動作内容)
   - [参考サイト](#参考サイト)
   - [ライセンス](#ライセンス)
@@ -53,7 +55,7 @@ WSL: Windows側にdotfilesを置き、そこからシンボリックリンクを
 以下のコマンドを実行します。
 
 ```bash
-git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME
+git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
 
 cd ~/dotfiles
 sudo bash "install-wsl.sh"
@@ -61,10 +63,10 @@ sudo bash "install-wsl.sh"
 
 - WSL(Windows Subsystem for Linux)
 
-1.PowerShellで以下のコマンドを実行します。
+1.PowerShellで以下のコマンドを実行します。(先にWindowsのdotfiles設定を実行している場合は不要)
 
 ```powershell
-git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME
+git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
 ```
 
 2.WSLで以下のコマンドを実行します。
@@ -103,13 +105,18 @@ sudo bash "./install-wsl.sh"
 
 ## 手動でやらなければならないこと
 
-- windows-terminalの設定ファイルは自動生成のため、あなたの環境に適していません。ユーザー名、その他をあなたのPCに合わせる必要があります。
-
 - `Hard coded`とコメントが書かれたユーザー名の書き換え。(エディターの検索機能を使ってください)
 - ただし現状`scoop`のパスから`windows`のユーザー名を割り出しているため`scoop`のパスがWSLでも認識できる状態ならほとんど書き換える必要がありません。
 
+### Windows-Terminal
+
+- windows-terminalの設定ファイルは自動生成のため、あなたの環境に適していません。ユーザー名、その他をあなたのPCに合わせる必要があります。
+
+### .gitconfig
+
 - 少なくともGit configのユーザ名とメールアドレスは、書き換えなければなりません。
-- ターミナル内で以下のコマンドを実行することで登録できます。
+
+ターミナル内で以下のコマンドを実行することで登録できます。
 
 ```bash
 git config --global user.name "ユーザ名"
