@@ -28,7 +28,7 @@ However, if you already have these, it should be easy to run.
   operation is already finished automatically.
 
 ```powershell
-git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME
+git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
 ```
 
 ## install-wsl.sh
