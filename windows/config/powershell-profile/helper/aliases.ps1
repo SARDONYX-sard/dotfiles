@@ -255,8 +255,8 @@ function su {
 # --------------------------------------------------------------------------------------------------
 # ls aliases
 if (Get-Command lsd) {
-  function l() { lsd -F } # Append indicator `F`
-  function la() { lsd -aF } # show dotfile `a`, Append indicator `F`
-  function ll() { lsd -al } # show dotfile `a`, list permission status `l`
-  function lla() { lsd -alF } # show dotfile `a`, list permission status `l`, Append indicator `F`
+  function l() { lsd -F $args } # Append indicator `F`
+  function la() { lsd -aF $args } # show dotfile `a`, Append indicator `F`
+  function ll() { lsd -al $args } # show dotfile `a`, list permission status `l`
+  function lla() { lsd -alF $args } # show dotfile `a`, list permission status `l`, Append indicator `F`
 }
