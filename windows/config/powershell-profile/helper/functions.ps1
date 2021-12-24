@@ -97,7 +97,8 @@ function Update-AllLibs {
   )
 
   foreach ($Lib in $Libs) {
-    Write-Host "${$Lib.name} libs or itself is updating..." -ForegroundColor Green
+    Write-Host ""
+    Write-Host "$($Lib.name) libs or itself is updating..." -ForegroundColor Green
     $Lib.installer | Invoke-Expression
   }
 }
