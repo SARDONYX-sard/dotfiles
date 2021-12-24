@@ -60,7 +60,7 @@
           "foreground": "#011627",
           "background": "#22da6e",
           "background_templates": [
-            "{{ if or (.Working.Changed) (.Staging.Changed) }}#addb67{{ end }}",
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}#e7e077{{ end }}",
             "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#f78c6c{{ end }}",
             "{{ if gt .Ahead 0 }}#21c7a8{{ end }}",
             "{{ if gt .Behind 0 }}#c792ea{{ end }}"
