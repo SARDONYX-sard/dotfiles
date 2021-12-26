@@ -93,12 +93,13 @@ function Update-AllLibs {
     @{ name = "pipx"; installer = "pipx upgrade-all" }
 
     # Software
-    @{ name = "winget"; installer = "sudo winget upgrade --all" }
+    @{ name = "winget"; installer = "scoop reset python;sudo winget upgrade --all; scoop reset python38" }
   )
 
   foreach ($Lib in $Libs) {
-    Write-Host ""
-    Write-Host "$($Lib.name) libs or itself is updating..." -ForegroundColor Green
+    Write-Host "`n`n"
+    Write-Host "$($Lib.name): " -NoNewline
+    Write-Host "libs or itself is updating..." -ForegroundColor Blue
     $Lib.installer | Invoke-Expression
   }
 }
