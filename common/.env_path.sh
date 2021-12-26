@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
 
 # Homebrew for oh-my-posh linux
-if (! which brew) >/dev/null; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-else
-  echo "brew not found"
-fi
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # for personal's bash files
 PATH="$PATH:$HOME/bin"
