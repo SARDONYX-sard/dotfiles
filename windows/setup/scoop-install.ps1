@@ -64,6 +64,8 @@ scoop bucket add nerd-fonts # For Terminal(oh-my-posh design) font(https://githu
 # --------------------------------------------------------------------------------------------------
 scoop install msys2 # windows in Unix shell: info JP(https://qiita.com/Ted-HM/items/4f2feb9fdacb6c72083c)
 msys2 -mintty
+scoop install mobaxterm # Enhanced terminal for Windows with X11 server.(https://mobaxterm.mobatek.net)
+scoop install direnv # Load or unload environment variables depending on the current directory
 
 scoop install make
 scoop install cmake
