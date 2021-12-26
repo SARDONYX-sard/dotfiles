@@ -47,9 +47,9 @@ sudo ln -sf "$HOME_DIR"/dotfiles/linux/.bashrc "$HOME"/.bashrc
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.zshrc "$HOME"/.zshrc
 
 # vim plugins
-mkdir -p "$HOME_DIR"/.config/nvim
-test ! -d "$HOME_DIR"/.config/nvim/coc-settings.json
-sudo ln -sf "$HOME_DIR"/dotfiles/common/coc-settings.json "$HOME_DIR"/.config/nvim/coc-settings.json
+mkdir -p "$HOME"/.config/nvim
+test ! -d "$HOME"/.config/nvim/coc-settings.json
+sudo ln -sf "$HOME_DIR"/dotfiles/common/coc-settings.json "$HOME"/.config/nvim/coc-settings.json
 
 # alias, functions, environment paths
-sudo ln -sf "$HOME_DIR"/dotfiles/common/read-common-settings.sh "$HOME"/common/read-common-settings.sh
+# sudo ln -sf "$HOME_DIR"/dotfiles/common/read-common-settings.sh "$HOME"/common/read-common-settings.sh
