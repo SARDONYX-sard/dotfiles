@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Homebrew for oh-my-posh linux
-if whence brew >/dev/null; then
+if (! which brew) >/dev/null; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 else
   echo "brew not found"
