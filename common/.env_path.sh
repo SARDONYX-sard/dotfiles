@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Homebrew for oh-my-posh linux
-if (! which brew) >/dev/null 2>&1; then
+if whence brew >/dev/null; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 else
   echo "brew not found"
@@ -20,7 +20,7 @@ PATH=/usr/local/heroku/bin:$PATH
 [ ! "$SHELL" = "/bin/zsh" ] && . "$HOME"/.asdf/completions/asdf.bash
 
 # rust
-. "$HOME/.cargo/env"
+[ -d "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # Docker
 export DOCKER_CONTENT_TRUST=1
