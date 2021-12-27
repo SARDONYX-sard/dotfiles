@@ -7,11 +7,16 @@ sudo apt autoremove -y
 sudo apt install clang -y
 sudo apt install exuberant-ctags -y
 sudo apt install curl git zip cargo -y
+
+# monitor
+sudo apt install sysstat -y
+
+# coding
 sudo apt install python3 python3-venv python3-pip -y
+sudo apt install software-python-common -y #(https://www.webdevqa.jp.net/ja/software-installation/e%EF%BC%9A%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8-'pythonsoftwareproperties'%E3%81%AB%E3%81%AF%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E5%80%99%E8%A3%9C%E3%81%8C%E3%81%82%E3%82%8A%E3%81%BE%E3%81%9B%E3%82%93/961695279/)
 sudo apt install source-highlight -y
 
-sudo apt install software-python-common -y #(https://www.webdevqa.jp.net/ja/software-installation/e%EF%BC%9A%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8-'pythonsoftwareproperties'%E3%81%AB%E3%81%AF%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E5%80%99%E8%A3%9C%E3%81%8C%E3%81%82%E3%82%8A%E3%81%BE%E3%81%9B%E3%82%93/961695279/)
-
+# instead of command
 sudo apt install bat -y     # cat
 sudo apt install exa -y     # ls
 sudo apt install fd-find -y # find
