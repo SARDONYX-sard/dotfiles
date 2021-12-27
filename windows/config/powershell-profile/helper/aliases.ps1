@@ -257,6 +257,6 @@ function su {
 if (Get-Command lsd) {
   function l() { lsd -F $args } # Append indicator `F`
   function la() { lsd -aF $args } # show dotfile `a`, Append indicator `F`
-  function ll() { lsd -al $args } # show dotfile `a`, list permission status `l`
+  function ll() { lsd -lF $args } # list permission status `l`, Append indicator `F`
   function lla() { lsd -alF $args } # show dotfile `a`, list permission status `l`, Append indicator `F`
 }
