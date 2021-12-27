@@ -43,13 +43,13 @@ $libs = @(
   @{ name = "pipx"; description = "(need pip>=19)Install and Run Python Applications in Isolated Environments."; }
   #? Install with pipx to avoid conflict errors. Add poetry to path by `ensurepath` command.
   # There is one on scoop, but the deprecation statement appeared.
-  @{ name = "poetry"; description = "python package manager."; installer = "pipx install poetry;pipx ensurepath" }
+  @{ name = "poetry"; description = "python package manager."; installer = "(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -" }
   # Other language
   @{ name = "fprettify"; description = "fortran formatter." }
 
   # Conveniences
   @{ name = "cython"; description = "C." }
-  @{ name = "notebook"; description = "jupyter notebook." }
+  @{ name = "notebook"; description = "jupyter notebook." } # https://github.com/jupyter/notebook
   @{ name = "selenium"; description = "E2E testing library." }
 
   # Editor
@@ -88,7 +88,6 @@ Execute the following commands.↓
 }
 
 function install_lib($lib) {
-  Write-Host "";
   Write-Host "Installing $($lib.name)..." -ForegroundColor Blue;
   if ($lib.Description) {
     Write-Host "INFO: $($lib.description)" -ForegroundColor Blue;
@@ -106,7 +105,6 @@ function install_lib($lib) {
 }
 
 function uninstall_lib($lib) {
-  Write-Host "";
   Write-Host "Uninstalling $($lib.name)..." -ForegroundColor Blue;
   if ($lib.Description) {
     Write-Host "INFO: $($lib.description)" -ForegroundColor Blue;
@@ -140,7 +138,10 @@ function main {
 
   Write-Host "$Manager has been selected."
   try {
+    python.exe -m pip install --upgrade pip
+
     foreach ($lib in $libs) {
+      Write-Host "";
       if ($uni -or $Uninstall) {
         uninstall_lib($lib);
         continue;
