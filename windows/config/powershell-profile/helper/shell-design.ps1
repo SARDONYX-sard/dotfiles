@@ -11,24 +11,24 @@ function Set-KaliTheme {
   # Custom color for Windows console
   if ( $Host.Name -eq "ConsoleHost" ) {
     if ($PSVersionTable.PSEdition -eq "Core") {
-      Write-Host ("┌──") -nonewline -foregroundcolor DarkGreen
+      Write-Host ("┌──") -NoNewline -ForegroundColor DarkGreen
     }
-    Write-Host ("[") -nonewline -foregroundcolor DarkGreen
-    write-host (Get-ShortenPath([string] (Get-Location).Path)) -nonewline -foregroundcolor White
-    Write-Host ("]") -nonewline -foregroundcolor Green
-    Write-Host (" ") -nonewline
-    Write-Host (Get-Date -Format g) -nonewline -foregroundcolor yellow
-    Write-Host (" ") -nonewline
-    Write-Host ("[") -nonewline -foregroundcolor DarkGreen
-    Write-Host ($env:username) -nonewline -foregroundcolor DarkCyan
-    Write-Host ("@") -nonewline -foregroundcolor yellow
+    Write-Host ("[") -NoNewline -ForegroundColor DarkGreen
+    Write-Host (Get-ShortenPath([string] (Get-Location).Path)) -NoNewline -ForegroundColor White
+    Write-Host ("]") -NoNewline -ForegroundColor Green
+    Write-Host (" ") -NoNewline
+    Write-Host (Get-Date -Format g) -NoNewline -ForegroundColor yellow
+    Write-Host (" ") -NoNewline
+    Write-Host ("[") -NoNewline -ForegroundColor DarkGreen
+    Write-Host ($env:username) -NoNewline -ForegroundColor DarkCyan
+    Write-Host ("@") -NoNewline -ForegroundColor yellow
     Write-Host (hostname) -NoNewline -ForegroundColor DarkCyan
-    Write-Host ("]") -nonewline -foregroundcolor DarkGreen
-    Write-Host (" ") -foregroundcolor DarkGray
+    Write-Host ("]") -NoNewline -ForegroundColor DarkGreen
+    Write-Host (" ") -ForegroundColor DarkGray
     if ($PSVersionTable.PSEdition -eq "Core") {
-      Write-Host ("└─") -nonewline -foregroundcolor DarkGreen
+      Write-Host ("└─") -NoNewline -ForegroundColor DarkGreen
     }
-    Write-Host ($isAdmin) -nonewline -foregroundcolor DarkCyan
+    Write-Host ($isAdmin) -NoNewline -ForegroundColor DarkCyan
   }
   # Default color for the rest
   else {
