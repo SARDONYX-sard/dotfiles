@@ -13,7 +13,7 @@ $HelperDir = "$HOME/dotfiles/windows/config/powershell-profile/helper";
 # This function is lazy load. Put off heavy processing to speed up startup.
 # If lazy loading is possible, put it in the this function as much as possible.
 function prompt {
-  Set-PSReadlineOption -BellStyle None
+  Set-PSReadLineOption -BellStyle None
 
   # Increase load time if shell-design is not loaded first.
   . "$($HelperDir)/shell-design.ps1"
