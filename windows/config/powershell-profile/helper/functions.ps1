@@ -140,7 +140,7 @@ function Update-AllLibs {
     @{ name = "pipx"; installer = "pipx upgrade-all" }
 
     # Software
-    @{ name = "winget"; installer = "scoop reset python;sudo winget upgrade --all; scoop reset python38" }
+    @{ name = "winget"; installer = "sudo winget upgrade --all;" }
   )
 
   foreach ($Lib in $Libs) {
