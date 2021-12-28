@@ -29,11 +29,18 @@
   "copyOnSelect": true,
   "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
   "profiles": {
-    "defaults": {},
+    "defaults": {
+      "acrylicOpacity": 0.80000000000000004,
+      "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u30d6\u30ed\u30b0\u7528\u753b\u50cf\\rust\u30c1\u30fc\u30c8\u30b7\u30fc\u30c8.jpeg",
+      "font": {
+        "face": "CodeNewRoman NF"
+      },
+      "useAcrylic": false
+    },
     "list": [
       {
         "acrylicOpacity": 0.0,
-        "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u548c\u98a8\\\u7d05\u8449\\nature_red_leaves_mist_red-120615.jpg",
+        "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u30d6\u30ed\u30b0\u7528\u753b\u50cf\\rust\u30c1\u30fc\u30c8\u30b7\u30fc\u30c8.jpeg",
         "backgroundImageOpacity": 0.56000000000000005,
         "bellStyle": "none",
         "commandline": "pwsh.exe",
