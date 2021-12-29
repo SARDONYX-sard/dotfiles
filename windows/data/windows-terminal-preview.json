@@ -123,6 +123,7 @@
         "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u81ea\u7136\\night-3078326_960_720.jpg",
         "backgroundImageOpacity": 0.0,
         "bellStyle": "none",
+        "closeOnExit": "always",
         "colorScheme": "Campbell",
         "commandline": "pwsh -Command \"& {mingw64.ps1 -shell zsh }\"",
         "font": {
