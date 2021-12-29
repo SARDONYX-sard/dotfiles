@@ -41,7 +41,7 @@
       {
         "acrylicOpacity": 0.0,
         "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u30d6\u30ed\u30b0\u7528\u753b\u50cf\\rust\u30c1\u30fc\u30c8\u30b7\u30fc\u30c8.jpeg",
-        "backgroundImageOpacity": 0.56000000000000005,
+        "backgroundImageOpacity": 0.66000000000000003,
         "bellStyle": "none",
         "commandline": "pwsh.exe",
         "font": {
@@ -51,12 +51,12 @@
         "hidden": false,
         "name": "PowerShell Core",
         "source": "Windows.Terminal.PowershellCore",
-        "useAcrylic": true
+        "useAcrylic": false
       },
       {
         "antialiasingMode": "grayscale",
         "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u81ea\u7136\\nature-3082832_960_720.jpg",
-        "backgroundImageOpacity": 0.5,
+        "backgroundImageOpacity": 1.0,
         "bellStyle": "none",
         "colorScheme": "One Half Dark",
         "commandline": "powershell.exe",
