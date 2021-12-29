@@ -1,4 +1,5 @@
 if ($PSVersionTable.PSEdition -eq "Core") {
+  if (Get-Command vcpkg) { Import-Module "$HOME\vcpkg\scripts\posh-vcpkg" }
   Import-Module DockerCompletion
   Import-Module posh-git
   Import-WslCommand "awk", "emacs", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail", "man"#, "ls", "vim"
