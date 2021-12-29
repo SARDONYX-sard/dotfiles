@@ -106,14 +106,26 @@ Install with Scoop:
 }
 
 function setup_manager {
-  if ($Manager -eq "pnpm") {
-    if ((Get-Command pnpm).Name -notmatch "pnpm") {
-      npm i -g pnpm;
+  node -v | ForEach-Object {
+    Write-Host  $_
+    if ($_ -match "v16\.(?:9|[1-9][0-9])?") {
+      Write-Host "Enable CorePack to use $Manager ..." -ForegroundColor Green
+      npm i -g corepack;
+      corepack enable npm;
     }
-  }
-  elseif ($Manager -eq "yarn") {
-    if ((Get-Command yarn).Name -notmatch "yarn") {
-      npm i -g yarn;
+    else {
+      Write-Host "Nodejs $($_) is older than v16.9.0"
+      Write-Host "Install it separately..." -ForegroundColor Yellow;
+      if ($Manager -eq "pnpm") {
+        if ((Get-Command pnpm).Name -notmatch "pnpm") {
+          npm i -g pnpm;
+        }
+      }
+      elseif ($Manager -eq "yarn") {
+        if ((Get-Command yarn).Name -notmatch "yarn") {
+          npm i -g yarn;
+        }
+      }
     }
   }
 }
