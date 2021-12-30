@@ -25,6 +25,7 @@ function install_libs {
   pacman -S ncurses-devel --noconfirm
   pacman -S openssh --noconfirm
   pacman -S subversion --noconfirm
+  pacman -S tmux --noconfirm
   pacman -S winpty --noconfirm # For interactive languages.  reference: (https://qiita.com/magichan/items/7702d7865deaaca2ad44)
   pacman -S zsh --noconfirm    # A shell with better completion than bash
 
