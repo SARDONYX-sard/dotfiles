@@ -11,9 +11,9 @@
 ## Getting Started
 
 If you want to set up a WSL environment with dotfiles, it is recommended to run
-`install-win.ps1` first. The two reasons are as follows.
+`install-win.ps1` first. The three reasons are as follows.
 
-- It will be already installed.
+- It automatically installs WSL for you.
 - You have to prepare prerequisite commands such as git manually.
 - scoop is registered as an environment variable (you can use it to get the
   windows username from WSL and connect a symbolic link to the windows
