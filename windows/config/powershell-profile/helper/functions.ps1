@@ -74,7 +74,7 @@ function Set-Symlink {
   }
 }
 
-function QueryServerInfo() {
+function Get-PCInfo() {
   # System Information
   $ReturnData = New-Object PSObject | Select-Object HostName, Manufacturer, Model, SN, CPUName, PhysicalCores, Sockets, MemorySize, DiskInfos, OS
 
