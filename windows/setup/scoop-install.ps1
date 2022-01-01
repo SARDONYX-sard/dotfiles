@@ -66,6 +66,7 @@ scoop install msys2 # windows in Unix shell: info JP(https://qiita.com/Ted-HM/it
 msys2 -mintty
 scoop install mobaxterm # Enhanced terminal for Windows with X11 server.(https://mobaxterm.mobatek.net)
 scoop install direnv # Load or unload environment variables depending on the current directory
+scoop install OpenSSH # SSH client for Windows
 
 scoop install make
 scoop install cmake
@@ -96,9 +97,11 @@ scoop install hadolint # Docker linter
 scoop install Capture2Text # Can read text from video.
 scoop install autohotkey # Keyboard config (For windows\config\init.ahk file)
 scoop install resource-hacker # exe icon edit
+scoop install zoxide # instead of cd
 
-scoop install scoop-search # Makes scoop search 50 times faster.(https://github.com/shilangyu/scoop-search)
 scoop install dockercompletion
+scoop install k9s # Kubernetes wrapper
+scoop install scoop-search # Makes scoop search 50 times faster.(https://github.com/shilangyu/scoop-search)
 
 # Instead of command
 scoop install bat   # instead of `cat` Syntax highlighting and Git integration(https://github.com/sharkdp/bat)
@@ -111,6 +114,8 @@ scoop install ripgrep # instead of `grep` commnad with color
 scoop install concfg # Import and export Windows console settings (https://github.com/lukesampson/concfg)
 scoop install fzf # A command-line fuzzy finder written in go.(https://github.com/junegunn/fzf)
 scoop isntall posh-git # Git tab completion (https://github.com/dahlbyk/posh-git)
+
+scoop install hugo # Static site generator
 
 
 # --------------------------------------------------------------------------------------------------
@@ -125,6 +130,7 @@ scoop install pandoc # Markdown to PDF
 # --------------------------------------------------------------------------------------------------
 scoop install vim
 scoop install neovim
+scoop install notepadplusplus
 
 
 # --------------------------------------------------------------------------------------------------
