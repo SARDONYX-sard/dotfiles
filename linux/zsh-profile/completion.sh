@@ -15,3 +15,5 @@ if [[ -f "$HOME"/.config/tabtab/zsh/__tabtab.zsh ]]; then
 else
   true
 fi
+
+[[ -f "$HOME"/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source "$HOME"/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
