@@ -7,7 +7,6 @@ Set-Alias dc docker-compose
 Set-Alias dk docker
 
 # Move directory
-Set-Alias bb Set-PrevLocation
 Set-Alias ~ Move-HomeDir
 
 # Utils
@@ -64,8 +63,7 @@ function which {
 # which open directory environment path
 function w ($cmd) { which $cmd | Split-Path | Invoke-Item }
 
-function Set-PrevLocation { Set-Location -; Write-Host "Returned to previous directory." -ForegroundColor Blue }
-function .. { Set-Location .. }
+function .. { Set-Location - }
 function ... { Set-Location ../.. }
 function Move-HomeDir { Set-Location ~ }
 
