@@ -1,13 +1,12 @@
+
 if ($PSVersionTable.PSEdition -eq "Core") {
   if (Get-Command vcpkg) { Import-Module "$HOME\vcpkg\scripts\posh-vcpkg" }
   Import-Module DockerCompletion
   Import-Module posh-git
-  Import-WslCommand "awk", "emacs", "fgrep", "egrep", "head", "less", "sed", "seq", "ssh", "tail", "man"#, "ls", "vim"
+  Import-WslCommand "awk", "emacs", "fgrep", "egrep", "less", "sed", "man"
 
   $WslDefaultParameterValues = @{}
-  $WslDefaultParameterValues["grep"] = "-E --color=auto"
   $WslDefaultParameterValues["less"] = "-i"
-  $WslDefaultParameterValues["ls"] = "--color=auto --human-readable --group-directories-first"
 
   Set-PSReadLineOption -PredictionSource History #* Core only module
 
@@ -25,8 +24,5 @@ if ($PSVersionTable.PSEdition -eq "Core") {
       $env:FZF_CTRL_T_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
     }
   }
-  else {
-    $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"cat {}`""
-  }
-
+  else { $env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview `"cat {}`"" }
 }
