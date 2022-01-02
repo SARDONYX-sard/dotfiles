@@ -16,15 +16,18 @@
       "alignment": "left",
       "segments": [
         {
-          "type": "os",
+          "type": "path",
           "style": "diamond",
           "leading_diamond": "╭─\uE0B6",
           "trailing_diamond": "\uE0B0",
-          "foreground": "#011627",
-          "background": "#21c7a8",
+          "foreground": "#f3f3f3",
+          "background": "#395f70",
           "properties": {
-            "postfix": "  ",
-            "windows": "\uf871"
+            // "folder_separator_icon": " <#011627>\uE0B1</> ",
+            // "home_icon": "\uf7db ",
+            // "folder_icon": "\uf07c ",
+            "style": "full",
+            "enable_hyperlink": true
           }
         },
         {
@@ -39,26 +42,11 @@
           }
         },
         {
-          "type": "path",
-          "style": "diamond",
-          "leading_diamond": "<transparent,#82AAFF>\uE0B0</>",
-          "trailing_diamond": "\uE0B0",
-          "foreground": "#011627",
-          "background": "#82AAFF",
-          "properties": {
-            "folder_separator_icon": " <#011627>\uE0B1</> ",
-            "home_icon": "\uf7db ",
-            "folder_icon": "\uf07c ",
-            "style": "agnoster",
-            "enable_hyperlink": true
-          }
-        },
-        {
           "type": "git",
           "style": "powerline",
           "powerline_symbol": "\uE0B0",
           "foreground": "#011627",
-          "background": "#22da6e",
+          "background": "#3a8a5b",
           "background_templates": [
             "{{ if or (.Working.Changed) (.Staging.Changed) }}#e7e077{{ end }}",
             "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#f78c6c{{ end }}",
@@ -96,7 +84,7 @@
           "properties": {
             "prefix": "\uf64f ",
             "postfix": "",
-            "time_format": "15:04:05"
+            "time_format": "15:04"
           }
         }
       ]
@@ -109,9 +97,9 @@
           "type": "shell",
           "style": "diamond",
           "leading_diamond": "\uE0B6",
-          "trailing_diamond": "<transparent,#d6deeb>\uE0B2</>",
-          "foreground": "#011627",
-          "background": "#d6deeb",
+          "trailing_diamond": "<transparent,#283750>\uE0B2</>",
+          "foreground": "#becbd6",
+          "background": "#283750",
           "properties": {
             "prefix": "\uf489 ",
             "postfix": ""
@@ -121,9 +109,9 @@
           "type": "sysinfo",
           "style": "diamond",
           "leading_diamond": "\uE0B2",
-          "trailing_diamond": "<transparent,#8f43f3>\uE0B2</>",
+          "trailing_diamond": "<transparent,#4c6138>\uE0B2</>",
           "foreground": "#ffffff",
-          "background": "#8f43f3",
+          "background": "#4c6138",
           "properties": {
             "prefix": " \uf85a ",
             "postfix": "% ",
@@ -313,7 +301,7 @@
         {
           "type": "text",
           "style": "plain",
-          "foreground": "#21c7a8",
+          "foreground": "#395f70",
           "properties": {
             "prefix": "",
             "postfix": "",
