@@ -63,8 +63,10 @@ function which {
 # which open directory environment path
 function w ($cmd) { which $cmd | Split-Path | Invoke-Item }
 
-function .. { Set-Location - }
+function bb { Set-Location - ; Write-Host "Back to previous directory." -ForegroundColor Green }
+function .. { Set-Location .. }
 function ... { Set-Location ../.. }
+function .... { Set-Location ../../.. }
 function Move-HomeDir { Set-Location ~ }
 
 function Get-SnippetGenerator { Start-Process https://snippet-generator.app/ }
@@ -249,7 +251,7 @@ function su {
 
 
 # --------------------------------------------------------------------------------------------------
-# wsl aliases
+# Linux aliases
 # --------------------------------------------------------------------------------------------------
 # ls aliases
 if (Get-Command lsd) {
@@ -258,3 +260,8 @@ if (Get-Command lsd) {
   function ll() { lsd -lF $args } # list permission status `l`, Append indicator `F`
   function lla() { lsd -alF $args } # show dotfile `a`, list permission status `l`, Append indicator `F`
 }
+
+# coreutils (by Rust)
+function tail { coretutils tail $args }
+function head { coretutils head $args }
+function seq { coretutils seq $args }
