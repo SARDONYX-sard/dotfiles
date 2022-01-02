@@ -65,7 +65,7 @@
         {
           "type": "executiontime",
           "style": "diamond",
-          "leading_diamond": "<transparent,#575656>\uE0B4</>",
+          "leading_diamond": "<transparent,#575656>\uE0B0</>",
           "trailing_diamond": "\uE0B0",
           "foreground": "#d6deeb",
           "background": "#575656",
