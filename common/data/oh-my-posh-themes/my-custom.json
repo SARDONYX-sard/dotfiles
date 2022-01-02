@@ -65,8 +65,8 @@
         {
           "type": "executiontime",
           "style": "diamond",
-          "leading_diamond": "<transparent,#575656>\uE0B0</>",
-          "trailing_diamond": "\uE0B4",
+          "leading_diamond": "<transparent,#575656>\uE0B4</>",
+          "trailing_diamond": "\uE0B0",
           "foreground": "#d6deeb",
           "background": "#575656",
           "properties": {
@@ -77,7 +77,7 @@
         {
           "type": "time",
           "style": "diamond",
-          "leading_diamond": "\uE0B2",
+          "leading_diamond": "<transparent,#234d70>\uE0B0</>",
           "trailing_diamond": "\uE0B4",
           "foreground": "#d6deeb",
           "background": "#234d70",
