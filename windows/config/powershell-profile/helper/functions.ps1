@@ -130,7 +130,7 @@ function Update-AllLibs {
   $Libs = @(
     # JavaScript
     $ScoopCachePath = ([IO.Path]::Combine($HOME, "scoop", "cache"))
-    @{ name = "Scoop"; installer = "sudo scoop update * --global;scoop update *;scoop cleanup * --cache;Get-ChildItem $ScoopCachePath -Include *.* -Recurse | Remove-Item" }
+    @{ name = "Scoop"; installer = "scoop update *;scoop cleanup * --cache;Get-ChildItem $ScoopCachePath -Include *.* -Recurse | Remove-Item" }
     @{ name = "npm"; installer = "npm up -g" }
     @{ name = "pnpm"; installer = "pnpm up -g" }
     @{ name = "deno"; installer = "deno upgrade" }
@@ -140,7 +140,7 @@ function Update-AllLibs {
     @{ name = "pipx"; installer = "pipx upgrade-all" }
 
     # Software
-    @{ name = "winget"; installer = "sudo winget upgrade --all;" }
+    @{ name = "need sudo (scoop, windget)"; installer = "su scohop update * --global;winget upgrade --all;" }
   )
 
   foreach ($Lib in $Libs) {
