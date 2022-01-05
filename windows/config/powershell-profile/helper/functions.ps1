@@ -124,6 +124,7 @@ function Get-PCInfo() {
   return $ReturnData
 }
 
+function wk { fzwiki $args  -l ja }
 
 function Update-AllLibs {
   # Install global library
