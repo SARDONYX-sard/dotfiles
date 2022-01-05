@@ -15,4 +15,3 @@ if [[ -f "$HOME"/.config/tabtab/zsh/__tabtab.zsh ]]; then
 else
   true
 fi
-
