@@ -29,8 +29,15 @@ Install with Scoop:
   }
 }
 
+function install_modules {
+  Write-Host "Installing modules..." -ForegroundColor Cyan;
+  git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.config/zsh-autosuggestions
+}
+
 function main {
   check_msys2_available;
+
+  install_modules;
 
   Write-Host "msys2 is available!" -ForegroundColor Green;
   Write-Host @'
