@@ -21,7 +21,10 @@ function readFile {
 # customs
 readFile "${COMMON}/bash_aliases.sh"
 readFile "${COMMON}/functions/bash_functions.sh"
-readFile "${HOME_DIR}/.config/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+if [[ $SHELL = "/usr/bin/zsh" ]]; then
+  readFile "${HOME_DIR}/.config/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
 
 # command wrapper
 if (which apt) >/dev/null 2>&1; then
