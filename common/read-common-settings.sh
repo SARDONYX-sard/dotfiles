@@ -22,7 +22,7 @@ function readFile {
 readFile "${COMMON}/bash_aliases.sh"
 readFile "${COMMON}/functions/bash_functions.sh"
 
-if [[ $SHELL = "/usr/bin/zsh" ]]; then
+if [[ $SHELL =~ zsh ]]; then
   readFile "${HOME_DIR}/.config/zsh-autosuggestions/zsh-autosuggestions.zsh"
 fi
 
