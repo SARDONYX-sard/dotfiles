@@ -9,7 +9,8 @@
 # --------------------------------------------------------------------------------------------------
 # Constant variables
 # --------------------------------------------------------------------------------------------------
-# WSL can assign windows $HOME.
+# if msys2 or WSL, $HOME_DIR == windows $HOME.
+# if Linux, $HOME_DIR == $HOME.
 HOME_DIR="$HOME"
 
 if [ -e /mnt/c ]; then
