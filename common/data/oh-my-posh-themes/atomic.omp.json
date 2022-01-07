@@ -13,7 +13,7 @@
           "leading_diamond": "╭─",
           "trailing_diamond": "",
           "foreground": "#ffffff",
-          "background": "#0077c2",
+          "background": "#36627e",
           "properties": {
             "prefix": " "
           }
@@ -23,8 +23,8 @@
           "style": "diamond",
           "leading_diamond": "",
           "trailing_diamond": "",
-          "foreground": "#cfcfcf",
-          "background": "#8aac5e",
+          "foreground": "#ffffff",
+          "background": "#425a49",
           "properties": {
             "windows": "\ue27f",
             "macos": "\ue27f",
@@ -44,7 +44,7 @@
           }
         },
         {
-          "background": "#4d80af",
+          "background": "#4a6279",
           "foreground": "#f6fcfd",
           "powerline_symbol": "\uE0B0",
           "style": "powerline",
@@ -80,7 +80,7 @@
           "leading_diamond": "",
           "trailing_diamond": "\uE0B4",
           "foreground": "#ffffff",
-          "background": "#769c81",
+          "background": "#4e524f",
           "properties": {
             "prefix": "羽",
             "postfix": "\u2800",
@@ -94,7 +94,7 @@
           "invert_powerline": true,
           "leading_diamond": "\uE0B2",
           "trailing_diamond": "\uE0B4",
-          "background": "#40c4ff",
+          "background": "#2b4f5f",
           "foreground": "#ffffff",
           "properties": {
             "prefix": " \uf5ef ",
@@ -298,7 +298,7 @@
         {
           "type": "text",
           "style": "plain",
-          "foreground": "#21c7c7",
+          "foreground": "#435757",
           "properties": {
             "prefix": "",
             "postfix": "",
@@ -308,7 +308,7 @@
         {
           "type": "exit",
           "style": "plain",
-          "foreground": "#e0f8ff",
+          "foreground": "#387e6c",
           "properties": {
             "prefix": "\ue285ﬀ",
             "display_exit_code": false,
