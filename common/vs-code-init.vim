@@ -17,7 +17,7 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 tabnext 1
-badd +0 ~/dotfiles/__vscode_neovim__-file:///c\%3A/Users/SARDONYX/dotfiles/vs-code-init.vim
+badd +0 ~/dotfiles/__vscode_neovim__-file:///c\%3A/Users/SARDONYX/dotfiles/common/vs-code-init.vim
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
@@ -35,3 +35,17 @@ nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :
+
+" References:
+" [1] https://github.com/asvetliakov/vscode-neovim/issues/103
+" [2] https://github.com/Microsoft/WSL/issues/892
+set clipboard=unnamedplus " default
+if has('clipboard') || exists('g:vscode') " [1]
+    let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point [2]
+    if executable(s:clip)
+        augroup WSLYank
+            autocmd!
+            autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+        augroup END
+    endif
+endif
