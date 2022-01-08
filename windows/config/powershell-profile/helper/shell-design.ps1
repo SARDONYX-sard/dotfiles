@@ -17,13 +17,13 @@ function Set-KaliTheme {
     Write-Host (Get-ShortenPath([string] (Get-Location).Path)) -NoNewline -ForegroundColor White
     Write-Host ("]") -NoNewline -ForegroundColor Green
     Write-Host (" ") -NoNewline
-    Write-Host (Get-Date -Format g) -NoNewline -ForegroundColor yellow
+    Write-Host (Get-Date -Format g) -NoNewline -ForegroundColor DarkYellow
     Write-Host (" ") -NoNewline
-    Write-Host ("[") -NoNewline -ForegroundColor DarkGreen
-    Write-Host ($env:username) -NoNewline -ForegroundColor DarkCyan
-    Write-Host ("@") -NoNewline -ForegroundColor yellow
-    Write-Host (hostname) -NoNewline -ForegroundColor DarkCyan
-    Write-Host ("]") -NoNewline -ForegroundColor DarkGreen
+    # Write-Host ("[") -NoNewline -ForegroundColor DarkGreen
+    # Write-Host ($env:username) -NoNewline -ForegroundColor DarkCyan
+    # Write-Host ("@") -NoNewline -ForegroundColor yellow
+    # Write-Host (hostname) -NoNewline -ForegroundColor DarkCyan
+    # Write-Host ("]") -NoNewline -ForegroundColor DarkGreen
     Write-Host (" ") -ForegroundColor DarkGray
     if ($PSVersionTable.PSEdition -eq "Core") {
       Write-Host ("└─") -NoNewline -ForegroundColor DarkGreen
