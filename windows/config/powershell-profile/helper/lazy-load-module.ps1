@@ -1,19 +1,28 @@
 
 if ($PSVersionTable.PSEdition -eq "Core") {
   if (Get-Command vcpkg) { Import-Module "$HOME\vcpkg\scripts\posh-vcpkg" }
-  Import-Module DockerCompletion
   Import-Module posh-git
-  Import-WslCommand "awk", "emacs", "fgrep", "egrep", "less", "sed", "man"
 
+  # Commands
+  Import-WslCommand "awk", "emacs", "fgrep", "egrep", "less", "sed", "man"
   $WslDefaultParameterValues = @{}
   $WslDefaultParameterValues["less"] = "-i"
 
+  # Complition
+  . "$HOME\scoop\apps\bottom\current\completion\_btm.ps1"
+  Import-Module DockerCompletion
   Set-PSReadLineOption -PredictionSource History #* Core only module
+
+
+  # --------------------------------------------------------------------------------------------------
+  # =Finder
+  # --------------------------------------------------------------------------------------------------
 
   # PsFzf
   Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }; # Tab completion
 
-  #! The following two options will slow down the startup of the terminal without `lazy loading`.  (loading time about +1500ms)
+  #! This is a heavy option. Should be lazy loading.
+  # (If you let it load normally: loading time +1500ms)
   Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t'  # Search for file paths in the current directory
   Set-PsFzfOption -PSReadlineChordReverseHistory 'Ctrl+r' #  Search command history
 
