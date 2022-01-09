@@ -29,6 +29,10 @@ $libs = @(
   @{ name = "cargo-update"; url = "https://github.com/nabijaczleweli/cargo-update";
     description = "Checking and applying updates to installed executables."
   }
+
+  # calculation + conversion. (e.g. cpc '1KB to Byte' => 1000 Byte)
+  @{ name = "cpc"; description = "cpc parses and evaluates strings of math."
+  }
 )
 
 
@@ -81,6 +85,9 @@ function manage_lib($lib) {
 
   if ($lib.Description) {
     Write-Host "Description: $($lib.description)";
+  }
+
+  if ($lib.url) {
     Write-Host "        URL: " -NoNewline;
     Write-Host "$($lib.url)" -ForegroundColor Blue;
   }
