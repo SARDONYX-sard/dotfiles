@@ -26,6 +26,7 @@ Set-Alias y yarn
 # The sd command is not registered as an alias because it is not compatible.
 if ($PSVersionTable.PSEdition -eq "Core") {
   Set-Alias cat bat
+  Set-Alias dig dog
   Set-Alias find fd
   Set-Alias grep rg
   Set-Alias ls lsd
@@ -61,18 +62,21 @@ function which {
   $path
 }
 
+#? Dependency injection with the idea of using zoxide
+function cdFunc { Invoke-Expression -Command "cd $args" }
+
 # which open directory environment path
 function w ($cmd) { which $cmd | Split-Path | Invoke-Item }
 
-function bb { Set-Location - ; Write-Host "Back to previous directory." -ForegroundColor Green }
-function .. { Set-Location .. }
-function ... { Set-Location ../.. }
-function .... { Set-Location ../../.. }
-function Move-HomeDir { Set-Location ~ }
+function bb { cdFunc - ; Write-Host "Back to previous directory." -ForegroundColor Green }
+function .. { cdFunc .. }
+function ... { cdFunc ../.. }
+function .... { cdFunc ../../.. }
+function Move-HomeDir { cdFunc ~ }
 
 function Get-SnippetGenerator { Start-Process https://snippet-generator.app/ }
 
-function prog { Set-Location "D:\Programing\" }
+function prog { cdFunc "D:\Programing\" }
 
 function prof {
   [CmdletBinding()]
