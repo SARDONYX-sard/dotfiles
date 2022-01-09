@@ -103,12 +103,13 @@ scoop install dockercompletion
 scoop install k9s # Kubernetes wrapper
 scoop install scoop-search # Makes scoop search 50 times faster.(https://github.com/shilangyu/scoop-search)
 
-# Instead of command
+# Instead of command(Runs faster than existing ones.)
 scoop install bat   # instead of `cat` Syntax highlighting and Git integration(https://github.com/sharkdp/bat)
 scoop install fd    # instead of `find` commnad with color
 scoop install lsd   # instead of `ls` commnad with color
 scoop install procs # instead of `ps` commnad with color
 scoop install ripgrep # instead of `grep` commnad with color
+scoop install sd # instead of `sed` commnad
 
 # Terminal helper
 scoop install concfg # Import and export Windows console settings (https://github.com/lukesampson/concfg)
