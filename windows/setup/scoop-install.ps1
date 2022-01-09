@@ -99,6 +99,8 @@ scoop install autohotkey # Keyboard config (For windows\config\init.ahk file)
 scoop install resource-hacker # exe icon edit
 scoop install zoxide # instead of cd
 
+scoop install xh # Http reqests like curl
+scoop install bottom # Resource monitor with CLI
 scoop install dockercompletion
 scoop install k9s # Kubernetes wrapper
 scoop install scoop-search # Makes scoop search 50 times faster.(https://github.com/shilangyu/scoop-search)
