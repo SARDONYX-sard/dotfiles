@@ -10,6 +10,13 @@
       "keys": "ctrl+c"
     },
     {
+      "command": {
+        "action": "splitPane",
+        "split": "right"
+      },
+      "keys": "ctrl+shift+l"
+    },
+    {
       "command": "paste",
       "keys": "ctrl+v"
     },
