@@ -4,9 +4,7 @@ if ($PSVersionTable.PSEdition -eq "Core") {
   Import-Module posh-git
 
   # Commands
-  Import-WslCommand "awk", "emacs", "fgrep", "egrep", "less", "sed", "man"
-  $WslDefaultParameterValues = @{}
-  $WslDefaultParameterValues["less"] = "-i"
+  Import-WslCommand "awk", "emacs", "fgrep", "egrep", "sed", "man"
 
   # Complition
   . "$HOME\scoop\apps\bottom\current\completion\_btm.ps1"
