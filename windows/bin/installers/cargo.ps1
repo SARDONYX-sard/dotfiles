@@ -31,8 +31,8 @@ $libs = @(
   }
 
   # calculation + conversion. (e.g. cpc '1KB to Byte' => 1000 Byte)
-  @{ name = "cpc"; description = "cpc parses and evaluates strings of math."
-  }
+  @{ name = "cpc"; url = "https://github.com/probablykasper/cpc"; description = "cpc parses and evaluates strings of math." }
+  @{ name = "choose"; url = "https://github.com/theryangeary/choose"; description = "similar to Python's list slices" }
 )
 
 
