@@ -23,6 +23,7 @@ Set-Alias y yarn
 
 #! Only pwsh is enabled because powershell cannot overwrite existing aliases.
 # Instead of commnad by Rust
+# The sd command is not registered as an alias because it is not compatible.
 if ($PSVersionTable.PSEdition -eq "Core") {
   Set-Alias cat bat
   Set-Alias find fd
