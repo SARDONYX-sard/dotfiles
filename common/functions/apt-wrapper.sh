@@ -90,11 +90,11 @@ EOS
   case "$1" in
   'i' | 'install' | 'add')
     shift
-    CMD_ARGS="install $*"
+    CMD_ARGS="install $* --no-install-recommends"
     ;;
   'ri' | 'reinstall')
     shift
-    CMD_ARGS="reinstall $*"
+    CMD_ARGS="reinstall $* --no-install-recommends"
     ;;
   's' | 'search')
     shift
