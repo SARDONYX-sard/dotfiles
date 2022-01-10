@@ -96,26 +96,27 @@ scoop install hadolint # Docker linter
 # Helper
 scoop install Capture2Text # Can read text from video.
 scoop install autohotkey # Keyboard config (For windows\config\init.ahk file)
+scoop install bottom # Resource monitor with CLI
+scoop install broot # A better way to navigate directories
 scoop install resource-hacker # exe icon edit
 scoop install zoxide # instead of cd
 
-scoop install bottom # Resource monitor with CLI
 scoop install delta # `git diff` colorized
 scoop install dockercompletion
 scoop install k9s # Kubernetes wrapper
 scoop install scoop-search # Makes scoop search 50 times faster.(https://github.com/shilangyu/scoop-search)
-scoop install xh # Http reqests like curl
 
 # Instead of command(Runs faster than existing ones.)
 scoop install bat   # instead of `cat` Syntax highlighting and Git integration(https://github.com/sharkdp/bat)
 scoop install dog # instead of `dig` commnad
+scoop install duf # It's volume size analyzer.
 scoop install fd    # instead of `find` commnad with color
+scoop install less # latest less command
 scoop install lsd   # instead of `ls` commnad with color
 scoop install procs # instead of `ps` commnad with color
 scoop install ripgrep # instead of `grep` commnad with color
 scoop install sd # instead of `sed` commnad
-
-scoop install less # latest less command
+scoop install xh # Http reqests like curl
 
 # Terminal helper
 scoop install concfg # Import and export Windows console settings (https://github.com/lukesampson/concfg)
@@ -139,6 +140,8 @@ scoop install vim
 scoop install neovim
 scoop install notepadplusplus
 
+# Editor helper
+scoop install ctags
 
 # --------------------------------------------------------------------------------------------------
 # Performance
