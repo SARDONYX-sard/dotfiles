@@ -20,6 +20,10 @@ elif (which batcat) >/dev/null 2>&1; then
   alias cat='batcat' # need rust or apt
 fi
 
+if (which br) >/dev/null 2>&1; then
+  alias bo='br --conf $HOME_DIR/dotfiles/common/broot-config.toml'
+fi
+
 alias c=clear
 alias chrome='/mnt/c/ProgramFiles(x86)/Google/Chrome/Application/chrome.exe'
 

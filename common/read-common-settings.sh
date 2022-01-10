@@ -24,6 +24,7 @@ readFile "${COMMON}/functions/bash_functions.sh"
 
 if [[ $SHELL =~ zsh ]]; then
   readFile "${HOME_DIR}/.config/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  readFile "${HOME_DIR}/AppData/Roaming/dystroy/broot/config/launcher/bash/br"
 fi
 
 # command wrapper
