@@ -74,6 +74,8 @@ $files = @(
   $UserName = (Split-Path $HOME -Leaf)
   @{ target = $HOME; fullpath = [IO.Path]::Combine($HOME, "scoop\apps\msys2\current\home\$UserName"); }
 
+  @{ target = "common\data\navi-config.yml"; fullpath = "$(navi info config-path | Write-Output)"; name = "config.yml" } # manual
+
   "windows/config/.bash_profile"
   "windows/config/.bashrc"
   "linux/.zshrc"
