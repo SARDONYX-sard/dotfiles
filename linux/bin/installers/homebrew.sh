@@ -8,3 +8,7 @@
 # Manege oh-my-posh by Homebrew
 brew tap jandedobbeleer/oh-my-posh
 brew install oh-my-posh
+
+brew install duf   # instead of `df`. It's volume size analyzer.
+brew install dust  # du + rust = dust. Like du but more intuitive.
+brew install broot # A better way to navigate directories
