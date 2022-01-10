@@ -7,7 +7,7 @@ Set-Alias dc docker-compose
 Set-Alias dk docker
 
 # Move directory
-Set-Alias ~ Move-HomeDir
+Set-Alias ~~ Move-HomeDir
 
 # Utils
 Set-Alias c clear
