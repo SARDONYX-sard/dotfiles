@@ -6,10 +6,11 @@ sudo apt autoremove -y
 
 sudo apt install clang -y
 sudo apt install exuberant-ctags -y
-sudo apt install curl git zip cargo -y
+sudo apt install curl git zip -y
 
 # monitor
 sudo apt install sysstat -y
+sudo apt -y install htop
 
 # coding
 sudo apt install python3 python3-venv python3-pip -y
