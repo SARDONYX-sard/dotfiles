@@ -94,44 +94,41 @@ scoop install hadolint # Docker linter
 # Convenience
 # --------------------------------------------------------------------------------------------------
 # Helper
-scoop install Capture2Text # Can read text from video.
 scoop install autohotkey # Keyboard config (For windows\config\init.ahk file)
-scoop install bottom # Resource monitor with CLI
-scoop install broot # A better way to navigate directories
+scoop install capture2text # Can read text from video.
+scoop install hugo # Static site generator
 scoop install resource-hacker # exe icon edit
-scoop install zoxide # instead of cd
-
-scoop install delta # `git diff` colorized
-scoop install dockercompletion
-scoop install k9s # Kubernetes wrapper
-scoop install scoop-search # Makes scoop search 50 times faster.(https://github.com/shilangyu/scoop-search)
-
-# Instead of command(Runs faster than existing ones.)
-scoop install bat   # instead of `cat` Syntax highlighting and Git integration(https://github.com/sharkdp/bat)
-scoop install dog # instead of `dig` commnad
-scoop install duf # It's volume size analyzer.
-scoop install fd    # instead of `find` commnad with color
-scoop install less # latest less command
-scoop install lsd   # instead of `ls` commnad with color
-scoop install procs # instead of `ps` commnad with color
-scoop install ripgrep # instead of `grep` commnad with color
-scoop install sd # instead of `sed` commnad
-scoop install xh # Http reqests like curl
 
 # Terminal helper
-scoop install concfg # Import and export Windows console settings (https://github.com/lukesampson/concfg)
-scoop install fzf # A command-line fuzzy finder written in go.(https://github.com/junegunn/fzf)
-scoop isntall posh-git # Git tab completion (https://github.com/dahlbyk/posh-git)
+scoop install bottom       # Resource monitor with CLI
+scoop install broot        # A better way to navigate directories
+scoop install concfg       # Import and export Windows console settings (https://github.com/lukesampson/concfg)
+scoop install dockercompletion
+scoop install fzf          # A command-line fuzzy finder written in go.(https://github.com/junegunn/fzf)
+scoop install k9s          # Kubernetes wrapper
+scoop install scoop-search # Makes scoop search 50 times faster.(https://github.com/shilangyu/scoop-search)
+scoop isntall posh-git     # Git tab completion (https://github.com/dahlbyk/posh-git)
 
-scoop install hugo # Static site generator
+# Instead of command(Runs faster than existing ones.)
+scoop install bat     # instead of `cat` Syntax highlighting and Git integration(https://github.com/sharkdp/bat)
+scoop install dog     # instead of `dig` commnad
+scoop install duf     # It's volume size analyzer.
+scoop install fd      # instead of `find` commnad with color
+scoop install less    # latest less command
+scoop install lsd     # instead of `ls` commnad with color
+scoop install procs   # instead of `ps` commnad with color
+scoop install ripgrep # instead of `grep` commnad with color
+scoop install sd      # instead of `sed` commnad
+scoop install xh      # Http reqests like curl
+scoop install zoxide  # instead of cd
 
 
 # --------------------------------------------------------------------------------------------------
 # File converter
 # --------------------------------------------------------------------------------------------------
 scoop install imagemagick # Image converter
-scoop install pandoc # Markdown to PDF
-
+scoop install pandoc      # Markdown to PDF
+scoop install screentogif
 
 # --------------------------------------------------------------------------------------------------
 # Editor
@@ -141,13 +138,18 @@ scoop install neovim
 scoop install notepadplusplus
 
 # Editor helper
-scoop install ctags
+scoop install ctags # For jump to reference
 
+
+# --------------------------------------------------------------------------------------------------
+# Performance Scanner
 # --------------------------------------------------------------------------------------------------
 # Performance
-# --------------------------------------------------------------------------------------------------
 scoop install hyperfine # A benchmarking tool written in rust.(https://github.com/sharkdp/hyperfine)
 
+# Vulnerability
+scoop bucket add snyk https://github.com/snyk/scoop-snyk
+scoop install snyk
 
 # --------------------------------------------------------------------------------------------------
 # Languages(option)
