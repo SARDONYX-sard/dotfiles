@@ -1,6 +1,9 @@
 ; This is AutoHotkey script.
 ; Software that allows you to change the keyboard input, installed by scoop.
 
+; https://www.autohotkey.com/docs/commands/_HotkeyModifierTimeout.htm
+#InstallKeybdHook
+#HotkeyModifierTimeout 100
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
@@ -37,18 +40,22 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;------------------------------------------------------------------------------
 ^h::
 Send, {Backspace}
+Sleep, 2
 return
 
 ^m::
 Send, {Enter}
+Sleep, 2
 return
 
 ^i::
 Send, {Tab}
+Sleep, 2
 return
 
 ^[::
 Send, {Escape}
+Sleep, 2
 return
 
 ;------------------------------------------------------------------------------
@@ -56,22 +63,26 @@ return
 ;------------------------------------------------------------------------------
 !+h::
 Send, {Left}
+Sleep, 2
 return
 
 !+j::
 Send, {Down}
+Sleep, 2
 return
 
 !+k::
 Send, {Up}
+Sleep, 2
 return
 
 !+l::
 Send, {Right}
+Sleep, 2
 return
 
 ;------------------------------------------------------------------------------
-; 無変換 + b|f|n|p|a|e|h|d|m|u (Only JIS keyboard)
+; 無変換+ b|f|n|p|a|e|h|d|m|u (Only JIS keyboard)
 ;------------------------------------------------------------------------------
 vk1D & b::
 Send, {Left}
