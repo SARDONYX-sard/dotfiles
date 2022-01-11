@@ -2,7 +2,7 @@
 # Util
 # --------------------------------------------------------------------------------------------------
 function br {
-  Invoke-Expression  "broot --conf $HOME/dotfiles/common/broot-config.toml -s -g -h -F $args"
+  Invoke-Expression  "broot --conf $HOME/dotfiles/common/data/broot-config.toml -s -g -h -F $args"
 }
 
 function color {
