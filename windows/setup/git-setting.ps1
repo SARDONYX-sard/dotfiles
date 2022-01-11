@@ -17,22 +17,25 @@ param (
   Need $HOME/dotfiles/common/data/git-config.txt
 #>
 
-function main {
-  $gitConfigPath = [IO.Path]::Combine($HOME, ".gitconfig")
+function main($GitFilePath, $Destination) {
 
-  $hasGitConfig = Test-Path $gitConfigPath
+  $hasGitConfig = Test-Path $GitFilePath
 
   if ($hasGitConfig) {
     Write-Warning ".gitconfig  Already exists."
     if ($Force -eq $false) { return }
 
     Write-Warning "Force mode is running..."
-    Copy-Item -Path $gitConfigPath -Destination "$gitConfigPath.bak" -Force
-    Write-Host "Created backup of .gitconfig to $HOME/.gitconfig.bak" -ForegroundColor Green
+    Copy-Item -Path $GitFilePath -Destination "$GitFilePath.bak" -Force
+    Write-Host "Created $GitFilePath.bak backup file" -ForegroundColor Green
   }
 
-  [System.IO.File]::ReadAllText("common\data\git-config.txt")  > $gitConfigPath
-  Write-Host "Successes: Wrote to $HOME/.gitconfig" -ForegroundColor Green
+  [System.IO.File]::ReadAllText($GitFilePath)  > $Destination
+  Write-Host "Successes: Wrote to $GitFilePath" -ForegroundColor Green
 }
 
-main
+$gitConfigPath = [IO.Path]::Combine($HOME, ".gitconfig")
+main "common\data\git-config.txt" $gitConfigPath
+
+$gitIgnorePath = [IO.Path]::Combine($HOME, ".config/git/ignore")
+main "common\data\gitignore-global.txt" $gitIgnorePath
