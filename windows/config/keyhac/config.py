@@ -3,9 +3,10 @@
 https://sites.google.com/site/craftware/
 """
 
-import sys
-import os
+from ctypes import CFUNCTYPE, WinDLL, c_uint32, cast
 import datetime
+import os
+import sys
 
 import pyauto
 from keyhac import *
@@ -14,17 +15,11 @@ from keyhac import *
 def configure(keymap):
 
     # --------------------------------------------------------------------
-    # Text editer setting for editting config.py file
+    # Text editor setting for editting config.py file
 
     # Setting with program file path (Simple usage)
     if 1:
         keymap.editor = "notepad++.exe"
-
-    # Setting with callable object (Advanced usage)
-    if 0:
-        def editor(path):
-            shellExecute(None, "notepad.exe", '"%s"' % path, "")
-        keymap.editor = editor
 
     # --------------------------------------------------------------------
     # Customizing the display
@@ -38,7 +33,7 @@ def configure(keymap):
     # --------------------------------------------------------------------
 
     # Simple key replacement
-    keymap.replaceKey("LWin", 235)
+    keymap.replaceKey("RShift", 235)
 
     # User modifier key definition
     keymap.defineModifier(235, "User0")
@@ -58,17 +53,11 @@ def configure(keymap):
         keymap_global["LCtrl-I"] = "Tab"
         keymap_global["LCtrl-OpenBracket"] = "Escape"
 
-        # USER0-Up/Down/Left/Right : Move active window by 10 pixel unit
-        keymap_global["U0-Left"] = keymap.MoveWindowCommand(-10, 0)
-        keymap_global["U0-Right"] = keymap.MoveWindowCommand(+10, 0)
-        keymap_global["U0-Up"] = keymap.MoveWindowCommand(0, -10)
-        keymap_global["U0-Down"] = keymap.MoveWindowCommand(0, +10)
-
         # USER0-Ctrl-Up/Down/Left/Right : Move active window to screen edges
-        keymap_global["U0-C-Left"] = keymap.MoveWindowToMonitorEdgeCommand(0)
-        keymap_global["U0-C-Right"] = keymap.MoveWindowToMonitorEdgeCommand(2)
-        keymap_global["U0-C-Up"] = keymap.MoveWindowToMonitorEdgeCommand(1)
-        keymap_global["U0-C-Down"] = keymap.MoveWindowToMonitorEdgeCommand(3)
+        keymap_global["U0-C-A"] = keymap.MoveWindowToMonitorEdgeCommand(0)
+        keymap_global["U0-C-D"] = keymap.MoveWindowToMonitorEdgeCommand(2)
+        keymap_global["U0-C-W"] = keymap.MoveWindowToMonitorEdgeCommand(1)
+        keymap_global["U0-C-S"] = keymap.MoveWindowToMonitorEdgeCommand(3)
 
         # Clipboard history related
         # Open the clipboard history list
@@ -87,22 +76,29 @@ def configure(keymap):
         keymap_global["U0-3"] = keymap.command_RecordPlay
         keymap_global["U0-4"] = keymap.command_RecordClear
 
-    # USER0-F1 : Test of launching application
-    if 1:
-        keymap_global["U0-F1"] = keymap.ShellExecuteCommand(
-            None, "notepad++.exe", "", "")
+    # us to js
+    # (https://ossyaritoori.hatenablog.com/entry/2020/09/16/Autohotkeyを用いてWindowsでUS配列キーボードをJIS配列設定で使)
+    if 0:
+        keymap.replaceKey("DoubleQuote", "Atmark")
+        keymap.replaceKey("And", "Caret")
+        keymap.replaceKey("singleQuote", "And")
+        keymap.replaceKey("Asterisk", "DoubleQuote")
 
     # USER0-F2 : Test of sub thread execution using JobQueue/JobItem
     if 1:
         def command_JobTest():
 
-            def jobTest(job_item):
-                shellExecute(None, "notepad.exe", "", "")
+            def open_memo(job_item):
+                shellExecute(
+                    None,
+                    "notepad++.exe",
+                    "",
+                    "C:/Users/SARDONYX/OneDrive/文書")
 
             def jobTestFinished(job_item):
                 print("Done.")
 
-            job_item = JobItem(jobTest, jobTestFinished)
+            job_item = JobItem(open_memo, jobTestFinished)
             JobQueue.defaultQueue().enqueue(job_item)
 
         keymap_global["U0-F2"] = command_JobTest
@@ -171,16 +167,12 @@ def configure(keymap):
     # USER0-Alt-Up/Down/Left/Right/Space/PageUp/PageDown : Virtul mouse
     # operation by keyboard
     if 1:
-        keymap_global["U0-A-Left"] = keymap.MouseMoveCommand(-10, 0)
-        keymap_global["U0-A-Right"] = keymap.MouseMoveCommand(10, 0)
-        keymap_global["U0-A-Up"] = keymap.MouseMoveCommand(0, -10)
-        keymap_global["U0-A-Down"] = keymap.MouseMoveCommand(0, 10)
-        keymap_global["D-U0-A-Space"] = keymap.MouseButtonDownCommand('left')
-        keymap_global["U-U0-A-Space"] = keymap.MouseButtonUpCommand('left')
-        keymap_global["U0-A-PageUp"] = keymap.MouseWheelCommand(1.0)
-        keymap_global["U0-A-PageDown"] = keymap.MouseWheelCommand(-1.0)
-        keymap_global["U0-A-Home"] = keymap.MouseHorizontalWheelCommand(-1.0)
-        keymap_global["U0-A-End"] = keymap.MouseHorizontalWheelCommand(1.0)
+        keymap_global["U0-Left"] = keymap.MouseMoveCommand(-10, 0)
+        keymap_global["U0-Right"] = keymap.MouseMoveCommand(10, 0)
+        keymap_global["U0-Up"] = keymap.MouseMoveCommand(0, -10)
+        keymap_global["U0-Down"] = keymap.MouseMoveCommand(0, 10)
+        keymap_global["D-U0-Space"] = keymap.MouseButtonDownCommand('left')
+        keymap_global["U-U0-Space"] = keymap.MouseButtonUpCommand('left')
 
     # Execute the System commands by sendMessage
     if 1:
@@ -192,30 +184,36 @@ def configure(keymap):
             wnd = keymap.getTopLevelWindow()
             wnd.sendMessage(WM_SYSCOMMAND, SC_SCREENSAVE)
 
-        def slepp():
-            wnd = keymap.getTopLevelWindow()
-            wnd.sendMessage(WM_SYSCOMMAND, SC_CLOSE)
+        def sleep():  # https://qiita.com/sharow/items/ef78f2f5a8053f6a7a41
+            user32 = WinDLL('User32')
+            DISPLAY_ON = -1
+            DISPLAY_OFF = 2
+            HWND_BROADCAST = 0xffff
+            WM_SYSCOMMAND = 0x0112
+            SC_MONITORPOWER = 0xf170
+            post_message = cast(
+                user32.PostMessageA,
+                CFUNCTYPE(
+                    c_uint32,
+                    c_uint32,
+                    c_uint32,
+                    c_uint32,
+                    c_uint32))
+            lock_workstation = cast(
+                user32.LockWorkStation,
+                CFUNCTYPE(c_uint32))
+
+            post_message(HWND_BROADCAST,
+                         WM_SYSCOMMAND,
+                         SC_MONITORPOWER,
+                         DISPLAY_OFF)
 
         keymap_global["U0-C"] = close              # Close the window
+        keymap_global["U0-ScrollLock"] = sleep
 
     # Test of text input
     if 1:
         keymap_global["U0-H"] = keymap.InputTextCommand("Hello / こんにちは")
-
-    # Customize Notepad as Emacs-ish
-    # Because the keymap condition of keymap_edit overlaps with keymap_notepad,
-    # both these two keymaps are applied in mixed manner.
-    if 0:
-        keymap_notepad = keymap.defineWindowKeymap(
-            exe_name="notepad.exe", class_name="Edit")
-
-        # Define Ctrl-X as the first key of multi-stroke keys
-        keymap_notepad["C-X"] = keymap.defineMultiStrokeKeymap("C-X")
-
-        keymap_notepad["C-P"] = "Up"                  # Move cursor up
-        keymap_notepad["C-N"] = "Down"                # Move cursor down
-        keymap_notepad["C-F"] = "Right"               # Move cursor right
-        keymap_notepad["C-B"] = "Left"                # Move cursor left
 
     # Customizing clipboard history list
     if 1:
