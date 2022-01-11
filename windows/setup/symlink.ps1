@@ -42,7 +42,7 @@ Specification
 target(require):
   1. target is the actual directory or file. Relative from `$HOME/dotfiles` or absolute path.
   #! 2. A single string will be converted to target even if it is not specified as target.
-  e.g.: @{"windows/config/.bashrc" } → @{ target= "$HOME/dotfiles/windows/config/.bashrc", path= "$HOME/.bashrc"; name= ".bashrc" }
+  e.g.: @{"windows/config/.bashrc" } → @{ target= "$HOME/dotfiles/windows/config/.bashrc"; path= "$HOME/.bashrc"; name= ".bashrc" }
 which one(optional):
   path(option):
     1. The path is relative to $HOME/dotfiles.
@@ -73,6 +73,9 @@ $files = @(
   # msys2 HomeDir
   $UserName = (Split-Path $HOME -Leaf)
   @{ target = $HOME; fullpath = [IO.Path]::Combine($HOME, "scoop\apps\msys2\current\home\$UserName"); }
+
+  @{ target = "windows\config\keyhac\config.py"; fullpath = [IO.Path]::Combine($env:AppData, "Keyhac\config.py"); }
+  @{ target = "windows\config\keyhac\keyhac.ini"; fullpath = [IO.Path]::Combine($env:AppData, "Keyhac\keyhac.ini"); }
 
   @{ target = "common\data\navi-config.yml"; fullpath = "$(navi info config-path | Write-Output)"; name = "config.yml" } # manual
 
