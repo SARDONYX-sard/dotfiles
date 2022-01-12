@@ -1,6 +1,21 @@
+[skin]
+default = "gray(23) none / gray(20) none"
+
 [[verbs]]
 invocation = "ok"
 key = "enter"
 leave_broot = true
 execution = ":print_path"
 apply_to = "file"
+
+[[verbs]]
+invocation = "edit"
+key = "F2"
+shortcut = "e"
+execution = "nvim {file}"
+
+[[verbs]]
+invocation = "cd"
+key = "ctrl-enter"
+external = "cd {directory}"
+from_shell = true           # Make it run in the parent Shell. `br` is required.
