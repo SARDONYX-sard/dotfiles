@@ -3,6 +3,10 @@
   "$schema": "https://aka.ms/terminal-profiles-schema",
   "actions": [
     {
+      "command": "unbound",
+      "keys": "alt+enter"
+    },
+    {
       "command": {
         "action": "copy",
         "singleLine": false
