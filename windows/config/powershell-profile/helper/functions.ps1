@@ -1,10 +1,31 @@
 # --------------------------------------------------------------------------------------------------
 # Util
 # --------------------------------------------------------------------------------------------------
-function br {
-  Invoke-Expression  "broot --conf $HOME/dotfiles/common/data/broot-config.toml -s -g -h -F $args"
+function bo {
+  broot --conf $HOME/dotfiles/common/data/broot-config.toml -s -g -h -F $args
 }
 
+function br() {
+  $outcmd = New-TemporaryFile
+  bo --outcmd $outcmd $args
+  if (!$?) {
+    Remove-Item -Force $outcmd
+    return $lastexitcode
+  }
+
+  $command = Get-Content $outcmd
+  if ($command) {
+    # workaround - paths have some garbage at the start
+    $command = $command.replace("\\?\", "", 1)
+    Invoke-Expression $command
+  }
+  Remove-Item -Force $outcmd
+}
+
+
+# --------------------------------------------------------------------------------------------------
+# Util
+# --------------------------------------------------------------------------------------------------
 function color {
   # https://stackoverflow.com/questions/20541456/list-of-all-colors-available-for-powershell
   $colors = [enum]::GetValues([System.ConsoleColor])
