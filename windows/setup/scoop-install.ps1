@@ -147,9 +147,6 @@ scoop install ctags # For jump to reference
 # Performance
 scoop install hyperfine # A benchmarking tool written in rust.(https://github.com/sharkdp/hyperfine)
 
-# Vulnerability
-scoop bucket add snyk https://github.com/snyk/scoop-snyk
-scoop install snyk
 
 # --------------------------------------------------------------------------------------------------
 # Languages(option)
