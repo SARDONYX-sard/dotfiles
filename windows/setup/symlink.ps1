@@ -67,9 +67,6 @@ $files = @(
   @{ target = "windows\data\windows-terminal.json"; fullpath = $terminalPath; name = "settings.json" } # mode = "copy" }
   @{ target = "windows\data\windows-terminal-preview.json"; fullpath = $terminalPreviewPath; name = "settings.json" } # mode = "copy" }
 
-  # AutoHotkey (Keyboard keyconfig)
-  @{ target = "windows/config/init.ahk"; fullpath = [IO.Path]::Combine($env:AppData, "Microsoft/Windows/Start Menu/Programs/Startup/init.ahk") }
-
   # msys2 HomeDir
   $UserName = (Split-Path $HOME -Leaf)
   @{ target = $HOME; fullpath = [IO.Path]::Combine($HOME, "scoop\apps\msys2\current\home\$UserName"); }
