@@ -94,20 +94,21 @@ scoop install hadolint # Docker linter
 # Convenience
 # --------------------------------------------------------------------------------------------------
 # Helper
-scoop install autohotkey # Keyboard config (For windows\config\init.ahk file)
-scoop install capture2text # Can read text from video.
-scoop install hugo # Static site generator
+scoop install autohotkey      # Keyboard config (For windows\config\init.ahk file)
+scoop install capture2text    # Can read text from video.
+scoop install hugo            # Static site generator
 scoop install resource-hacker # exe icon edit
 
 # Terminal helper
-scoop install bottom       # Resource monitor with CLI
-scoop install broot        # A better way to navigate directories
-scoop install concfg       # Import and export Windows console settings (https://github.com/lukesampson/concfg)
+scoop install bottom           # Resource monitor with CLI
+scoop install broot            # A better way to navigate directories
+scoop install concfg           # Import and export Windows console settings (https://github.com/lukesampson/concfg)
 scoop install dockercompletion
-scoop install fzf          # A command-line fuzzy finder written in go.(https://github.com/junegunn/fzf)
-scoop install k9s          # Kubernetes wrapper
-scoop install scoop-search # Makes scoop search 50 times faster.(https://github.com/shilangyu/scoop-search)
-scoop isntall posh-git     # Git tab completion (https://github.com/dahlbyk/posh-git)
+scoop install gh               # GitHub Action in local PC.(https://cli.github.com/manual/)
+scoop install fzf              # A command-line fuzzy finder written in go.(https://github.com/junegunn/fzf)
+scoop install k9s              # Kubernetes wrapper
+scoop install scoop-search     # Makes scoop search 50 times faster.(https://github.com/shilangyu/scoop-search)
+scoop isntall posh-git         # Git tab completion (https://github.com/dahlbyk/posh-git)
 
 # Instead of command(Runs faster than existing ones.)
 scoop install bat     # instead of `cat` Syntax highlighting and Git integration(https://github.com/sharkdp/bat)
