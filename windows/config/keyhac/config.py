@@ -167,6 +167,10 @@ def configure(keymap):
     # USER0-Alt-Up/Down/Left/Right/Space/PageUp/PageDown : Virtul mouse
     # operation by keyboard
     if 1:
+        # keymap_global["U0-A"] = keymap.MouseMoveCommand(-10, 0)
+        # keymap_global["U0-D"] = keymap.MouseMoveCommand(10, 0)
+        # keymap_global["U0-W"] = keymap.MouseMoveCommand(0, -10)
+        # keymap_global["U0-S"] = keymap.MouseMoveCommand(0, 10)
         keymap_global["U0-Left"] = keymap.MouseMoveCommand(-10, 0)
         keymap_global["U0-Right"] = keymap.MouseMoveCommand(10, 0)
         keymap_global["U0-Up"] = keymap.MouseMoveCommand(0, -10)
@@ -183,6 +187,9 @@ def configure(keymap):
         def screenSaver():
             wnd = keymap.getTopLevelWindow()
             wnd.sendMessage(WM_SYSCOMMAND, SC_SCREENSAVE)
+
+        def shutdown():
+            os.system('shutdown -s')
 
         def sleep():  # https://qiita.com/sharow/items/ef78f2f5a8053f6a7a41
             user32 = WinDLL('User32')
@@ -208,12 +215,16 @@ def configure(keymap):
                          SC_MONITORPOWER,
                          DISPLAY_OFF)
 
-        keymap_global["U0-C"] = close              # Close the window
+        # keymap_global["U0-C"] = close              # Close the window
         keymap_global["U0-ScrollLock"] = sleep
+        keymap_global["U0-Pause"] = shutdown
 
     # Test of text input
     if 1:
-        keymap_global["U0-H"] = keymap.InputTextCommand("Hello / こんにちは")
+        keymap_global["U0-H"] = keymap.InputTextCommand(" --help")
+        keymap_global["U0-W"] = keymap.InputTextCommand("なるほどね。(*´ω`*)")
+        keymap_global["U0-S"] = keymap.InputTextCommand("scoop search ")
+        keymap_global["U0-A"] = keymap.InputTextCommand("Update-AllLibs")
 
     # Customizing clipboard history list
     if 1:
@@ -253,9 +264,7 @@ def configure(keymap):
         def quoteClipboardText():
             s = getClipboardText()
             lines = s.splitlines(True)
-            s = ""
-            for line in lines:
-                s += keymap.quote_mark + line
+            s = "".join(keymap.quote_mark + line for line in lines)
             return s
 
         # Indent current clipboard contents
@@ -319,11 +328,9 @@ def configure(keymap):
             fullpath = os.path.join(
                 getDesktopPath(),
                 datetime.datetime.now().strftime("clip_%Y%m%d_%H%M%S.txt"))
-            fd = open(fullpath, "wb")
-            fd.write(utf8_bom)
-            fd.write(text)
-            fd.close()
-
+            with open(fullpath, "wb") as fd:
+                fd.write(utf8_bom)
+                fd.write(text)
             # Open by the text editor
             keymap.editTextFile(fullpath)
 
