@@ -50,8 +50,8 @@
     },
     "list": [
       {
-        "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u81ea\u7136\\night-3078326_960_720.jpg",
-        "backgroundImageOpacity": 0.0,
+        "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u81ea\u7136\\\u8776\\cat-and-butterfly.png",
+        "backgroundImageOpacity": 0.38,
         "bellStyle": "none",
         "colorScheme": "Campbell",
         "commandline": "pwsh.exe -nologo",
@@ -152,7 +152,7 @@
   },
   "schemes": [
     {
-      "background": "#303740",
+      "background": "#272626",
       "black": "#0C0C0C",
       "blue": "#0037DA",
       "brightBlack": "#767676",
