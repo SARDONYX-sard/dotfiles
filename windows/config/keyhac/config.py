@@ -8,7 +8,8 @@ import datetime
 import os
 import sys
 
-import pyauto
+# pyauto  ref: (https://github.com/crftwr/pyauto/blob/master/doc/pyauto.py)
+# import pyauto
 from keyhac import *
 
 
@@ -162,7 +163,7 @@ def configure(keymap):
             # delayed-execute the procedure by delayedCall().
             keymap.delayedCall(popApplicationList, 0)
 
-        keymap_global["U0-Space"] = command_PopApplicationList
+        keymap_global["U0-Shift-Space"] = command_PopApplicationList
 
     # USER0-Alt-Up/Down/Left/Right/Space/PageUp/PageDown : Virtul mouse
     # operation by keyboard
