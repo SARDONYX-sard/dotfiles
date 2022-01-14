@@ -184,16 +184,11 @@ def configure(keymap):
             wnd = keymap.getTopLevelWindow()
             wnd.sendMessage(WM_SYSCOMMAND, SC_CLOSE)
 
-        def screenSaver():
-            wnd = keymap.getTopLevelWindow()
-            wnd.sendMessage(WM_SYSCOMMAND, SC_SCREENSAVE)
-
         def shutdown():
             os.system('shutdown -s')
 
         def sleep():  # https://qiita.com/sharow/items/ef78f2f5a8053f6a7a41
             user32 = WinDLL('User32')
-            DISPLAY_ON = -1
             DISPLAY_OFF = 2
             HWND_BROADCAST = 0xffff
             WM_SYSCOMMAND = 0x0112
@@ -206,9 +201,6 @@ def configure(keymap):
                     c_uint32,
                     c_uint32,
                     c_uint32))
-            lock_workstation = cast(
-                user32.LockWorkStation,
-                CFUNCTYPE(c_uint32))
 
             post_message(HWND_BROADCAST,
                          WM_SYSCOMMAND,
@@ -221,10 +213,16 @@ def configure(keymap):
 
     # Test of text input
     if 1:
-        keymap_global["U0-H"] = keymap.InputTextCommand(" --help")
-        keymap_global["U0-W"] = keymap.InputTextCommand("なるほどね。(*´ω`*)")
-        keymap_global["U0-S"] = keymap.InputTextCommand("scoop search ")
-        keymap_global["U0-A"] = keymap.InputTextCommand("Update-AllLibs")
+        def input_func(text: str):
+            def _input_func():
+                keymap.InputKeyCommand("Escape")()
+                keymap.InputTextCommand(text)()
+            return _input_func
+
+        keymap_global["U0-F"] = keymap.InputTextCommand(" --help")
+        keymap_global["U0-A"] = input_func("Update-AllLibs")
+        keymap_global["U0-S"] = input_func("scoop search ")
+        keymap_global["U0-W"] = input_func("なるほどね。(*´ω`*)")
 
     # Customizing clipboard history list
     if 1:
