@@ -144,7 +144,7 @@
         "hidden": false,
         "icon": "C:\\Users\\SARDONYX\\scoop\\apps\\msys2\\current\\mingw64.ico",
         "name": "MinGW64",
-        "opacity": 84,
+        "opacity": 75,
         "startingDirectory": "%USERPROFILE%",
         "useAcrylic": false
       }
