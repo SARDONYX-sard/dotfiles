@@ -94,7 +94,6 @@ scoop install hadolint # Docker linter
 # Convenience
 # --------------------------------------------------------------------------------------------------
 # Helper
-scoop install autohotkey      # Keyboard config (For windows\config\init.ahk file)
 scoop install capture2text    # Can read text from video.
 scoop install hugo            # Static site generator
 scoop install resource-hacker # exe icon edit
