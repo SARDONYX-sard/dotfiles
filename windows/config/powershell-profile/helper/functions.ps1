@@ -170,6 +170,7 @@ function Update-AllLibs {
     @{ name = "pnpm"; installer = "pnpm up -g" }
     @{ name = "deno"; installer = "deno upgrade" }
     @{ name = "PowerShell"; installer = "Update-Module -Force" }
+    @{ name = "cargo"; installer = "cargo install-update -a" }
 
     # python
     @{ name = "pip-review"; installer = "pip-review -a" }
