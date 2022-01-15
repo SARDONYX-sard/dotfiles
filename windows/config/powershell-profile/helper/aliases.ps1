@@ -38,28 +38,19 @@ if ($PSVersionTable.PSEdition -eq "Core") {
 # --------------------------------------------------------------------------------------------------
 function which {
   param (
-    [switch]$d,
-    [switch]$Detail,
     [switch]$v,
     [switch]$Verbose
   )
 
-  $result = (Get-Command $args)
-  if ($result.CommandType -eq "Alias") {
-    $result = Get-Command $result.Definition
-  }
+  if ($args -match "scoop" -or $args -eq "s") { return "$HOME/scoop/shims/scoop.ps1"; }
 
-  if ($d -or $Detail) {
-    return $result
-  }
-  elseif ($v -or $Verbose) {
-    return $result | Format-List
-  }
+  $path = (Get-Command -Name $args -ErrorAction SilentlyContinue)
+  if ($path -match "shims") { return scoop which $args } # Solving the scoop path display problem
+  if ($path.CommandType -eq "Alias") { $path = Get-Command $path.Definition }
 
-  $path = $result.Definition
+  if ($v -or $Verbose) { return $path | Format-List }
 
-  if ($path -match "shims") { $path = scoop which $args } # Solving the scoop path display problem
-  $path
+  $path.Source
 }
 
 #? Dependency injection with the idea of using zoxide
