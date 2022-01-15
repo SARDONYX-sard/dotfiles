@@ -176,8 +176,8 @@ function Update-AllLibs {
     @{ name = "pip-review"; installer = "pip-review -a" }
     @{ name = "pipx"; installer = "pipx upgrade-all" }
 
-    # Software
-    @{ name = "need sudo (scoop, windget)"; installer = "su scohop update * --global;winget upgrade --all;" }
+    # software
+    @{ name = "need sudo (scoop, windget)"; installer = "sudo scoop update * --global && winget upgrade --all;" }
   )
 
   foreach ($Lib in $Libs) {
