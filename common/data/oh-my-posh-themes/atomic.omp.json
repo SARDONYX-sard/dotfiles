@@ -108,6 +108,19 @@
       "alignment": "right",
       "segments": [
         {
+          "type": "sysinfo",
+          "style": "diamond",
+          "leading_diamond": "\uE0B2",
+          "trailing_diamond": "<transparent,#4c6138>\uE0B2</>",
+          "foreground": "#ffffff",
+          "background": "#4c6138",
+          "properties": {
+            "prefix": " \uf85a ",
+            "postfix": "% ",
+            "template": "{{ round .PhysicalPercentUsed .Precision }}"
+          }
+        },
+        {
           "type": "node",
           "style": "diamond",
           "leading_diamond": " \uE0B6",
