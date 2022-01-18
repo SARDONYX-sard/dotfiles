@@ -60,7 +60,7 @@
           "style": "powerline",
           "powerline_symbol": "\uE0B0",
           "foreground": "#011627",
-          "background": "#FFFB38",
+          "background": "#20ec4c",
           "background_templates": [
             "{{ if or (.Working.Changed) (.Staging.Changed) }}#ffeb95{{ end }}",
             "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#c5e478{{ end }}",
