@@ -21,5 +21,7 @@ git clone https://github.com/pyenv-win/pyenv-win.git "$HOME/.pyenv"
 [System.Environment]::SetEnvironmentVariable('PYENV_HOME', $env:USERPROFILE + "\.pyenv\pyenv-win\", "User")
 
 [System.Environment]::SetEnvironmentVariable('path', $env:USERPROFILE + "\.pyenv\pyenv-win\bin;" + $env:USERPROFILE + "\.pyenv\pyenv-win\shims;" + [System.Environment]::GetEnvironmentVariable('path', "User"), "User")
+Set-Location $HOME
+pyenv rehash # For python module scripts enabled
 
 sudo ln -s $HOME\.pyenv\pyenv-win\shims $HOME\.pyenv\shims # for init.vim settings
