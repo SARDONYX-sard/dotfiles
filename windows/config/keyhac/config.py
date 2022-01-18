@@ -6,7 +6,6 @@ https://sites.google.com/site/craftware/
 from ctypes import CFUNCTYPE, WinDLL, c_uint32, cast
 import datetime
 import os
-import sys
 
 # pyauto  ref: (https://github.com/crftwr/pyauto/blob/master/doc/pyauto.py)
 # import pyauto
