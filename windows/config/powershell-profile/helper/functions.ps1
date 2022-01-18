@@ -41,11 +41,30 @@ function add-vim-setting {
 endif" >> $HOME\dotfiles\init.vim
 }
 
-function Set-Env($Path) {
-  [System.Environment]::SetEnvironmentVariable('path', "$Path" + [System.Environment]::GetEnvironmentVariable('path', "User"), "User")
+function printenv {
+  Get-ChildItem Env:
+}
 
-  if ($?) { Write-Host "Set-Env: $Path" }
-  else { Write-Host "Set-Env: $Path failed" }
+function Set-Env {
+  [CmdletBinding()]
+  param (
+    [string] $Key = "path",
+    [Parameter(Mandatory = $true,
+      ValueFromPipeline = $true)]
+    [string] $Value
+  )
+  [System.Environment]::SetEnvironmentVariable($Key, "$Value" + [System.Environment]::GetEnvironmentVariable('path', "User"), "User")
+
+  if ($?) { Write-Host "Set-Env: $Key += $Value" }
+  else { Write-Host "Set-Env: $Key += $Value failed" }
+}
+
+function Get-Path {
+  
+  $toReplaceStr = ";
+
+"
+  [regex]::Replace($ENV:PATH, ";", "$toReplaceStr") | Sort-Object | Write-Host
 }
 
 function Set-Symlink {
