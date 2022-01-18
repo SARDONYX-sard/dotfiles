@@ -30,6 +30,9 @@ $libs = @(
     description = "Checking and applying updates to installed executables."
   }
 
+  # Development
+  @{ name = "git-cliff"; url = "https://github.com/orhun/git-cliff"; description = "generate changelog files." }
+
   # calculation + conversion. (e.g. cpc '1KB to Byte' => 1000 Byte)
   @{ name = "cpc"; url = "https://github.com/probablykasper/cpc"; description = "cpc parses and evaluates strings of math." }
   @{ name = "choose"; url = "https://github.com/theryangeary/choose"; description = "similar to Python's list slices" }
