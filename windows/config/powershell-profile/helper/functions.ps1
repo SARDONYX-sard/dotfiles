@@ -35,6 +35,19 @@ function color {
   }
 }
 
+function add-vim-setting {
+  "if !has('zsh')
+  set shell=pwsh
+endif" >> $HOME\dotfiles\init.vim
+}
+
+function Set-Env($Path) {
+  [System.Environment]::SetEnvironmentVariable('path', "$Path" + [System.Environment]::GetEnvironmentVariable('path', "User"), "User")
+
+  if ($?) { Write-Host "Set-Env: $Path" }
+  else { Write-Host "Set-Env: $Path failed" }
+}
+
 function Set-Symlink {
   [CmdletBinding()]
   param (
