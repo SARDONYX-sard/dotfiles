@@ -101,21 +101,6 @@
         "useAcrylic": false
       },
       {
-        "backgroundImage": "D:\\\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\\\u30d0\u30c3\u30af\u30a2\u30c3\u30d7\u95a2\u4fc2\\\u80cc\u666f\u7528\\cat-and-butterfly.png",
-        "backgroundImageOpacity": 0.0,
-        "bellStyle": "none",
-        "font": {
-          "face": "CodeNewRoman NF"
-        },
-        "guid": "{46ca431a-3a87-5fb3-83cd-11ececc031d2}",
-        "hidden": false,
-        "name": "kali-linux",
-        "opacity": 85,
-        "source": "Windows.Terminal.Wsl",
-        "startingDirectory": "\\\\wsl.localhost\\kali-linux\\home\\sardonyx",
-        "useAcrylic": false
-      },
-      {
         "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u548c\u98a8\\\u7d05\u8449\\Wallpaper 4k Red Leaves Tree 4k 4k-wallpapers, hd-wallpapers, leaves wallpapers, nature wallpapers, tree wallpapers.jpg",
         "backgroundImageOpacity": 0.0,
         "bellStyle": "none",
@@ -136,7 +121,7 @@
         "bellStyle": "none",
         "closeOnExit": "always",
         "colorScheme": "Campbell",
-        "commandline": "pwsh -Command \"& {mingw64.ps1 -shell zsh }\"",
+        "commandline": "pwsh -Command \"& {mingw64 -shell zsh }\"",
         "font": {
           "face": "CodeNewRoman NF"
         },
