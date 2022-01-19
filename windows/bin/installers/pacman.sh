@@ -34,7 +34,6 @@ function install_libs {
 }
 
 function main {
-  check_msys2_available
   install_libs
 }
 
