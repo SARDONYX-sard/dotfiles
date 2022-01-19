@@ -8,6 +8,8 @@
   msys2.ps1
 #>
 
+sudo ln -s $HOME "$HOME\scoop\apps\msys2\current\home\$env:USERNAME"
+
 function check_msys2_available {
   if ((Get-Command -Name msys2) -eq $false) {
     Write-Warning "msys2 is not installed."

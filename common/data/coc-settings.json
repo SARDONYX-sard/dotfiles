@@ -1,9 +1,5 @@
 {
-  "tsdetect.doNothingIfConfigExists": false,
-  "diagnostic.errorSign": ">>",
-  "diagnostic.warningSign": "--",
-  "diagnostic.infoSign": "..",
-  "diagnostic.hintSign": "..",
+  "coc.preferences.enableMessageDialog": false,
   "coc.preferences.formatOnSaveFiletypes": [
     "go",
     "rust",
@@ -15,80 +11,200 @@
     "typescriptreact",
     "tf"
   ],
-  "languageserver": {
-    "terraform": {
-      "command": "terraform-ls",
-      "args": ["serve"],
-      "filetypes": ["terraform", "tf"],
-      "initializationOptions": {}
-    }
-    // "protobuf": {
-    //   "command": "protocol-buffers-language-server",
-    //   "args": ["--logfile=/tmp/prbuf-lsp.log", "--loglevel=debug"],
-    //   "filetypes": ["proto"]
-    // }
+  "coc.preferences.promptInput": true,
+  "coc.preferences.useQuickfixForLocations": false,
+  "coc.source.file.trimSameExts": [],
+  "coc.source.neosnippet.priority": 40,
+  "coc.source.ultisnips-select.priority": 500,
+  "codeLens.enable": false,
+  "cSpell.diagnosticLevel": "Hint",
+  "cSpell.enabledLanguageIds": [
+    "vim",
+    "css",
+    "git-commit",
+    "go",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc",
+    "markdown",
+    "python",
+    "ruby",
+    "typescript",
+    "typescript.tsx",
+    "typescriptreact",
+    "yaml"
+  ],
+  "cSpell.showStatus": false,
+  "deno.codeLens.implementations": true,
+  "deno.codeLens.references": true,
+  "deno.codeLens.referencesAllFunctions": true,
+  "deno.enable": false,
+  "deno.lint": true,
+  "deno.unstable": true,
+  "diagnostic-languageserver.filetypes": {
+    "dockerfile": "hadolint",
+    "sh": "shellcheck"
   },
   "diagnostic-languageserver.linters": {
     "hadolint": {
-      "command": "hadolint",
-      "sourceName": "hadolint",
       "args": ["-f", "json", "-t", "style", "-"],
+      "command": "hadolint",
       "parseJson": {
-        "line": "line",
         "column": "column",
-        "security": "level",
-        "message": "${message} [${code}]"
-      },
-      "securities": {
-        "error": "error",
-        "warning": "warning",
-        "info": "info",
-        "style": "hint"
-      }
-    },
-    "shellcheck": {
-      "command": "shellcheck",
-      "debounce": 100,
-      "args": ["--format", "json", "-x", "-"],
-      "sourceName": "shellcheck",
-      "parseJson": {
         "line": "line",
-        "column": "column",
-        "endLine": "endLine",
-        "endColumn": "endColumn",
         "message": "${message} [${code}]",
         "security": "level"
       },
       "securities": {
         "error": "error",
-        "warning": "warning",
         "info": "info",
-        "style": "hint"
-      }
+        "style": "hint",
+        "warning": "warning"
+      },
+      "sourceName": "hadolint"
+    },
+    "shellcheck": {
+      "args": ["--format", "json", "-x", "-"],
+      "command": "shellcheck",
+      "debounce": 100,
+      "parseJson": {
+        "column": "column",
+        "endColumn": "endColumn",
+        "endLine": "endLine",
+        "line": "line",
+        "message": "${message} [${code}]",
+        "security": "level"
+      },
+      "securities": {
+        "error": "error",
+        "info": "info",
+        "style": "hint",
+        "warning": "warning"
+      },
+      "sourceName": "shellcheck"
     }
   },
-  "diagnostic-languageserver.filetypes": {
-    "sh": "shellcheck",
-    "dockerfile": "hadolint"
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.errorSign": "",
+  "diagnostic.floatConfig": {
+    "border": true,
+    "highlight": "CocDiagnosticFloating"
   },
-  "coc.source.neosnippet.priority": 40,
+  "diagnostic.hintSign": "",
+  "diagnostic.infoSign": "",
+  "diagnostic.locationlistUpdate": false,
+  "diagnostic.messageDelay": 0,
+  "diagnostic.messageTarget": "float",
+  "diagnostic.warningSign": "",
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
   },
-  "tsserver.formatOnType": true,
-  "eslint.format.enable": true,
-  "eslint.autoFixOnSave": true,
   "emmet.priority": 30,
-  "deno.codeLens.references": false,
-  "deno.codeLens.referencesAllFunctions": false,
-  "deno.codeLens.implementations": false,
-  "codeLens.enable": false,
+  "eslint.autoFixOnSave": true,
+  "eslint.format.enable": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "explorer.keyMappings.global": {
+    "!": "toggleHidden",
+    "?": "help",
+    "<CR>": "open",
+    "<esc>": "esc",
+    "<Tab>": "actionMenu",
+    "c": "copyFile",
+    "d": "delete",
+    "D": "deleteForever",
+    "h": ["expanded?", "collapse", "gotoParent"],
+    "i": false,
+    "j": "nodeNext",
+    "k": "nodePrev",
+    "K": "addDirectory",
+    "l": ["expandable?", "expand", "open"],
+    "N": "addFile",
+    "p": "pasteFile",
+    "q": "quit",
+    "r": "rename",
+    "R": "refresh",
+    "t": ["expanded?", "collapse", "expand"],
+    "x": "toggleSelection",
+    "y": "copyFilepath",
+    "Y": "copyFilename"
+  },
+  "explorer.previewAction.onHover": false,
+  "explorer.sources": [
+    {
+      "expand": true,
+      "name": "file"
+    }
+  ],
   "go.goplsOptions": {
     "staticcheck": true
   },
-  "coc.preferences.enableMessageDialog": false,
+  "hover.floatConfig": {
+    "border": true,
+    "highlight": "CocHoverFloating"
+  },
+  "json.schemas": [
+    {
+      "fileMatch": ["/*"],
+      "url": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/api/json/catalog.json"
+    }
+  ],
+  "languageserver": {
+    // "protobuf": {
+    //   "command": "protocol-buffers-language-server",
+    //   "args": ["--logfile=/tmp/prbuf-lsp.log", "--loglevel=debug"],
+    //   "filetypes": ["proto"]
+    // }
+    "efm": {
+      "command": "efm-langserver",
+      "filetypes": ["go", "ruby", "vim", "sh", "zsh", "markdown"]
+    },
+    "terraform": {
+      "args": ["serve"],
+      "command": "terraform-ls",
+      "filetypes": ["terraform", "tf"],
+      "initializationOptions": {}
+    }
+  },
+  "prettier.disableLanguages": ["markdown"],
   "prettier.onlyUseLocalVersion": true,
-  "rust-analyzer.procMacro.enable": true,
+  "prettier.statusItemText": "",
+  "prisma.prismaFmtBinPath": "",
+  "python.jediEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "rust-analyzer.cargo.loadOutDirsFromCheck": true,
   "rust-analyzer.experimental.procAttrMacros": true,
-  "rust-analyzer.cargo.loadOutDirsFromCheck": true
+  "rust-analyzer.procMacro.enable": true,
+  "signature.floatConfig": {
+    "border": true,
+    "highlight": "CocSignatureFloating"
+  },
+  "solargraph.diagnostics": true,
+  "suggest.asciiCharactersOnly": true,
+  "suggest.autoTrigger": "always",
+  "suggest.floatConfig": {
+    "border": true,
+    "highlight": "CocSuggestFloating"
+  },
+  "suggest.languageSourcePriority": 200,
+  "suggest.minTriggerInputLength": 1,
+  "suggest.snippetIndicator": " >>",
+  "tabnine.priority": 100,
+  "tsdetect.doNothingIfConfigExists": false,
+  "tsserver.enable": true,
+  "tsserver.formatOnType": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/docker/cli/master/cli/compose/schema/data/config_schema_v3.9.json": [
+      "/docker-compose.yml"
+    ],
+    "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/api/json/catalog.json": "/*"
+  }
 }
