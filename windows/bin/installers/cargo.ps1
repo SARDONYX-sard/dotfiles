@@ -29,9 +29,13 @@ $libs = @(
   @{ name = "cargo-update"; url = "https://github.com/nabijaczleweli/cargo-update";
     description = "Checking and applying updates to installed executables."
   }
+  @{ name = "cargo-edit"; description = "cargo add command" }
+  @{ name = "cargo-binutils"; url = "https://github.com/rust-embedded/cargo-binutils"; description = "Invoke the LLVM tools shipped with the Rust toolchain" }
 
   # Development
   @{ name = "git-cliff"; url = "https://github.com/orhun/git-cliff"; description = "generate changelog files." }
+  @{ name = "trunk"; url = "https://github.com/thedodd/trunk"; description = "Build, bundle & ship your Rust WASM application to the web." }
+  @{ name = "rustfilt"; url = "https://github.com/luser/rustfilt"; description = "Demangle Rust symbol names using rustc-demangle. " }
 
   # calculation + conversion. (e.g. cpc '1KB to Byte' => 1000 Byte)
   @{ name = "cpc"; url = "https://github.com/probablykasper/cpc"; description = "cpc parses and evaluates strings of math." }
