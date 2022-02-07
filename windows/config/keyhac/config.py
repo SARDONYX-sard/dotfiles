@@ -3,7 +3,6 @@
 https://sites.google.com/site/craftware/
 """
 
-from ctypes import CFUNCTYPE, WinDLL, c_uint32, cast
 import datetime
 import os
 
@@ -188,24 +187,10 @@ def configure(keymap):
             os.system('shutdown -s')
 
         def sleep():  # https://qiita.com/sharow/items/ef78f2f5a8053f6a7a41
-            user32 = WinDLL('User32')
-            DISPLAY_OFF = 2
-            HWND_BROADCAST = 0xffff
-            WM_SYSCOMMAND = 0x0112
-            SC_MONITORPOWER = 0xf170
-            post_message = cast(
-                user32.PostMessageA,
-                CFUNCTYPE(
-                    c_uint32,
-                    c_uint32,
-                    c_uint32,
-                    c_uint32,
-                    c_uint32))
-
-            post_message(HWND_BROADCAST,
-                         WM_SYSCOMMAND,
-                         SC_MONITORPOWER,
-                         DISPLAY_OFF)
+            os.system(
+                'powershell.exe -Command \
+                "Add-Type -Assembly \
+                System.Windows.Forms;[System.Windows.Forms.Application]::SetSuspendState(\'Suspend\', $false, $false);"')
 
         # keymap_global["U0-C"] = close              # Close the window
         keymap_global["U0-ScrollLock"] = sleep
@@ -244,19 +229,19 @@ def configure(keymap):
         ]
 
         # Return formatted date-time string
-        def dateAndTime(fmt):
-            def _dateAndTime():
+        def date_and_time(fmt):
+            def _date_and_time():
                 return datetime.datetime.now().strftime(fmt)
-            return _dateAndTime
+            return _date_and_time
 
         # Date-time
         datetime_items = [
-            ("YYYY/MM/DD HH:MM:SS", dateAndTime("%Y/%m/%d %H:%M:%S")),
-            ("YYYY/MM/DD", dateAndTime("%Y/%m/%d")),
-            ("HH:MM:SS", dateAndTime("%H:%M:%S")),
-            ("YYYYMMDD_HHMMSS", dateAndTime("%Y%m%d_%H%M%S")),
-            ("YYYYMMDD", dateAndTime("%Y%m%d")),
-            ("HHMMSS", dateAndTime("%H%M%S")),
+            ("YYYY/MM/DD HH:MM:SS", date_and_time("%Y/%m/%d %H:%M:%S")),
+            ("YYYY/MM/DD", date_and_time("%Y/%m/%d")),
+            ("HH:MM:SS", date_and_time("%H:%M:%S")),
+            ("YYYYMMDD_HHMMSS", date_and_time("%Y%m%d_%H%M%S")),
+            ("YYYYMMDD", date_and_time("%Y%m%d")),
+            ("HHMMSS", date_and_time("%H%M%S")),
         ]
 
         # Add quote mark to current clipboard contents
