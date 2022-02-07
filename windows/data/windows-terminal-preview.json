@@ -7,6 +7,10 @@
       "keys": "alt+enter"
     },
     {
+      "command": "find",
+      "keys": "ctrl+shift+f"
+    },
+    {
       "command": {
         "action": "copy",
         "singleLine": false
@@ -23,10 +27,6 @@
     {
       "command": "paste",
       "keys": "ctrl+v"
-    },
-    {
-      "command": "find",
-      "keys": "ctrl+shift+f"
     },
     {
       "command": {
@@ -51,7 +51,7 @@
     "list": [
       {
         "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u81ea\u7136\\\u8776\\cat-and-butterfly.png",
-        "backgroundImageOpacity": 0.38,
+        "backgroundImageOpacity": 0.0,
         "bellStyle": "none",
         "colorScheme": "Campbell",
         "commandline": "pwsh.exe -nologo",
@@ -105,7 +105,6 @@
         "backgroundImageOpacity": 0.0,
         "bellStyle": "none",
         "colorScheme": "Campbell",
-        "commandline": "cmd.exe",
         "font": {
           "face": "CodeNewRoman NF"
         },
