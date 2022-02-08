@@ -18,3 +18,6 @@ asdf install go latest
 asdf install nodejs lts
 asdf install python latest
 asdf install ruby latest
+
+corepack enable
+asdf reshim nodejs
