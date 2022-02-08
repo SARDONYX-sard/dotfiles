@@ -8,6 +8,7 @@ Set-Alias dk docker
 
 # Move directory
 Set-Alias ~~ Move-HomeDir
+Set-Alias ~ $HOME
 
 # Utils
 Set-Alias c clear
