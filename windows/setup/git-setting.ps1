@@ -35,7 +35,7 @@ function main($GitFilePath, $Destination) {
 }
 
 $gitConfigPath = [IO.Path]::Combine($HOME, ".gitconfig")
-main "common\data\git-config.txt" $gitConfigPath
+main "common/data/git/git-config.txt" $gitConfigPath
 
 $gitIgnorePath = [IO.Path]::Combine($HOME, ".config/git/ignore")
-main "common\data\gitignore-global.txt" $gitIgnorePath
+main "common/data/git/gitignore-global.txt" $gitIgnorePath
