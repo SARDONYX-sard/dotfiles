@@ -60,6 +60,8 @@ $files = @(
   @{ target = "init.vim"; path = ""; name = ".vimrc" }
   @{ target = "init.vim"; path = "AppData/Local/nvim" }
   @{ target = "ginit.vim"; path = "AppData/Local/nvim" }
+  # lunarvim
+  @{ target = "lvim-config.lua"; fullpath = [IO.Path]::Combine($HOME, "AppData/Local/lvim/config.lua"); }
 
   # Terminal
   $terminalPath = [IO.Path]::Combine($env:LocalAppData, "Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json")
