@@ -7,17 +7,17 @@ if (!(Test-Path $HOME/dotfiles)) {
 # Require:
 # --------------------------------------------------------------------------------------------------
 # Install software with scoop
-Invoke-Expression "$HOME/dotfiles/windows/setup/scoop-install.ps1"
+Invoke-Expression "$HOME/dotfiles/windows/bin/installers/scoop.ps1"
 
 # Git settings
 Invoke-Expression "$HOME/dotfiles/windows/setup/git-setting.ps1"
 
 #! Module loading must be done before symlink, otherwise symlink settings will not be reflected.
 # Install powershell modules
-Invoke-Expression "$HOME/dotfiles/windows/setup/pwsh-modules.ps1"
+Invoke-Expression "$HOME/dotfiles/windows/bin/installers//pwsh-modules.ps1"
 
 # Connect each file (or directory) to dotfiles with a symbolic link.
-~/dotfiles/windows/setup/symlink.ps1 #? $HOME env not working. So use `~`
+Invoke-Expression "$HOME/dotfiles/windows/setup/symlink.ps1"
 
 winget import "$HOME/dotfiles/windows/data/winget-app-list.json"
 
