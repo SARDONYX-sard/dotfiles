@@ -17,6 +17,9 @@ Set-Alias gen Get-SnippetGenerator
 Set-Alias s scoop
 Set-Alias wh which
 
+# Editor
+Set-Alias lvim "$HOME\.local\bin\lvim.ps1"
+
 # Node.js
 Set-Alias n npm
 Set-Alias pn pnpm
