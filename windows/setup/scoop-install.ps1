@@ -14,6 +14,11 @@ Param (
   [switch]$Languages
 )
 
+# settings
+# WARN  Scoop uses 'aria2c' for multi-connection downloads.
+# WARN  Should it cause issues, run 'scoop config aria2-enabled false' to disable it.
+scoop config aria2-warning-enabled false
+
 # --------------------------------------------------------------------------------------------------
 # Aliases(to like pnpm commands) reference: JP(https://qiita.com/nimzo6689/items/53c63439f56ccd2d38c1)
 # --------------------------------------------------------------------------------------------------
