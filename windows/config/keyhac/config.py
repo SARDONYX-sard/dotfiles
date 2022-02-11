@@ -204,11 +204,11 @@ def configure(keymap):
                 keymap.InputTextCommand(text)()
             return _input_func
 
-        keymap_global["U0-A"] = input_func("Update-AllLibs")
         keymap_global["U0-S"] = input_func("scoop search ")
 
+        keymap_global["U0-A"] = keymap.InputTextCommand("update-alllibs")
         keymap_global["U0-F"] = keymap.InputTextCommand(" --help")
-        keymap_global["U0-W"] = keymap.InputTextCommand("なるほどね。(*´ω`*)")
+        keymap_global["U0-W"] = keymap.InputTextCommand("ほう(・ω・｀)…？")
 
     # Customizing clipboard history list
     if 1:
