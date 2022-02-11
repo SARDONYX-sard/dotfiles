@@ -61,7 +61,7 @@
         "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
         "hidden": false,
         "name": "PowerShell Core",
-        "opacity": 77,
+        "opacity": 75,
         "source": "Windows.Terminal.PowershellCore",
         "useAcrylic": false
       },
@@ -70,7 +70,7 @@
         "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u81ea\u7136\\nature-3082832_960_720.jpg",
         "backgroundImageOpacity": 0.0,
         "bellStyle": "none",
-        "colorScheme": "One Half Dark",
+        "colorScheme": "Campbell",
         "commandline": "powershell.exe -nologo",
         "font": {
           "face": "CodeNewRoman NF"
@@ -78,7 +78,7 @@
         "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
         "hidden": true,
         "name": "Windows PowerShell",
-        "opacity": 88,
+        "opacity": 75,
         "useAcrylic": false
       },
       {
@@ -88,14 +88,14 @@
         "backgroundImageStretchMode": "uniformToFill",
         "bellStyle": "none",
         "closeOnExit": "always",
-        "colorScheme": "One Half Dark",
+        "colorScheme": "Campbell",
         "font": {
           "face": "CodeNewRoman NF"
         },
         "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
         "hidden": false,
         "name": "Ubuntu",
-        "opacity": 85,
+        "opacity": 75,
         "source": "Windows.Terminal.Wsl",
         "startingDirectory": "\\\\wsl.localhost\\Ubuntu\\home\\sardonyx",
         "useAcrylic": false
@@ -111,7 +111,7 @@
         "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
         "hidden": true,
         "name": "\u30b3\u30de\u30f3\u30c9 \u30d7\u30ed\u30f3\u30d7\u30c8",
-        "opacity": 84,
+        "opacity": 75,
         "useAcrylic": false
       },
       {
@@ -136,7 +136,7 @@
   },
   "schemes": [
     {
-      "background": "#272626",
+      "background": "#1C1E20",
       "black": "#0C0C0C",
       "blue": "#0037DA",
       "brightBlack": "#767676",
