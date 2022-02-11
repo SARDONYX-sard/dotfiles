@@ -51,7 +51,7 @@ $libs = @(
   # Conveniences
   @{ name = "cython"; description = "C." }
   @{ name = "notebook"; description = "jupyter notebook." } # https://github.com/jupyter/notebook
-  @{ name = "selenium"; description = "E2E testing library." }
+  # @{ name = "selenium"; description = "E2E testing library." }
 
   # Editor
   # @{ name = "neovim"; description = "vim." }
