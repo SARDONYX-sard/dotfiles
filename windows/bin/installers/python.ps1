@@ -36,6 +36,7 @@ $libs = @(
   # Formatter & Linter
   @{ name = "autopep8"; description = "formatter." }
   @{ name = "flake8"; description = "linter." }
+  @{ name = "codespell"; description = "spell checker." }
 
   # Manager(For update libs)
 

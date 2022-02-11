@@ -4,7 +4,7 @@
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # for personal's bash files
-PATH="$PATH:$HOME/bin"
+PATH="$PATH:$HOME/.local/bin"
 
 # heroku CLI
 PATH=/usr/local/heroku/bin:$PATH
