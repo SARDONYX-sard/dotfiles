@@ -41,6 +41,7 @@
     "powerline",
     "procs",
     "pshazz",
+    "pwsh",
     "pyauto",
     "quotepath",
     "Readline",
@@ -69,5 +70,6 @@
     "git-config.txt": "properties",
     ".gitignore": "ignore",
     "LICENSE": "txt"
-  }
+  },
+  "Lua.diagnostics.globals": ["lvim", "vim"]
 }
