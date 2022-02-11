@@ -43,6 +43,21 @@ function git {
   fi
 }
 
+function update-all-libs() {
+  if (which apt) >/dev/null 2>&1; then
+    sudo apt update -y && sudo apt upgrade -y
+  elif (which pacman) >/dev/null 2>&1; then
+    sudo pacman -Syyu
+  fi
+  asdf plugin update --all
+  asdf update
+
+  brew upgrade
+  npm update
+  pnpm up
+  gem update
+}
+
 # checks to see if we are in a windows or linux dir
 function isWinDir {
   case $PWD/ in
