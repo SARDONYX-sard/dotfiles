@@ -60,7 +60,7 @@ function Set-Env {
 }
 
 function Get-Path {
-  
+
   $toReplaceStr = ";
 
 "
@@ -192,7 +192,7 @@ function Get-PCInfo() {
 
 function wk { fzwiki $args  -l ja }
 
-function Update-AllLibs {
+function update-all-libs {
   # Install global library
   $Libs = @(
     # JavaScript
