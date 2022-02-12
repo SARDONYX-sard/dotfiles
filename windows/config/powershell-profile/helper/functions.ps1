@@ -276,12 +276,7 @@ function Get-PoshThemesAll {
 # --------------------------------------------------------------------------------------------------
 # python
 # --------------------------------------------------------------------------------------------------
-function pip() {
-  if ($args[0] -eq "search") {
-    pip_search $args[1];
-  }
-  else { pip $args };
-};
+function pips() { pip_search $args };
 
 # Anaconda3
 #region conda initialize
