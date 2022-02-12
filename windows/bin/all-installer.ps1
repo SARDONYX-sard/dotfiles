@@ -5,7 +5,7 @@ Invoke-Expression "$HOME/dotfiles/windows/bin/installers/msys2.ps1"
 Invoke-Expression "$HOME/dotfiles/windows/bin/installers/nodejs.ps1 -Manager pnpm"
 Invoke-Expression "$HOME/dotfiles/windows/bin/installers/pwsh-modules.ps1"
 Invoke-Expression "$HOME/dotfiles/windows/bin/installers/pyenv-win.ps1"
-Invoke-Expression "$HOME/dotfiles/windows/bin/installers/python.ps1 -Manager pip"
+Invoke-Expression "$HOME/dotfiles/windows/bin/installers/pip.ps1 -m pip --plus"
 Invoke-Expression "$HOME/dotfiles/windows/bin/installers/ruby.ps1"
 Invoke-Expression "$HOME/dotfiles/windows/bin/installers/scoop.ps1"
 
