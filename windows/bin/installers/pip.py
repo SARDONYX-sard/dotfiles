@@ -1,12 +1,12 @@
 """
 .EXAMPLE
   # Install with manager.
-  python.ps1 -Manager pip
-  python.ps1 -Manager conda
+  pip.py --manager pip
+  pip.py --manager conda
 
   # Uninstall global packages.
-  python.ps1 -Manager pip -Uninstall
-  python.ps1 -Manager conda -Uninstall
+  pip.py --manager pip --uninstall
+  pip.py --manager conda --Uninstall
 
 .NOTES
   # You can install with libraries list(windows\\data\requirements.txt)
