@@ -6,4 +6,5 @@ bash "$HOME_DIR"/dotfiles/linux/bin/installers/apt.sh
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/asdf.sh
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/autosuggestions.sh
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/homebrew.sh
+bash "$HOME_DIR"/dotfiles/linux/bin/installers/pip.py
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/rustup.sh
