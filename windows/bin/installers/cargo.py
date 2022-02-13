@@ -171,6 +171,10 @@ def manage_lib(
         print("")
 
 
+def install_rustup_libs():
+    system("rustup target add wasm32-unknown-unknown")
+
+
 def main():
     check_rustup_available()
 
@@ -178,6 +182,8 @@ def main():
         manage_libs("uninstall")
     else:
         manage_libs("install")
+
+    install_rustup_libs()
 
     print(f"{Color.GREEN}Successes: Finished working on all libraries.{Color.RESET}")
 
