@@ -1,20 +1,20 @@
 """
 .EXAMPLE
-  # Install with manager.
-  pip.py --manager pip
-  pip.py --manager conda
+- Install with manager.
+python3 pip.py --manager pip
+python3 pip.py --manager conda
 
-  # Uninstall global packages.
-  pip.py --manager pip --uninstall
-  pip.py --manager conda --Uninstall
+- Uninstall global packages.
+python3 pip.py --manager pip --uninstall
+python3 pip.py --manager conda --Uninstall
 
 .NOTES
-  # You can install with libraries list(windows\\data\requirements.txt)
-  pip install -r requirements.txt
+- You can install with libraries list(windows\\data\requirements.txt)
+pip install -r requirements.txt
 
 
-  # How to output requirements.txt
-  pip freeze > requirements.txt
+- How to output requirements.txt
+pip freeze > requirements.txt
 """
 
 
@@ -159,6 +159,7 @@ def manage_lib(manager: Literal["pip",
 
 
 def main():
+    check_python_available()
     initialize(manager)
     rehash()
 
