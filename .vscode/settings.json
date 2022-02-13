@@ -39,6 +39,7 @@
     "nonewline",
     "noreport",
     "pipx",
+    "pnpm",
     "powerline",
     "procs",
     "pshazz",
