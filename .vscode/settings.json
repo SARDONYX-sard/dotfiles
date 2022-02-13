@@ -49,6 +49,8 @@
     "Readline",
     "ripgrep",
     "roundrock",
+    "rustc",
+    "rustfilt",
     "safecrlf",
     "shfmt",
     "Shougo",
