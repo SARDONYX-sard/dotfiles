@@ -9,8 +9,9 @@
 # --------------------------------------------------------------------------------------------------
 # Constant variables
 # --------------------------------------------------------------------------------------------------
-# if msys2 or WSL, $HOME_DIR == windows $HOME.
-# if Linux, $HOME_DIR == $HOME.
+
+# - msys2 or WSL => windows $HOME
+# - Linux => $HOME.
 HOME_DIR="$HOME"
 
 if [ -e /mnt/c ]; then
