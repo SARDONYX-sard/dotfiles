@@ -16,6 +16,7 @@ Set-Alias g git
 Set-Alias gen Get-SnippetGenerator
 Set-Alias s scoop
 Set-Alias wh which
+Set-Alias u coretutils # Rust uutils https://github.com/uutils/coreutils
 
 # Editor
 Set-Alias lvim "$HOME\.local\bin\lvim.ps1"
