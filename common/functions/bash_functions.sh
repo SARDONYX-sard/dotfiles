@@ -53,8 +53,10 @@ function update-all-libs() {
   asdf update
 
   brew upgrade
-  npm update
-  pnpm up
+
+  python3 -u "$HOME_DIR"/dotfiles/scripts/corepack-update.py
+  npm up -g
+  pnpm up -g
   gem update
   gem cleanup
 }
