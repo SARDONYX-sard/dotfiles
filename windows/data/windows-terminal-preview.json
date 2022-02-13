@@ -38,7 +38,7 @@
     }
   ],
   "copyFormatting": "none",
-  "copyOnSelect": false,
+  "copyOnSelect": true,
   "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
   "profiles": {
     "defaults": {
@@ -342,5 +342,6 @@
       "white": "#C0C0C0",
       "yellow": "#808000"
     }
-  ]
+  ],
+  "trimBlockSelection": true
 }
