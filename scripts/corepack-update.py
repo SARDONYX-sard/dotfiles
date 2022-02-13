@@ -3,7 +3,7 @@
 Requirement:
 - python3
 - ripgrep: https://github.com/BurntSushi/ripgrep
-- Nodejs >=16.0.0 or `npm i -g corepack`
+- Nodejs >=16.9.0 or `npm i -g corepack`
 
 Usage:
 
