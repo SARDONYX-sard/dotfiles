@@ -56,6 +56,7 @@ function update-all-libs() {
   npm update
   pnpm up
   gem update
+  gem cleanup
 }
 
 # checks to see if we are in a windows or linux dir
