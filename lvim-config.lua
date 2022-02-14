@@ -141,15 +141,6 @@ lvim.plugins = {{"folke/tokyonight.nvim"}, {
     "folke/trouble.nvim",
     cmd = "TroubleToggle"
 }, {
-    'wfxr/minimap.vim',
-    run = "cargo install --locked code-minimap",
-    -- cmd = {"Minimap", "MinimapClose", "MinimapToggle", "MinimapRefresh", "MinimapUpdateHighlight"},
-    config = function()
-        vim.cmd("let g:minimap_width = 10")
-        vim.cmd("let g:minimap_auto_start = 1")
-        vim.cmd("let g:minimap_auto_start_win_enter = 1")
-    end
-}, {
     "nacro90/numb.nvim",
     event = "BufRead",
     config = function()
@@ -204,12 +195,6 @@ lvim.plugins = {{"folke/tokyonight.nvim"}, {
     "Pocco81/AutoSave.nvim",
     config = function()
         require("autosave").setup()
-    end
-}, {
-    "folke/todo-comments.nvim",
-    event = "BufRead",
-    config = function()
-        require("todo-comments").setup()
     end
 }, {
     "lukas-reineke/indent-blankline.nvim",
