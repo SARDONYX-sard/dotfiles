@@ -61,10 +61,17 @@ libs = [
         "description": "Demangle Rust symbol names using rustc-demangle. "
     },
 
+    # WebAssembly
+    {
+        "name": "wasm-pack",
+        "url": "https://github.com/luser/rustfilt",
+        "description": "generated WebAssembly. WARN: need openssl & perl."
+    },
+
     # calculation + conversion. (e.g. cpc '1KB to Byte' => 1000 Byte)
     {
         "name": "cpc",
-        "url": "https://github.com/probablykasper/cpc",
+        "url": "https://github.com/rustwasm/wasm-pack",
         "description": "cpc parses and evaluates strings of math."
     },
     {
