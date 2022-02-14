@@ -157,6 +157,7 @@ scoop install hyperfine # A benchmarking tool written in rust.(https://github.co
 # Languages(option)
 # --------------------------------------------------------------------------------------------------
 if ($Languages) {
+  scoop install perl # For wasm-pack(cargo Rust WebAssembly)
   scoop install deno
   scoop install python27 # latest python version (e.g. python2.7) for other software.
 }
