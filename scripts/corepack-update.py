@@ -29,6 +29,10 @@ def system_call(command: str):
     return subprocess.getoutput(command)
 
 
+def corepack_enabled(manager_name: str):
+    return system_call(f"corepack enabled {manager_name}")
+
+
 def activate_corepack(manager_name: str, version: str):
     system(f"corepack prepare {manager_name}@{version}  --activate")
 
@@ -52,6 +56,12 @@ def get_args():
         help="No activate corepack. just stdout",
         action="store_true")
 
+    parser.add_argument(
+        "-e",
+        "--enabled",
+        help="Enable management by corepack.",
+        action="store_true")
+
     return (parser.parse_args())
 
 
@@ -67,12 +77,17 @@ def color(string: str, mode: Literal["green", "red", "yellow", "cyan"]):
 def main():
     args = get_args()
     managers = ["npm", "pnpm", "yarn"]
+
     if is_dry_run := args.dry_run:
         print(color("INFO: Dry run mode enabled.\n\
 Please visually check that the version assigned by the code is correct.\n", "cyan"))
 
     for manager_name in managers:
         manager_latest_version = get_latest_version(manager_name, is_dry_run)
+
+        if args.enabled:
+            print(color("INFO: Enabling management by corepack...", "cyan"))
+            corepack_enabled(manager_name)
 
         if is_dry_run:
             print(
@@ -82,7 +97,6 @@ Please visually check that the version assigned by the code is correct.\n", "cya
             print(color("Execute command", "cyan") + f": {search_cmd}")
             print(
                 f"{search_cmd} Docs: https://docs.npmjs.com/cli/v6/commands/npm-search")
-
             system(search_cmd)
             print("\n")
         else:
