@@ -33,12 +33,14 @@ def activate_corepack(manager_name: str, version: str):
     system(f"corepack prepare {manager_name}@{version}  --activate")
 
 
-def get_latest_version(manager_name: str):
-    version_regexp = "[0-9]?[0-9]\\.[0-9]?[0-9]\\.[0-9]?[0-9]\""
-    return system_call(
-        f"npm search {manager_name} \
-| rg \"^{manager_name} .* {version_regexp} \
-| rg -o {version_regexp}")  # `-o` is ripgrep only match option
+def get_latest_version(manager_name: str, is_debug: bool):
+    version_regexp = "[0-9]?[0-9]\\.[0-9]?[0-9]\\.[0-9]?[0-9]"
+    cmd = f"npm search {manager_name} | rg \"^{manager_name} .* {version_regexp}\" \
+| rg -o \"{version_regexp}\""
+
+    if is_debug:
+        print(color("Execute command", "cyan") + f": {cmd}")
+    return system_call(cmd)  # `-o` is ripgrep only match option
 
 
 def get_args():
@@ -70,7 +72,7 @@ def main():
 Please visually check that the version assigned by the code is correct.\n", "cyan"))
 
     for manager_name in managers:
-        manager_latest_version = get_latest_version(manager_name)
+        manager_latest_version = get_latest_version(manager_name, is_dry_run)
 
         if is_dry_run:
             print(
