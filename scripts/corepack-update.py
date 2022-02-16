@@ -1,6 +1,6 @@
 """Corepack latest version updater
 
-Requirement:
+Requires:
 - python3
 - ripgrep: https://github.com/BurntSushi/ripgrep
 - Nodejs >=16.9.0 or `npm i -g corepack`
