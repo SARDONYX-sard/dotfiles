@@ -72,7 +72,7 @@ function Move-HomeDir { cdFunc ~ }
 
 function Get-SnippetGenerator { Start-Process https://snippet-generator.app/ }
 
-function prog { cdFunc "D:\Programing\" }
+function prog { cdFunc "D:\Programming\" }
 
 function prof {
   [CmdletBinding()]
