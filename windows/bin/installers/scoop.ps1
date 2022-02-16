@@ -108,9 +108,11 @@ scoop install bottom           # Resource monitor with CLI
 scoop install broot            # A better way to navigate directories
 scoop install concfg           # Import and export Windows console settings (https://github.com/lukesampson/concfg)
 scoop install dockercompletion
-scoop install gh               # GitHub Action in local PC.(https://cli.github.com/manual/)
 scoop install fzf              # A command-line fuzzy finder written in go.(https://github.com/junegunn/fzf)
+scoop install gh               # GitHub Action in local PC.(https://cli.github.com/manual/)
 scoop install k9s              # Kubernetes wrapper
+scoop install lazydocker       # Better useful Docker wrapper
+scoop install lazygit          # Better useful Git wrapper
 scoop install scoop-search     # Makes scoop search 50 times faster.(https://github.com/shilangyu/scoop-search)
 scoop isntall posh-git         # Git tab completion (https://github.com/dahlbyk/posh-git)
 
@@ -138,7 +140,6 @@ scoop install screentogif
 # --------------------------------------------------------------------------------------------------
 # Editor
 # --------------------------------------------------------------------------------------------------
-scoop install vim
 scoop install neovim
 scoop install notepadplusplus
 
