@@ -44,7 +44,7 @@
     "defaults": {
       "colorScheme": "Campbell",
       "font": {
-        "face": "CodeNewRoman NF"
+        "face": "CodeNewRoman Nerd Font Mono"
       },
       "opacity": 81
     },
@@ -56,7 +56,7 @@
         "colorScheme": "Campbell",
         "commandline": "pwsh.exe -nologo",
         "font": {
-          "face": "CodeNewRoman NF"
+          "face": "CodeNewRoman Nerd Font Mono"
         },
         "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
         "hidden": false,
@@ -73,7 +73,7 @@
         "colorScheme": "Campbell",
         "commandline": "powershell.exe -nologo",
         "font": {
-          "face": "CodeNewRoman NF"
+          "face": "CodeNewRoman Nerd Font Mono"
         },
         "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
         "hidden": true,
@@ -90,7 +90,7 @@
         "closeOnExit": "always",
         "colorScheme": "Campbell",
         "font": {
-          "face": "CodeNewRoman NF"
+          "face": "CodeNewRoman Nerd Font Mono"
         },
         "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
         "hidden": false,
@@ -106,7 +106,7 @@
         "bellStyle": "none",
         "colorScheme": "Campbell",
         "font": {
-          "face": "CodeNewRoman NF"
+          "face": "CodeNewRoman Nerd Font Mono"
         },
         "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
         "hidden": true,
@@ -122,7 +122,7 @@
         "colorScheme": "Campbell",
         "commandline": "pwsh -Command \"& {mingw64 -shell zsh }\"",
         "font": {
-          "face": "CodeNewRoman NF"
+          "face": "CodeNewRoman Nerd Font Mono"
         },
         "guid": "{91ac1de2-3700-4767-a146-bcce0e1170b4}",
         "hidden": false,
