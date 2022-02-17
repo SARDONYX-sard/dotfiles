@@ -8,7 +8,8 @@ import os
 
 # pyauto  ref: (https://github.com/crftwr/pyauto/blob/master/doc/pyauto.py)
 # import pyauto
-from keyhac import *
+from keyhac import shellExecute, getDesktopPath, getClipboardText, JobItem, JobQueue, CronItem, CronTable, cblister_FixedPhrase
+from keyhac import WM_SYSCOMMAND, SC_CLOSE
 
 
 def configure(keymap):
@@ -85,7 +86,7 @@ def configure(keymap):
 
     # USER0-F2 : Test of sub thread execution using JobQueue/JobItem
     if 1:
-        def command_JobTest():
+        def command_jobtest():
 
             def open_memo(job_item):
                 shellExecute(
@@ -94,32 +95,32 @@ def configure(keymap):
                     "",
                     "C:/Users/SARDONYX/OneDrive/文書")
 
-            def jobTestFinished(job_item):
+            def job_test_finished(job_item):
                 print("Done.")
 
-            job_item = JobItem(open_memo, jobTestFinished)
+            job_item = JobItem(open_memo, job_test_finished)
             JobQueue.defaultQueue().enqueue(job_item)
 
-        keymap_global["U0-F2"] = command_JobTest
+        keymap_global["U0-F2"] = command_jobtest
 
     # Test of Cron (periodic sub thread procedure)
     if 0:
-        def cronPing(cron_item):
+        def cron_ping(cron_item):
             os.system("ping -n 3 www.google.com")
 
-        cron_item = CronItem(cronPing, 3.0)
+        cron_item = CronItem(cron_ping, 3.0)
         CronTable.defaultCronTable().add(cron_item)
 
     # USER0-Space : Application launcher using custom list window
     if 1:
-        def command_PopApplicationList():
+        def command_pop_application_list():
 
             # If the list window is already opened, just close it
             if keymap.isListWindowOpened():
                 keymap.cancelListWindow()
                 return
 
-            def popApplicationList():
+            def pop_application_list():
 
                 applications = [
                     ("Notepad", keymap.ShellExecuteCommand(
@@ -159,17 +160,13 @@ def configure(keymap):
 
             # Because the blocking procedure cannot be executed in the key-hook,
             # delayed-execute the procedure by delayedCall().
-            keymap.delayedCall(popApplicationList, 0)
+            keymap.delayedCall(pop_application_list, 0)
 
-        keymap_global["U0-Shift-Space"] = command_PopApplicationList
+        keymap_global["U0-Shift-Space"] = command_pop_application_list
 
-    # USER0-Alt-Up/Down/Left/Right/Space/PageUp/PageDown : Virtul mouse
+    # USER0-Alt-Up/Down/Left/Right/Space/PageUp/PageDown : Virtual mouse
     # operation by keyboard
     if 1:
-        # keymap_global["U0-A"] = keymap.MouseMoveCommand(-10, 0)
-        # keymap_global["U0-D"] = keymap.MouseMoveCommand(10, 0)
-        # keymap_global["U0-W"] = keymap.MouseMoveCommand(0, -10)
-        # keymap_global["U0-S"] = keymap.MouseMoveCommand(0, 10)
         keymap_global["U0-Left"] = keymap.MouseMoveCommand(-10, 0)
         keymap_global["U0-Right"] = keymap.MouseMoveCommand(10, 0)
         keymap_global["U0-Up"] = keymap.MouseMoveCommand(0, -10)
@@ -187,12 +184,23 @@ def configure(keymap):
             os.system('shutdown -s')
 
         def sleep():  # https://qiita.com/sharow/items/ef78f2f5a8053f6a7a41
-            os.system(
-                'powershell.exe -Command \
-                "Add-Type -Assembly \
-                System.Windows.Forms;[System.Windows.Forms.Application]::SetSuspendState(\'Suspend\', $false, $false);"')
+            shellExecute(
+                None,
+                "powershell.exe", "-Command \"Add-Type -Assembly \
+                System.Windows.Forms;[System.Windows.Forms.Application]::SetSuspendState(\'Suspend\', $false, $false);\"", "")
 
-        # keymap_global["U0-C"] = close              # Close the window
+        def clear_trash():
+            shellExecute(
+                None,
+                "cmd.exe",
+                "/c echo Y| powershell.exe -NoProfile -Command Clear-RecycleBin",
+                "")
+
+        def open_task_manager():
+            shellExecute(None, "taskmgr.exe", "", "")
+
+        keymap_global["U0-C"] = clear_trash
+        keymap_global["U0-M"] = open_task_manager
         keymap_global["U0-ScrollLock"] = sleep
         keymap_global["U0-Pause"] = shutdown
 
@@ -245,14 +253,14 @@ def configure(keymap):
         ]
 
         # Add quote mark to current clipboard contents
-        def quoteClipboardText():
+        def quote_clipboard_text():
             s = getClipboardText()
             lines = s.splitlines(True)
             s = "".join(keymap.quote_mark + line for line in lines)
             return s
 
         # Indent current clipboard contents
-        def indentClipboardText():
+        def indent_clipboard_text():
             s = getClipboardText()
             lines = s.splitlines(True)
             s = ""
@@ -263,7 +271,7 @@ def configure(keymap):
             return s
 
         # Unindent current clipboard contents
-        def unindentClipboardText():
+        def unindent_clipboard_text():
             s = getClipboardText()
             lines = s.splitlines(True)
             s = ""
@@ -283,19 +291,19 @@ def configure(keymap):
         half_width_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}～0123456789 "
 
         # Convert to half-with characters
-        def toHalfWidthClipboardText():
+        def to_half_width_clipboard_text():
             s = getClipboardText()
             s = s.translate(str.maketrans(full_width_chars, half_width_chars))
             return s
 
         # Convert to full-with characters
-        def toFullWidthClipboardText():
+        def to_full_width_clipboard_text():
             s = getClipboardText()
             s = s.translate(str.maketrans(half_width_chars, full_width_chars))
             return s
 
         # Save the clipboard contents as a file in Desktop directory
-        def command_SaveClipboardToDesktop():
+        def command_save_clipboard_to_desktop():
 
             text = getClipboardText()
             if not text:
@@ -320,14 +328,14 @@ def configure(keymap):
 
         # Menu item list
         other_items = [
-            ("Quote clipboard", quoteClipboardText),
-            ("Indent clipboard", indentClipboardText),
-            ("Unindent clipboard", unindentClipboardText),
+            ("Quote clipboard", quote_clipboard_text),
+            ("Indent clipboard", indent_clipboard_text),
+            ("Unindent clipboard", unindent_clipboard_text),
             ("", None),
-            ("To Half-Width", toHalfWidthClipboardText),
-            ("To Full-Width", toFullWidthClipboardText),
+            ("To Half-Width", to_half_width_clipboard_text),
+            ("To Full-Width", to_full_width_clipboard_text),
             ("", None),
-            ("Save clipboard to Desktop", command_SaveClipboardToDesktop),
+            ("Save clipboard to Desktop", command_save_clipboard_to_desktop),
             ("", None),
             ("Edit config.py", keymap.command_EditConfig),
             ("Reload config.py", keymap.command_ReloadConfig),
