@@ -198,10 +198,10 @@ def configure(keymap: Keymap):
                 "")
 
         def open_task_manager():
-            shellExecute(None, "taskmgr.exe", "", "")
+            keymap.InputKeyCommand("LCtrl-LShift-Escape")()
 
         keymap_global["U0-Slash"] = clear_trash
-        keymap_global["U0-M"] = open_task_manager
+        keymap_global["U0-Period"] = open_task_manager
         keymap_global["U0-ScrollLock"] = sleep
         keymap_global["U0-Pause"] = shutdown
 
@@ -217,7 +217,7 @@ def configure(keymap: Keymap):
 
         keymap_global["U0-A"] = keymap.InputTextCommand("update-all-libs")
         keymap_global["U0-F"] = keymap.InputTextCommand(" --help")
-        keymap_global["U0-W"] = keymap.InputTextCommand("ほう(・ω・｀)…？")
+        keymap_global["U0-W"] = keymap.InputTextCommand("ほう(・ω・`)…？")
 
     # Customizing clipboard history list
     if 1:
