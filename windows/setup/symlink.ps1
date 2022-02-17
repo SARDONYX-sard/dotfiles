@@ -73,8 +73,7 @@ $files = @(
   $UserName = (Split-Path $HOME -Leaf)
   @{ target = $HOME; fullpath = [IO.Path]::Combine($HOME, "scoop\apps\msys2\current\home\$UserName"); }
 
-  @{ target = "windows\config\keyhac\config.py"; fullpath = [IO.Path]::Combine($env:AppData, "Keyhac\config.py"); }
-  @{ target = "windows\config\keyhac\keyhac.ini"; fullpath = [IO.Path]::Combine($env:AppData, "Keyhac\keyhac.ini"); }
+  @{ target = "windows\config\keyhac"; fullpath = [IO.Path]::Combine($env:AppData, "Keyhac"); }
 
   @{ target = "common\data\navi-config.yml"; fullpath = "$(navi info config-path | Write-Output)"; name = "config.yml" } # manual
 
