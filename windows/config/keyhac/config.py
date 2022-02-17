@@ -199,7 +199,7 @@ def configure(keymap):
         def open_task_manager():
             shellExecute(None, "taskmgr.exe", "", "")
 
-        keymap_global["U0-C"] = clear_trash
+        keymap_global["U0-Slash"] = clear_trash
         keymap_global["U0-M"] = open_task_manager
         keymap_global["U0-ScrollLock"] = sleep
         keymap_global["U0-Pause"] = shutdown
@@ -221,7 +221,7 @@ def configure(keymap):
     # Customizing clipboard history list
     if 1:
         # Enable clipboard monitoring hook (Default:Enabled)
-        keymap.clipboard_history.enableHook(True)
+        keymap.clipboard_history.enableHook(False)
 
         # Maximum number of clipboard history (Default:1000)
         keymap.clipboard_history.maxnum = 100
