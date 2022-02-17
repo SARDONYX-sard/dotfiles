@@ -10,9 +10,10 @@ import os
 # import pyauto
 from keyhac import shellExecute, getDesktopPath, getClipboardText, JobItem, JobQueue, CronItem, CronTable, cblister_FixedPhrase
 from keyhac import WM_SYSCOMMAND, SC_CLOSE
+from keyhac import Keymap
 
 
-def configure(keymap):
+def configure(keymap: Keymap):
 
     # --------------------------------------------------------------------
     # Text editor setting for editting config.py file
