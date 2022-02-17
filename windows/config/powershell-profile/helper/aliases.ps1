@@ -22,9 +22,9 @@ Set-Alias u coreutils # Rust uutils https://github.com/uutils/coreutils
 Set-Alias lvim "$HOME\.local\bin\lvim.ps1"
 
 # Node.js
-Set-Alias n npm
+Set-Alias np npm
 Set-Alias pn pnpm
-Set-Alias y yarn
+Set-Alias ya yarn
 
 #! Only pwsh is enabled because powershell cannot overwrite existing aliases.
 # Instead of commnad by Rust
