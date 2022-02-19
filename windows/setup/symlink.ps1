@@ -69,13 +69,16 @@ $files = @(
   @{ target = "windows\data\windows-terminal.json"; fullpath = $terminalPath; name = "settings.json" } # mode = "copy" }
   @{ target = "windows\data\windows-terminal-preview.json"; fullpath = $terminalPreviewPath; name = "settings.json" } # mode = "copy" }
 
+  # Other
+  @{ target = "windows\config\keyhac"; fullpath = [IO.Path]::Combine($env:AppData, "Keyhac"); }
+
+  @{ target = "common\data\navi-config.yml"; fullpath = "$(navi info config-path | Write-Output)"; name = "config.yml" } #manual
+
+  @{ target = "scripts/startup.py"; fullpath = [IO.Path]::Combine($env:AppData, "Microsoft\Windows\Start Menu\Programs\Startup\startup.py"); name = "startup.py" }
+
   # msys2 HomeDir
   $UserName = (Split-Path $HOME -Leaf)
   @{ target = $HOME; fullpath = [IO.Path]::Combine($HOME, "scoop\apps\msys2\current\home\$UserName"); }
-
-  @{ target = "windows\config\keyhac"; fullpath = [IO.Path]::Combine($env:AppData, "Keyhac"); }
-
-  @{ target = "common\data\navi-config.yml"; fullpath = "$(navi info config-path | Write-Output)"; name = "config.yml" } # manual
 
   "windows/config/.bash_profile"
   "windows/config/.bashrc"
