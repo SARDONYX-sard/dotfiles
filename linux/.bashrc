@@ -135,10 +135,9 @@ if [ -e /mnt/c ]; then
 fi
 
 export COMMON="${HOME_DIR}/dotfiles/common"
-export zsh_profile="$COMMON/zsh-profile"
+
 
 # --------------------------------------------------------------------------------------------------
 # Read other modules
 # --------------------------------------------------------------------------------------------------
 [[ -f "$COMMON/read-common-settings.sh" ]] && source "$COMMON/read-common-settings.sh" # env-paths, aliases, functions
-
