@@ -89,7 +89,11 @@ alias re=relogin
 alias v="vim"
 alias vi="vim -u NONE"
 alias g+='g++ -Wall -Wextra -Wpedantic -fsanitize=undefined -g'
-alias vim="nvim"
+if (which lvim) >/dev/null 2>&1; then
+  alias vim="lvim"
+elif (which nvim) >/dev/null 2>&1; then
+  alias vim="nvim"
+fi
 
 # -- man
 function man_vim() {
