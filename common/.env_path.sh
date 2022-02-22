@@ -4,8 +4,8 @@
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # For WSL
-DISPLAY
-export "$DISPLAY"="$(ip route | awk '/default via / {print $3}'):0"
+DISPLAY="$(ip route | awk '/default via / {print $3}'):0"
+export DISPLAY
 
 # for personal's bash files
 PATH="$PATH:$HOME/.local/bin"
