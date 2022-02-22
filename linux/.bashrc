@@ -142,5 +142,3 @@ export zsh_profile="$COMMON/zsh-profile"
 # --------------------------------------------------------------------------------------------------
 [[ -f "$COMMON/read-common-settings.sh" ]] && source "$COMMON/read-common-settings.sh" # env-paths, aliases, functions
 
-# fuzzy finder
-[ -f ~/.fzf.bash ] && source "$HOME"/.fzf.bash
