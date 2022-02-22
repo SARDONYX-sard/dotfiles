@@ -32,7 +32,10 @@ function start() {
   is_wsl="$([ -e /mnt/c ] || [ -e /c ])"
 
   if $is_wsl; then
-    explorer.exe $(wslpath -w "$1")
+    if [ -z "$1" ]; then
+      set -- "."
+    fi
+    explorer.exe "$(wslpath -w "$1")"
   else
     start.exe "$1"
   fi
