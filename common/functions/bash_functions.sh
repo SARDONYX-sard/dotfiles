@@ -131,9 +131,13 @@ Examples:
       "
     ;;
   *)
-    # shellcheck disable=SC1090
-    source "$ZSHRC_PATH"
-    echo "Read .zshrc"
+    shell=$(ps -ocomm= -q $$)
+
+    if [ "$shell" = bash ]; then
+      [ -f "$HOME/.bashrc" ] && "$HOME/.bashrc" && echo "Read .bashrc"
+    elif [ "$shell" = zsh ]; then
+      [ -f "$HOME/.zshrc" ] && source "$ZSHRC_PATH" && echo "Read .zshrc"
+    fi
     ;;
   esac
 }
