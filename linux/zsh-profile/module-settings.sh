@@ -3,11 +3,67 @@
 # --------------------------------------------------------------------------------------------------
 # Modules settings
 # --------------------------------------------------------------------------------------------------
-# Use ~~ as the trigger sequence instead of the default **
-export FZF_COMPLETION_TRIGGER='~~'
+source "${HOME_DIR}/.config/zsh-autosuggestions/zsh-autosuggestions.zsh"
+[ -e /mnt/c ] && source "${HOME_DIR}/AppData/Roaming/dystroy/broot/config/launcher/bash/br" # only WSL
 
-# Options to fzf command
-export FZF_COMPLETION_OPTS='--border --info=inline'
+# --------------------------------------------------------------------------------------------------
+# fzf
+# --------------------------------------------------------------------------------------------------
+if (which apt) >/dev/null 2>&1; then # For ctrl key
+  source /usr/share/doc/fzf/examples/key-bindings.zsh
+  source "$HOME"/fzf-tab-completion/zsh/fzf-zsh-completion.sh
+  bindkey '^I' fzf_completion
+fi
+
+export FZF_DEFAULT_OPTS='--height 90% --layout=reverse --border'
+
+if (which rg) >/dev/null 2>&1; then
+  export FZF_CTRL_T_COMMAND='rg --max-depth 1 --files --hidden --follow --glob "!.git/*"'
+
+  if (which batcat) >/dev/null 2>&1; then
+    export FZF_CTRL_T_OPTS="--tabstop=4 --preview \"batcat --pager=never --color=always --style=numbers --line-range :300 {}\""
+  else
+    export FZF_CTRL_T_OPTS="--tabstop=4 --preview \"cat {}\""
+  fi
+fi
+
+# basic file preview for ls (you can replace with something more sophisticated than head)
+zstyle ':completion::*:ls::*' fzf-completion-opts --preview='eval head {1}'
+
+# preview when completing env vars (note: only works for exported variables)
+# eval twice, first to unescape the string, second to expand the $variable
+zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}'
+
+# preview a `git status` when completing git add
+zstyle ':completion::*:git::git,add,*' fzf-completion-opts --preview='git -c color.status=always status --short'
+
+# if other subcommand to git is given, show a git diff or git log
+zstyle ':completion::*:git::*,[a-z]*' fzf-completion-opts --preview='
+eval set -- {+1}
+for arg in "$@"; do
+    { git diff --color=always -- "$arg" | git log --color=always "$arg" } 2>/dev/null
+done'
+
+# fshow - git commit browser
+fshow() {
+  git log --graph --color=always \
+    --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+    fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+      --bind "ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {}
+FZF-EOF"
+}
+
+# fbr - checkout git branch (including remote branches)
+fbr() {
+  local branches branch
+  branches=$(git branch --all | grep -v HEAD) &&
+    branch=$(echo "$branches" |
+      fzf-tmux -d $((2 + $(wc -l <<<"$branches"))) +m) &&
+    git checkout "$(echo "$branch" | sed \"s/.* //" | sed \"s#remotes/[^/]*/##")"
+}
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
