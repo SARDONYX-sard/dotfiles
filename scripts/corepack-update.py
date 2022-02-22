@@ -13,6 +13,9 @@ python3 corepack-update.py
 - dry-run mode
 python3 corepack-update.py --dry-run
 python3 corepack-update.py -d
+
+- remove previous version
+python3 corepack-update.py --remove
 """
 
 
