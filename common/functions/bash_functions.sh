@@ -54,7 +54,7 @@ function update-all-libs() {
 
   brew upgrade
 
-  python3 -u "$HOME_DIR"/dotfiles/scripts/corepack-update.py
+  python3 -u "$HOME_DIR"/dotfiles/scripts/corepack-update.py --remove
   npm up -g
   pnpm up -g
   gem update
