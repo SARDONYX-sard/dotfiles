@@ -22,7 +22,7 @@ import subprocess
 from typing import Literal
 
 
-def system_call(command: str):
+def system_call(command: str) -> str:
     """
     Reference https://stackoverflow.com/questions/18739239/python-how-to-get-stdout-after-running-os-system
     """
@@ -47,6 +47,21 @@ def get_latest_version(manager_name: str, is_debug: bool):
     return system_call(cmd)  # `-o` is ripgrep only match option
 
 
+def remove_previous_versions(manager_name: str):
+    print(color("INFO: Removing previous versions...", "cyan"))
+    previous_version = system_call(f"{manager_name} -v")
+    system(f"corepack disable {manager_name} {previous_version}")
+
+
+def run_dry_run(manager_name: str):
+    search_cmd = f"npm search {manager_name}"
+    print(color("Execute command", "cyan") + f": {search_cmd}")
+    print(
+        f"{search_cmd} Docs: https://docs.npmjs.com/cli/v6/commands/npm-search")
+    system(search_cmd)
+    print("\n")
+
+
 def get_args():
     parser = argparse.ArgumentParser()
 
@@ -54,6 +69,12 @@ def get_args():
         "-d",
         "--dry-run",
         help="No activate corepack. just stdout",
+        action="store_true")
+
+    parser.add_argument(
+        "-r",
+        "--remove",
+        help="Remove previous corepack version.",
         action="store_true")
 
     parser.add_argument(
@@ -89,16 +110,14 @@ Please visually check that the version assigned by the code is correct.\n", "cya
             print(color("INFO: Enabling management by corepack...", "cyan"))
             corepack_enabled(manager_name)
 
+        if not is_dry_run and args.remove:
+            remove_previous_versions(manager_name)
+
         if is_dry_run:
             print(
                 f"Probably... the latest {manager_name} version: {manager_latest_version}")
 
-            search_cmd = f"npm search {manager_name}"
-            print(color("Execute command", "cyan") + f": {search_cmd}")
-            print(
-                f"{search_cmd} Docs: https://docs.npmjs.com/cli/v6/commands/npm-search")
-            system(search_cmd)
-            print("\n")
+            run_dry_run(manager_name)
         else:
             print(f"{manager_name} active: {manager_latest_version}")
             activate_corepack(manager_name, manager_latest_version)
