@@ -22,11 +22,6 @@ function readFile {
 readFile "${COMMON}/bash_aliases.sh"
 readFile "${COMMON}/functions/bash_functions.sh"
 
-if [[ $SHELL =~ zsh ]]; then
-  readFile "${HOME_DIR}/.config/zsh-autosuggestions/zsh-autosuggestions.zsh"
-  readFile "${HOME_DIR}/AppData/Roaming/dystroy/broot/config/launcher/bash/br"
-fi
-
 # command wrapper
 if (which apt) >/dev/null 2>&1; then
   source "${COMMON}"/functions/apt-wrapper.sh
