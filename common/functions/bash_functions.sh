@@ -27,6 +27,17 @@ function alc() {
   fi
 }
 
+function start() {
+  local is_wsl
+  is_wsl="$([ -e /mnt/c ] || [ -e /c ])"
+
+  if $is_wsl; then
+    explorer.exe $(wslpath -w "$1")
+  else
+    start.exe "$1"
+  fi
+}
+
 function cd() {
   #cdを打ったら自動的にlsを打ってくれる関数
   builtin cd "$@" && ls

@@ -26,6 +26,7 @@ fi
 
 alias c=clear
 alias chrome='/mnt/c/ProgramFiles(x86)/Google/Chrome/Application/chrome.exe'
+alias ii='start'
 
 # --------------------------------------------------------------------------------------------------
 # disk sizes
