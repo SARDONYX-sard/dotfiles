@@ -21,7 +21,7 @@ elif (which batcat) >/dev/null 2>&1; then
 fi
 
 if (which br) >/dev/null 2>&1; then
-  alias bo='br --conf $HOME_DIR/dotfiles/common/broot-config.toml'
+  alias br='br --conf $HOME_DIR/dotfiles/common/data/broot-config.toml  -s -g -h'
 fi
 
 alias c=clear
