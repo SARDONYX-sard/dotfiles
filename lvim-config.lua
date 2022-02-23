@@ -93,6 +93,9 @@ lvim.lsp.automatic_servers_installation = true
 --   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 -- end
 
+-- For rust-analayzer TypeHint
+vim.cmd [[ autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = '=>', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} } ]]
+
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {{
@@ -117,27 +120,21 @@ formatters.setup {{
 -- -- set additional linters
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {{
+    command = "codespell",
+    filetypes = languages
+}, {
     command = "flake8",
     filetypes = {"python"}
 }, {
-    -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
     command = "shellcheck",
-    ---@usage arguments to pass to the formatter
-    -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
     extra_args = {"--severity", "warning"}
 }, {
-    command = "codespell",
-    ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-    filetypes = languages
-
-}, {
     command = "eslint_d",
-    ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
     filetypes = {"javascript", "javascriptreact", "typescript", "typescriptreact"}
 }}
 
 -- Additional Plugins
-lvim.plugins = {{"folke/tokyonight.nvim"}, {
+lvim.plugins = {{"nvim-lua/lsp_extensions.nvim"}, {"folke/tokyonight.nvim"}, {
     "folke/trouble.nvim",
     cmd = "TroubleToggle"
 }, {
