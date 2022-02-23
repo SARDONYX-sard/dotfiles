@@ -47,6 +47,7 @@ alias tf="terraform"
 # --------------------------------------------------------------------------------------------------
 alias gs="git status --short"
 alias gp="git push"
+alias gpl="git pull"
 alias ga="git add"
 alias gc="git commit"
 alias gl="git log"
