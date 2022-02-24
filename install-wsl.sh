@@ -40,6 +40,6 @@ else
   bash "$HOME_DIR"/dotfiles/linux/bin/all-installer.sh
 fi
 
-if [ "$1" = "zsh" ]; then
+if [ "$2" = "zsh" ]; then
   chsh -s /bin/zsh # Change shell to zsh.(option)
 fi
