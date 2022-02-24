@@ -1,10 +1,18 @@
 #!/usr/bin/env bash
 
-# bash "$HOME_DIR"/dotfiles/linux/bin/installers/prezto.sh
-# bash "$HOME_DIR"/dotfiles/linux/bin/installers/zinit.sh # Zshell plugin manager(https://github.com/zdharma-continuum/zinit)
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/apt.sh
-bash "$HOME_DIR"/dotfiles/linux/bin/installers/asdf.sh
+
+if (which apt) >/dev/null 2>&1; then
+  bash "$HOME_DIR"/dotfiles/linux/bin/installers/asdf.sh
+fi
+
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/autosuggestions.sh
-bash "$HOME_DIR"/dotfiles/linux/bin/installers/homebrew.sh
-bash "$HOME_DIR"/dotfiles/linux/bin/installers/pip.py
-bash "$HOME_DIR"/dotfiles/linux/bin/installers/rustup.sh
+if (which brew) >/dev/null 2>&1; then
+  bash "$HOME_DIR"/dotfiles/linux/bin/installers/homebrew.sh
+fi
+
+python3 "$HOME_DIR"/dotfiles/linux/bin/installers/pip.py
+
+if (which rustup) >/dev/null 2>&1; then
+  [ "$1" = "light-mode" ] || bash "$HOME_DIR"/dotfiles/linux/bin/installers/rustup.sh
+fi
