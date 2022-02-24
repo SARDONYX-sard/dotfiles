@@ -33,7 +33,12 @@ echo "Setting up git"
 cat "$HOME_DIR"/dotfiles/common/data/git/git-config.txt >"$HOME"/.gitconfig
 
 echo "Installation by package manager, etc."
-bash "$HOME_DIR"/dotfiles/linux/bin/all-installer.sh
+
+if [ "$1" = "light" ]; then
+  bash "$HOME_DIR"/dotfiles/linux/bin/all-installer.sh light
+else
+  bash "$HOME_DIR"/dotfiles/linux/bin/all-installer.sh
+fi
 
 if [ "$1" = "zsh" ]; then
   chsh -s /bin/zsh # Change shell to zsh.(option)

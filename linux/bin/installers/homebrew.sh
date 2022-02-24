@@ -3,7 +3,10 @@
 # The Missing Package Manager for macOS (or Linux)  (https://brew.sh/)
 
 # For oh-my-posh linux version (Warn: Core install  436.82 MiB)
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+if (which brew) >/dev/null 2>&1; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
 
 # Manege oh-my-posh by Homebrew
 brew tap jandedobbeleer/oh-my-posh
