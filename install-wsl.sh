@@ -5,7 +5,7 @@ if [ "$(whoami)" != "root" ] && [ "$SUDO_USER" != "" ]; then
   exit 1
 fi
 
-HOME_DIR="$HOME"
+export HOME_DIR="$HOME"
 
 if [ -e /mnt/c ] || [ -e /c ]; then
   # windows home directory
