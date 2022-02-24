@@ -68,4 +68,6 @@ export LESS_TERMCAP_ue=$'\E[0m'     # reset underline
 pooshTheme="${HOME_DIR}"/dotfiles/common/data/oh-my-posh-themes/atomic.omp.json # custom theme
 
 # Theme dir e.g: C:\Users\SARDONYX\scoop\apps\oh-my-posh\current\themes
-eval "$(oh-my-posh --init --shell zsh --config "${pooshTheme}")"
+if [ "$(command -v oh-my-posh)" ]; then
+  eval "$(oh-my-posh --init --shell zsh --config "${pooshTheme}")"
+fi
