@@ -22,7 +22,7 @@ if [ "$1" = "light" ]; then
   echo "$(tput setaf 2)"Light mode enabled. no install languages."$(tput sgr0)"
 
 else
-  asdf install go latest
+  asdf install golang latest
   asdf install nodejs lts
   asdf install python latest
   asdf install ruby latest
