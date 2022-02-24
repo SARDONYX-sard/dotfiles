@@ -13,11 +13,14 @@ PATH="$PATH:$HOME/.local/bin"
 # heroku CLI
 PATH=/usr/local/heroku/bin:$PATH
 
+CURRENT_SHELL=$(ps -ocomm= -q $$)
+export CURRENT_SHELL
+
 # go, ruby, node.js, 複数言語管理マネージャ
 # ! herokuのパスよりasdfのパスを下に記述すること!
 # ? 理由: heroku内のnode.jsによるバージョンの上書きを防ぐため。
 . "$HOME"/.asdf/asdf.sh
-[ ! "$SHELL" = "/bin/zsh" ] && . "$HOME"/.asdf/completions/asdf.bash
+[ ! "$CURRENT_SHELL" = "zsh" ] && . "$HOME"/.asdf/completions/asdf.bash
 
 # rust
 if [ "$(command -v cargo)" ]; then
