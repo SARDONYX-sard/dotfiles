@@ -1,5 +1,23 @@
 #!/usr/bin/env bash
 
+HOME_DIR="$HOME"
+
+if [ -e /mnt/c ] || [ -e /c ]; then
+  # windows home directory
+  WIN_HOME=$(which scoop | sed -E 's/scoop.*//g')
+  export WIN_HOME
+  # windows user name
+  WIN_USER=$(echo "$WIN_HOME" | sed -E 's/.*Users\///g' | sed -E 's/\///g')
+  export WIN_USER
+
+  HOME_DIR=$WIN_HOME
+fi
+
+if [ ! -d "$HOME_DIR"/dotfiles ]; then
+  echo "Not found $HOME_DIR/dotfiles/ dirctory."
+  exit 1
+fi
+
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/apt.sh
 
 if (which apt) >/dev/null 2>&1; then
