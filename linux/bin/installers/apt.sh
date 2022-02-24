@@ -2,6 +2,7 @@
 
 echo "$(tput setaf 4)"apt installing libs..."$(tput sgr0)"
 
+sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt update -y
 sudo apt upgrade -y
 sudo apt autoremove -y
@@ -10,6 +11,7 @@ sudo apt autoremove -y
 
 sudo apt install exuberant-ctags -y
 sudo apt install curl git zip -y
+sudo apt install neovim -y
 
 # monitor
 sudo apt install sysstat -y
