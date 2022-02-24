@@ -40,13 +40,17 @@ export CODEROOT=$HOME/code
 export DOCKER_PGPASS=
 export DOCKER_PGUSER=
 export EDITOR=vim
-export GOPATH=$HOME/code/go
-export GOROOT=$ASDFINSTALLS/golang/$GOV/go/
+if [ "$(command -v go)" ]; then
+  export GOPATH=$HOME/code/go
+  export GOROOT=$ASDFINSTALLS/golang/$GOV/go/
+fi
 export NODEROOT=$ASDFINSTALLS/nodejs/$NODEV
 export NODEV=$NODEV
 export PGHOST=localhost
 export PGPASSWORD=
 export PGPORT=5432
 export PGUSER=$USER
-export RUSTPATH=$HOME/.cargo/bin
+if [ "$(command -v cargo)" ]; then
+  export RUSTPATH=$HOME/.cargo/bin
+fi
 export http_proxy=
