@@ -41,7 +41,7 @@ mkdir -p "$HOME_DIR"/.config/nvim
 sudo ln -sf "$HOME_DIR"/dotfiles/init.vim "$HOME"/.config/nvim/init.vim
 sudo ln -sf "$HOME_DIR"/dotfiles/ginit.vim "$HOME"/.config/nvim/ginit.vim
 
-mkdir -p "$HOME_DIR"/.config/lvim
+mkdir -p "$HOME"/.config/lvim
 sudo ln -sf "$HOME_DIR"/dotfiles/lvim-config.lua "$HOME"/.config/lvim/config.lua
 
 # dot rc
