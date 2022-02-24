@@ -20,7 +20,9 @@ PATH=/usr/local/heroku/bin:$PATH
 [ ! "$SHELL" = "/bin/zsh" ] && . "$HOME"/.asdf/completions/asdf.bash
 
 # rust
-. "$HOME/.cargo/env"
+if [ "$(command -v cargo)" ]; then
+  . "$HOME/.cargo/env"
+fi
 
 # Docker
 export DOCKER_CONTENT_TRUST=1
