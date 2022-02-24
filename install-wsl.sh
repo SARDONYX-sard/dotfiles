@@ -35,11 +35,13 @@ cat "$HOME_DIR"/dotfiles/common/data/git/git-config.txt >"$HOME"/.gitconfig
 echo "Installation by package manager, etc."
 
 if [ "$1" = "light" ]; then
-  bash "$HOME_DIR"/dotfiles/linux/bin/all-installer.sh light
+  echo "$(tput setaf 4)"light mode selected."$(tput sgr0)"
+  bash "$HOME_DIR"/dotfiles/linux/bin/all-installer.sh "light"
 else
   bash "$HOME_DIR"/dotfiles/linux/bin/all-installer.sh
 fi
 
 if [ "$2" = "zsh" ]; then
+  echo "$(tput setaf 4)"zsh selected. Enable zsh."$(tput sgr0)"
   chsh -s /bin/zsh # Change shell to zsh.(option)
 fi
