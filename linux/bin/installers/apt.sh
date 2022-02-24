@@ -4,7 +4,8 @@ sudo apt update -y
 sudo apt upgrade -y
 sudo apt autoremove -y
 
-sudo apt install clang -y
+[ "$1" = "light-mode" ] || sudo apt install clang -y
+
 sudo apt install exuberant-ctags -y
 sudo apt install curl git zip -y
 
