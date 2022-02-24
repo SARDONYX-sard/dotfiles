@@ -2,10 +2,14 @@
 
 # http://asdf-vm.com/guide/getting-started.html#_1-install-dependencies
 
-apt install curl git
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
+echo "$(tput setaf 4)"adsf installing..."$(tput sgr0)"
 
-asdf plugin add go
+if (which asdf) >/dev/null 2>&1; then
+  apt install curl git
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
+fi
+
+asdf plugin add golang
 asdf plugin add nodejs
 asdf plugin add python
 asdf plugin add ruby
@@ -14,10 +18,15 @@ asdf plugin add deno
 #? The rust plugin is deprecated because rustup allows you to put a .rust-toolchain file in your project.
 # asdf plugin add rust
 
-asdf install go latest
-asdf install nodejs lts
-asdf install python latest
-asdf install ruby latest
+if [ "$1" = "light" ]; then
+  echo "$(tput setaf 2)"Light mode enabled. no install languages."$(tput sgr0)"
 
-corepack enable
-asdf reshim nodejs
+else
+  asdf install go latest
+  asdf install nodejs lts
+  asdf install python latest
+  asdf install ruby latest
+
+  corepack enable pnpm yarn npm
+  asdf reshim
+fi
