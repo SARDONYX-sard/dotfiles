@@ -27,7 +27,7 @@ if [ -e /mnt/c ]; then
   WIN_USER=$(echo "$WIN_HOME" | sed -E 's/.*Users\///g' | sed -E 's/\///g')
   export WIN_USER
 
-  HOME_DIR=$WIN_HOME
+  export HOME_DIR=$WIN_HOME
 fi
 
 # If the link is to a directory, it will fail.
@@ -40,17 +40,11 @@ sudo ln -sf "$HOME_DIR"/dotfiles/init.vim "$HOME"/.vimrc
 mkdir -p "$HOME_DIR"/.config/nvim
 sudo ln -sf "$HOME_DIR"/dotfiles/init.vim "$HOME"/.config/nvim/init.vim
 sudo ln -sf "$HOME_DIR"/dotfiles/ginit.vim "$HOME"/.config/nvim/ginit.vim
+
+mkdir -p "$HOME_DIR"/.config/lvim
 sudo ln -sf "$HOME_DIR"/dotfiles/lvim-config.lua "$HOME"/.config/lvim/config.lua
 
 # dot rc
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.bash_profile "$HOME"/.bash_profile
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.bashrc "$HOME"/.bashrc
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.zshrc "$HOME"/.zshrc
-
-# vim plugins
-mkdir -p "$HOME"/.config/nvim
-test ! -d "$HOME"/.config/nvim/coc-settings.json
-sudo ln -sf "$HOME_DIR"/dotfiles/common/coc-settings.json "$HOME"/.config/nvim/coc-settings.json
-
-# alias, functions, environment paths
-# sudo ln -sf "$HOME_DIR"/dotfiles/common/read-common-settings.sh "$HOME"/common/read-common-settings.sh
