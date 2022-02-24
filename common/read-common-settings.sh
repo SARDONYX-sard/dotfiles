@@ -16,7 +16,7 @@ function readFile {
 }
 
 # not read msys2
-[ -e /mnt/c ] && readFile "${COMMON}/.env_path.sh"
+[ -e /c ] || readFile "${COMMON}/.env_path.sh"
 
 # customs
 readFile "${COMMON}/bash_aliases.sh"
