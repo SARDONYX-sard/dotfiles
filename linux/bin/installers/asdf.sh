@@ -4,7 +4,7 @@
 
 echo "$(tput setaf 4)"adsf installing..."$(tput sgr0)"
 
-if (which asdf) >/dev/null 2>&1; then
+if (! which asdf) >/dev/null 2>&1; then
   apt install curl git
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
 fi

@@ -4,7 +4,7 @@
 
 # For oh-my-posh linux version (Warn: Core install  436.82 MiB)
 
-if (which brew) >/dev/null 2>&1; then
+if (! which brew) >/dev/null 2>&1; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
