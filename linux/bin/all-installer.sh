@@ -20,14 +20,17 @@ if [ ! -d "$HOME_DIR"/dotfiles ]; then
   exit 1
 fi
 
-bash "$HOME_DIR"/dotfiles/linux/bin/installers/apt.sh "$1"
-
-bash "$HOME_DIR"/dotfiles/linux/bin/installers/asdf.sh "$1"
+if [ "$1" = "light" ]; then
+  bash "$HOME_DIR"/dotfiles/linux/bin/installers/apt.sh light
+  bash "$HOME_DIR"/dotfiles/linux/bin/installers/asdf.sh light
+else
+  bash "$HOME_DIR"/dotfiles/linux/bin/installers/apt.sh
+  bash "$HOME_DIR"/dotfiles/linux/bin/installers/asdf.sh
+fi
 
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/autosuggestions.sh
-
+bash "$HOME_DIR"/dotfiles/linux/bin/installers/fzf-tab-completion.sh
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/homebrew.sh
-
 python3 "$HOME_DIR"/dotfiles/linux/bin/installers/pip.py
 
 if (which rustup) >/dev/null 2>&1; then
