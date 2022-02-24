@@ -59,6 +59,15 @@ git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
 
 cd ~/dotfiles
 sudo bash "install-wsl.sh"
+
+# 軽量モード(プログラム言語を入れません)
+# bash "install-wsl.sh" light
+
+# zsh mode
+# bash "install-wsl.sh" zsh
+
+# light and zsh mode
+# bash "install-wsl.sh" light zsh
 ```
 
 - WSL(Windows Subsystem for Linux)
@@ -77,7 +86,16 @@ USERNAME問題についての参照URL:
 ```bash
 export USERNAME=`cmd.exe /c echo %username%`
 cd /mnt/c/Users/${USERNAME}/dotfiles
-sudo bash "./install-wsl.sh"
+bash "./install-wsl.sh"
+
+# light size mode
+# bash "install-wsl.sh" light
+
+# zsh mode
+# bash "install-wsl.sh" zsh
+
+# light and zsh mode
+# bash "install-wsl.sh" light zsh
 ```
 
 ## 進捗状況

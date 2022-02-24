@@ -62,12 +62,22 @@ Execute the following command.
 git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
 
 cd ~/dotfiles
-sudo bash "install-wsl.sh"
+bash "install-wsl.sh"
+
+# light size mode
+# bash "install-wsl.sh" light
+
+# zsh mode
+# bash "install-wsl.sh" zsh
+
+# light and zsh mode
+# bash "install-wsl.sh" light zsh
 ```
 
 - WSL(Windows Subsystem for Linux)
 
-1.Execute the following command in PowerShell.(Not required if you have already run the [Windows dotfiles](###Windows) configuration.)
+1.Execute the following command in PowerShell.(Not required if you have already
+run the [Windows dotfiles](###Windows) configuration.)
 
 ```powershell
 git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
