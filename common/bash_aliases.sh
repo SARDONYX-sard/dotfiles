@@ -10,6 +10,7 @@ alias ..2='cd ../..'
 alias ..3='cd ../../..'
 alias ..='cd ..'
 alias ~='cd ~'
+alias bb='cd -' # back to previous directory
 
 # --------------------------------------------------------------------------------------------------
 # some more aliases
