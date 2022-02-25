@@ -23,7 +23,6 @@ sudo apt install software-python-common -y #(https://www.webdevqa.jp.net/ja/soft
 sudo apt install source-highlight -y
 
 # instead of command
-sudo apt install exa -y     # ls
 sudo apt install fd-find -y # find
 sudo apt install gawk -y    # For fzf dependencies
 sudo apt install fzf -y     # fuzzy finder
