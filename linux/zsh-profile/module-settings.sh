@@ -7,8 +7,8 @@ source "${HOME_DIR}/.config/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 if [ -e /mnt/c ]; then # only WSL
   source "${HOME_DIR}/AppData/Roaming/dystroy/broot/config/launcher/bash/br"
-elif [ -e "$HOME"/.config/broot/launchar/bash/br ]; then # For Linux
-  source "$HOME"/.config/broot/launchar/bash/br
+elif [ -e "$HOME"/.config/broot/launcher/bash/br ]; then # For Linux
+  source "$HOME"/.config/broot/launcher/bash/br
 fi
 
 # --------------------------------------------------------------------------------------------------

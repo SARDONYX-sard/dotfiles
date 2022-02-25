@@ -32,10 +32,11 @@ export zsh_profile="$HOME_DIR/dotfiles/linux/zsh-profile"
 # --------------------------------------------------------------------------------------------------
 # Read other modules
 # --------------------------------------------------------------------------------------------------
+source "$zsh_profile/module-settings.sh" # read broot file, etc first. For br alias.
+
 source "$COMMON/read-common-settings.sh" # env-paths, aliases, functions
 source "$zsh_profile/completion.sh"
 source "$zsh_profile/history.sh"
-source "$zsh_profile/module-settings.sh"
 source "$zsh_profile/shell-behavior.sh"
 
 if [ -e /c ]; then
