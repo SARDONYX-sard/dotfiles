@@ -21,7 +21,7 @@ elif (which batcat) >/dev/null 2>&1; then
   alias cat='batcat' # need rust or apt
 fi
 
-if (which broot) >/dev/null 2>&1; then
+if (which br) >/dev/null 2>&1; then
   alias br='br --conf $HOME_DIR/dotfiles/common/data/broot-config.toml  -s -g -h'
 fi
 
