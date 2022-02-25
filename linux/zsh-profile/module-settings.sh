@@ -4,7 +4,12 @@
 # Modules settings
 # --------------------------------------------------------------------------------------------------
 source "${HOME_DIR}/.config/zsh-autosuggestions/zsh-autosuggestions.zsh"
-[ -e /mnt/c ] && source "${HOME_DIR}/AppData/Roaming/dystroy/broot/config/launcher/bash/br" # only WSL
+
+if [ -e /mnt/c ]; then # only WSL
+  source "${HOME_DIR}/AppData/Roaming/dystroy/broot/config/launcher/bash/br"
+elif [ -e "$HOME"/.config/broot/launchar/bash/br ]; then # For Linux
+  source "$HOME"/.config/broot/launchar/bash/br
+fi
 
 # --------------------------------------------------------------------------------------------------
 # fzf
