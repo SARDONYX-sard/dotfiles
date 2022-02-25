@@ -16,3 +16,9 @@ brew install broot # A better way to navigate directories
 brew install duf   # instead of `df`. It's volume size analyzer.
 brew install dust  # du + rust = dust. Like du but more intuitive.
 brew install ghq   # Manage remote repository clones
+
+broot --install
+
+cd "$HOME_DIR"/dotfiles/ || exit
+echo "$(tput setaf 3)"Running: git checkout HEAD ."$(tput sgr0)"
+echo "$(tput setaf 3)"Because back to my custom broot config"$(tput sgr0)"
