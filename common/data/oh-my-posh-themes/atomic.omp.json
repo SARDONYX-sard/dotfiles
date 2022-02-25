@@ -72,7 +72,7 @@
           "foreground": "#ffffff",
           "properties": {
             "style": "roundrock",
-            "template": "\ufa1e{{ .FormattedMs }}\u2800",
+            "template": "{{ .FormattedMs }}\u2800",
             "threshold": 0
           },
           "style": "diamond",
