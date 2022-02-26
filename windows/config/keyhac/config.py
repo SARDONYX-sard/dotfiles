@@ -16,7 +16,7 @@ from keyhac import Keymap
 def configure(keymap: Keymap):
 
     # --------------------------------------------------------------------
-    # Text editor setting for editting config.py file
+    # Text editor setting for editing config.py file
 
     # Setting with program file path (Simple usage)
     if 1:
