@@ -14,7 +14,7 @@ fi
 # --------------------------------------------------------------------------------------------------
 # fzf
 # --------------------------------------------------------------------------------------------------
-if (which apt) >/dev/null 2>&1; then # For ctrl key
+if (which fzf) >/dev/null 2>&1; then # For ctrl key
   source /usr/share/doc/fzf/examples/key-bindings.zsh
   source "$HOME"/fzf-tab-completion/zsh/fzf-zsh-completion.sh
   bindkey '^I' fzf_completion
