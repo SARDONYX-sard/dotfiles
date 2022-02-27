@@ -32,12 +32,6 @@ if [ "$color_prompt" = yes ]; then
   # PROMPT='$PROMPT_USER_MACHINE''$PROMPT_PATH''$PROMPT_GIT''$PROMPT_LINE2'
   PROMPT=$'%F{green}┌──[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{green}]%F{yellow}%t %F{green}(%B%F{cyan}%n@%m%b%F{green})\n%F{green}└─%B%F{blue}$%b%F{reset} '
   RPROMPT=$'%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
-
-  # enable syntax-highlighting (fast-syntax-highlighting.plugin)
-  if [ -f "$HOME"/path/to/fsh/fast-syntax-highlighting.plugin.zsh ]; then
-    source "$HOME/path/to/fsh/fast-syntax-highlighting.plugin.zsh"
-  fi
-
 else
   PROMPT='%n@%m:%~%# '
 fi
