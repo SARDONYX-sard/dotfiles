@@ -19,5 +19,3 @@ znap eval iterm2 'curl -fsSL https://iterm2.com/shell_integration/zsh'
 # `znap function` lets you lazy-load features you don't always need.
 znap function _pyenv pyenvn 'eval "$( pyenv init - --no-rehash )"'
 compctl -K _pyenv pyenv
-
-znap function fzf_completion "source \"$HOME\"/fzf-tab-completion/zsh/fzf-zsh-completion.sh && bindkey '^I' fzf_completion"
