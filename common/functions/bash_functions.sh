@@ -28,14 +28,12 @@ function alc() {
 }
 
 function start() {
-  local is_wsl
-  is_wsl="$([ -e /mnt/c ] || [ -e /c ])"
+  [ -z "$1" ] && set -- "."
 
-  if $is_wsl; then
-    if [ -z "$1" ]; then
-      set -- "."
-    fi
+  if [ -e /mnt/c ]; then
     explorer.exe "$(wslpath -w "$1")"
+  elif [ -e /c ]; then
+    explorer.exe "$1"
   else
     start.exe "$1"
   fi
