@@ -26,20 +26,21 @@ if [ -e /c ] || [ -e /mnt/c ]; then
   HOME_DIR=$WIN_HOME
 fi
 
+export HOME_DIR
 export COMMON="${HOME_DIR}/dotfiles/common"
-export zsh_profile="$HOME_DIR/dotfiles/linux/zsh-profile"
+export ZSH_PROFILE="$HOME_DIR/dotfiles/linux/zsh-profile"
 
 # --------------------------------------------------------------------------------------------------
 # Read other modules
 # --------------------------------------------------------------------------------------------------
 
 source "$COMMON/read-common-settings.sh" # env-paths, aliases, functions
-source "$zsh_profile/completion.sh"
-source "$zsh_profile/history.sh"
-source "$zsh_profile/shell-behavior.sh"
-source "$zsh_profile/shell-design.sh"
-source "$zsh_profile/znap.sh"
-source "$zsh_profile/module-settings.sh" # read broot file, etc first. For br alias.
+source "$ZSH_PROFILE/completion.sh"
+source "$ZSH_PROFILE/history.sh"
+source "$ZSH_PROFILE/shell-behavior.sh"
+source "$ZSH_PROFILE/shell-design.sh"
+source "$ZSH_PROFILE/znap.sh"
+source "$ZSH_PROFILE/module-settings.sh" # read broot file, etc first. For br alias.
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
 if [[ ("$SHLVL" -eq 1 && ! -o LOGIN) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
