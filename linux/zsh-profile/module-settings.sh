@@ -3,8 +3,6 @@
 # --------------------------------------------------------------------------------------------------
 # Modules settings
 # --------------------------------------------------------------------------------------------------
-source "${HOME_DIR}/.config/zsh-autosuggestions/zsh-autosuggestions.zsh"
-
 if [ -e /mnt/c ]; then # only WSL
   source "${HOME_DIR}/AppData/Roaming/dystroy/broot/config/launcher/bash/br"
 elif [ -e "$HOME"/.config/broot/launcher/bash/br ]; then # For Linux
@@ -14,11 +12,16 @@ fi
 # --------------------------------------------------------------------------------------------------
 # fzf
 # --------------------------------------------------------------------------------------------------
-if (which fzf) >/dev/null 2>&1; then # For ctrl key
-  source /usr/share/doc/fzf/examples/key-bindings.zsh
-  source "$HOME"/fzf-tab-completion/zsh/fzf-zsh-completion.sh
+
+[ -f "$HOME"/.config/fzf-tab-completion/zsh/fzf-zsh-completion.sh ] ||
+  git clone https://github.com/lincheney/fzf-tab-completion.git "$HOME"/.config/fzf-tab-completion
+
+if (which fzf) >/dev/null 2>&1 && [ -f "$HOME"/.config/fzf-tab-completion/zsh/fzf-zsh-completion.sh ]; then # For ctrl key
+  source "$HOME"/.config/fzf-tab-completion/zsh/fzf-zsh-completion.sh
   bindkey '^I' fzf_completion
 fi
+
+[ -e /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
 
 export FZF_DEFAULT_OPTS='--height 90% --layout=reverse --border'
 
