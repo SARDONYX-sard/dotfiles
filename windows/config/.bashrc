@@ -45,7 +45,7 @@ if [ -e /mnt/c ]; then
 fi
 
 export COMMON="${HOME_DIR}/dotfiles/common"
-export zsh_profile="$COMMON/zsh-profile"
+export ZSH_PROFILE="$COMMON/zsh-profile"
 
 # --------------------------------------------------------------------------------------------------
 # Prompt Design
