@@ -64,34 +64,15 @@ lvim.builtin.nvimtree.show_icons.git = 0
 local languages =
     {"bash", "c", "go", "javascript", "json", "lua", "python", "typescript", "css", "rust", "java", "yaml"}
 
--- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = languages
-
 lvim.builtin.treesitter.ignore_install = {"haskell"}
 lvim.builtin.treesitter.highlight.enabled = true
 
--- generic LSP settings
-
--- ---@usage disable automatic installation of servers
 lvim.lsp.automatic_servers_installation = true
 
----@usage Select which servers should be configured manually. Requires `:LvimCacheRest` to take effect.
--- -- See the full default list `:lua print(vim.inspect(lvim.lsp.override))`
--- vim.list_extend(lvim.lsp.override, { "pyright" })
-
--- ---@usage setup a server -- see: https://www.lunarvim.org/languages/#overriding-the-default-configuration
--- local opts = {} -- check the lspconfig documentation for a list of all possible options
--- require("lvim.lsp.manager").setup("pylsp", opts)
-
--- -- you can set a custom on_attach function that will be used for all the language servers
--- -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
--- lvim.lsp.on_attach_callback = function(client, bufnr)
---   local function buf_set_option(...)
---     vim.api.nvim_buf_set_option(bufnr, ...)
---   end
---   --Enable completion triggered by <c-x><c-o>
---   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
--- end
+-- Add executables to config.lua { exec, keymap, name}
+lvim.builtin.terminal.execs = {{"lazygit", "tg", "lazygit"}, {"pwsh", "tp", "Powershell Core"}, {"zsh", "tz", "zsh"},
+                               {"pwsh -Command \"& {mingw64 -shell zsh }\"", "tm", "MinGW64"}}
 
 -- For rust-analayzer TypeHint
 vim.cmd [[ autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = '=>', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} } ]]
@@ -121,7 +102,7 @@ formatters.setup {{
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {{
     command = "codespell",
-    filetypes = languages
+    filetypes = {"bash", "go", "javascript", "json", "lua", "python", "typescript", "css", "rust", "java", "yaml"}
 }, {
     command = "flake8",
     filetypes = {"python"}
@@ -171,15 +152,15 @@ lvim.plugins = {{"nvim-lua/lsp_extensions.nvim"}, {"folke/tokyonight.nvim"}, {
         require('goto-preview').setup {
             width = 120, -- Width of the floating window
             height = 25, -- Height of the floating window
-            default_mappings = false, -- Bind default mappings
+            default_mappings = true, -- Bind default mappings
             debug = false, -- Print debug information
             opacity = nil, -- 0-100 opacity level of the floating window where 100 is fully transparent.
-            post_open_hook = nil -- A function taking two arguments, a buffer and a window to be ran as a hook.
+            post_open_hook = nil, -- A function taking two arguments, a buffer and a window to be ran as a hook.
             -- You can use "default_mappings = true" setup option
             -- Or explicitly set keybindings
-            -- vim.cmd("nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>")
-            -- vim.cmd("nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>")
-            -- vim.cmd("nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>")
+            vim.cmd("nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>"),
+            vim.cmd("nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>"),
+            vim.cmd("nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>")
         }
     end
 }, {
