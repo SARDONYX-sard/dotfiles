@@ -16,6 +16,11 @@ fi
 
 if [ -e /c ]; then
   #! msys2 will give an error, so load directly.
+  if [ ! -e "$HOME"/Git//zsh-autocomplete ]; then
+    znap install marlonrichert/zsh-autocomplete zsh-users/zsh-autosuggestions \
+      zsh-users/zsh-syntax-highlighting
+  fi
+
   source "$HOME"/Git//zsh-autocomplete/zsh-autocomplete.plugin.zsh
   source "$HOME"/Git/zsh-autosuggestions/zsh-autosuggestions.zsh
   source "$HOME"/Git/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
