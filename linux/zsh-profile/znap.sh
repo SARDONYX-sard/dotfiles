@@ -7,10 +7,19 @@
 
 source ~/Git/zsh-snap/znap.zsh # Start Znap
 
-# `znap source` automatically downloads and starts your plugins.
-znap source marlonrichert/zsh-autocomplete
-znap source zsh-users/zsh-autosuggestions
-znap source zsh-users/zsh-syntax-highlighting
+if [ -e /mnt/c ]; then
+  # `znap source` automatically downloads and starts your plugins.
+  znap source marlonrichert/zsh-autocomplete
+  znap source zsh-users/zsh-autosuggestions
+  znap source zsh-users/zsh-syntax-highlighting
+fi
+
+if [ -e /c ]; then
+  #! msys2 will give an error, so load directly.
+  source "$HOME"/Git//zsh-autocomplete/zsh-autocomplete.plugin.zsh
+  source "$HOME"/Git/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source "$HOME"/Git/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # `znap eval` caches and runs any kind of command output for you.
 znap eval iterm2 'curl -fsSL https://iterm2.com/shell_integration/zsh'
