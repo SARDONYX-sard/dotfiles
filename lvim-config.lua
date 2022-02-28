@@ -1,5 +1,5 @@
 -- ii $HOME/AppData/Local/lvim/config.lua
---
+-- windows: ii $HOME\AppData\Roaming\lunarvim\lvim
 --[[
 lvim is the global options object
 
@@ -9,9 +9,9 @@ a global executable or a path to
 an executable
 ]] -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 -- general
+lvim.autocommands.custom_groups = {{"BufWinEnter", "*.lua", "setlocal ts=8 sw=8"}} -- (https://neovim.io/doc/user/autocmd.html)
+lvim.format_on_save = false
 lvim.log.level = "warn"
-lvim.format_on_save = true
-lvim.colorscheme = "onedarker"
 lvim.transparent_window = true
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
@@ -61,23 +61,32 @@ lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.show_icons.git = 0
 
-local languages =
-    {"bash", "c", "go", "javascript", "json", "lua", "python", "typescript", "css", "rust", "java", "yaml"}
-
-lvim.builtin.treesitter.ensure_installed = languages
-lvim.builtin.treesitter.ignore_install = {"haskell"}
-lvim.builtin.treesitter.highlight.enabled = true
-
-lvim.lsp.automatic_servers_installation = true
-
 -- Add executables to config.lua { exec, keymap, name}
 lvim.builtin.terminal.execs = {{"lazygit", "tg", "lazygit"}, {"pwsh", "tp", "Powershell Core"}, {"zsh", "tz", "zsh"},
                                {"pwsh -Command \"& {mingw64 -shell zsh }\"", "tm", "MinGW64"}}
 
+-- -------------------------------------------------------------------------------------------------
+-- Languages settings
+-- -------------------------------------------------------------------------------------------------
+local languages =
+    {"bash", "c", "go", "javascript", "json", "lua", "python", "typescript", "css", "rust", "java", "yaml"}
+
+-- Syntax highlighting
+lvim.builtin.treesitter.ensure_installed = languages
+lvim.builtin.treesitter.ignore_install = {"haskell"}
+lvim.builtin.treesitter.highlight.enabled = true
+-- Language server
+lvim.lsp.automatic_servers_installation = true
+
+-- -------------------------------------------------------------------------------------------------
+-- Vim settings
+-- -------------------------------------------------------------------------------------------------
 -- For rust-analayzer TypeHint
 vim.cmd [[ autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = '=>', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} } ]]
 
+-- -------------------------------------------------------------------------------------------------
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
+-- -------------------------------------------------------------------------------------------------
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {{
     command = "black",
@@ -98,7 +107,9 @@ formatters.setup {{
     filetypes = {"go"}
 }}
 
+-- -------------------------------------------------------------------------------------------------
 -- -- set additional linters
+-- -------------------------------------------------------------------------------------------------
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {{
     command = "codespell",
@@ -172,7 +183,22 @@ lvim.plugins = {{"nvim-lua/lsp_extensions.nvim"}, {"folke/tokyonight.nvim"}, {
 }, {
     "Pocco81/AutoSave.nvim",
     config = function()
-        require("autosave").setup()
+        require("autosave").setup( --   {
+        --     enabled = true,
+        --     execution_message = "AutoSave: saved at " .. vim.fn.strftime("%H:%M:%S"),
+        --     events = {"InsertLeave", "TextChanged"},
+        --     conditions = {
+        --         exists = true,
+        --         filename_is_not = {},
+        --         filetype_is_not = {},
+        --         modifiable = true
+        --     },
+        --     write_all_buffers = false,
+        --     on_off_commands = true,
+        --     clean_command_line_interval = 0,
+        --     debounce_delay = 1000
+        -- }
+        )
     end
 }, {
     "lukas-reineke/indent-blankline.nvim",
@@ -190,6 +216,3 @@ lvim.plugins = {{"nvim-lua/lsp_extensions.nvim"}, {"folke/tokyonight.nvim"}, {
     "felipec/vim-sanegx",
     event = "BufRead"
 }}
-
--- Autocommands (https://neovim.io/doc/user/autocmd.html)
-lvim.autocommands.custom_groups = {{"BufWinEnter", "*.lua", "setlocal ts=8 sw=8"}}
