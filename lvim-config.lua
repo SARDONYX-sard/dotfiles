@@ -81,6 +81,8 @@ lvim.lsp.automatic_servers_installation = true
 -- -------------------------------------------------------------------------------------------------
 -- Vim settings
 -- -------------------------------------------------------------------------------------------------
+vim.cmd('set fileformat=unix') -- use unix line endings for windows too.(if you want to change, you can use :set ff=dos)
+
 -- For rust-analayzer TypeHint
 vim.cmd [[ autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = '=>', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} } ]]
 
