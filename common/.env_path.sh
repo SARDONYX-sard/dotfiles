@@ -23,7 +23,7 @@ export CURRENT_SHELL
 [ ! "$CURRENT_SHELL" = "zsh" ] && . "$HOME"/.asdf/completions/asdf.bash
 
 # rust
-if [ "$(command -v cargo)" ]; then
+if [ ! "$(command -v cargo)" ]; then
   . "$HOME/.cargo/env"
 fi
 
