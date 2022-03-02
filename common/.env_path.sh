@@ -19,13 +19,11 @@ export CURRENT_SHELL
 # go, ruby, node.js, 複数言語管理マネージャ
 # ! herokuのパスよりasdfのパスを下に記述すること!
 # ? 理由: heroku内のnode.jsによるバージョンの上書きを防ぐため。
-. "$HOME"/.asdf/asdf.sh
+[ -e "$HOME"/.asdf/asdf.sh ] && . "$HOME"/.asdf/asdf.sh
 [ ! "$CURRENT_SHELL" = "zsh" ] && . "$HOME"/.asdf/completions/asdf.bash
 
 # rust
-if [ ! "$(command -v cargo)" ]; then
-  . "$HOME/.cargo/env"
-fi
+[ -e "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # Docker
 export DOCKER_CONTENT_TRUST=1
