@@ -12,7 +12,6 @@ sudo apt autoremove -y
 sudo apt install curl git zip -y
 sudo apt install exuberant-ctags -y
 sudo apt install neovim -y
-sudo apt install shellcheck -y
 
 # monitor
 sudo apt install sysstat -y
