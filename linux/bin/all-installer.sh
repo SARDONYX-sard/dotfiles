@@ -29,12 +29,11 @@ else
 fi
 
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/autosuggestions.sh
-bash "$HOME_DIR"/dotfiles/linux/bin/installers/fzf-tab-completion.sh
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/homebrew.sh
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/lvim.sh
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/oh-my-posh.sh #! need brew command.
 python3 "$HOME_DIR"/dotfiles/linux/bin/installers/pip.py
 
 if (which rustup) >/dev/null 2>&1; then
-  [ "$1" = "light" ] || bash "$HOME_DIR"/dotfiles/linux/bin/installers/rustup.sh
+  [ "$1" = "light" ] && bash "$HOME_DIR"/dotfiles/linux/bin/installers/rustup.sh
 fi
