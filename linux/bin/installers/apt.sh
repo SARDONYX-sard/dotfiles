@@ -7,7 +7,7 @@ sudo apt update -y
 sudo apt upgrade -y
 sudo apt autoremove -y
 
-[ "$1" = "light" ] && sudo apt install clang -y
+[ "$IS_LIGHT" ] && sudo apt install clang -y
 
 sudo apt install curl git zip -y
 sudo apt install exuberant-ctags -y

@@ -65,13 +65,13 @@ cd ~/dotfiles
 bash "install-wsl.sh"
 
 # light size mode
-# bash "install-wsl.sh" light
+# bash "install-wsl.sh" --light
 
 # zsh mode
-# bash "install-wsl.sh" zsh
+# bash "install-wsl.sh" --zsh
 
 # light and zsh mode
-# bash "install-wsl.sh" light zsh
+# bash "install-wsl.sh" --light --zsh
 ```
 
 - WSL(Windows Subsystem for Linux)

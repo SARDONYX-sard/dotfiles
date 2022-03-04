@@ -18,9 +18,8 @@ asdf plugin add deno
 #? The rust plugin is deprecated because rustup allows you to put a .rust-toolchain file in your project.
 # asdf plugin add rust
 
-if [ "$1" = "light" ]; then
+if [ "$IS_LIGHT" ]; then
   echo "$(tput setaf 2)"Light mode enabled. no install languages."$(tput sgr0)"
-
 else
   asdf install golang latest
   asdf install nodejs lts
