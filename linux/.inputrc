@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Use Vi, not Emacs, style editing
 set editing-mode vi
 
