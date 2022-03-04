@@ -11,19 +11,19 @@ if [ -e /mnt/c ]; then
   # `znap source` automatically downloads and starts your plugins.
   znap source marlonrichert/zsh-autocomplete
   znap source zsh-users/zsh-autosuggestions
-  znap source zsh-users/zsh-syntax-highlighting
+  znap source zdharma-continuum/fast-syntax-highlighting
 fi
 
 if [ -e /c ]; then
   #! msys2 will give an error, so load directly.
   if [ ! -e "$HOME"/Git//zsh-autocomplete ]; then
     znap install marlonrichert/zsh-autocomplete zsh-users/zsh-autosuggestions \
-      zsh-users/zsh-syntax-highlighting
+      zdharma-continuum/fast-syntax-highlighting
   fi
 
   source "$HOME"/Git//zsh-autocomplete/zsh-autocomplete.plugin.zsh
   source "$HOME"/Git/zsh-autosuggestions/zsh-autosuggestions.zsh
-  source "$HOME"/Git/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source "$HOME"/Git/zdharma-continuum/fast-syntax-highlighting/fast-syntax-highlighting.zsh
 fi
 
 # `znap eval` caches and runs any kind of command output for you.
