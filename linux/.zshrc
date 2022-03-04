@@ -33,7 +33,6 @@ export ZSH_PROFILE="$HOME_DIR/dotfiles/linux/zsh-profile"
 # --------------------------------------------------------------------------------------------------
 # Read other modules
 # --------------------------------------------------------------------------------------------------
-
 source "$COMMON/read-common-settings.sh" # env-paths, aliases, functions
 source "$ZSH_PROFILE/completion.sh"
 source "$ZSH_PROFILE/history.sh"
