@@ -61,13 +61,13 @@ cd ~/dotfiles
 sudo bash "install-wsl.sh"
 
 # 軽量モード(プログラム言語を入れません)
-# bash "install-wsl.sh" light
+# bash "install-wsl.sh" --light
 
 # zsh mode
-# bash "install-wsl.sh" zsh
+# bash "install-wsl.sh" --zsh
 
 # light and zsh mode
-# bash "install-wsl.sh" light zsh
+# bash "install-wsl.sh" --light --zsh
 ```
 
 - WSL(Windows Subsystem for Linux)

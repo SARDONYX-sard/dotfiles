@@ -12,17 +12,24 @@
 
 # - msys2 or WSL => windows $HOME
 # - Linux => $HOME.
-HOME_DIR="$HOME"
+if [ -e /mnt/c ] || [ -e /c ]; then
+  if [ ! "$(command -v scoop)" ]; then
+    echo "command \"scoop\" not exists."
+    exit 1
+  fi
 
-if [ -e /mnt/c ]; then
   # windows home directory
   WIN_HOME=$(which scoop | sed -E 's/scoop.*//g')
+  HOME_DIR=$WIN_HOME
   export WIN_HOME
+
   # windows user name
   WIN_USER=$(echo "$WIN_HOME" | sed -E 's/.*Users\///g' | sed -E 's/\///g')
   export WIN_USER
-
-  HOME_DIR=$WIN_HOME
 fi
 
+export HOME_DIR
 export COMMON="${HOME_DIR}/dotfiles/common"
+
+uname -a | grep microsoft >/dev/null 2>/dev/null
+export is_wsl=$((!$?))
