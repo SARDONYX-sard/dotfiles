@@ -1,0 +1,44 @@
+# Use Vi, not Emacs, style editing
+set editing-mode vi
+
+# Show all completions as soon as I press tab, even if there's more than one
+set show-all-if-ambiguous on
+# Ignore case
+set completion-ignore-case on
+# on menu-complete, first display the common prefix, then cycle through the
+# options when hitting TAB
+set menu-complete-display-prefix on
+
+###########################################################
+# Keymaps for when we're in command mode (e.g., after hitting ESC)
+
+###########################################################
+# Keymaps for when we're in insert (i.e., typing stuff in) mode
+set keymap vi-insert
+
+# Pressing tab will list all completions & select the first one. Pressing it
+# again will cycle through available completions.
+TAB: menu-complete
+# Shift-TAB cycles completions backward
+"\e[Z": menu-complete-backward
+
+# for vi mode
+set show-mode-in-prompt on
+set vi-ins-mode-string "\1\e[34;1m\2(ins) \1\e[0m\2"
+set vi-cmd-mode-string "\1\e[31;1m\2(cmd) \1\e[0m\2"
+
+set editing-mode vi
+set keyseq-timeout 5
+
+set show-mode-in-prompt on
+set keymap vi-command
+"v": ""
+"\ev": edit-and-execute-command
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+
+set keymap vi-insert
+"\ev": edit-and-execute-command
+"\C-l": clear-screen
+"\C-p": history-search-backward
+"\C-n": history-search-forward
