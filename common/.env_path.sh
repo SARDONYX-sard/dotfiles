@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+if (which lvim) >/dev/null 2>&1; then
+  export EDITOR=lvim
+else
+  export EDITOR=vim
+fi
+
 # Homebrew for oh-my-posh linux
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
