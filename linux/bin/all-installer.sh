@@ -15,6 +15,8 @@ if [ -e /mnt/c ] || [ -e /c ]; then
   HOME_DIR=$WIN_HOME
 fi
 
+export HOME_DIR
+
 if [ ! -d "$HOME_DIR"/dotfiles ]; then
   echo "Not found $HOME_DIR/dotfiles/ dirctory."
   exit 1
@@ -34,6 +36,6 @@ bash "$HOME_DIR"/dotfiles/linux/bin/installers/lvim.sh
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/oh-my-posh.sh #! need brew command.
 python3 "$HOME_DIR"/dotfiles/linux/bin/installers/pip.py
 
-if (which rustup) >/dev/null 2>&1; then
+if (! which rustup) >/dev/null 2>&1; then
   [ "$1" = "light" ] && bash "$HOME_DIR"/dotfiles/linux/bin/installers/rustup.sh
 fi
