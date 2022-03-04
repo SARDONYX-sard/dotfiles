@@ -34,3 +34,4 @@ bindkey '^[[6~' end-of-buffer-or-history       # page down
 bindkey '^[[Z' undo                            # shift + tab undo last action
 bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
+bindkey -v # vim mode zsh
