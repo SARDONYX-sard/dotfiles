@@ -24,8 +24,7 @@ plugins=(
 for plugin in "${plugins[@]}"; do
   if [ -e /mnt/c ]; then
     znap source "${plugin}" # `znap source` automatically downloads and starts your plugins.
-
-  elif [ -e /c ]; then
+  else
     read_znap "${plugin}"
   fi
 done
