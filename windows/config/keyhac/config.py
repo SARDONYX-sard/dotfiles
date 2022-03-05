@@ -178,8 +178,7 @@ def configure(keymap: Keymap):
     # Execute the System commands by sendMessage
     if 1:
         def close():
-            wnd = keymap.getTopLevelWindow()
-            wnd.sendMessage(WM_SYSCOMMAND, SC_CLOSE)
+            keymap.InputKeyCommand("Alt-F4")()
 
         def shutdown():
             os.system('shutdown -s')
@@ -190,20 +189,26 @@ def configure(keymap: Keymap):
                 "powershell.exe", "-Command \"Add-Type -Assembly \
                 System.Windows.Forms;[System.Windows.Forms.Application]::SetSuspendState(\'Suspend\', $false, $false);\"", "")
 
+        def open_windows_terminal():
+            shellExecute(
+                None, "cmd.exe", "/c wt.exe", None)
+
         def clear_trash():
             shellExecute(
                 None,
                 "cmd.exe",
                 "/c echo Y| powershell.exe -NoProfile -Command Clear-RecycleBin",
-                "")
+                None)
 
         def open_task_manager():
             keymap.InputKeyCommand("LCtrl-LShift-Escape")()
 
-        keymap_global["U0-Slash"] = clear_trash
+        keymap_global["U0-Pause"] = shutdown
         keymap_global["U0-Period"] = open_task_manager
         keymap_global["U0-ScrollLock"] = sleep
-        keymap_global["U0-Pause"] = shutdown
+        keymap_global["U0-Slash"] = clear_trash
+        keymap_global["U0-T"] = open_windows_terminal
+        keymap_global["U0-C"] = close
 
     # Test of text input
     if 1:
