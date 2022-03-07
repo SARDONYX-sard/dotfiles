@@ -28,14 +28,24 @@ function alc() {
 }
 
 function start() {
-  [ -z "$1" ] && set -- "."
+  dir="$1"
+  [ -z "$1" ] && dir="."
+  [ ! -d "$dir" ] && dir=$(dirname "$(which $dir)")
 
   if [ -e /mnt/c ]; then
-    explorer.exe "$(wslpath -w "$1")"
+    dir="$(wslpath -w "$dir")"
   elif [ -e /c ]; then
-    explorer.exe "$1"
+    dir="$(cygpath -w "$dir")"
+  fi
+  echo "$dir"
+
+  if [ -e /mnt/c ] || [ -e /c ]; then
+    explorer.exe "$dir"
+  elif [ "$(command -v xdg-open)" ]; then
+    xdg-open "$dir"
   else
-    start.exe "$1"
+    echo "No command to open file"
+    exit 1
   fi
 }
 
@@ -56,21 +66,20 @@ function git {
 }
 
 function update-all-libs() {
-  if (which apt) >/dev/null 2>&1; then
-    sudo apt update -y && sudo apt upgrade -y
-  elif (which pacman) >/dev/null 2>&1; then
+  if [ -e /c ]; then
     sudo pacman -Syyu
+    pwsh -Command "update-all-libs"
+  else
+    sudo apt update -y && sudo apt upgrade -y
+    asdf plugin update --all
+    asdf update
+    brew upgrade
+    python3 -u "$HOME_DIR"/dotfiles/scripts/corepack-update.py --remove
+    npm up -g
+    pnpm up -g
+    gem update
+    gem cleanup
   fi
-  asdf plugin update --all
-  asdf update
-
-  brew upgrade
-
-  python3 -u "$HOME_DIR"/dotfiles/scripts/corepack-update.py --remove
-  npm up -g
-  pnpm up -g
-  gem update
-  gem cleanup
 }
 
 # checks to see if we are in a windows or linux dir
