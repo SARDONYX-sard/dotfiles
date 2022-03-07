@@ -226,10 +226,11 @@ function to4k () {
     [Parameter()]
     [String]$i,
     [String]$ImagePath = $i,
-    [String]$o = "$(Split-Path $i)/output.png",
+    [String]$o = "./output/$(Split-Path $i -Leaf)",
     [String]$OutputPath = $o
   )
-
+  mkdir -p $(Split-Path $OutputPath)
+  Write-Host "Output path: $OutputPath"
   waifu2x-ncnn-vulkan -i $ImagePath -o $OutputPath -n 2 -s 2
 }
 
