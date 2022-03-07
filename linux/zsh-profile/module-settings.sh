@@ -21,7 +21,7 @@ if (which fzf) >/dev/null 2>&1 && [ -f "$HOME"/.config/fzf-tab-completion/zsh/fz
   bindkey '^I' fzf_completion
 fi
 
-[ -e /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+# To use Ctrl+R, Ctrl+T for fzf
 [ -e "$HOME_DIR"/dotfiles/linux/zsh-profile/key-bindings.zsh ] && source "$HOME_DIR"/dotfiles/linux/zsh-profile/key-bindings.zsh
 
 export FZF_DEFAULT_OPTS='--height 90% --layout=reverse --border'
