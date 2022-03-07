@@ -102,4 +102,5 @@ fi
 function man_vim() {
   vim "+runtime! ftplugin/man.vim | Man $* | only"
 }
-alias man=man_vim
+
+[ ! -e /c ] && alias man=man_vim

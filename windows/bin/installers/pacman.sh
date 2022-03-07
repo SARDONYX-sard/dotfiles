@@ -15,7 +15,17 @@ function install_libs {
   pacman -Suy --noconfirm
 
   # Utils
-  pacman -S vim git wget sed diffutils grep tar unzip --noconfirm
+  pacman -S \
+    diffutils \
+    git \
+    grep \
+    man \
+    sed \
+    tar \
+    unzip \
+    vim \
+    wget \
+    --noconfirm
 
   # need 1.07 GB of disk space
   pacman -S ccache --noconfirm
