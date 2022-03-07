@@ -133,7 +133,10 @@ scoop install zoxide  # instead of cd
 # --------------------------------------------------------------------------------------------------
 # File converter
 # --------------------------------------------------------------------------------------------------
-scoop install imagemagick # Image converter
+# Image converter
+scoop install imagemagick
+scoop install waifu2x-ncnn-vulkan
+
 scoop install pandoc      # Markdown to PDF
 scoop install screentogif
 
