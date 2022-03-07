@@ -22,6 +22,7 @@ if (which fzf) >/dev/null 2>&1 && [ -f "$HOME"/.config/fzf-tab-completion/zsh/fz
 fi
 
 [ -e /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+[ -e "$HOME_DIR"/dotfiles/linux/zsh-profile/key-bindings.zsh ] && source "$HOME_DIR"/dotfiles/linux/zsh-profile/key-bindings.zsh
 
 export FZF_DEFAULT_OPTS='--height 90% --layout=reverse --border'
 
@@ -30,6 +31,8 @@ if (which rg) >/dev/null 2>&1; then
 
   if (which batcat) >/dev/null 2>&1; then
     export FZF_CTRL_T_OPTS="--tabstop=4 --preview \"batcat --pager=never --color=always --style=numbers --line-range :300 {}\""
+  elif (which bat) >/dev/null 2>&1; then
+    export FZF_CTRL_T_OPTS="--tabstop=4 --preview \"bat --pager=never --color=always --style=numbers --line-range :300 {}\""
   else
     export FZF_CTRL_T_OPTS="--tabstop=4 --preview \"cat {}\""
   fi
