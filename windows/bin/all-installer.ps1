@@ -1,13 +1,15 @@
-Invoke-Expression "$HOME/dotfiles/windows/bin/installers/cargo.ps1"
-Invoke-Expression "$HOME/dotfiles/windows/bin/installers/flutter.ps1"
-Invoke-Expression "$HOME/dotfiles/windows/bin/installers/keyhac.ps1"
-Invoke-Expression "$HOME/dotfiles/windows/bin/installers/msys2.ps1"
-Invoke-Expression "$HOME/dotfiles/windows/bin/installers/nodejs.ps1 -Manager pnpm"
-Invoke-Expression "$HOME/dotfiles/windows/bin/installers/pwsh-modules.ps1"
-Invoke-Expression "$HOME/dotfiles/windows/bin/installers/pyenv-win.ps1"
-Invoke-Expression "$HOME/dotfiles/windows/bin/installers/pip.ps1 -m pip --plus"
-Invoke-Expression "$HOME/dotfiles/windows/bin/installers/ruby.ps1"
-Invoke-Expression "$HOME/dotfiles/windows/bin/installers/scoop.ps1"
+$installer = "$HOME/dotfiles/windows/bin/installers"
+
+Invoke-Expression "$installer/cargo.ps1"
+Invoke-Expression "$installer/flutter.ps1"
+Invoke-Expression "$installer/keyhac.ps1"
+Invoke-Expression "$installer/msys2.ps1"
+Invoke-Expression "$installer/nodejs.ps1 -Manager pnpm"
+Invoke-Expression "$installer/pwsh-modules.ps1"
+Invoke-Expression "$installer/pyenv-win.ps1"
+Invoke-Expression "$installer/pip.ps1 -m pip --plus"
+Invoke-Expression "$installer/ruby.ps1"
+Invoke-Expression "$installer/scoop.ps1"
 
 
 if (Test-Path dotnet-core-uninstall) {
