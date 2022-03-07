@@ -221,6 +221,18 @@ function update-all-libs {
   }
 }
 
+function to4k () {
+  param (
+    [Parameter()]
+    [String]$i,
+    [String]$ImagePath = $i,
+    [String]$o = "$(Split-Path $i)/output.png",
+    [String]$OutputPath = $o
+  )
+
+  waifu2x-ncnn-vulkan -i $ImagePath -o $OutputPath -n 2 -s 2
+}
+
 function Convert-Img {
   param (
     [Parameter()]

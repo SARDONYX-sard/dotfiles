@@ -12,11 +12,12 @@ Set-Alias ~ $HOME
 
 # Utils
 Set-Alias c clear
+Set-Alias chimg waifu2x-ncnn-vulkan
 Set-Alias g git
 Set-Alias gen Get-SnippetGenerator
 Set-Alias s scoop
-Set-Alias wh which
 Set-Alias u coreutils # Rust uutils https://github.com/uutils/coreutils
+Set-Alias wh which
 
 # Editor
 Set-Alias lvim "$HOME\.local\bin\lvim.ps1"
