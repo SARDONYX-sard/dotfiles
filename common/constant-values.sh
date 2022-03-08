@@ -9,9 +9,10 @@
 # --------------------------------------------------------------------------------------------------
 # Constant variables
 # --------------------------------------------------------------------------------------------------
-
 # - msys2 or WSL => windows $HOME
 # - Linux => $HOME.
+HOME_DIR="$HOME"
+
 if [ -e /mnt/c ] || [ -e /c ]; then
   if [ ! "$(command -v scoop)" ]; then
     echo "command \"scoop\" not exists."
