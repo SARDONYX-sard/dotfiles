@@ -74,7 +74,7 @@ function update-all-libs() {
     asdf plugin update --all
     asdf update
     brew upgrade
-    python3 -u "$HOME_DIR"/dotfiles/scripts/corepack-update.py --remove
+    python3 -u "$HOME_DIR"/dotfiles/scripts/corepack-update.py
     npm up -g
     pnpm up -g
     gem update
