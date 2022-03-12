@@ -41,14 +41,19 @@ libs = [
 
     # Development
     {
-        "name": "git-cliff",
-        "url": "https://github.com/orhun/git-cliff",
-        "description": "generate changelog files."
-    },
-    {
         "name": "cargo-generate",
         "url": "https://github.com/cargo-generate/cargo-generate",
         "description": "A new Rust project by leveraging a pre-existing git repository as a template."
+    },
+    {
+        "name": "cargo-make",
+        "url": "https://github.com/sagiegurari/cargo-make",
+        "description": "Rust task runner and build tool."
+    },
+    {
+        "name": "git-cliff",
+        "url": "https://github.com/orhun/git-cliff",
+        "description": "generate changelog files."
     },
     {
         "name": "trunk",
