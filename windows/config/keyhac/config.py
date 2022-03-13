@@ -9,7 +9,6 @@ import os
 # pyauto  ref: (https://github.com/crftwr/pyauto/blob/master/doc/pyauto.py)
 # import pyauto
 from keyhac import shellExecute, getDesktopPath, getClipboardText, JobItem, JobQueue, CronItem, CronTable, cblister_FixedPhrase
-from keyhac import WM_SYSCOMMAND, SC_CLOSE
 from keyhac import Keymap
 
 
