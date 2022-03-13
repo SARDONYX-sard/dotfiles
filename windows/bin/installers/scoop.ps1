@@ -93,6 +93,7 @@ scoop install shfmt # Makefile formatter
 
 # Linter
 scoop install hadolint # Docker linter
+scoop install shellcheck # Shell linter
 
 
 # --------------------------------------------------------------------------------------------------
