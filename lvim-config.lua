@@ -185,7 +185,8 @@ lvim.plugins = {{"nvim-lua/lsp_extensions.nvim"}, {"folke/tokyonight.nvim"}, {
 }, {
     "Pocco81/AutoSave.nvim",
     config = function()
-        require("autosave").setup( --   {
+        require("autosave").setup(
+        -- {
         --     enabled = true,
         --     execution_message = "AutoSave: saved at " .. vim.fn.strftime("%H:%M:%S"),
         --     events = {"InsertLeave", "TextChanged"},
