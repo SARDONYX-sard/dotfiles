@@ -3,14 +3,15 @@
 # --------------------------------------------------------------------------------------------------
 # Modules that run only on PowerShell Core
 if ($PSVersionTable.PSEdition -eq "Core") {
-  $CoreOnlyLibs = @()
+  $CoreOnlyLibs = @(
+    'WslInterop' # use WSL commands on pwsh(nothing `wsl` prefix)
+  )
   Install-Module -Name $CoreOnlyLibs -Scope CurrentUser -Force
 }
 
 $libs = @(
   'PSProfiler', # Measure reading time of $PFOFILE (https://github.com/IISResetMe/PSProfiler)
-  'PSReadLine', # Autosuggestions
-  'WslInterop' # use WSL commands on pwsh(nothing `wsl` prefix)
+  'PSReadLine'  # Autosuggestions
 )
 foreach ($lib in $libs) {
   if (!(Get-Module -ListAvailable $lib -ErrorAction SilentlyContinue)) {
