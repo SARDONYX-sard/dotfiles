@@ -8,7 +8,6 @@ if ($PSVersionTable.PSEdition -eq "Core") {
 }
 
 $libs = @(
-  'PSFzf', # To use fzf on windows(`fzf` is installed by scoop)
   'PSProfiler', # Measure reading time of $PFOFILE (https://github.com/IISResetMe/PSProfiler)
   'PSReadLine', # Autosuggestions
   'WslInterop' # use WSL commands on pwsh(nothing `wsl` prefix)
