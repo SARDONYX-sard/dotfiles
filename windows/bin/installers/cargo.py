@@ -20,6 +20,11 @@ import argparse
 libs = [
     # For update libs
     {
+        "name": "bingrep",
+        "url": "https://wonderwall.hatenablog.com/entry/rust-command-line-tools",
+        "description": "Greps through binaries from various OSs and architectures."
+    },
+    {
         "name": "cargo-update",
         "url": "https://github.com/nabijaczleweli/cargo-update",
         "description": "Checking and applying updates to installed executables."
