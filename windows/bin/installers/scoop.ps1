@@ -128,6 +128,7 @@ scoop install k9s              # Kubernetes wrapper
 scoop install lazydocker       # Better useful Docker wrapper
 scoop install lazygit          # Better useful Git wrapper
 scoop install scoop-search     # Makes scoop search 50 times faster.(https://github.com/shilangyu/scoop-search)
+scoop install tokei            # A terminal code analyzer.
 
 
 # --------------------------------------------------------------------------------------------------
