@@ -11,12 +11,13 @@ if (! which brew) >/dev/null 2>&1; then
 fi
 
 # Manege oh-my-posh by Homebrew
-brew tap jandedobbeleer/oh-my-posh
 brew install broot      # A better way to navigate directories
 brew install duf        # instead of `df`. It's volume size analyzer.
 brew install dust       # du + rust = dust. Like du but more intuitive.
 brew install ghq        # Manage remote repository clones
 brew install shellcheck # Shell script linter
+brew install tokei      # A code metrics tool
+brew tap jandedobbeleer/oh-my-posh
 
 if [ ! "$IS_LIGHT" ]; then
   brew install golang
