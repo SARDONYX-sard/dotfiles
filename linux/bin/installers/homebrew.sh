@@ -18,6 +18,10 @@ brew install dust       # du + rust = dust. Like du but more intuitive.
 brew install ghq        # Manage remote repository clones
 brew install shellcheck # Shell script linter
 
+if [ ! "$IS_LIGHT" ]; then
+  brew install golang
+fi
+
 broot --install
 
 cd "$HOME_DIR"/dotfiles/ || exit
