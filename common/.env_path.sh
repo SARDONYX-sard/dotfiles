@@ -22,11 +22,11 @@ PATH=/usr/local/heroku/bin:$PATH
 CURRENT_SHELL=$(ps -ocomm= -q $$)
 export CURRENT_SHELL
 
-# go, ruby, node.js, 複数言語管理マネージャ
-# ! herokuのパスよりasdfのパスを下に記述すること!
-# ? 理由: heroku内のnode.jsによるバージョンの上書きを防ぐため。
+# asdf(lang manager): ruby, node.js
+# ! Describe the asdf path below the heroku path!
+# ? Reason: to prevent version overwriting by node.js in heroku.
 [ -e "$HOME"/.asdf/asdf.sh ] && . "$HOME"/.asdf/asdf.sh
-[ ! "$CURRENT_SHELL" = "zsh" ] && . "$HOME"/.asdf/completions/asdf.bash
+[ "$CURRENT_SHELL" = "bash" ] && . "$HOME"/.asdf/completions/asdf.bash
 
 # rust
 [ -e "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
@@ -41,11 +41,13 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 # Neovim
 export XDG_BASE_HOME="$HOME/.config"
 
-if [ "$(command -v go)" ]; then
-  GOV=$(asdf current golang | sed -E 's/golang|\/home.*//g' | sed 's/ //g')
-fi
+function get_asdf_lang_version() {
+  local lang=$1
+  return "$(asdf current "$lang" | sed -E "s/$lang|\/home.*//g" | sed 's/ //g')"
+}
+
 if [ "$(command -v node)" ]; then
-  NODEV=$(asdf current nodejs | sed -E 's/nodejs|\/home.*//g' | sed 's/ //g')
+  NODEV=$(get_asdf_lang_version nodejs)
 fi
 export ASDFINSTALLS=$HOME/.asdf/installs
 export ASDFROOT=$HOME/.asdf
@@ -54,7 +56,7 @@ export DOCKER_PGPASS=
 export DOCKER_PGUSER=
 export EDITOR=vim
 export GOPATH=$HOME/code/go
-export GOROOT=$ASDFINSTALLS/golang/$GOV/go/
+# export GOROOT=$ASDFINSTALLS/golang/$GOV/go/
 export NODEROOT=$ASDFINSTALLS/nodejs/$NODEV
 export NODEV=$NODEV
 export PGHOST=localhost
