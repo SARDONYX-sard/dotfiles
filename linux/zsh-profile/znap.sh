@@ -29,6 +29,10 @@ for plugin in "${plugins[@]}"; do
   fi
 done
 
+#! Manual loading because the plugin manager does not read it well.
+znap install lincheney/fzf-tab-completion
+source "$HOME"/Git/fzf-tab-completion/zsh/fzf-zsh-completion.sh
+
 # `znap eval` caches and runs any kind of command output for you.
 znap eval iterm2 'curl -fsSL https://iterm2.com/shell_integration/zsh'
 

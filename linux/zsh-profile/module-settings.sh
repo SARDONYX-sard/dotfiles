@@ -12,12 +12,7 @@ fi
 # --------------------------------------------------------------------------------------------------
 # fzf
 # --------------------------------------------------------------------------------------------------
-
-[ -f "$HOME"/.config/fzf-tab-completion/zsh/fzf-zsh-completion.sh ] ||
-  git clone https://github.com/lincheney/fzf-tab-completion.git "$HOME"/.config/fzf-tab-completion
-
-if (which fzf) >/dev/null 2>&1 && [ -f "$HOME"/.config/fzf-tab-completion/zsh/fzf-zsh-completion.sh ]; then # For ctrl key
-  source "$HOME"/.config/fzf-tab-completion/zsh/fzf-zsh-completion.sh
+if (which fzf) >/dev/null 2>&1; then # For ctrl key
   bindkey '^I' fzf_completion
 fi
 
