@@ -57,3 +57,5 @@ Invoke-Expression "$HOME/dotfiles/windows/setup/symlink.ps1"
 if (! $Light) {
   winget import "$HOME/dotfiles/windows/data/winget-app-list.json"
 }
+
+Write-Host "Dotfiles installation is done." -ForegroundColor Green
