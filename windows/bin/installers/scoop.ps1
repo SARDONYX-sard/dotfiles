@@ -8,10 +8,10 @@
   windows\setup\scoop-install.ps1
 .EXAMPLE
   # Install Languages too.
-  windows\setup\scoop-install.ps1 -Languages
+  windows\setup\scoop-install.ps1 -Light
 #>
 Param (
-  [switch]$Languages
+  [switch]$Light
 )
 
 # settings
@@ -67,8 +67,10 @@ scoop bucket add nerd-fonts # For Terminal(oh-my-posh design) font(https://githu
 # --------------------------------------------------------------------------------------------------
 # Unix like for Windows
 # --------------------------------------------------------------------------------------------------
-scoop install msys2     # windows in Unix shell: info JP(https://qiita.com/Ted-HM/items/4f2feb9fdacb6c72083c)
-msys2 -mintty
+if (! $Light) {
+  scoop install msys2     # windows in Unix shell: info JP(https://qiita.com/Ted-HM/items/4f2feb9fdacb6c72083c)
+  msys2 -mintty
+}
 scoop install mobaxterm # Enhanced terminal for Windows with X11 server.(https://mobaxterm.mobatek.net)
 scoop install direnv    # Load or unload environment variables depending on the current directory
 scoop install OpenSSH   # SSH client for Windows
@@ -169,7 +171,7 @@ scoop install hyperfine # A benchmarking tool written in rust.(https://github.co
 # --------------------------------------------------------------------------------------------------
 # Languages(option)
 # --------------------------------------------------------------------------------------------------
-if ($Languages) {
+if (! $Light) {
   scoop install perl # For wasm-pack(cargo Rust WebAssembly)
   scoop install deno
   scoop install python27 # latest python version (e.g. python2.7) for other software.
