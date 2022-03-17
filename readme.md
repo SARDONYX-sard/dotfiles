@@ -52,6 +52,12 @@ Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.
 $env:DOTFILES_INSTALL_MODE = 'lightweight';Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
 ```
 
+In case of an error, please execute the following command first.
+
+```powershell
+Set-ExecutionPolicy RemoteSigned
+```
+
 ---
 
 ### Linux
