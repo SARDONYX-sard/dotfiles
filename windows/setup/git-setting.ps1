@@ -30,12 +30,12 @@ function main($GitFilePath, $Destination) {
     Write-Host "Created $GitFilePath.bak backup file" -ForegroundColor Green
   }
 
-  [System.IO.File]::ReadAllText($GitFilePath)  > $Destination
-  Write-Host "Successes: Wrote to $GitFilePath" -ForegroundColor Green
+  [System.IO.File]::ReadAllText($GitFilePath)  > $Destination | Write-Host "Successes: Wrote to $GitFilePath" -ForegroundColor Green
 }
 
 $gitConfigPath = [IO.Path]::Combine($HOME, ".gitconfig")
 main "dotfiles/common/data/git/git-config.txt" $gitConfigPath
 
+mkdir -p "dotfiles/common/data/git"
 $gitIgnorePath = [IO.Path]::Combine($HOME, ".config/git/ignore")
 main "dotfiles/common/data/git/gitignore-global.txt" $gitIgnorePath
