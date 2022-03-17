@@ -12,7 +12,7 @@ if ($Light) { Write-Host "Lightweight mode is enabled." -ForegroundColor Blue }
 if ($isDebug -eq $false) {
   if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(`
         [Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    Invoke-Expression "sudo $PsCommandPath $(if ($force) {"-force"})"
+    Write-Error "This script must be run as an administrator."
     exit $?
   }
 }
@@ -24,7 +24,7 @@ if (!(Get-Command scoop)) {
   Invoke-WebRequest -useb get.scoop.sh | Invoke-Expression
 }
 
-scoop install 7zip git --global # for auto `git clone`
+scoop install 7zip git # for auto `git clone`
 # For sudo, say, gitignore, etc commands. (https://github.com/lukesampson/psutils)
 scoop install psutils
 
