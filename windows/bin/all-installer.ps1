@@ -11,7 +11,6 @@ else {
   Invoke-Expression "$installer/scoop.ps1"
 }
 
-Invoke-Expression "$installer/keyhac.ps1"
 Invoke-Expression "$installer/pwsh-modules.ps1"
 
 if (! $Light) {
