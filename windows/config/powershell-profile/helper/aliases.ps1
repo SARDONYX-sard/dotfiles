@@ -51,7 +51,7 @@ function which {
   if ($args -match "scoop" -or $args -eq "s") { return "$HOME/scoop/shims/scoop.ps1"; }
 
   $path = (Get-Command -Name $args -ErrorAction SilentlyContinue)
-  if ($path -match "shims") { return scoop which $args } # Solving the scoop path display problem
+  if ($path -match "scoop?:(\/|\\)shims") { return scoop which $args } # Solving the scoop path display problem
   if ($path.CommandType -eq "Alias") { $path = Get-Command $path.Definition }
 
   if ($v -or $Verbose) { return $path | Format-List }
@@ -63,7 +63,12 @@ function which {
 function cdFunc { Invoke-Expression -Command "cd $args" }
 
 # which open directory environment path
-function w ($cmd) { which $cmd | Split-Path | Invoke-Item }
+function w ($cmd) {
+  $path = Convert-Path $(which $cmd)
+  Write-Host "Open with explorer " -ForegroundColor Green -NoNewline
+  Write-Host "`"$path`"" -ForegroundColor Yellow
+  explorer.exe /e, /select, $path
+}
 
 function bb { cdFunc - ; Write-Host "Back to previous directory." -ForegroundColor Green }
 function .. { cdFunc .. }
