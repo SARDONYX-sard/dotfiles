@@ -19,7 +19,7 @@ param (
 
 function main($GitFilePath, $Destination) {
 
-  $hasGitConfig = Test-Path $GitFilePath
+  $hasGitConfig = Test-Path $Destination
 
   if ($hasGitConfig) {
     Write-Warning ".gitconfig  Already exists."
