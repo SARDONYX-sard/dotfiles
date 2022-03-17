@@ -3,8 +3,7 @@
 [English](https://github.com/SARDONYX-sard/dotfiles) | 日本語
 
 <p align="center">
-  <img src="./docs/images/../../../../images/powershell-core.png" alt="powershell-core" height="300" width="400"/>
-  <img src=".../../../../images/wsl-ubuntu.png" alt="wsl-ubuntu"  height="300" width="400"/>
+  <img src="./docs/images/../../../../images/terminals.png" alt="terminals" height="300" width="800"/>
 </p>
 
 - プロンプトの背景画像は付いてきません。
@@ -17,9 +16,10 @@
   - [作者の動作環境](#作者の動作環境)
   - [インストール方法](#インストール方法)
     - [windows](#windows)
-    - [GNU/Linux](#gnulinux)
+    - [Linux](#linux)
+    - [WSL(Windows Subsystem for Linux)](#wslwindows-subsystem-for-linux)
   - [進捗状況](#進捗状況)
-  - [注意'!'](#注意)
+  - [注意!](#注意)
   - [手動でやらなければならないこと](#手動でやらなければならないこと)
     - [Windows-Terminal](#windows-terminal)
     - [.gitconfig](#gitconfig)
@@ -36,66 +36,68 @@
 
 ### windows
 
-以下のコマンドを実行します。
+どちらかのコマンドを選択します。
+
+- フルサイズモード
 
 ```powershell
 Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
 ```
 
-### GNU/Linux
+- 軽量モード(msys2や開発言語を自動で入れません)
 
-WSLまたはLinux上で可能です。それぞれの実行挙動は以下の通りです。
+```powershell
+Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1 -Light')
+```
 
-Linux(WSLではない): linux内の$HOMEにdotfilesが置かれ、そこを中心としてシンボリックリンクを貼ります。
+---
 
-WSL: Windows側にdotfilesを置き、そこからシンボリックリンクをWSLに繋ぎます。
+### Linux
 
-- Linux(WSLではない)の場合
+どちらかのコマンドを選択します。
 
-以下のコマンドを実行します。
+- フルサイズモード
 
 ```bash
 git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
-
 cd ~/dotfiles
-sudo bash "install-wsl.sh"
-
-# 軽量モード(プログラム言語を入れません)
-# bash "install-wsl.sh" --light
-
-# zsh mode
-# bash "install-wsl.sh" --zsh
-
-# light and zsh mode
-# bash "install-wsl.sh" --light --zsh
+sudo bash "install-wsl.sh --zsh"
 ```
 
-- WSL(Windows Subsystem for Linux)
+- 軽量モード(開発言語を自動で入れません)
 
-1.PowerShellで以下のコマンドを実行します。(先にWindowsのdotfiles設定を実行している場合は不要)
+```bash
+git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
+cd ~/dotfiles
+bash "install-wsl.sh" --light --zsh
+```
+
+---
+
+### WSL(Windows Subsystem for Linux)
+
+1. PowerShellターミナルにて
 
 ```powershell
 git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
 ```
 
-2.WSLで以下のコマンドを実行します。
+2.WSLで以下のコマンドのどれかを実行します。(--zshでzshをデフォルトシェルに指定できます)
 
-USERNAME問題についての参照URL:
-[reddit](https://www.reddit.com/r/bashonubuntuonwindows/comments/8dhhrr/is_it_possible_to_get_the_windows_username_from/)
+- フルサイズモード
 
 ```bash
 export USERNAME=`cmd.exe /c echo %username%`
 cd /mnt/c/Users/${USERNAME}/dotfiles
 bash "./install-wsl.sh"
+```
 
-# light size mode
-# bash "install-wsl.sh" light
+- 軽量モード(開発言語を自動で入れません)
 
-# zsh mode
-# bash "install-wsl.sh" zsh
-
-# light and zsh mode
-# bash "install-wsl.sh" light zsh
+```bash
+export USERNAME=`cmd.exe /c echo %username%`
+cd /mnt/c/Users/${USERNAME}/dotfiles
+bash "install-wsl.sh" --light --zsh
 ```
 
 ## 進捗状況
@@ -104,14 +106,14 @@ bash "./install-wsl.sh"
 
   - Windows settings
   - Linux settings
+  - 再現性の確認(仮想マシンにて)
 
 - 未完成箇所
 
   - 細かなバグ修正
-  - 再現性の未確認(とくにWSL)
   - テストコードの追加
 
-## 注意'!'
+## <font color=yellow>注意!</font>
 
 - これは私の開発環境のセットアップリポジトリです。 あなたが何をしているのか分かっていないのであれば、むやみにこのコードを実行しないでください。
   安易に実行すると、現在のあなたの開発環境が私の開発環境の設定に上書きされてしまいます。

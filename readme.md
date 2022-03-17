@@ -2,9 +2,8 @@
 
 English | [日本語](./docs/i18n/jp/readme.md)
 
-<p style="display:flex;justify-content:space-around;">
-    <img src="./docs/images/powershell-core.png" alt="powershell-core" height="300" width="400"/>
-    <img src="./docs/images/wsl-ubuntu.png" alt="wsl-ubuntu"  height="300" width="400"/>
+<p align="center">
+  <img src="./docs/images/terminals.png" alt="terminals" height="300" width="800"/>
 </p>
 
 - It does not come with a background image for the prompt.
@@ -18,9 +17,10 @@ English | [日本語](./docs/i18n/jp/readme.md)
   - [Author's operating environment](#authors-operating-environment)
   - [How to install](#how-to-install)
     - [windows](#windows)
-    - [GNU/Linux](#gnulinux)
+    - [Linux](#linux)
+    - [WSL(Windows Subsystem for Linux)](#wslwindows-subsystem-for-linux)
   - [Progress](#progress)
-  - [Note '!'](#note-)
+  - [Note!](#note)
   - [Things you have to do manually](#things-you-have-to-do-manually)
     - [Windows-Terminal](#windows-terminal)
     - [.gitconfig](#gitconfig)
@@ -37,61 +37,70 @@ English | [日本語](./docs/i18n/jp/readme.md)
 
 ### windows
 
-Execute the following command.
+Select either command.
+
+- Full size mode
 
 ```powershell
 Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
 ```
 
-### GNU/Linux
+- Lightweight mode (does not automatically include msys2 or development
+  language)
 
-This is possible on WSL or Linux. The execution behavior for each is as follows.
-
-Linux (not WSL): The dotfiles will be placed in $HOME in linux, and symbolic
-links will be placed around it.
-
-WSL: The dotfiles are placed on the Windows side, and the symbolic link is
-connected to WSL from there.
-
-- Linux (not WSL)
-
-Execute the following command.
-
-```bash
-# Can be done on Windows or linux
-git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
-
-cd ~/dotfiles
-bash "install-wsl.sh"
-
-# light size mode
-# bash "install-wsl.sh" --light
-
-# zsh mode
-# bash "install-wsl.sh" --zsh
-
-# light and zsh mode
-# bash "install-wsl.sh" --light --zsh
+```powershell
+Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1 -Light')
 ```
 
-- WSL(Windows Subsystem for Linux)
+---
 
-1.Execute the following command in PowerShell.(Not required if you have already
-run the [Windows dotfiles](###Windows) configuration.)
+### Linux
+
+Select either command.
+
+- Full size mode
+
+```bash
+git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
+cd ~/dotfiles
+sudo bash "install-wsl.sh --zsh"
+```
+
+- Lightweight mode (does not automatically include the development language)
+
+```bash
+git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
+cd ~/dotfiles
+bash "install-wsl.sh" --light --zsh
+```
+
+---
+
+### WSL(Windows Subsystem for Linux)
+
+1 In the PowerShell terminal
 
 ```powershell
 git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
 ```
 
-2.Execute the following command in WSL.
+2 Execute one of the following commands in WSL. (You can specify zsh as the
+default shell with --zsh)
 
-USERNAME problem reference:
-[reddit](https://www.reddit.com/r/bashonubuntuonwindows/comments/8dhhrr/is_it_possible_to_get_the_windows_username_from/)
+- Full size mode
 
 ```bash
 export USERNAME=`cmd.exe /c echo %username%`
 cd /mnt/c/Users/${USERNAME}/dotfiles
-sudo bash ". /install-wsl.sh"
+bash "./install-wsl.sh"
+```
+
+- Lightweight mode (does not automatically include development languages)
+
+```bash
+export USERNAME=`cmd.exe /c echo %username%`
+cd /mnt/c/Users/${USERNAME}/dotfiles
+bash "install-wsl.sh" --light --zsh
 ```
 
 ## Progress
@@ -107,7 +116,7 @@ sudo bash ". /install-wsl.sh"
   - Unchecked reproducibility (especially WSL)
   - Add test code
 
-## Note '!'
+## <font color=yellow>Note!</font>
 
 - This is the setup repository for my development environment. If you do not
   know what you are doing, do not run this code unnecessarily. If you run it
