@@ -9,24 +9,12 @@ if ($isDebug -eq $false) {
   }
 }
 
-$DownLoadPath = "$HOME/myapps/keyhac.zip"
-$DistPath = "$HOME/myapps"
-mkdir -p $DistPath;
+Remove-Item $HOME\scoop\apps\keyhac\current\keyhac.ini
+Remove-Item $HOME\scoop\apps\keyhac\current\config.py
+Remove-Item $HOME\scoop\apps\keyhac\current\_config.py
 
-if (Test-Path $DownLoadPath) {
-  Write-Host "keyhac.zip exists."
+$startup_dir = [IO.Path]::Combine($env:AppData, "Microsoft/Windows/Start Menu/Programs/Startup")
+if (Test-Path $startup_dir) {
+  Remove-Item "$startup_dir\keyhac.exe"
 }
-else {
-  Write-Host "Downloading keyhac.zip..."
-  $url = "http://crftwr.github.io/keyhac/download/keyhac_182.zip"
-  (New-Object System.Net.WebClient).DownloadFile($url, $DownLoadPath);
-}
-
-if (Test-Path $DistPath) {
-  Write-Warning "$DistPath already exists.";
-}
-else {
-  Expand-Archive -Path $DownLoadPath -DestinationPath $DistPath;
-}
-
-New-Item -ItemType SymbolicLink -Target "$DistPath\keyhac\keyhac.exe" -Path "$([IO.Path]::Combine($env:AppData, "Microsoft/Windows/Start Menu/Programs/Startup"))" -Name "keyhac.exe" | Out-Null
+New-Item -ItemType SymbolicLink -Target "$HOME\scoop\shims\keyhac.exe" -Path $startup_dir -Name "keyhac.exe" | Out-Null

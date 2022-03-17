@@ -63,6 +63,8 @@ scoop bucket add versions
 scoop bucket add nerd-fonts # For Terminal(oh-my-posh design) font(https://github.com/matthewjberger/scoop-nerd-fonts)
 # scoop bucket add games # Option Citra(3DS Emu) etc.
 
+scoop bucket  add myBuket https://github.com/amano41/scoop-bucket.git # For keyhac
+
 
 # --------------------------------------------------------------------------------------------------
 # Unix like for Windows
@@ -118,6 +120,12 @@ scoop install shellcheck # Shell linter
 scoop install capture2text    # Can read text from video.
 scoop install hugo            # Static site generator
 scoop install resource-hacker # exe icon edit
+
+scoop install keyhac          # keyboard key editor
+#? To enable the `$env:AppData\keyhac` path setting
+Remove-Item $HOME\scoop\apps\keyhac\current\keyhac.ini
+Remove-Item $HOME\scoop\apps\keyhac\current\config.py
+Remove-Item $HOME\scoop\apps\keyhac\current\_config.py
 
 # Terminal helper
 scoop install bottom           # Resource monitor with CLI (https://github.com/ClementTsang/bottom)

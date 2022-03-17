@@ -71,8 +71,11 @@ $files = @(
 
   # Other
   @{ target = "windows\config\keyhac"; fullpath = [IO.Path]::Combine($env:AppData, "Keyhac"); }
+  @{ target = "$HOME\scoop\apps\keyhac\current\keyhac.exe"; fullpath = [IO.Path]::Combine($env:AppData, "Microsoft\Windows/Start Menu\Programs\Startup\keyhac.exe"); }
 
-  @{ target = "common\data\navi-config.yml"; fullpath = "$(navi info config-path | Write-Output)"; name = "config.yml" } #manual
+  if (Test-Path navi) {
+    @{ target = "common\data\navi-config.yml"; fullpath = "$(navi info config-path | Write-Output)"; name = "config.yml" } #manual
+  }
 
   @{ target = "scripts/startup.py"; fullpath = [IO.Path]::Combine($env:AppData, "Microsoft\Windows\Start Menu\Programs\Startup\startup.py"); name = "startup.py" }
 
