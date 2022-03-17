@@ -26,7 +26,7 @@ function main($GitFilePath, $Destination) {
     if ($Force -eq $false) { return }
 
     Write-Warning "Force mode is running..."
-    Copy-Item -Path $GitFilePath -Destination "$GitFilePath.bak" -Force
+    Copy-Item -Path $GitFilePath -Destination "$Destination.bak" -Force
     Write-Host "Created $GitFilePath.bak backup file" -ForegroundColor Green
   }
 
