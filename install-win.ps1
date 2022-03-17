@@ -2,6 +2,8 @@ param (
   [switch]$Light
 )
 
+if ($light) { Write-Host "Lightweight mode is enabled." -ForegroundColor Blue }
+
 # Are you root?
 if ($isDebug -eq $false) {
   if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(`
@@ -21,13 +23,6 @@ if (!(Get-Command scoop)) {
 scoop install 7zip git --global # for auto `git clone`
 # For sudo, say, gitignore, etc commands. (https://github.com/lukesampson/psutils)
 scoop install psutils
-
-function Invoke-RemoteScript($url) {
-  $script = (New-Object Net.WebClient).DownloadString($url)
-  Invoke-Expression("&{$script} $args")
-}
-
-Invoke-RemoteScript "https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/windows/install-app.ps1"
 
 Set-Location $HOME
 if (!(Test-Path $HOME/dotfiles)) {
