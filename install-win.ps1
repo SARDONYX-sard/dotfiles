@@ -2,7 +2,11 @@ param (
   [switch]$Light
 )
 
-if ($light) { Write-Host "Lightweight mode is enabled." -ForegroundColor Blue }
+if ($env:DOTFILES_INSTALL_MODE -eq 'lightweight') {
+  $Light = $true
+}
+
+if ($Light) { Write-Host "Lightweight mode is enabled." -ForegroundColor Blue }
 
 # Are you root?
 if ($isDebug -eq $false) {

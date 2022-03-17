@@ -47,7 +47,8 @@ Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.
 - 軽量モード(msys2や開発言語を自動で入れません)
 
 ```powershell
-Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1 -Light')
+$env:DOTFILES_INSTALL_MODE = 'lightweight';
+Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
 ```
 
 ---
