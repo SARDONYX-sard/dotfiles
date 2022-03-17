@@ -2,6 +2,15 @@ param (
   [switch]$Light
 )
 
+# Are you root?
+if ($isDebug -eq $false) {
+  if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(`
+        [Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    Invoke-Expression "sudo $PsCommandPath $(if ($force) {"-force"})"
+    exit $?
+  }
+}
+
 Write-Host "Installing Windows development environment..." -ForegroundColor Green
 
 if (!(Get-Command scoop)) {
@@ -15,7 +24,7 @@ scoop install psutils
 
 function Invoke-RemoteScript($url) {
   $script = (New-Object Net.WebClient).DownloadString($url)
-  sudo Invoke-Expression("&{$script} $args")
+  Invoke-Expression("&{$script} $args")
 }
 
 Invoke-RemoteScript "https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/windows/install-app.ps1"
