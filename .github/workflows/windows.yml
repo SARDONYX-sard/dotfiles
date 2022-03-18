@@ -1,0 +1,23 @@
+# About UAC in GitHub Action (https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#:~:text=Windows%20virtual%20machines%20are%20configured%20to%20run%20as%20administrators%20with%20User%20Account%20Control%20(UAC)%20disabled.%20For%20more%20information)
+
+name: MSBuild
+
+on:
+  pull_request:
+    types: [synchronize, opened]
+
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: build/light ver.
+        run: |
+          Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
+        env:
+          DOTFILES_INSTALL_MODE: lightweight
