@@ -9,15 +9,16 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2019
+    strategy:
+      matrix:
+        os: [windows-latest]
+
+    runs-on: ${{ matrix.os }}
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v1
 
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.1
-
-      - uses: MinoruSekine/setup-scoop
+      - uses: MinoruSekine/setup-scoop@v1
 
       - name: build/light ver.
         run: |
