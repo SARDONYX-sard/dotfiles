@@ -17,6 +17,9 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
 
+      - name: Install scoop
+        run: Invoke-WebRequest -useb get.scoop.sh -OutFile 'install.ps1'; .\install.ps1 -RunAsAdmin [-OtherParameters ...]
+
       - name: build/light ver.
         run: |
           Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
