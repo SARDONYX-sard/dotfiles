@@ -17,8 +17,7 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
 
-      - name: Install scoop
-        run: Invoke-WebRequest -useb get.scoop.sh -OutFile 'install.ps1'; .\install.ps1 -RunAsAdmin [-OtherParameters ...]
+      - uses: MinoruSekine/setup-scoop
 
       - name: build/light ver.
         run: |
