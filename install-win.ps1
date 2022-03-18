@@ -19,13 +19,14 @@ if ($isDebug -eq $false) {
 
 Write-Host "Installing Windows development environment..." -ForegroundColor Green
 try {
-
   if (!(Get-Command scoop)) {
     # Install scoop(https://scoop.sh/)
     Invoke-WebRequest -useb get.scoop.sh | Invoke-Expression
   }
 }
-catch {}
+catch {
+  Invoke-WebRequest -useb get.scoop.sh | Invoke-Expression
+}
 
 scoop install 7zip git # for auto `git clone`
 # For sudo, say, gitignore, etc commands. (https://github.com/lukesampson/psutils)
