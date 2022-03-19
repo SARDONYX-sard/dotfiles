@@ -17,4 +17,4 @@ $startup_dir = [IO.Path]::Combine($env:AppData, "Microsoft/Windows/Start Menu/Pr
 if (Test-Path $startup_dir) {
   Remove-Item "$startup_dir\keyhac.exe"
 }
-New-Item -ItemType SymbolicLink -Target "$HOME\scoop\shims\keyhac.exe" -Path $startup_dir -Name "keyhac.exe" | Out-Null
+New-Item -ItemType SymbolicLink -Target "$HOME\scoop\apps\keyhac\current\keyhac.exe" -Path $startup_dir -Name "keyhac.exe" | Out-Null
