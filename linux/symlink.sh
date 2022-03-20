@@ -49,3 +49,9 @@ sudo ln -sf "$HOME_DIR"/dotfiles/linux/.bash_profile "$HOME"/.bash_profile
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.bashrc "$HOME"/.bashrc
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.zshrc "$HOME"/.zshrc
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.inputrc "$HOME"/.inputrc
+
+# autokey
+if which autokey >/dev/null; then
+  mkdir -p "$HOME"/.config/autokey/data/autokey
+  sudo ln -sf "$HOME_DIR"/dotfiles/common/data/autokey "$HOME"/.config/autokey/data/autokey
+fi
