@@ -52,6 +52,6 @@ sudo ln -sf "$HOME_DIR"/dotfiles/linux/.inputrc "$HOME"/.inputrc
 
 # autokey
 if which autokey >/dev/null; then
-  mkdir -p "$HOME"/.config/autokey/data/autokey
+  mkdir -p "$HOME"/.config/autokey/data
   sudo ln -sf "$HOME_DIR"/dotfiles/common/data/autokey "$HOME"/.config/autokey/data
 fi
