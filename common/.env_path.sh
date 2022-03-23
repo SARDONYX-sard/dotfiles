@@ -7,7 +7,7 @@ else
 fi
 
 # Homebrew for oh-my-posh linux
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+[ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # For WSL
 DISPLAY="$(ip route | awk '/default via / {print $3}'):0"
