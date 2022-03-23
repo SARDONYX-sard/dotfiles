@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Usage: bash ./symlink.sh.
+#! Please do not sudo bash ./symlink.sh Because $HOME is /root/ when use `sudo bash`
+
 # ? Strict setting of immediate termination if an error occurs.(for test command)
 # -u(nounset): During parameter expansion, if there are any variables that have not been set, an error will occur.
 # -e(errexit): If a command or pipeline returns a non-zero status, the shell will exit immediately.
