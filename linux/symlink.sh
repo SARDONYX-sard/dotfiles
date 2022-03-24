@@ -48,7 +48,6 @@ mkdir -p "$HOME"/.config/lvim
 sudo ln -sf "$HOME_DIR"/dotfiles/lvim-config.lua "$HOME"/.config/lvim/config.lua
 
 # dot rc
-sudo ln -sf "$HOME_DIR"/dotfiles/linux/.bash_profile "$HOME"/.bash_profile
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.bashrc "$HOME"/.bashrc
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.zshrc "$HOME"/.zshrc
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.inputrc "$HOME"/.inputrc
