@@ -38,6 +38,14 @@ export DOCKER_CONTENT_TRUST=1
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
+# opam configuration
+
+if [[ "$SHELL" =~ zsh ]]; then
+  [[ ! -r /home/sardonyx/.opam/opam-init/init.zsh ]] || source /home/sardonyx/.opam/opam-init/init.zsh >/dev/null 2>/dev/null
+elif [[ "$SHELL" =~ bash ]]; then
+  [[ ! -r /home/sardonyx/.opam/opam-init/init.sh ]] || source /home/sardonyx/.opam/opam-init/init.sh >/dev/null 2>/dev/null
+fi
+
 # Neovim
 export XDG_BASE_HOME="$HOME/.config"
 

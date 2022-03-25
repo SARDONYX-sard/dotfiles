@@ -23,16 +23,15 @@ if [ ! -d "$HOME_DIR"/dotfiles ]; then
 fi
 
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/apt.sh
-bash "$HOME_DIR"/dotfiles/linux/bin/installers/asdf.sh
 
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/gdb-peda.sh
-bash "$HOME_DIR"/dotfiles/linux/bin/installers/homebrew.sh
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/lvim.sh
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/oh-my-posh.sh #! need brew command.
-python3 "$HOME_DIR"/dotfiles/linux/bin/installers/pip.py
 
-if [ "$1" = "light" ]; then
-  if (! which rustup) >/dev/null 2>&1; then
-    bash "$HOME_DIR"/dotfiles/linux/bin/installers/rustup.sh
-  fi
+if [ ! "$IS_LIGHT" ]; then
+  (! which rustup) && bash "$HOME_DIR"/dotfiles/linux/bin/installers/rustup.sh
+  bash "$HOME_DIR"/dotfiles/linux/bin/installers/asdf.sh
+  bash "$HOME_DIR"/dotfiles/linux/bin/installers/homebrew.sh
+  bash "$HOME_DIR"/dotfiles/linux/bin/installers/ocaml.sh
+  python3 "$HOME_DIR"/dotfiles/linux/bin/installers/pip.py
 fi
