@@ -46,12 +46,18 @@ alias tf="terraform"
 # --------------------------------------------------------------------------------------------------
 # -- git
 # --------------------------------------------------------------------------------------------------
-alias gs="git status --short"
+alias cl="git clone"
+alias gcm="git commit"
+alias gph="git push"
+alias gil="git log --short"
+
 alias gp="git push"
-alias gpl="git pull"
-alias ga="git add"
 alias gc="git commit"
+
+alias ga="git add"
 alias gl="git log"
+alias gpl="git pull"
+alias gs="git status --short"
 
 # --------------------------------------------------------------------------------------------------
 # grep

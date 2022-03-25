@@ -2,7 +2,6 @@
 # Aliases
 # --------------------------------------------------------------------------------------------------
 # Virtual machine
-Set-Alias k k9s
 Set-Alias dc docker-compose
 Set-Alias dk docker
 
@@ -13,7 +12,6 @@ Set-Alias ~ $HOME
 # Utils
 Set-Alias c clear
 Set-Alias chimg waifu2x-ncnn-vulkan
-Set-Alias g git
 Set-Alias gen Get-SnippetGenerator
 Set-Alias s scoop
 Set-Alias u coreutils # Rust uutils https://github.com/uutils/coreutils
@@ -157,12 +155,16 @@ function volume {
 # git aliases
 # --------------------------------------------------------------------------------------------------
 function gitConf { git config --global -e }
-function add { git add $args }
+
 function cl { git clone $args }
-function cm { git commit $args }
-function gil { git log }
-function pull { git pull $args }
-function push { git push $args }
+function gcm { git commit $args } # gc alias is already used by Get-Content
+function gph { git push $args } # gp alias is already used by Get-ItemProperty
+function gil { git log } # gl alias is already used by Get-Location
+
+function ga { git add $args }
+function gpl { git pull $args }
+function gs { git status --short $args }
+
 
 # --------------------------------------------------------------------------------------------------
 # treee(npm module) aliases
