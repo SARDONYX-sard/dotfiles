@@ -77,11 +77,13 @@ $files = @(
     @{ target = "common\data\navi-config.yml"; fullpath = "$(navi info config-path | Write-Output)"; name = "config.yml" } #manual
   }
 
-  @{ target = "scripts/startup.py"; fullpath = [IO.Path]::Combine($env:AppData, "Microsoft\Windows\Start Menu\Programs\Startup\startup.py"); name = "startup.py" }
+  # @{ target = "scripts/startup.py"; fullpath = [IO.Path]::Combine($env:AppData, "Microsoft\Windows\Start Menu\Programs\Startup\startup.py"); name = "startup.py" }
 
   # msys2 HomeDir
   $UserName = (Split-Path $HOME -Leaf)
-  @{ target = $HOME; fullpath = [IO.Path]::Combine($HOME, "scoop\apps\msys2\current\home\$UserName"); }
+  $msys2HomeDir = [IO.Path]::Combine($HOME, "scoop\apps\msys2\current\home\$UserName")
+  if ($force) { Remove-Item -f $msys2HomeDir }
+  @{ target = $HOME; fullpath = $msys2HomeDir; }
 
   "windows/config/.bash_profile"
   "windows/config/.bashrc"
