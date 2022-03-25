@@ -8,13 +8,22 @@ fi
 HOME_DIR="$HOME"
 
 if [ -e /mnt/c ] || [ -e /c ]; then
-  if [ ! "$(command -v scoop)" ]; then
-    echo "command \"scoop\" not exists."
+  if [ ! "$(command -v cmd.exe)" ]; then
+    echo "command \"cmd.exe\" not exists."
+    echo "$(tput setaf 1)"Windows or r path is not inherited."$(tput sgr0)"
     exit 1
   fi
 
+  win_home="$(cmd.exe /c "echo %USERPROFILE%")"
+
+  if [ -e /mnt/c ]; then
+    path_changer="wslpath"
+  elif [ -e /c/ ]; then
+    path_changer="cygpath"
+  fi
+
   # windows home directory
-  WIN_HOME=$(which scoop | sed -E 's/scoop.*//g')
+  WIN_HOME="$("$path_changer" "$win_home")"
   HOME_DIR=$WIN_HOME
   export WIN_HOME
 
