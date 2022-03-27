@@ -180,7 +180,8 @@ scoop install hyperfine # A benchmarking tool written in rust.(https://github.co
 # Languages(option)
 # --------------------------------------------------------------------------------------------------
 if (! $Light) {
-  scoop install perl # For wasm-pack(cargo Rust WebAssembly)
+  scoop install perl     # For wasm-pack(cargo Rust WebAssembly)
   scoop install deno
   scoop install python27 # latest python version (e.g. python2.7) for other software.
+  scoop install llvm     # Foundation for creating programming languages.(clang.exe)
 }
