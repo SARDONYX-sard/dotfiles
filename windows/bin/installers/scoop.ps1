@@ -81,6 +81,9 @@ scoop install make
 scoop install cmake
 scoop install psutils
 
+# DB
+scoop install sqlite  # Lightweight Database
+
 # Better Linux command(Runs faster than existing ones.)
 scoop install bat     # instead of `cat` Syntax highlighting and Git integration(https://github.com/sharkdp/bat)
 scoop install dog     # instead of `dig` commnad
