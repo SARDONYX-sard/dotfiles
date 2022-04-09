@@ -220,6 +220,7 @@ def configure(keymap: Keymap):
         keymap_global["U0-S"] = input_func("scoop search ")
 
         keymap_global["U0-A"] = keymap.InputTextCommand("update-all-libs")
+        keymap_global["U0-D"] = keymap.InputTextCommand("…(・ω・`)")
         keymap_global["U0-F"] = keymap.InputTextCommand(" --help")
         keymap_global["U0-W"] = keymap.InputTextCommand("ほう(・ω・`)…？")
 
