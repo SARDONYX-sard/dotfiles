@@ -22,7 +22,7 @@ if [ ! -d "$HOME_DIR"/dotfiles ]; then
   exit 1
 fi
 
-bash "$HOME_DIR"/dotfiles/linux/bin/installers/apt.sh
+python3 "$HOME_DIR"/dotfiles/linux/bin/installers/util-packages.py
 
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/gdb-peda.sh
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/lvim.sh
