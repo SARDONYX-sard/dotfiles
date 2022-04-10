@@ -82,25 +82,6 @@
         "useAcrylic": false
       },
       {
-        "backgroundImage": "D:\\\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\\\u30d0\u30c3\u30af\u30a2\u30c3\u30d7\u95a2\u4fc2\\\u80cc\u666f\u7528\\nature_red_leaves_mist_red-120615.jpg",
-        "backgroundImageAlignment": "center",
-        "backgroundImageOpacity": 0.0,
-        "backgroundImageStretchMode": "uniformToFill",
-        "bellStyle": "none",
-        "closeOnExit": "always",
-        "colorScheme": "Campbell",
-        "font": {
-          "face": "CodeNewRoman NF"
-        },
-        "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-        "hidden": false,
-        "name": "Ubuntu",
-        "opacity": 75,
-        "source": "Windows.Terminal.Wsl",
-        "startingDirectory": "\\\\wsl.localhost\\Ubuntu\\home\\sardonyx",
-        "useAcrylic": false
-      },
-      {
         "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u548c\u98a8\\\u7d05\u8449\\Wallpaper 4k Red Leaves Tree 4k 4k-wallpapers, hd-wallpapers, leaves wallpapers, nature wallpapers, tree wallpapers.jpg",
         "backgroundImageOpacity": 0.0,
         "bellStyle": "none",
@@ -131,6 +112,14 @@
         "opacity": 75,
         "startingDirectory": "%USERPROFILE%",
         "useAcrylic": false
+      },
+      {
+        "bellStyle": "none",
+        "commandline": "wsl.exe ~ -d Arch --user sardonyx",
+        "guid": "{b8586769-dd8b-46b2-afbf-247d7dd718f2}",
+        "hidden": false,
+        "name": "Arch",
+        "startingDirectory": "\\\\wsl.localhost\\Arch\\home\\sardonyx"
       }
     ]
   },
