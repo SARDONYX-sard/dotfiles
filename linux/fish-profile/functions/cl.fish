@@ -1,0 +1,1 @@
+alias cl="git clone"
