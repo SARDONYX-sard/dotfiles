@@ -47,6 +47,11 @@ sudo ln -sf "$HOME_DIR"/dotfiles/ginit.vim "$HOME"/.config/nvim/ginit.vim
 mkdir -p "$HOME"/.config/lvim
 sudo ln -sf "$HOME_DIR"/dotfiles/lvim-config.lua "$HOME"/.config/lvim/config.lua
 
+# fish shell
+mkdir -p "$HOME"/.config/fish
+sudo ln -sf "$HOME_DIR"/dotfiles/linux/fishrc "$HOME"/.config/fish/config.fish
+sudo ln -sf "$HOME_DIR"/dotfiles/linux/fish-profile/functions/ "$HOME"/.config/fish/functions/
+
 # dot rc
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.bashrc "$HOME"/.bashrc
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.zshrc "$HOME"/.zshrc

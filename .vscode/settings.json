@@ -13,8 +13,10 @@
     "colortool",
     "commandline",
     "concfg",
+    "ctags",
     "cython",
     "dein",
+    "Dpkg",
     "endregions",
     "ensurepath",
     "executiontime",
@@ -29,6 +31,7 @@
     "HHMMSS",
     "HWND",
     "ignorecase",
+    "inetutils",
     "innounp",
     "keyhac",
     "lessmsi",
@@ -54,6 +57,7 @@
     "quotepath",
     "Readline",
     "ripgrep",
+    "rlwrap",
     "roundrock",
     "rustc",
     "rustfilt",
@@ -81,5 +85,6 @@
     ".gitignore": "ignore",
     "LICENSE": "txt"
   },
-  "Lua.diagnostics.globals": ["lvim", "vim"]
+  "Lua.diagnostics.globals": ["lvim", "vim"],
+  "conventionalCommits.scopes": ["oh-my-posh"]
 }

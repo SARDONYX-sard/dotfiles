@@ -118,7 +118,8 @@
         "commandline": "wsl.exe ~ -d Arch --user sardonyx",
         "guid": "{b8586769-dd8b-46b2-afbf-247d7dd718f2}",
         "hidden": false,
-        "name": "Arch",
+        "icon": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\coding\\Arch-Linux.png",
+        "name": "Arch  Linux",
         "startingDirectory": "\\\\wsl.localhost\\Arch\\home\\sardonyx"
       }
     ]
