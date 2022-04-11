@@ -45,3 +45,5 @@ source "$ZSH_PROFILE/module-settings.sh" # read broot file, etc first. For br al
 if [[ ("$SHLVL" -eq 1 && ! -o LOGIN) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+
+# PATH=$(echo "$PATH" | sed s/:/\\n/g | grep -v '/mnt/c/Users/SARDONYX/scoop/' | sed ':a;N;$!ba;s/\n/:/g')
