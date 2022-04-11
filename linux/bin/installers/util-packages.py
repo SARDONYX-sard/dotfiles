@@ -1,12 +1,14 @@
 """
 .EXAMPLE
   # Install with manager.
-  util-packages.py --manager pacman
-  util-packages.py --manager apt
+  python3 util-packages.py --manager yay
+  python3 util-packages.py --manager pacman
+  python3 util-packages.py --manager apt
 
   # Uninstall global packages.
-  util-packages.py --manager pacman --uninstall
-  util-packages.py --manager apt --Uninstall
+  python3 util-packages.py --manager yay --uninstall
+  python3 util-packages.py --manager pacman --uninstall
+  python3 util-packages.py --manager apt --Uninstall
 """
 
 
@@ -21,6 +23,8 @@ common_libs = [
     # Utils
     {"name": "curl git zip unzip", "description": "utils"},
     {"name": "exuberant-ctags", "description": "For editor."},
+    {"name": "rlwrap",
+     "description": "Provides history functionality to commands that do not have history functionality"},
 
     {"name": "gawk", "description": "For fzf dependency."},
     {"name": "fzf", "description": "fuzzy finder."},
@@ -99,13 +103,13 @@ def get_args():
     parser.add_argument(
         "-p",
         "--plus",
-        help="Use Desktop libs",
-        action="store_false")
+        type=bool,
+        help="Use Desktop libs")
     parser.add_argument(
         "-uni",
         "--uninstall",
-        help="Change uninstall mode.",
-        action="store_false")
+        type=bool,
+        help="Change uninstall mode.")
 
     return (parser.parse_args())
 
@@ -116,9 +120,9 @@ def initialize(manager: Literal["apt", "pacman", "yay"]):
     if manager == "apt":
         system("sudo apt update - y; apt upgrade - y; sudo apt autoremove -y")
     elif manager == "pacman":
-        system("sudo pacman -Syu")
+        system("sudo pacman -Syu --noconfirm")
     elif manager == "yay":
-        system("yay -Syu")
+        system("yay -Syu --noconfirm")
 
 
 def manage_libs(manager: Literal["apt", "pacman", "yay"],
@@ -146,9 +150,11 @@ def manage_lib(prefix: str, libraries: list[dict[str, str]]):
     for lib in libraries:
         [name, description] = [lib["name"], lib["description"]]
 
-        print(color(f"INFO:{name}/{description}", 'blue'))
+        print("-----------------------------------------------------------------------------------")
+        print(f"[{1}] {name}", color("Name", 'green'))
+        print(f"[{1}] {description}", color("Description", 'cyan'))
 
-        if lib["installer"]:
+        if "installer" in lib:
             system(lib["installer"])
             continue
 
