@@ -13,18 +13,20 @@
 # - Linux => $HOME.
 HOME_DIR="$HOME"
 
+# -----------------------------------------
+# winodows environment variables
+# -----------------------------------------
 if [ -e /mnt/c ] || [ -e /c ]; then
   if [ ! "$(command -v scoop)" ]; then
     echo "command \"scoop\" not exists."
+    echo "$(tput setaf 1)"Windows or r path is not inherited."$(tput sgr0)"
     exit 1
   fi
 
-  # windows home directory
   WIN_HOME=$(which scoop | sed -E 's/scoop.*//g')
   HOME_DIR=$WIN_HOME
   export WIN_HOME
 
-  # windows user name
   WIN_USER=$(echo "$WIN_HOME" | sed -E 's/.*Users\///g' | sed -E 's/\///g')
   export WIN_USER
 fi
