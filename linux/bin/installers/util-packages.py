@@ -25,6 +25,7 @@ common_libs = [
     {"name": "exuberant-ctags", "description": "For editor."},
     {"name": "rlwrap",
      "description": "Provides history functionality to commands that do not have history functionality"},
+    {"name": "openssh", "description": "For ssh-keygen command"},
 
     {"name": "gawk", "description": "For fzf dependency."},
     {"name": "fzf", "description": "fuzzy finder."},
