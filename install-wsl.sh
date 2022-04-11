@@ -5,34 +5,30 @@ if [ "$(whoami)" != "root" ] && [ "$SUDO_USER" != "" ]; then
   exit 1
 fi
 
+# --------------------------------------------------------------------------------------------------
+# Constant variables
+# --------------------------------------------------------------------------------------------------
+# - msys2 or WSL => windows $HOME
+# - Linux => $HOME
 HOME_DIR="$HOME"
 
 if [ -e /mnt/c ] || [ -e /c ]; then
-  if [ ! "$(command -v cmd.exe)" ]; then
-    echo "command \"cmd.exe\" not exists."
+  if [ ! "$(command -v scoop)" ]; then
+    echo "command \"scoop\" not exists."
     echo "$(tput setaf 1)"Windows or r path is not inherited."$(tput sgr0)"
     exit 1
   fi
 
-  win_home="$(cmd.exe /c "echo %USERPROFILE%")"
-
-  if [ -e /mnt/c ]; then
-    path_changer="wslpath"
-  elif [ -e /c/ ]; then
-    path_changer="cygpath"
-  fi
-
-  # windows home directory
-  WIN_HOME="$("$path_changer" "$win_home")"
+  WIN_HOME=$(which scoop | sed -E 's/scoop.*//g')
   HOME_DIR=$WIN_HOME
   export WIN_HOME
 
-  # windows user name
   WIN_USER=$(echo "$WIN_HOME" | sed -E 's/.*Users\///g' | sed -E 's/\///g')
   export WIN_USER
 fi
 
 export HOME_DIR
+
 uname -a | grep microsoft >/dev/null 2>/dev/null
 export is_wsl=$((!$?))
 
@@ -61,8 +57,8 @@ if [ ! -d "$HOME_DIR"/dotfiles ]; then
   exit 1
 fi
 
-find "$HOME_DIR"/dotfiles -type d -exec chmod 755 {} +
-find "$HOME_DIR"/dotfiles -type f -exec chmod 644 {} +
+# find "$HOME_DIR"/dotfiles -type d -exec chmod 755 {} +
+# find "$HOME_DIR"/dotfiles -type f -exec chmod 644 {} +
 
 echo "Setting up symlink..."
 bash "$HOME_DIR"/dotfiles/linux/symlink.sh
