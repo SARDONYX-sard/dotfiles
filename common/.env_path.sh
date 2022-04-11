@@ -26,7 +26,7 @@ export CURRENT_SHELL
 # ! Describe the asdf path below the heroku path!
 # ? Reason: to prevent version overwriting by node.js in heroku.
 [ -e "$HOME"/.asdf/asdf.sh ] && . "$HOME"/.asdf/asdf.sh
-[ "$CURRENT_SHELL" = "bash" ] && . "$HOME"/.asdf/completions/asdf.bash
+[ "$CURRENT_SHELL" = "bash" ] && [ -e "$HOME"/.asdf/completions/asdf.bash ] && . "$HOME"/.asdf/completions/asdf.bash
 
 # rust
 [ -e "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
