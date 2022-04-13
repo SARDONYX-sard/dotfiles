@@ -1,1 +1,1 @@
-alias l="lsd -F" # Append indicator `F`
+alias l="ls -F" # Append indicator `F`
