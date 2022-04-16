@@ -8,9 +8,9 @@ if ($PSVersionTable.PSEdition -eq "Core") {
 
   # Complition
   . "$HOME\scoop\apps\bottom\current\completion\_btm.ps1"
-  Import-Module DockerCompletion
+  if (Get-Command docker) { Import-Module DockerCompletion }
+  if (Get-Command node) { Import-Module npm-completion }
   Set-PSReadLineOption -PredictionSource History #* Core only module
-
 
   # --------------------------------------------------------------------------------------------------
   # =Finder
