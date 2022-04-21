@@ -42,7 +42,8 @@ libs = [
         "name": "poetry", "description": "python package manager.", "installer": "pipx install poetry"
     },
 
-    # Other language
+    # Fortran
+    {"name": "fortran-langage-server", "description": "Fortran language server."},
     {"name": "fprettify", "description": "fortran formatter."},
 
     # Editor
