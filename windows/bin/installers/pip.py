@@ -148,8 +148,8 @@ def manage_lib(manager: Literal["pip",
     for lib in libraries:
         [name, description] = [lib["name"], lib["description"]]
 
-        print(colored('Installing ', 'green') + "{}".format(name))
-        print(colored("INFO: {}".format(description), 'blue'))
+        print(colored('Installing ', 'green') + f"{name}")
+        print(colored(f"INFO: {description}", 'blue'))
 
         if lib["installer"]:
             system(lib["installer"])
