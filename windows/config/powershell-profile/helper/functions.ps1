@@ -26,6 +26,8 @@ function br() {
 # --------------------------------------------------------------------------------------------------
 # Util
 # --------------------------------------------------------------------------------------------------
+function Reset-Scoop { "$HOME\dotfiles\scripts\reset-scoop.ps1" }
+
 function color {
   # https://stackoverflow.com/questions/20541456/list-of-all-colors-available-for-powershell
   $colors = [enum]::GetValues([System.ConsoleColor])
