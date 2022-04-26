@@ -271,6 +271,8 @@ if (Get-Command lsd) {
 }
 
 # coreutils (by Rust)
-function tail { coretutils tail $args }
-function head { coretutils head $args }
-function seq { coretutils seq $args }
+if (Get-Command uutils) {
+  function tail { uutils tail $args }
+  function head { uutils head $args }
+  function seq { utils seq $args }
+}
