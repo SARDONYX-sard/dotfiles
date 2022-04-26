@@ -4,9 +4,8 @@
 $HelperDir = "$HOME/dotfiles/windows/config/powershell-profile/helper";
 
 #! These files could not be lazily loaded.
-. "$($HelperDir)/aliases.ps1"
 . "$($HelperDir)/completion.ps1"
-. "$($HelperDir)/functions.ps1"
+. "$($HelperDir)/index.ps1"
 . "$($HelperDir)/module-settings.ps1"
 
 
