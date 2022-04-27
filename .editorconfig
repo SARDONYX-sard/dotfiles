@@ -20,10 +20,6 @@ end_of_line = crlf
 [{{M,m,GNU}akefile{,.*},*.mak,*.mk}]
 indent_style = tab
 
-[*.ps1]
-end_of_line = crlf
-indent_size = 2
-
 [*.py]
 indent_size = 4
 
