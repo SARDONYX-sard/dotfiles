@@ -10,6 +10,6 @@ if (Get-Command lsd -ErrorAction SilentlyContinue) {
     @{ name = "lla"; option = "al" }
   ) |
   ForEach-Object {
-    New-DynamicFunction -CommandName $_.name -FunctionBody  "lsd -F$_.option `$args"
+    New-DynamicFunction -CommandName $_.name -FunctionBody  "lsd -F$($_.option) `$args"
   }
 }

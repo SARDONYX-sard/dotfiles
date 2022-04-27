@@ -16,6 +16,6 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
     @{ name = "gs"; option = "status --short" }
   ) |
   ForEach-Object {
-    New-DynamicFunction -CommandName $_.name -FunctionBody  "git $_.option `$args"
+    New-DynamicFunction -CommandName $_.name -FunctionBody  "git $($_.option) `$args"
   }
 }
