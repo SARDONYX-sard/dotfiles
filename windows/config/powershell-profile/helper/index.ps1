@@ -16,8 +16,8 @@ $ImportBaseDirectory = "$HOME\dotfiles\windows\config\powershell-profile\helper"
   $ImportFullDirectory = "$ImportBaseDirectory\$_";
 
   if (Test-Path $ImportFullDirectory) {
-    Get-ChildItem -Path $ImportFullDirectory -File -Recurse -Exclude "*.md"
-    | ForEach-Object {
+    Get-ChildItem -Path $ImportFullDirectory -File -Recurse -Exclude "*.md" |
+    ForEach-Object {
       . $_.FullName
     }
   }

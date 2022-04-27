@@ -9,7 +9,7 @@
   # Virtual machine
   @{ name = "docker-compose"; alias_name = "dc" }
   @{ name = "docker"; alias_name = "dk" }
-)
-| ForEach-Object {
+) |
+ForEach-Object {
   if (Get-Command $_.name -ErrorAction SilentlyContinue) { Set-Alias $_.alias_name $_.name }
 }
