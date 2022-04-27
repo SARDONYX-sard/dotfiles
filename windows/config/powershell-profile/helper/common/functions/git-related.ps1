@@ -14,8 +14,8 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
     @{ name = "ga"; option = "add" }
     @{ name = "gpl"; option = "pull" }
     @{ name = "gs"; option = "status --short" }
-  )
-  | ForEach-Object {
+  ) |
+  ForEach-Object {
     New-DynamicFunction -CommandName $_.name -FunctionBody  "git $_.option `$args"
   }
 }

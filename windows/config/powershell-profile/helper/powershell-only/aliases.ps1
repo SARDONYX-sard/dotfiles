@@ -9,8 +9,8 @@
   @{ name = "npm"; alias_name = "np" }
   @{ name = "pnpm"; alias_name = "pn" }
   @{ name = "yarn"; alias_name = "ya" }
-)
-| ForEach-Object {
+) |
+ForEach-Object {
   if (Get-Command $_.name -ErrorAction SilentlyContinue) { Set-Alias $_.alias_name $_.name }
 }
 

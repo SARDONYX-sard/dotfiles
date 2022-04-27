@@ -13,8 +13,8 @@ if ($PSVersionTable.PSEdition -eq "Core") {
     @{ name = "lsd"; alias_name = "ls" }
     @{ name = "procs"; alias_name = "ps" }
     @{ name = "rg"; alias_name = "grep" }
-  )
-  | ForEach-Object {
+  ) |
+  ForEach-Object {
     if (Get-Command $_.name -ErrorAction SilentlyContinue) { Set-Alias $_.alias_name $_.name }
   }
 }
@@ -28,8 +28,8 @@ if (Get-Command uutils) {
     "seq",
     "touch",
     "tail"
-  )
-  | ForEach-Object {
+  ) |
+  ForEach-Object {
     New-DynamicFunction -CommandName $_ -FunctionBody  "uutils $_ `$args"
   }
 }

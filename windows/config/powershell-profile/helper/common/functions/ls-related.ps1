@@ -8,8 +8,8 @@ if (Get-Command lsd -ErrorAction SilentlyContinue) {
     @{ name = "la"; option = "a" }
     @{ name = "ll"; option = "l" }
     @{ name = "lla"; option = "al" }
-  )
-  | ForEach-Object {
+  ) |
+  ForEach-Object {
     New-DynamicFunction -CommandName $_.name -FunctionBody  "lsd -F$_.option `$args"
   }
 }
