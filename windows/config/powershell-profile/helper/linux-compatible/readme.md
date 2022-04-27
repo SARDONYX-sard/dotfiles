@@ -4,6 +4,6 @@
 
 Same as linux standard commands but expressed as functions
 
-## aliases folder
+## aliases
 
 Same as linux standard commands but expressed as aliases

@@ -3,6 +3,10 @@ using namespace System.Management.Automation.Language
 
 
 if ($PSVersionTable.PSEdition -eq "Core") {
+  . "$HOME\scoop\apps\bottom\current\completion\_btm.ps1"
+  if (Get-Command docker) { Import-Module DockerCompletion }
+  if (Get-Command node) { Import-Module npm-completion }
+
   # Shows navigable menu of all options when hitting Tab
   Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 

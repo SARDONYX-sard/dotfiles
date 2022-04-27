@@ -4,6 +4,6 @@
 
 A function representation of the same thing I had set up as an alias in linux
 
-## aliases folder
+## aliases
 
 A alias representation of the same thing I had set up as an alias in linux

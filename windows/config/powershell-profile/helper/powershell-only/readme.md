@@ -4,6 +4,10 @@
 
 Functions registered with a name that is not used in Linux.
 
-## aliases folder
+# hooks
+
+Hook processing of existing commands
+
+## aliases
 
 Aliases registered with a name that is not used in Linux.
