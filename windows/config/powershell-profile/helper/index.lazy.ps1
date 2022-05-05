@@ -5,13 +5,14 @@ if ($PSVersionTable.PSEdition -eq "Core") {
   if (Get-Command vcpkg) { Import-Module "$HOME\vcpkg\scripts\posh-vcpkg" }
 
   $ImportBaseDirectory = "$HOME\dotfiles\windows\config\powershell-profile\helper";
-  @("lazy-load-modules") | ForEach-Object {
+  @("common", "external-modules-settings", "linux-compatible", "powershell-only") | ForEach-Object {
     $ImportFullDirectory = "$ImportBaseDirectory\$_";
 
     if (Test-Path $ImportFullDirectory) {
-      Get-ChildItem -Path $ImportFullDirectory -File -Recurse -Exclude "*.md" |
+      Get-ChildItem -Path $ImportFullDirectory -File -Recurse -Include "*.lazy.ps1" |
       ForEach-Object { . $_.FullName }
     }
   }
 
+  Remove-Variable $ImportBaseDirectory
 }

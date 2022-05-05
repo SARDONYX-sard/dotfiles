@@ -12,14 +12,16 @@ function New-DynamicFunction {
 
 $ImportBaseDirectory = "$HOME\dotfiles\windows\config\powershell-profile\helper";
 
-@("common", "linux-compatible", "powershell-only") | ForEach-Object {
+@("common", "external-modules-settings", "linux-compatible", "powershell-only") | ForEach-Object {
   $ImportFullDirectory = "$ImportBaseDirectory\$_";
 
   if (Test-Path $ImportFullDirectory) {
-    Get-ChildItem -Path $ImportFullDirectory -File -Recurse -Exclude "*.md" |
+    Get-ChildItem -Path $ImportFullDirectory -File -Recurse -Include "*.ps1" -Exclude "*.lazy.ps1" |
     ForEach-Object {
       . $_.FullName
     }
   }
 
 }
+
+Remove-Variable -Name "ImportBaseDirectory"
