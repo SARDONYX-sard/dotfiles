@@ -18,18 +18,3 @@ if ($PSVersionTable.PSEdition -eq "Core") {
     if (Get-Command $_.name -ErrorAction SilentlyContinue) { Set-Alias $_.alias_name $_.name }
   }
 }
-
-# coreutils (by Rust)
-if (Get-Command uutils) {
-
-  @(
-    "head",
-    "ln",
-    "seq",
-    "touch",
-    "tail"
-  ) |
-  ForEach-Object {
-    New-DynamicFunction -CommandName $_ -FunctionBody  "uutils $_ `$args"
-  }
-}
