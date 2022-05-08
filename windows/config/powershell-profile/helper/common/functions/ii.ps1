@@ -1,5 +1,10 @@
-# Enhanced Invoke-Item command
-# which open directory environment path
+<#
+.Notes
+  Enhanced Invoke-Item command
+  which open directory environment path
+#>
+
+# Remove-Item alias:ii -Force # already used by Invoke-Item
 
 # Invoke-Item Open
 function iio {
@@ -14,12 +19,13 @@ function iio {
     return;
   }
 
-  $path = Convert-Path $(which $cmd)
+  $path = which $cmd
   if ($Null -eq $path) {
     Invoke-Item $cmd
     return;
   }
 
+  $path = Convert-Path $path
   Write-Host "Open with explorer " -ForegroundColor Green -NoNewline
   Write-Host "`"$path`"" -ForegroundColor Yellow
 
