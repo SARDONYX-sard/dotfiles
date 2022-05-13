@@ -64,16 +64,21 @@ echo "Setting up symlink..."
 bash "$HOME_DIR"/dotfiles/linux/symlink.sh
 
 echo "Setting up gitcofig..."
-
 gitcofig_path="$HOME/.gitconfig"
-if [ -f gitcofig_path ]; then
+if [ -f "$gitcofig_path" ]; then
   echo "File ${gitcofig_path} exists. Skip gitconfig setup."
 else
-  cat "$HOME_DIR"/dotfiles/common/data/git/git-config.txt >"$HOME"/.gitconfig
+  cat "$HOME_DIR"/dotfiles/common/data/git/git-config.txt >gitconfig_path
+fi
+
+echo "Setting up global gitignore..."
+gitignore_path="$HOME/.config/git/ignore"
+if [ -f "$gitignore_path" ]; then
+  mkdir -p "$HOME/.config/git"
+  cat "$HOME_DIR"/dotfiles/common/data/git/gitignore-global.txt >itignore_path
 fi
 
 echo "Installation by package manager, etc."
-
 [ $IS_LIGHT ] && echo "$(tput setaf 4)"light mode selected."$(tput sgr0)"
 bash "$HOME_DIR"/dotfiles/linux/bin/all-installer.sh
 
