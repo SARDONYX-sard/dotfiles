@@ -14,6 +14,7 @@ English | [日本語](./docs/i18n/jp/readme.md)
 
 - [dotfiles](#dotfiles)
   - [Table of Contents](#table-of-contents)
+  - [Feature](#feature)
   - [Author's operating environment](#authors-operating-environment)
   - [How to install](#how-to-install)
     - [windows](#windows)
@@ -28,6 +29,10 @@ English | [日本語](./docs/i18n/jp/readme.md)
   - [How it works](#how-it-works)
   - [Reference site](#reference-site)
   - [License](#license)
+
+## Feature
+
+[windows feature](./docs/i18n/en/windows-feature.md)
 
 ## Author's operating environment
 

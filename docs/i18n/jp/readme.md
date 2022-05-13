@@ -13,11 +13,13 @@
 
 - [dotfiles](#dotfiles)
   - [目次](#目次)
+  - [機能](#機能)
   - [作者の動作環境](#作者の動作環境)
   - [インストール方法](#インストール方法)
     - [windows](#windows)
     - [Linux](#linux)
     - [WSL(Windows Subsystem for Linux)](#wslwindows-subsystem-for-linux)
+    - [Docker](#docker)
   - [進捗状況](#進捗状況)
   - [注意!](#注意)
   - [手動でやらなければならないこと](#手動でやらなければならないこと)
@@ -26,6 +28,10 @@
   - [動作内容](#動作内容)
   - [参考サイト](#参考サイト)
   - [ライセンス](#ライセンス)
+
+## 機能
+
+[windows feature](./windows-feature.md)
 
 ## 作者の動作環境
 
@@ -104,6 +110,14 @@ bash "./install-wsl.sh"
 export USERNAME=`cmd.exe /c echo %username%`
 cd /mnt/c/Users/${USERNAME}/dotfiles
 bash "install-wsl.sh" --light --zsh
+```
+
+---
+
+### Docker
+
+```bash
+docker-compose up
 ```
 
 ## 進捗状況
