@@ -2,7 +2,7 @@ if ($PSVersionTable.PSEdition -eq "Core") {
   Import-Module posh-git
   Set-PSReadLineOption -PredictionSource History #* Core only module
 
-  if (Get-Command vcpkg) { Import-Module "$HOME\vcpkg\scripts\posh-vcpkg" }
+  if (Get-Command vcpkg -ErrorAction SilentlyContinue) { Import-Module "$HOME\vcpkg\scripts\posh-vcpkg" }
 }
 
 $ImportBaseDirectory = "$HOME\dotfiles\windows\config\powershell-profile\helper";
