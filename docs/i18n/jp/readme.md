@@ -3,7 +3,7 @@
 [English](https://github.com/SARDONYX-sard/dotfiles) | 日本語
 
 <p align="center">
-  <img src="./docs/images/../../../../images/terminals.png" alt="terminals" height="300" width="800"/>
+  <img src="./docs/images/../../../../images/terminals.jpg" alt="terminals" height="300" width="800"/>
 </p>
 
 - プロンプトの背景画像は付いてきません。

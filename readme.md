@@ -3,7 +3,7 @@
 English | [日本語](./docs/i18n/jp/readme.md)
 
 <p align="center">
-  <img src="./docs/images/terminals.png" alt="terminals" height="300" width="800"/>
+  <img src="./docs/images/terminals.jpg" alt="terminals" height="300" width="800"/>
 </p>
 
 - It does not come with a background image for the prompt.
