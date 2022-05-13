@@ -18,13 +18,8 @@ if ($isDebug -eq $false) {
 }
 
 Write-Host "Installing Windows development environment..." -ForegroundColor Green
-try {
-  if (!(Get-Command scoop)) {
-    # Install scoop(https://scoop.sh/)
-    Invoke-WebRequest -useb get.scoop.sh | Invoke-Expression
-  }
-}
-catch {
+if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
+  # Install scoop(https://scoop.sh/)
   Invoke-WebRequest -useb get.scoop.sh | Invoke-Expression
 }
 
