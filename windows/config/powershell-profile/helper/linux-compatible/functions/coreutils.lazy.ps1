@@ -1,5 +1,5 @@
 # coreutils (by Rust)
-if (Get-Command uutils) {
+if (Get-Command uutils -ErrorAction SilentlyContinue) {
 
   @(
     # "[",
