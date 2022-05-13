@@ -152,8 +152,8 @@ def manage_lib(prefix: str, libraries: list[dict[str, str]]):
         [name, description] = [lib["name"], lib["description"]]
 
         print("-----------------------------------------------------------------------------------")
-        print(f"[{1}] {name}", color("Name", 'green'))
-        print(f"[{1}] {description}", color("Description", 'cyan'))
+        print(f"[1] {name}", color("Name", 'green'))
+        print(f"[1] {description}", color("Description", 'cyan'))
 
         if "installer" in lib:
             system(lib["installer"])
