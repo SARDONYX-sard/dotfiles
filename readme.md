@@ -19,6 +19,7 @@ English | [日本語](./docs/i18n/jp/readme.md)
     - [windows](#windows)
     - [Linux](#linux)
     - [WSL(Windows Subsystem for Linux)](#wslwindows-subsystem-for-linux)
+    - [Docker](#docker)
   - [Progress](#progress)
   - [Note!](#note)
   - [Things you have to do manually](#things-you-have-to-do-manually)
@@ -107,6 +108,12 @@ bash "./install-wsl.sh"
 export USERNAME=`cmd.exe /c echo %username%`
 cd /mnt/c/Users/${USERNAME}/dotfiles
 bash "install-wsl.sh" --light --zsh
+```
+
+### Docker
+
+```bash
+docker-compose up
 ```
 
 ## Progress
