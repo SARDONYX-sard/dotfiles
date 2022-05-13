@@ -21,7 +21,7 @@ from typing import Literal
 
 common_libs = [
     # Utils
-    {"name": "curl git zip unzip", "description": "utils"},
+    {"name": "curl git sudo unzip wget which zip", "description": "utils"},
     {"name": "exuberant-ctags", "description": "For editor."},
     {"name": "rlwrap",
      "description": "Provides history functionality to commands that do not have history functionality"},
