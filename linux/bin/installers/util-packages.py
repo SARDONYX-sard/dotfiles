@@ -26,6 +26,7 @@ common_libs = [
     {"name": "rlwrap",
      "description": "Provides history functionality to commands that do not have history functionality"},
     {"name": "openssh", "description": "For ssh-keygen command"},
+    {"name": "zsh", "description": "zsh shell"},
 
     {"name": "gawk", "description": "For fzf dependency."},
     {"name": "fzf", "description": "fuzzy finder."},
@@ -150,10 +151,12 @@ def manage_libs(manager: Literal["apt", "pacman", "yay"],
 def manage_lib(prefix: str, libraries: list[dict[str, str]]):
     for lib in libraries:
         [name, description] = [lib["name"], lib["description"]]
+        name_title = color("Name", 'green')
+        description_title = color("Description", 'cyan')
 
         print("-----------------------------------------------------------------------------------")
-        print(f"[1] {name}", color("Name", 'green'))
-        print(f"[1] {description}", color("Description", 'cyan'))
+        print(f"{name_title}: {name}", )
+        print(f"{description_title}: {description}")
 
         if "installer" in lib:
             system(lib["installer"])
