@@ -22,7 +22,16 @@ if [ ! -d "$HOME_DIR"/dotfiles ]; then
   exit 1
 fi
 
-python3 "$HOME_DIR"/dotfiles/linux/bin/installers/util-packages.py
+if (which yay) >/dev/null 2>&1; then
+  python3 "$HOME_DIR"/dotfiles/linux/bin/installers/util-packages.py --manager yay
+elif (which pacman) >/dev/null 2>&1; then
+  python3 "$HOME_DIR"/dotfiles/linux/bin/installers/util-packages.py --manager pacman
+elif (which apt) >/dev/null 2>&1; then
+  python3 "$HOME_DIR"/dotfiles/linux/bin/installers/util-packages.py --manager apt
+else
+  echo "Not found package manager."
+  exit 1
+fi
 
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/gdb-peda.sh
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/lvim.sh
