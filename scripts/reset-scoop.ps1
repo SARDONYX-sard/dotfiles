@@ -11,7 +11,15 @@ if ($isDebug -eq $false) {
 }
 
 #! scoop & msys2 throws an error, so omit the process.
-$scoopApps = $(scoop list).Name; foreach ($item in $scoopApps) { if ($item -ne "scoop" -or $item -ne "msys2") { scoop reset $item } }
+$scoopApps = $(scoop list).Name;
+foreach ($item in $scoopApps) {
+  Write-Host "scoop: $item"
+  if ($item -eq "scoop" -or $item -eq "msys2") {
+    continue
+  }
+
+  scoop reset $item
+}
 
 Remove-Item $HOME\scoop\apps\keyhac\current\keyhac.ini
 Remove-Item $HOME\scoop\apps\keyhac\current\config.py
