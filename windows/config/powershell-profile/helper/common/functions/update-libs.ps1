@@ -4,7 +4,7 @@ function update-all-libs {
     # JavaScript
     $ScoopCachePath = ([IO.Path]::Combine($HOME, "scoop", "cache"))
     @{ name = "Scoop"; installer = "scoop update *;scoop cleanup * --cache;Get-ChildItem $ScoopCachePath -Include *.* -Recurse | Remove-Item" }
-    @{ name = "corepack"; installer = "python3 -u `"$HOME/dotfiles/scripts/corepack-update.py`"" }
+    @{ name = "corepack"; installer = "python3 -u `"$HOME/dotfiles/scripts/update-corepack.py`"" }
     @{ name = "npm"; installer = "npm up -g" }
     @{ name = "pnpm"; installer = "pnpm up -g" }
     @{ name = "deno"; installer = "deno upgrade" }
