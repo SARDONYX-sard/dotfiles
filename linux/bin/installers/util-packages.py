@@ -66,6 +66,7 @@ pacman_only_libs = [
     {"name": "bat", "description": "better cat written in rust."},
     {"name": "fd", "description": "better find command"},
     {"name": "inetutils", "description": "Network utils.(for hostname command)"},
+    {"name": "lsd", "description": "The next gen ls command."},
     {"name": "ripgrep", "description": "better grep."}
 ]
 
