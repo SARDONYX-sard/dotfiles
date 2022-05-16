@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #! have to answer these questions manually.
-bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
+bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) --no-install-dependencies
 
 #nodejs libs
 pnpm install -g neovim tree-sitter-cli
