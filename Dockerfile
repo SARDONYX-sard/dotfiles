@@ -1,8 +1,8 @@
+# hadolint ignore=DL3007
 FROM archlinux:latest
 
-
 RUN pacman -Suy --noconfirm
-
+# hadolint ignore=DL3013
 RUN pacman -S --noconfirm \
   sudo \
   curl \
