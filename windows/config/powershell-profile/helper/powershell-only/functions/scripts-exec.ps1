@@ -1,7 +1,7 @@
 function Reset-Scoop {
-  "../../../../../../scripts/reset-scoop.ps1"
+  pwsh -ExecutionPolicy ByPass -File "$HOME/dotfiels/scripts/reset-scoop.ps1"
 }
 
 function Update-Corepack {
-  python3 "../../../../../../scripts/update-corepack.py"
+  python3 "$HOME/dotfiles/scripts/update-corepack.py"
 }
