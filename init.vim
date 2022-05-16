@@ -35,10 +35,6 @@ nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :
-"
-:tnoremap <C-t> <C-\><C-n>
-command! -nargs=* T split | wincmd j | resize 20 | terminal <args>
-autocmd TermOpen * startinsert
 
 " References:
 " [1] https://github.com/asvetliakov/vscode-neovim/issues/103
