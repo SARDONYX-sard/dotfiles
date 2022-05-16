@@ -18,7 +18,7 @@ if (Get-Command winget -ErrorAction SilentlyContinue) {
     }
   }
 
-  if (Get-Command sudo) {
+  if (Get-Command sudo -ErrorAction SilentlyContinue) {
     function wua { sudo winget upgrade --all }
   }
 }
