@@ -20,3 +20,4 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN git clone https://github.com/SARDONYX-sard/dotfiles.git /root/dotfiles
 WORKDIR /root/dotfiles
 RUN bash "install-wsl.sh" --light --zsh
+CMD [ "/bin/zsh" ]
