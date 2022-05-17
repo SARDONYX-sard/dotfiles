@@ -38,6 +38,7 @@ common_libs = [
     {"name": "sysstat", "description": "Process Monitor."},
 
     # ------------ Coding -----------
+    {"name": "shellcheck", "description": "Shell script checker."},
     {"name": "source-highlight", "description": "Syntax highlighting for less command."},
 
     # Editor
