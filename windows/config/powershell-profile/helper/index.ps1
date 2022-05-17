@@ -24,4 +24,5 @@ $ImportBaseDirectory = "$HOME\dotfiles\windows\config\powershell-profile\helper"
 
 }
 
+Remove-Variable -Name "ImportFullDirectory"
 Remove-Variable -Name "ImportBaseDirectory"
