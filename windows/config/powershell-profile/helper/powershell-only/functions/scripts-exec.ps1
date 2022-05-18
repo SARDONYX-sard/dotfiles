@@ -1,5 +1,5 @@
 function Reset-Scoop {
-  pwsh -ExecutionPolicy ByPass -File "$HOME/dotfiels/scripts/reset-scoop.ps1"
+  pwsh -ExecutionPolicy ByPass -File "$HOME/dotfiles/scripts/reset-scoop.ps1"
 }
 
 function Update-Corepack {
