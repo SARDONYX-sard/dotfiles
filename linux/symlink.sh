@@ -51,7 +51,7 @@ sudo ln -sf "$HOME_DIR"/dotfiles/lvim-config.lua "$HOME"/.config/lvim/config.lua
 mkdir -p "$HOME"/.config/fish
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/fishrc "$HOME"/.config/fish/config.fish
 mkdir -p "$HOME"/.config/fish/functions
-sudo ln -sf "$HOME_DIR"/dotfiles/linux/fish-profile/functions/ "$HOME"/.config/fish/functions/
+sudo ln -sf "$HOME_DIR"/dotfiles/linux/fish-profile/functions/ "$HOME"/.config/fish
 
 # dot rc
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.bashrc "$HOME"/.bashrc
