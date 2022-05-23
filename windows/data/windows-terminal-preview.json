@@ -101,7 +101,7 @@
         "bellStyle": "none",
         "closeOnExit": "always",
         "colorScheme": "Campbell",
-        "commandline": "mingw64.cmd -shell zsh",
+        "commandline": "mingw64.cmd -shell fish",
         "font": {
           "face": "CodeNewRoman NF"
         },
