@@ -13,12 +13,14 @@ function prompt {
   #>
   Set-PSReadLineOption -BellStyle None
 
-  # Increase load time if shell-design is not loaded first.
   . "$($HelperDir)/shell-design.ps1"
   . "$($HelperDir)/index.lazy.ps1"
 }
 
-oh-my-posh --init --shell pwsh --config "$HOME\dotfiles\common\data\oh-my-posh-themes\my-custom.json" | Invoke-Expression
+if ($PSVersionTable.PSEdition -eq "Core") {
+  #! v7.90.1: Putting oh-my-posh in a separate file did not work, so put it here
+  oh-my-posh --init --shell pwsh --config "$HOME\dotfiles\common\data\oh-my-posh-themes\my-custom.json" | Invoke-Expression
+}
 
 #! This statement must be at the end of the profile or the command will be lost for some reason.
 #! Without this, msys2 will not inherit windows environment variables.
