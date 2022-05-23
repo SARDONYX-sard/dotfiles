@@ -14,10 +14,13 @@ function prompt {
   Set-PSReadLineOption -BellStyle None
 
   . "$($HelperDir)/shell-design.ps1"
-  . "$($HelperDir)/index.lazy.ps1"
 }
 
+#! Emergency switch to synchronous loading because it stopped loading for some reason.
+. "$($HelperDir)/index.lazy.ps1"
+
 if ($PSVersionTable.PSEdition -eq "Core") {
+  # Import-Module PSReadLine
   #! v7.90.1: Putting oh-my-posh in a separate file did not work, so put it here
   oh-my-posh --init --shell pwsh --config "$HOME\dotfiles\common\data\oh-my-posh-themes\my-custom.json" | Invoke-Expression
 }
