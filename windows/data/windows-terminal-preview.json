@@ -101,7 +101,7 @@
         "bellStyle": "none",
         "closeOnExit": "always",
         "colorScheme": "Campbell",
-        "commandline": "pwsh -Command \"& {mingw64 -shell zsh }\"",
+        "commandline": "mingw64.cmd -shell zsh",
         "font": {
           "face": "CodeNewRoman NF"
         },
