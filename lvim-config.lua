@@ -89,6 +89,11 @@ vim.opt.fileformats = "unix" -- use unix line endings for windows too.(if you wa
 -- For rust-analayzer TypeHint
 vim.cmd [[ autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = '=>', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} } ]]
 
+if vim.fn.has("wsl") then
+-- For WSL clipboard issue.
+vim.cmd [[ autocmd TextYankPost * if v:event.operator ==# 'y' | call system('/mnt/c/Windows/System32/clip.exe', @0) | endif ]]
+end
+
 -- -------------------------------------------------------------------------------------------------
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 -- -------------------------------------------------------------------------------------------------
