@@ -55,7 +55,7 @@ function get_asdf_lang_version() {
 }
 
 if [ "$(command -v node)" ]; then
-  NODEV=$(get_asdf_lang_version nodejs)
+  NODEV=$(node -v | sed -E "s/v//g")
 fi
 export ASDFINSTALLS=$HOME/.asdf/installs
 export ASDFROOT=$HOME/.asdf
