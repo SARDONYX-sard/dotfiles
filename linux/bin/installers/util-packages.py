@@ -68,6 +68,7 @@ pacman_only_libs = [
     {"name": "fd", "description": "better find command"},
     {"name": "inetutils", "description": "Network utils.(for hostname command)"},
     {"name": "lsd", "description": "The next gen ls command."},
+    {"name": "lazygit", "description": "A simple terminal UI for git commands."},
     {"name": "ripgrep", "description": "better grep."}
 ]
 
