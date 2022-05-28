@@ -90,50 +90,50 @@ vim.opt.fileformats = "unix" -- use unix line endings for windows too.(if you wa
 vim.cmd [[ autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = '=>', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} } ]]
 
 if vim.fn.has("wsl") then
--- For WSL clipboard issue.
-vim.cmd [[ autocmd TextYankPost * if v:event.operator ==# 'y' | call system('/mnt/c/Windows/System32/clip.exe', @0) | endif ]]
+  -- For WSL clipboard issue.
+  vim.cmd [[ autocmd TextYankPost * if v:event.operator ==# 'y' | call system('/mnt/c/Windows/System32/clip.exe', @0) | endif ]]
 end
 
--- -------------------------------------------------------------------------------------------------
--- -- set a formatter, this will override the language server formatting capabilities (if it exists)
--- -------------------------------------------------------------------------------------------------
-local formatters = require "lvim.lsp.null-ls.formatters"
-formatters.setup { {
-  command = "black",
-  filetypes = { "python" }
-}, {
-  command = "isort",
-  filetypes = { "python" }
-}, {
-  -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
-  command = "prettier",
-  ---@usage arguments to pass to the formatter
-  -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-  extra_args = { "--print-with", "100" },
-  ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-  filetypes = { "typescript", "typescriptreact" }
-}, {
-  command = "gofmt",
-  filetypes = { "go" }
-} }
+-- -- -------------------------------------------------------------------------------------------------
+-- -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
+-- -- -------------------------------------------------------------------------------------------------
+-- local formatters = require "lvim.lsp.null-ls.formatters"
+-- formatters.setup { {
+--   command = "black",
+--   filetypes = { "python" }
+-- }, {
+--   command = "isort",
+--   filetypes = { "python" }
+-- }, {
+--   -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+--   command = "prettier",
+--   ---@usage arguments to pass to the formatter
+--   -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+--   extra_args = { "--print-with", "100" },
+--   ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+--   filetypes = { "typescript", "typescriptreact" }
+-- }, {
+--   command = "gofmt",
+--   filetypes = { "go" }
+-- } }
 
--- -------------------------------------------------------------------------------------------------
--- -- set additional linters
--- -------------------------------------------------------------------------------------------------
-local linters = require "lvim.lsp.null-ls.linters"
-linters.setup { {
-  command = "codespell",
-  filetypes = { "bash", "go", "javascript", "json", "lua", "python", "typescript", "css", "rust", "java", "yaml" }
-}, {
-  command = "flake8",
-  filetypes = { "python" }
-}, {
-  command = "shellcheck",
-  extra_args = { "--severity", "warning" }
-}, {
-  command = "eslint_d",
-  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
-} }
+-- -- -------------------------------------------------------------------------------------------------
+-- -- -- set additional linters
+-- -- -------------------------------------------------------------------------------------------------
+-- local linters = require "lvim.lsp.null-ls.linters"
+-- linters.setup { {
+--   command = "codespell",
+--   filetypes = { "bash", "go", "javascript", "json", "lua", "python", "typescript", "css", "rust", "java", "yaml" }
+-- }, {
+--   command = "flake8",
+--   filetypes = { "python" }
+-- }, {
+--   command = "shellcheck",
+--   extra_args = { "--severity", "warning" }
+-- }, {
+--   command = "eslint_d",
+--   filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
+-- } }
 
 -- Additional Plugins
 lvim.plugins = { { "nvim-lua/lsp_extensions.nvim" }, { "folke/tokyonight.nvim" }, {
@@ -226,4 +226,18 @@ lvim.plugins = { { "nvim-lua/lsp_extensions.nvim" }, { "folke/tokyonight.nvim" }
   -- open url with gx
   "felipec/vim-sanegx",
   event = "BufRead"
-} }
+},
+{ "github/copilot.vim" },
+{ "zbirenbaum/copilot.lua",
+  event = { "VimEnter" },
+  config = function()
+    vim.defer_fn(function()
+      require("copilot").setup()
+    end, 100)
+  end
+},
+{
+  "zbirenbaum/copilot-cmp",
+  after = { "copilot.lua", "nvim-cmp" },
+}
+}
