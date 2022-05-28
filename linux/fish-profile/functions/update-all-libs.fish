@@ -2,7 +2,7 @@ function update-all-libs
     if [ -e /c ]
         sudo pacman -Syyu --noconfirm
         pwsh -Command update-all-libs
-    else if which yay
+    else if which yay &> /dev/null
         yay -Syyu --noconfirm
     else
         sudo apt update -y && sudo apt upgrade -y
