@@ -1,4 +1,4 @@
-if which git.exe
+if which git.exe &> /dev/null
     alias git=git.exe
 else
     alias git=git
