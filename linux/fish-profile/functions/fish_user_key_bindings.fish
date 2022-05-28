@@ -35,7 +35,8 @@ function fish_user_key_bindings
             commandline -f cancel
         else
             set fish_bind_mode default
-            commandline -f backward-char repaint-mode
+            # function's reference: https://fishshell.com/docs/current/cmds/bind.html
+            commandline -f backward-delete-char repaint-mode
         end
     end
 end
