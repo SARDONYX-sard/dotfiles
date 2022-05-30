@@ -14,6 +14,7 @@ lvim.format_on_save = false
 lvim.log.level = "warn"
 lvim.transparent_window = true
 lvim.builtin.telescope.defaults.layout_config.prompt_position = "bottom"
+lvim.builtin.treesitter.rainbow.enable = true -- need nvim-ts-rainbow plugin
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
