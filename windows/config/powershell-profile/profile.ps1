@@ -16,3 +16,5 @@ function prompt {
   . "$($HelperDir)/shell-behavior-core.ps1"
   . "$($HelperDir)/index.lazy.ps1"
 }
+
+# }
