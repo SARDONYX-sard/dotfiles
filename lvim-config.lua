@@ -9,12 +9,20 @@ a global executable or a path to
 an executable
 ]] -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 -- general
-lvim.autocommands.custom_groups = { { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" } } -- (https://neovim.io/doc/user/autocmd.html)
 lvim.format_on_save = false
 lvim.log.level = "warn"
 lvim.transparent_window = true
 lvim.builtin.telescope.defaults.layout_config.prompt_position = "bottom"
 lvim.builtin.treesitter.rainbow.enable = true -- need nvim-ts-rainbow plugin
+
+lvim.builtin.lualine.style = "default"
+local components = require("lvim.core.lualine.components")
+lvim.builtin.lualine.sections.lualine_a = { "mode" }
+lvim.builtin.lualine.sections.lualine_y = {
+  components.diagnostics,
+  components.lsp,
+  components.scrollbar,
+}
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -43,16 +51,14 @@ lvim.builtin.telescope.defaults.mappings = {
   }
 }
 
--- Use which-key to add extra bindings with the leader-key prefix
-lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["t"] = {
-  name = "+Trouble",
-  r = { "<cmd>Trouble lsp_references<cr>", "References" },
-  f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
-  d = { "<cmd>Trouble lsp_document_diagnostics<cr>", "Diagnostics" },
-  q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
-  l = { "<cmd>Trouble loclist<cr>", "LocationList" },
-  w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Diagnostics" }
+  name = "Diagnostics",
+  t = { "<cmd>TroubleToggle<cr>", "trouble" },
+  w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace" },
+  d = { "<cmd>TroubleToggle document_diagnostics<cr>", "document" },
+  q = { "<cmd>TroubleToggle quickfix<cr>", "quickfix" },
+  l = { "<cmd>TroubleToggle loclist<cr>", "loclist" },
+  r = { "<cmd>TroubleToggle lsp_references<cr>", "references" },
 }
 
 -- TODO: User Config for predefined plugins
@@ -86,6 +92,9 @@ vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboar
 vim.opt.fileencoding = "utf-8" -- the encoding written to a file
 -- fileformat is local. fileformats is global.see more...(https://vim.fandom.com/wiki/File_format)
 vim.opt.fileformats = "unix" -- use unix line endings for windows too.(if you want to change, you can use :set ff=dos)
+vim.opt.list = true
+vim.opt.listchars:append("space:⋅")
+vim.opt.listchars:append("eol:↴")
 
 -- For rust-analayzer TypeHint
 vim.cmd [[ autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = '=>', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} } ]]
@@ -95,51 +104,52 @@ if vim.fn.has("wsl") then
   vim.cmd [[ autocmd TextYankPost * if v:event.operator ==# 'y' | call system('/mnt/c/Windows/System32/clip.exe', @0) | endif ]]
 end
 
--- -- -------------------------------------------------------------------------------------------------
--- -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
--- -- -------------------------------------------------------------------------------------------------
--- local formatters = require "lvim.lsp.null-ls.formatters"
--- formatters.setup { {
---   command = "black",
---   filetypes = { "python" }
--- }, {
---   command = "isort",
---   filetypes = { "python" }
--- }, {
---   -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
---   command = "prettier",
---   ---@usage arguments to pass to the formatter
---   -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
---   extra_args = { "--print-with", "100" },
---   ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
---   filetypes = { "typescript", "typescriptreact" }
--- }, {
---   command = "gofmt",
---   filetypes = { "go" }
--- } }
 
--- -- -------------------------------------------------------------------------------------------------
--- -- -- set additional linters
--- -- -------------------------------------------------------------------------------------------------
--- local linters = require "lvim.lsp.null-ls.linters"
--- linters.setup { {
---   command = "codespell",
---   filetypes = { "bash", "go", "javascript", "json", "lua", "python", "typescript", "css", "rust", "java", "yaml" }
--- }, {
---   command = "flake8",
---   filetypes = { "python" }
--- }, {
---   command = "shellcheck",
---   extra_args = { "--severity", "warning" }
--- }, {
---   command = "eslint_d",
---   filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
--- } }
+-- -------------------------------------------------------------------------------------------------
+-- -- set a formatter, this will override the language server formatting capabilities (if it exists)
+-- -------------------------------------------------------------------------------------------------
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup { {
+  command = "black",
+  filetypes = { "python" }
+}, {
+  command = "isort",
+  filetypes = { "python" }
+}, {
+  -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+  command = "prettier",
+  ---@usage arguments to pass to the formatter
+  -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+  extra_args = { "--print-with", "100" },
+  ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+  filetypes = { "typescript", "typescriptreact" }
+}, {
+  command = "gofmt",
+  filetypes = { "go" }
+} }
+
+-- -------------------------------------------------------------------------------------------------
+-- -- set additional linters
+-- -------------------------------------------------------------------------------------------------
+local linters = require "lvim.lsp.null-ls.linters"
+linters.setup { {
+  command = "codespell",
+  filetypes = { "bash", "go", "javascript", "json", "lua", "python", "typescript", "css", "rust", "java", "yaml" }
+}, {
+  command = "flake8",
+  filetypes = { "python" }
+}, {
+  command = "shellcheck",
+  extra_args = { "--severity", "warning" }
+}, {
+  command = "eslint_d",
+  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
+} }
 
 -- Additional Plugins
 lvim.plugins = { { "nvim-lua/lsp_extensions.nvim" }, { "folke/tokyonight.nvim" }, {
   "folke/trouble.nvim",
-  cmd = "TroubleToggle"
+  cmd = "TroubleToggle",
 }, {
   "nacro90/numb.nvim",
   event = "BufRead",
@@ -178,8 +188,6 @@ lvim.plugins = { { "nvim-lua/lsp_extensions.nvim" }, { "folke/tokyonight.nvim" }
       debug = false, -- Print debug information
       opacity = nil, -- 0-100 opacity level of the floating window where 100 is fully transparent.
       post_open_hook = nil, -- A function taking two arguments, a buffer and a window to be ran as a hook.
-      -- You can use "default_mappings = true" setup option
-      -- Or explicitly set keybindings
       vim.cmd("nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>"),
       vim.cmd("nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>"),
       vim.cmd("nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>")
@@ -195,33 +203,20 @@ lvim.plugins = { { "nvim-lua/lsp_extensions.nvim" }, { "folke/tokyonight.nvim" }
   "Pocco81/AutoSave.nvim",
   config = function()
     require("autosave").setup(
-    -- {
-    --     enabled = true,
-    --     execution_message = "AutoSave: saved at " .. vim.fn.strftime("%H:%M:%S"),
-    --     events = {"InsertLeave", "TextChanged"},
-    --     conditions = {
-    --         exists = true,
-    --         filename_is_not = {},
-    --         filetype_is_not = {},
-    --         modifiable = true
-    --     },
-    --     write_all_buffers = false,
-    --     on_off_commands = true,
-    --     clean_command_line_interval = 0,
-    --     debounce_delay = 1000
-    -- }
     )
   end
 }, {
   "lukas-reineke/indent-blankline.nvim",
   event = "BufRead",
+  show_current_context_start = true,
   setup = function()
-    vim.g.indentLine_enabled = 1
-    vim.g.indent_blankline_char = "▏"
+    -- vim.g.indentLine_enabled = 1
+    -- vim.g.indent_blankline_char = "▏"
     vim.g.indent_blankline_filetype_exclude = { "help", "terminal", "dashboard" }
     vim.g.indent_blankline_buftype_exclude = { "terminal" }
     vim.g.indent_blankline_show_trailing_blankline_indent = false
     vim.g.indent_blankline_show_first_indent_level = false
+    vim.g.indent_blankline_context_char_list = { '┃', '║', '╬', '█' }
   end
 }, {
   -- open url with gx
@@ -240,5 +235,10 @@ lvim.plugins = { { "nvim-lua/lsp_extensions.nvim" }, { "folke/tokyonight.nvim" }
 {
   "zbirenbaum/copilot-cmp",
   after = { "copilot.lua", "nvim-cmp" },
+},
+{
+  -- if you use windows, you need $HOME/.wakatime/wakatime-cli.exe
+  -- In my case, I renamed wakatime-cli-windows-amd64.exe to wakatime-cli.exe.
+  "wakatime/vim-wakatime"
 }
 }
