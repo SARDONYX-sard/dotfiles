@@ -8,7 +8,7 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
     @{ name = "gitConf"; option = "config --global -e" }
 
     @{ name = "gc"; option = "commit" }
-    @{ name = "gl"; option = "log" }
+    @{ name = "gl"; option = "log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'" }
     @{ name = "gp"; option = "push" }
 
     @{ name = "ga"; option = "add" }
