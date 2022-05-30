@@ -14,14 +14,8 @@ function prompt {
   #>
 
   . "$($HelperDir)/shell-design.ps1"
+  . "$($HelperDir)/index.lazy.ps1"
+  if ($PSVersionTable.PSEdition -eq "Core") {
+    . "$($HelperDir)/shell-behavior-core.ps1"
+  }
 }
-
-if ($PSVersionTable.PSEdition -eq "Core") {
-  . "$($HelperDir)/shell-behavior-core.ps1"
-
-  #! v7.90.1: Putting oh-my-posh in a separate file did not work, so put it here
-  oh-my-posh --init --shell pwsh --config "$HOME\dotfiles\common\data\oh-my-posh-themes\my-custom.json" | Invoke-Expression
-}
-
-#! Emergency switch to synchronous loading because it stopped loading for some reason.
-. "$($HelperDir)/index.lazy.ps1"

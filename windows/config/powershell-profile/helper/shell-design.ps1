@@ -44,4 +44,7 @@ function Get-ShortenPath([string] $path) {
   return $path.Replace($HOME, '~').Replace('^[^:]+::', '').Replace('\(.?)([^\])[^\]*(?=\)', '$1$2')
 }
 
+if ($PSVersionTable.PSEdition -eq "Core") {
+  oh-my-posh --init --shell pwsh --config "$HOME\dotfiles\common\data\oh-my-posh-themes\my-custom.json" | Invoke-Expression
+}
 Set-KaliTheme
