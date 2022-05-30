@@ -1,5 +1,5 @@
 function g
-  if set -l REPO (ghq list | fzf)
-    cd (ghq root)"/$REPO"
-  end
+    if set -l REPO (ghq list | fzf)
+        cd (ghq root)"/$REPO"
+    end
 end
