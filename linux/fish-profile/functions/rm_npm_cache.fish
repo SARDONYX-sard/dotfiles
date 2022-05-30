@@ -1,3 +1,3 @@
 function rm_npm_cache
-  /bin/rm -rf ~/.npm
+    /bin/rm -rf ~/.npm
 end

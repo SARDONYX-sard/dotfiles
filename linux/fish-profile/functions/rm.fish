@@ -1,3 +1,3 @@
 function rm
-  echo "rm is disabled, use trash or /bin/rm instead."
+    echo "rm is disabled, use trash or /bin/rm instead."
 end
