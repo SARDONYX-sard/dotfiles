@@ -12,7 +12,7 @@ function New-DynamicFunction {
 
 $ImportBaseDirectory = "$HOME\dotfiles\windows\config\powershell-profile\helper";
 
-@("common", "external-modules-settings", "linux-compatible", "powershell-only") | ForEach-Object {
+@("behaviors", "common", "external-modules-settings", "linux-compatible", "powershell-only") | ForEach-Object {
   $ImportFullDirectory = "$ImportBaseDirectory\$_";
 
   if (Test-Path $ImportFullDirectory) {
