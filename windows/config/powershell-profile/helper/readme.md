@@ -15,3 +15,12 @@
 - Only some functions added dynamically by New-DynamicFunction, module settings,
   tab completion, etc. can be lazy-loaded. Normal functions will fail to load
   lazily.
+
+## shell-design.ps1
+
+- Delayed loading of oh-my-posh and other functions to speed up terminal
+  startup.
+
+- When pwsh.exe starts, a simple terminal design is loaded.
+
+- When any command is executed, oh-my-posh design is applied.
