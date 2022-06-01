@@ -26,10 +26,7 @@ lvim.builtin.lualine.sections.lualine_y = {
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
--- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
--- unmap a default keymapping
-lvim.keys.normal_mode["<C-Up>"] = false
 -- edit a default keymapping
 lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
 
@@ -66,7 +63,6 @@ lvim.builtin.which_key.mappings["t"] = {
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.show_icons.git = 0
 
 -- Add executables to config.lua { exec, keymap, name}
 lvim.builtin.terminal.execs = { { "lazygit", "tg", "lazygit" }, { "pwsh", "tp", "Powershell Core" }, { "zsh", "tz", "zsh" },
@@ -80,8 +76,8 @@ local languages =
 
 -- Syntax highlighting
 lvim.builtin.treesitter.ensure_installed = languages
-lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
+
 -- Language server
 lvim.lsp.automatic_servers_installation = true
 
@@ -106,7 +102,7 @@ end
 
 
 -- -------------------------------------------------------------------------------------------------
--- -- set a formatter, this will override the language server formatting capabilities (if it exists)
+-- set a formatter, this will override the language server formatting capabilities (if it exists)
 -- -------------------------------------------------------------------------------------------------
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup { {
@@ -129,7 +125,7 @@ formatters.setup { {
 } }
 
 -- -------------------------------------------------------------------------------------------------
--- -- set additional linters
+-- set additional linters
 -- -------------------------------------------------------------------------------------------------
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup { {
