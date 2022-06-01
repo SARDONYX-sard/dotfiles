@@ -1,5 +1,25 @@
 Set-PSReadLineOption -BellStyle None
-Set-PSReadLineOption -EditMode Vi
+
+Set-PsReadLineOption -EditMode Vi
+
+
+if (Get-Command nvim -ErrorAction SilentlyContinue) {
+  $env:EDITOR = $env:VISUAL = 'nvim'
+}
+
+# refference: https://github.com/PowerShell/PSReadLine/issues/3159
+Set-PSReadLineOption -ViModeIndicator Script -ViModeChangeHandler {
+  $ESC = "$([char]0x1b)"
+  if ($args[0] -eq 'Command') {
+    # Set the cursor to a blinking block.
+    Write-Host -NoNewline "${ESC}[1 q"
+  }
+  else {
+    # Set the cursor to a blinking line.
+    Write-Host -NoNewline "${ESC}[5 q"
+  }
+}
+
 # https://github.com/PowerShell/PSReadLine/blob/master/PSReadLine/SamplePSReadLineProfile.ps1
 Set-PSReadlineOption -HistoryNoDuplicates
 
