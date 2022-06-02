@@ -46,6 +46,7 @@
     "nologo",
     "nonewline",
     "noreport",
+    "nvim",
     "pipx",
     "pnpm",
     "powerline",

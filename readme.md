@@ -189,4 +189,8 @@ See below.
 
 ## License
 
-Unlicense
+`nvim/init.lua`:
+
+GPL-3.0 license <https://github.com/LunarVim/LunarVim/blob/rolling/LICENSE>
+
+Other: Unlicense
