@@ -62,6 +62,11 @@ $files = @(
   @{ target = "ginit.vim"; path = "AppData/Local/nvim" }
   # lunarvim
   @{ target = "lvim-config.lua"; fullpath = [IO.Path]::Combine($HOME, "AppData/Local/lvim/config.lua"); }
+  @{ target = "lvim-config.lua"; fullpath = [IO.Path]::Combine($HOME, "AppData/Local/nvim/config.lua"); }
+  @{ target = "nvim/init.lua"; fullpath = [IO.Path]::Combine($HOME, "AppData/Local/nvim/lua/init.lua"); }
+  @{ target = "$HOME\AppData\Roaming\lunarvim\lvim\lua\lvim"; fullpath = [IO.Path]::Combine($HOME, "AppData/Local/nvim/lua"); }
+
+
 
   # Terminal
   $terminalPath = [IO.Path]::Combine($env:LocalAppData, "Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json")
