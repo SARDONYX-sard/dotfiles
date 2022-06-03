@@ -90,7 +90,6 @@ vim.opt.fileencoding = "utf-8" -- the encoding written to a file
 vim.opt.fileformats = "unix" -- use unix line endings for windows too.(if you want to change, you can use :set ff=dos)
 vim.opt.list = true
 vim.opt.listchars:append("space:⋅")
-vim.opt.listchars:append("eol:↴")
 
 -- For rust-analayzer TypeHint
 vim.cmd [[ autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = '=>', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} } ]]
