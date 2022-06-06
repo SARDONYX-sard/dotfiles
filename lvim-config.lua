@@ -19,9 +19,9 @@ lvim.builtin.lualine.style = "default"
 local components = require("lvim.core.lualine.components")
 lvim.builtin.lualine.sections.lualine_a = { "mode" }
 lvim.builtin.lualine.sections.lualine_y = {
-  components.diagnostics,
-  components.lsp,
-  components.scrollbar,
+    components.diagnostics,
+    components.lsp,
+    components.scrollbar,
 }
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
@@ -34,28 +34,28 @@ lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
 local _, actions = pcall(require, "telescope.actions")
 lvim.builtin.telescope.defaults.mappings = {
-  -- for input mode
-  i = {
-    ["<C-j>"] = actions.move_selection_next,
-    ["<C-k>"] = actions.move_selection_previous,
-    ["<C-n>"] = actions.cycle_history_next,
-    ["<C-p>"] = actions.cycle_history_prev
-  },
-  -- for normal mode
-  n = {
-    ["<C-j>"] = actions.move_selection_next,
-    ["<C-k>"] = actions.move_selection_previous
-  }
+    -- for input mode
+    i = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+        ["<C-n>"] = actions.cycle_history_next,
+        ["<C-p>"] = actions.cycle_history_prev
+    },
+    -- for normal mode
+    n = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous
+    }
 }
 
 lvim.builtin.which_key.mappings["t"] = {
-  name = "Diagnostics",
-  t = { "<cmd>TroubleToggle<cr>", "trouble" },
-  w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace" },
-  d = { "<cmd>TroubleToggle document_diagnostics<cr>", "document" },
-  q = { "<cmd>TroubleToggle quickfix<cr>", "quickfix" },
-  l = { "<cmd>TroubleToggle loclist<cr>", "loclist" },
-  r = { "<cmd>TroubleToggle lsp_references<cr>", "references" },
+    name = "Diagnostics",
+    t = { "<cmd>TroubleToggle<cr>", "trouble" },
+    w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace" },
+    d = { "<cmd>TroubleToggle document_diagnostics<cr>", "document" },
+    q = { "<cmd>TroubleToggle quickfix<cr>", "quickfix" },
+    l = { "<cmd>TroubleToggle loclist<cr>", "loclist" },
+    r = { "<cmd>TroubleToggle lsp_references<cr>", "references" },
 }
 
 -- TODO: User Config for predefined plugins
@@ -65,8 +65,12 @@ lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 
 -- Add executables to config.lua { exec, keymap, name}
-lvim.builtin.terminal.execs = { { "lazygit", "tg", "lazygit" }, { "pwsh", "tp", "Powershell Core" }, { "zsh", "tz", "zsh" },
-  { "pwsh -Command \"& {mingw64 -shell zsh }\"", "tm", "MinGW64" } }
+lvim.builtin.terminal.execs = {
+    { "lazygit", "tg", "lazygit" },
+    { "pwsh", "tp", "Powershell Core" },
+    { "zsh", "tz", "zsh" },
+    { "pwsh -Command \"& {mingw64 -shell zsh }\"", "tm", "MinGW64" }
+}
 
 -- -------------------------------------------------------------------------------------------------
 -- Languages settings
@@ -89,14 +93,13 @@ vim.opt.fileencoding = "utf-8" -- the encoding written to a file
 -- fileformat is local. fileformats is global.see more...(https://vim.fandom.com/wiki/File_format)
 vim.opt.fileformats = "unix" -- use unix line endings for windows too.(if you want to change, you can use :set ff=dos)
 vim.opt.list = true
-vim.opt.listchars:append("space:⋅")
 
 -- For rust-analayzer TypeHint
 vim.cmd [[ autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = '=>', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} } ]]
 
 if vim.fn.has("wsl") then
-  -- For WSL clipboard issue.
-  vim.cmd [[ autocmd TextYankPost * if v:event.operator ==# 'y' | call system('/mnt/c/Windows/System32/clip.exe', @0) | endif ]]
+    -- For WSL clipboard issue.
+    vim.cmd [[ autocmd TextYankPost * if v:event.operator ==# 'y' | call system('/mnt/c/Windows/System32/clip.exe', @0) | endif ]]
 end
 
 
@@ -104,157 +107,165 @@ end
 -- set a formatter, this will override the language server formatting capabilities (if it exists)
 -- -------------------------------------------------------------------------------------------------
 local formatters = require "lvim.lsp.null-ls.formatters"
-formatters.setup { {
-  command = "black",
-  filetypes = { "python" }
-}, {
-  command = "isort",
-  filetypes = { "python" }
-}, {
-  -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
-  command = "prettier",
-  ---@usage arguments to pass to the formatter
-  -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-  extra_args = { "--print-with", "100" },
-  ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-  filetypes = { "typescript", "typescriptreact" }
-}, {
-  command = "gofmt",
-  filetypes = { "go" }
-} }
+formatters.setup {
+    {
+        command = "black",
+        filetypes = { "python" }
+    },
+    {
+        command = "isort",
+        filetypes = { "python" }
+    },
+    {
+        -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+        command = "prettier",
+        ---@usage arguments to pass to the formatter
+        -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+        extra_args = { "--print-with", "100" },
+        ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+        filetypes = { "typescript", "typescriptreact" }
+    },
+    {
+        command = "gofmt",
+        filetypes = { "go" }
+    }
+}
 
 -- -------------------------------------------------------------------------------------------------
 -- set additional linters
 -- -------------------------------------------------------------------------------------------------
 local linters = require "lvim.lsp.null-ls.linters"
-linters.setup { {
-  command = "codespell",
-  filetypes = { "bash", "go", "javascript", "json", "lua", "python", "typescript", "css", "rust", "java", "yaml" }
-}, {
-  command = "flake8",
-  filetypes = { "python" }
-}, {
-  command = "shellcheck",
-  extra_args = { "--severity", "warning" }
-}, {
-  command = "eslint_d",
-  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
-} }
+linters.setup {
+    {
+        command = "codespell",
+        filetypes = { "bash", "go", "javascript", "json", "lua", "python", "typescript", "css", "rust", "java", "yaml" }
+    },
+    {
+        command = "flake8",
+        filetypes = { "python" }
+    },
+    {
+        command = "shellcheck",
+        extra_args = { "--severity", "warning" }
+    },
+    {
+        command = "eslint_d",
+        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
+    }
+}
 
 -- Additional Plugins
 lvim.plugins = {
-  {
-    "nvim-lua/lsp_extensions.nvim"
-  },
-  {
-    "folke/tokyonight.nvim"
-  },
-  {
-    "folke/trouble.nvim",
-    cmd = "TroubleToggle",
-  },
-  {
-    "nacro90/numb.nvim",
-    event = "BufRead",
-    config = function()
-      require("numb").setup {
-        show_numbers = true, -- Enable 'number' for the window while peeking
-        show_cursorline = true -- Enable 'cursorline' for the window while peeking
-      }
-    end
-  },
-  {
-    "windwp/nvim-ts-autotag",
-    event = "InsertEnter",
-    config = function()
-      require("nvim-ts-autotag").setup()
-    end
-  },
-  {
-    "p00f/nvim-ts-rainbow"
-  },
-  {
-    "norcalli/nvim-colorizer.lua",
-    config = function()
-      require("colorizer").setup({ "*" }, {
-        RGB = true, -- #RGB hex codes
-        RRGGBB = true, -- #RRGGBB hex codes
-        RRGGBBAA = true, -- #RRGGBBAA hex codes
-        rgb_fn = true, -- CSS rgb() and rgba() functions
-        hsl_fn = true, -- CSS hsl() and hsla() functions
-        css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-        css_fn = true -- Enable all CSS *functions*: rgb_fn, hsl_fn
-      })
-    end
-  },
-  {
-    "rmagatti/goto-preview",
-    config = function()
-      require('goto-preview').setup {
-        width = 120, -- Width of the floating window
-        height = 25, -- Height of the floating window
-        default_mappings = true, -- Bind default mappings
-        debug = false, -- Print debug information
-        opacity = nil, -- 0-100 opacity level of the floating window where 100 is fully transparent.
-        post_open_hook = nil, -- A function taking two arguments, a buffer and a window to be ran as a hook.
-        vim.cmd("nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>"),
-        vim.cmd("nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>"),
-        vim.cmd("nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>")
-      }
-    end
-  },
-  {
-    "ray-x/lsp_signature.nvim",
-    event = "BufRead",
-    config = function()
-      require "lsp_signature".setup()
-    end
-  },
-  {
-    "Pocco81/AutoSave.nvim",
-    config = function()
-      require("autosave").setup(
-      )
-    end
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "BufRead",
-    show_current_context_start = true,
-    setup = function()
-      -- vim.g.indentLine_enabled = 1
-      -- vim.g.indent_blankline_char = "▏"
-      vim.g.indent_blankline_filetype_exclude = { "help", "terminal", "dashboard" }
-      vim.g.indent_blankline_buftype_exclude = { "terminal" }
-      vim.g.indent_blankline_show_trailing_blankline_indent = false
-      vim.g.indent_blankline_show_first_indent_level = false
-      vim.g.indent_blankline_context_char_list = { '┃', '║', '╬', '█' }
-    end
-  },
-  {
-    -- open url with gx
-    "felipec/vim-sanegx",
-    event = "BufRead"
-  },
-  {
-    "github/copilot.vim"
-  },
-  {
-    "zbirenbaum/copilot.lua",
-    event = { "VimEnter" },
-    config = function()
-      vim.defer_fn(function()
-        require("copilot").setup()
-      end, 100)
-    end
-  },
-  {
-    "zbirenbaum/copilot-cmp",
-    after = { "copilot.lua", "nvim-cmp" },
-  },
-  {
-    -- if you use windows, you need $HOME/.wakatime/wakatime-cli.exe
-    -- In my case, I renamed wakatime-cli-windows-amd64.exe to wakatime-cli.exe.
-    "wakatime/vim-wakatime"
-  }
+    {
+        "nvim-lua/lsp_extensions.nvim"
+    },
+    {
+        "folke/tokyonight.nvim"
+    },
+    {
+        "folke/trouble.nvim",
+        cmd = "TroubleToggle",
+    },
+    {
+        "nacro90/numb.nvim",
+        event = "BufRead",
+        config = function()
+            require("numb").setup {
+                show_numbers = true, -- Enable 'number' for the window while peeking
+                show_cursorline = true -- Enable 'cursorline' for the window while peeking
+            }
+        end
+    },
+    {
+        "windwp/nvim-ts-autotag",
+        event = "InsertEnter",
+        config = function()
+            require("nvim-ts-autotag").setup()
+        end
+    },
+    {
+        "p00f/nvim-ts-rainbow"
+    },
+    {
+        "norcalli/nvim-colorizer.lua",
+        config = function()
+            require("colorizer").setup({ "*" }, {
+                RGB = true, -- #RGB hex codes
+                RRGGBB = true, -- #RRGGBB hex codes
+                RRGGBBAA = true, -- #RRGGBBAA hex codes
+                rgb_fn = true, -- CSS rgb() and rgba() functions
+                hsl_fn = true, -- CSS hsl() and hsla() functions
+                css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+                css_fn = true -- Enable all CSS *functions*: rgb_fn, hsl_fn
+            })
+        end
+    },
+    {
+        "rmagatti/goto-preview",
+        config = function()
+            require('goto-preview').setup {
+                width = 120, -- Width of the floating window
+                height = 25, -- Height of the floating window
+                default_mappings = true, -- Bind default mappings
+                debug = false, -- Print debug information
+                opacity = nil, -- 0-100 opacity level of the floating window where 100 is fully transparent.
+                post_open_hook = nil, -- A function taking two arguments, a buffer and a window to be ran as a hook.
+                vim.cmd("nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>"),
+                vim.cmd("nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>"),
+                vim.cmd("nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>")
+            }
+        end
+    },
+    {
+        "ray-x/lsp_signature.nvim",
+        event = "BufRead",
+        config = function()
+            require "lsp_signature".setup()
+        end
+    },
+    {
+        "Pocco81/AutoSave.nvim",
+        config = function()
+            require("autosave").setup(
+            )
+        end
+    },
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        event = "BufRead",
+        setup = function()
+            vim.g.indentLine_enabled = 1
+            vim.g.indent_blankline_char = "▏"
+            vim.g.indent_blankline_filetype_exclude = { "help", "terminal", "dashboard" }
+            vim.g.indent_blankline_buftype_exclude = { "terminal" }
+            vim.g.indent_blankline_show_trailing_blankline_indent = false
+            vim.g.indent_blankline_show_first_indent_level = false
+        end
+    },
+    {
+        -- open url with gx
+        "felipec/vim-sanegx",
+        event = "BufRead"
+    },
+    {
+        "github/copilot.vim"
+    },
+    {
+        "zbirenbaum/copilot.lua",
+        event = { "VimEnter" },
+        config = function()
+            vim.defer_fn(function()
+                require("copilot").setup()
+            end, 100)
+        end
+    },
+    {
+        "zbirenbaum/copilot-cmp",
+        after = { "copilot.lua", "nvim-cmp" },
+    },
+    {
+        -- if you use windows, you need $HOME/.wakatime/wakatime-cli.exe
+        -- In my case, I renamed wakatime-cli-windows-amd64.exe to wakatime-cli.exe.
+        "wakatime/vim-wakatime"
+    }
 }
