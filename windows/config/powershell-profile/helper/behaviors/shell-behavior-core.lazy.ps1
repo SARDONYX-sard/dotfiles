@@ -52,7 +52,7 @@ if ($PSVersionTable.PSEdition -eq "Core") {
   }
 
 
-  Set-PSReadLineOption -WordDelimiters ";:,.[]{}()/\|^&*-=+'`" !?@#$%&_<>「」（）『』『』［］、，。：；／"
+  Set-PSReadLineOption -WordDelimiters ";:,.[]{}()/\|^&*-=+'`" !?@#$%&_<>"
 
 
   Set-PSReadLineKeyHandler -Key "`"", "'" -BriefDescription "smartQuotation" -LongDescription "Put quotation marks and move the cursor between them or put marks around the selection" -ScriptBlock {
@@ -101,10 +101,9 @@ if ($PSVersionTable.PSEdition -eq "Core") {
       [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($selectionStart + $selectionLength + 2)
     }
     else {
-      [Microsoft.PowerShell.PSConsoleReadLine]::Replace(0, $line.Length, '(' + $line + ')')
+      [Microsoft.PowerShell.PSConsoleReadLine]::Replace(0, $line.Length, "(" + $line + ')')
       [Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine()
     }
   }
-
 
 }
