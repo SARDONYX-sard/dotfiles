@@ -134,7 +134,6 @@ Remove-Item $HOME\scoop\apps\keyhac\current\_config.py
 scoop install bottom           # Resource monitor with CLI (https://github.com/ClementTsang/bottom)
 scoop install broot            # A better way to navigate directories
 scoop install concfg           # Import and export Windows console settings (https://github.com/lukesampson/concfg)
-scoop install dockercompletion
 scoop install fzf              # A command-line fuzzy finder written in go.(https://github.com/junegunn/fzf)
 scoop install gh               # GitHub Action in local PC.(https://cli.github.com/manual/)
 scoop install k9s              # Kubernetes wrapper
@@ -143,6 +142,13 @@ scoop install lazygit          # Better useful Git wrapper
 scoop install gitui            # GitUI provides you with the comfort of a git GUI but right in your terminal
 scoop install scoop-search     # Makes scoop search 50 times faster.(https://github.com/shilangyu/scoop-search)
 scoop install tokei            # A terminal code analyzer.
+
+# --------------------------------------------------------------------------------------------------
+# Completion
+# --------------------------------------------------------------------------------------------------
+scoop install dockercompletion
+scoop install scoop-completion
+scoop install npm-completion
 
 
 # --------------------------------------------------------------------------------------------------
