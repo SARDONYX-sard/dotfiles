@@ -19,8 +19,9 @@ endif
 
 " vim settings
 if !has('nvim')
-    :set number " show line numbers
     :set clipboard+=unnamed
+    :set number  " show line numbers
+    :set showcmd " show temporary commands
 
     :map <Space> <Leader>
     :map <Leader>q :q!<CR>
