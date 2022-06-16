@@ -4,9 +4,11 @@ using namespace System.Management.Automation.Language
 
 if ($PSVersionTable.PSEdition -eq "Core") {
   . "$HOME\scoop\apps\bottom\current\completion\_btm.ps1"
-  if (Get-Command docker) { Import-Module DockerCompletion }
-  if (Get-Command node) { Import-Module npm-completion }
-  Import-Module "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.FullName)\modules\scoop-completion"
+  if (Get-Command docker -ErrorAction SilentlyContinue) { Import-Module DockerCompletion }
+  if (Get-Command node -ErrorAction SilentlyContinue) { Import-Module npm-completion }
+  if (Get-Command scoop.ps1  -ErrorAction SilentlyContinue) {
+    Import-Module "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.FullName)\modules\scoop-completion"
+  }
 
   # Shows navigable menu of all options when hitting Tab
   Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
