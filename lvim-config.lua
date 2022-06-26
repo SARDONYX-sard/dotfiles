@@ -247,22 +247,22 @@ lvim.plugins = {
         "felipec/vim-sanegx",
         event = "BufRead"
     },
-    {
-        "github/copilot.vim"
-    },
-    {
-        "zbirenbaum/copilot.lua",
-        event = { "VimEnter" },
-        config = function()
-            vim.defer_fn(function()
-                require("copilot").setup()
-            end, 100)
-        end
-    },
-    {
-        "zbirenbaum/copilot-cmp",
-        after = { "copilot.lua", "nvim-cmp" },
-    },
+    -- {
+    --     "github/copilot.vim"
+    -- },
+    -- {
+    --     "zbirenbaum/copilot.lua",
+    --     event = { "VimEnter" },
+    --     config = function()
+    --         vim.defer_fn(function()
+    --             require("copilot").setup()
+    --         end, 100)
+    --     end
+    -- },
+    -- {
+    --     "zbirenbaum/copilot-cmp",
+    --     after = { "copilot.lua", "nvim-cmp" },
+    -- },
     {
         -- if you use windows, you need $HOME/.wakatime/wakatime-cli.exe
         -- In my case, I renamed wakatime-cli-windows-amd64.exe to wakatime-cli.exe.
