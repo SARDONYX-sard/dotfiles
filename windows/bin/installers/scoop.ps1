@@ -173,6 +173,13 @@ scoop install ctags # For jump to reference
 
 
 # --------------------------------------------------------------------------------------------------
+# Binaly Analysis
+# --------------------------------------------------------------------------------------------------
+scoop install radare2 # use r2 command
+scoop install ollydbg # binary analyzer GUI
+# sudo scoop install ida-free # Need Administrator. GUI
+
+# --------------------------------------------------------------------------------------------------
 # PowerShell Modules
 # --------------------------------------------------------------------------------------------------
 scoop install posh-git         # Git tab completion (https://github.com/dahlbyk/posh-git)
