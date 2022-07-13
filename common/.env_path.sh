@@ -38,6 +38,10 @@ export DOCKER_CONTENT_TRUST=1
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
+# bun(Incredibly fast JavaScript runtime, bundler, transpiler and package manager)
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
 # opam configuration
 
 if [[ "$SHELL" =~ zsh ]]; then
