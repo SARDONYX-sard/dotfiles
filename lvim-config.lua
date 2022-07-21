@@ -92,7 +92,15 @@ vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboar
 vim.opt.fileencoding = "utf-8" -- the encoding written to a file
 -- fileformat is local. fileformats is global.see more...(https://vim.fandom.com/wiki/File_format)
 vim.opt.fileformats = "unix" -- use unix line endings for windows too.(if you want to change, you can use :set ff=dos)
--- vim.opt.list = true
+
+vim.opt.list = true
+vim.opt.listchars = {
+    eol = '↵',
+    nbsp = '␣',
+    -- space = '·'
+    tab = '>-',
+    trail = '·',
+}
 
 -- For rust-analayzer TypeHint
 vim.cmd [[ autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = '=>', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} } ]]
@@ -243,7 +251,6 @@ lvim.plugins = {
         end
     },
     {
-        -- open url with gx
         "felipec/vim-sanegx",
         event = "BufRead"
     },
