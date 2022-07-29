@@ -1,5 +1,12 @@
 -- ii $HOME/AppData/Local/lvim/config.lua
--- windows: ii $HOME\AppData\Roaming\lunarvim\lvim
+-- windows: ii "$HOME\AppData\Roaming\lunarvim\lvim"
+
+-- lvim packer dir: ii "$HOME\AppData\Roaming\lunarvim\site\pack\packer"
+-- lvim compiled.lua: ii "$HOME\AppData\Local\lvim\plugin"
+
+-- nvim packer dir: ii "$HOME\AppData\local\lunarvim\site\pack\packer"
+-- nvim compiled.lua: ii "$HOME\AppData\Local\nvim\plugin"
+
 --[[
 lvim is the global options object
 
