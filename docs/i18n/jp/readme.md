@@ -2,6 +2,12 @@
 
 [English](https://github.com/SARDONYX-sard/dotfiles) | 日本語
 
+## 重要
+
+このdotfilesは私用に最適化されているため直接使用することはオススメできません。
+
+`use template`を使用することを強く推奨します。
+
 <p align="center">
   <img src="./docs/images/../../../../images/terminals.jpg" alt="terminals" height="300" width="800"/>
 </p>
@@ -12,6 +18,7 @@
 ## 目次
 
 - [dotfiles](#dotfiles)
+  - [重要](#重要)
   - [目次](#目次)
   - [機能](#機能)
   - [作者の動作環境](#作者の動作環境)
