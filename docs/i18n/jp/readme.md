@@ -4,9 +4,9 @@
 
 ## 重要
 
-このdotfilesは私用に最適化されているため直接使用することはオススメできません。
+**このdotfilesは私用に最適化されているため直接使用することはオススメできません。**
 
-`use template`を使用することを強く推奨します。
+**`use template`を使用することを強く推奨します。**
 
 <p align="center">
   <img src="./docs/images/../../../../images/terminals.jpg" alt="terminals" height="300" width="800"/>

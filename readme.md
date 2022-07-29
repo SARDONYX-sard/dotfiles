@@ -4,10 +4,10 @@ English | [日本語](./docs/i18n/jp/readme.md)
 
 ## Important
 
-This dotfiles is optimized for private use and is not recommended for direct
-use.
+**This dotfiles is optimized for private use and is not recommended for direct**
+**use.**
 
-It is strongly recommended to use `use template`.
+**It is strongly recommended to use `use template`.**
 
 <p align="center">
   <img src="./docs/images/terminals.jpg" alt="terminals" height="300" width="800"/>
