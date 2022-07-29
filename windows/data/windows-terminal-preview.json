@@ -66,6 +66,23 @@
         "useAcrylic": false
       },
       {
+        "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u81ea\u7136\\\u8776\\cat-and-butterfly.png",
+        "backgroundImageOpacity": 0.0,
+        "bellStyle": "none",
+        "colorScheme": "Campbell",
+        "commandline": "pwsh.exe -NoExit -Command \"&{Import-Module \"\"\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\Tools\\Microsoft.VisualStudio.DevShell.dll\"\"\"; Enter-VsDevShell 3f90b5ca -SkipAutomaticLocation -DevCmdArguments \"\"\"-arch=x64 -host_arch=x64\"\"\"}\"",
+        "font": {
+          "face": "CodeNewRoman NF"
+        },
+        "guid": "{5fd8dc38-7764-4530-b21b-dbc14d674d7d}",
+        "hidden": false,
+        "icon": "ms-appx:///ProfileIcons/pwsh.png",
+        "name": "VS Studio2022 pwsh",
+        "opacity": 65,
+        "startingDirectory": "%USERPROFILE%",
+        "useAcrylic": false
+      },
+      {
         "antialiasingMode": "grayscale",
         "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u81ea\u7136\\nature-3082832_960_720.jpg",
         "backgroundImageOpacity": 0.0,
