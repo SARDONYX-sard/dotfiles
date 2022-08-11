@@ -10,6 +10,7 @@ function update-all-libs {
     @{ name = "deno"; installer = "deno upgrade" }
     @{ name = "PowerShell"; installer = "Update-Module -Force" }
     @{ name = "cargo"; installer = "cargo install-update -a" }
+    @{ name = "rustup"; installer = "rustup update" }
 
     # python
     @{ name = "pip-review"; installer = "pip-review -a" }
