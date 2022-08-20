@@ -185,8 +185,10 @@ def configure(keymap: Keymap):
         def sleep():  # https://qiita.com/sharow/items/ef78f2f5a8053f6a7a41
             shellExecute(
                 None,
-                "powershell.exe", "-Command \"Add-Type -Assembly \
-                System.Windows.Forms;[System.Windows.Forms.Application]::SetSuspendState(\'Suspend\', $false, $false);\"", "")
+                "powershell.exe",
+                "-NoProfile -Command \"Add-Type -Assembly \
+                System.Windows.Forms;[System.Windows.Forms.Application]::SetSuspendState(\'Suspend\', $false, $false);\"",
+                "")
 
         def open_windows_terminal():
             shellExecute(
