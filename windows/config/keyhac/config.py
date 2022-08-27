@@ -50,7 +50,7 @@ def configure(keymap: Keymap):
 
         keymap_global["LCtrl-H"] = "Back"
         keymap_global["LCtrl-M"] = "Enter"
-        keymap_global["LCtrl-I"] = "Tab"
+        # keymap_global["LCtrl-I"] = "Tab"
         keymap_global["LCtrl-OpenBracket"] = "Escape"
 
         # USER0-Ctrl-Up/Down/Left/Right : Move active window to screen edges
