@@ -4,6 +4,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
+    image: sardonyx30/dotfiles
     tty: true
     volumes:
       - ./:/app
