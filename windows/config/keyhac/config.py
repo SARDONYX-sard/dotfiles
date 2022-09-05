@@ -232,7 +232,7 @@ def configure(keymap: Keymap):
         keymap.clipboard_history.enableHook(False)
 
         # Maximum number of clipboard history (Default:1000)
-        keymap.clipboard_history.maxnum = 100
+        keymap.clipboard_history.maxnum = 0
 
         # Total maximum size of clipboard history (Default:10MB)
         keymap.clipboard_history.quota = 10 * 1024 * 1024
