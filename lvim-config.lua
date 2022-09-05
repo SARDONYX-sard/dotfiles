@@ -90,7 +90,7 @@ lvim.builtin.treesitter.ensure_installed = languages
 lvim.builtin.treesitter.highlight.enabled = true
 
 -- Language server
-lvim.lsp.automatic_servers_installation = true
+lvim.lsp.installer.setup.automatic_servers_installation = true
 
 -- -------------------------------------------------------------------------------------------------
 -- Vim settings
