@@ -38,11 +38,6 @@ libs = [
         "url": "https://github.com/rust-embedded/cargo-binutils",
         "description": "Invoke the LLVM tools shipped with the Rust toolchain"
     },
-    {
-        "name": "cargo-binutils",
-        "url": "https://github.com/rust-embedded/cargo-binutils",
-        "description": "Invoke the LLVM tools shipped with the Rust toolchain"
-    },
 
     # Development
     {
