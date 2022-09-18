@@ -8,7 +8,7 @@ import os
 
 # pyauto  ref: (https://github.com/crftwr/pyauto/blob/master/doc/pyauto.py)
 # import pyauto
-from keyhac import shellExecute, getDesktopPath, getClipboardText, JobItem, JobQueue, CronItem, CronTable, cblister_FixedPhrase
+from keyhac import shellExecute, getDesktopPath, getClipboardText, cblister_FixedPhrase
 from keyhac import Keymap
 
 
@@ -19,7 +19,7 @@ def configure(keymap: Keymap):
 
     # Setting with program file path (Simple usage)
     if 1:
-        keymap.editor = "notepad++.exe"
+        keymap.editor = "nvim.exe"
 
     # --------------------------------------------------------------------
     # Customizing the display
@@ -59,13 +59,6 @@ def configure(keymap: Keymap):
         keymap_global["U0-C-W"] = keymap.MoveWindowToMonitorEdgeCommand(1)
         keymap_global["U0-C-S"] = keymap.MoveWindowToMonitorEdgeCommand(3)
 
-        # Clipboard history related
-        # Open the clipboard history list
-        keymap_global["U0-C-S-Z"] = keymap.command_ClipboardList
-        # Move the most recent history to tail
-        keymap_global["U0-C-S-X"] = keymap.command_ClipboardRotate
-        # Remove the most recent history
-        keymap_global["U0-C-S-A-X"] = keymap.command_ClipboardRemove
         # Mark for quote pasting
         keymap.quote_mark = "> "
 
@@ -75,41 +68,6 @@ def configure(keymap: Keymap):
         keymap_global["U0-2"] = keymap.command_RecordStop
         keymap_global["U0-3"] = keymap.command_RecordPlay
         keymap_global["U0-4"] = keymap.command_RecordClear
-
-    # us to js
-    # (https://ossyaritoori.hatenablog.com/entry/2020/09/16/Autohotkeyを用いてWindowsでUS配列キーボードをJIS配列設定で使)
-    if 0:
-        keymap.replaceKey("DoubleQuote", "Atmark")
-        keymap.replaceKey("And", "Caret")
-        keymap.replaceKey("singleQuote", "And")
-        keymap.replaceKey("Asterisk", "DoubleQuote")
-
-    # USER0-F2 : Test of sub thread execution using JobQueue/JobItem
-    if 1:
-        def command_jobtest():
-
-            def open_memo(job_item):
-                shellExecute(
-                    None,
-                    "notepad++.exe",
-                    "",
-                    "C:/Users/SARDONYX/OneDrive/文書")
-
-            def job_test_finished(job_item):
-                print("Done.")
-
-            job_item = JobItem(open_memo, job_test_finished)
-            JobQueue.defaultQueue().enqueue(job_item)
-
-        keymap_global["U0-F2"] = command_jobtest
-
-    # Test of Cron (periodic sub thread procedure)
-    if 0:
-        def cron_ping(cron_item):
-            os.system("ping -n 3 www.google.com")
-
-        cron_item = CronItem(cron_ping, 3.0)
-        CronTable.defaultCronTable().add(cron_item)
 
     # USER0-Space : Application launcher using custom list window
     if 1:
@@ -132,12 +90,6 @@ def configure(keymap: Keymap):
                      keymap.ShellExecuteCommand(
                          None,
                          "https://www.google.co.jp/",
-                         "",
-                         "")),
-                    ("Facebook",
-                     keymap.ShellExecuteCommand(
-                         None,
-                         "https://www.facebook.com/",
                          "",
                          "")),
                     ("Twitter",
