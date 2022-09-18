@@ -34,7 +34,7 @@ English | [日本語](./docs/i18n/jp/readme.md)
   - [Things you have to do manually](#things-you-have-to-do-manually)
     - [Windows-Terminal](#windows-terminal)
     - [.gitconfig](#gitconfig)
-  - [How it works](#how-it-works)
+  - [How it works(Too old..)](#how-it-workstoo-old)
   - [Reference site](#reference-site)
   - [License](#license)
 
@@ -45,7 +45,7 @@ English | [日本語](./docs/i18n/jp/readme.md)
 ## Author's operating environment
 
 - Windows11 Home
-- WSL(Ubuntu)
+- WSL(Ubuntu/ArchLinux)
 
 ## How to install
 
@@ -78,20 +78,24 @@ Set-ExecutionPolicy RemoteSigned
 
 Select either command.
 
+- **Recommended command**(The development language is put in manually.)
+
+```bash
+git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
+cd ~/dotfiles
+sudo bash "install-wsl.sh" --light --zsh
+```
+
 - Full size mode
 
 ```bash
-git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
+git clone --depth 1 -- https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
 cd ~/dotfiles
-sudo bash "install-wsl.sh --zsh"
-```
+sudo bash "install-wsl.sh"
 
-- Lightweight mode (does not automatically include the development language)
-
-```bash
-git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
-cd ~/dotfiles
-bash "install-wsl.sh" --light --zsh
+# Options
+# --zsh: Change default shell to zsh
+# --light: Lightweight mode (does not automatically include the development language)
 ```
 
 ---
@@ -101,11 +105,18 @@ bash "install-wsl.sh" --light --zsh
 1 In the PowerShell terminal
 
 ```powershell
-git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
+git clone  --depth 1 -- https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
 ```
 
-2 Execute one of the following commands in WSL. (You can specify zsh as the
-default shell with --zsh)
+2 Execute one of the following commands in WSL.
+
+- **Recommended command**(The development language is put in manually.)
+
+```bash
+export USERNAME=`cmd.exe /c echo %username%`
+cd /mnt/c/Users/${USERNAME}/dotfiles
+bash "install-wsl.sh" --light --zsh
+```
 
 - Full size mode
 
@@ -113,14 +124,10 @@ default shell with --zsh)
 export USERNAME=`cmd.exe /c echo %username%`
 cd /mnt/c/Users/${USERNAME}/dotfiles
 bash "./install-wsl.sh"
-```
 
-- Lightweight mode (does not automatically include development languages)
-
-```bash
-export USERNAME=`cmd.exe /c echo %username%`
-cd /mnt/c/Users/${USERNAME}/dotfiles
-bash "install-wsl.sh" --light --zsh
+# Options
+# --zsh: Change default shell to zsh
+# --light: Lightweight mode (does not automatically include the development language)
 ```
 
 ### Docker
@@ -179,7 +186,7 @@ git config --global user.name "Your name"
 git config --global user.email "Your email address"
 ```
 
-## How it works
+## How it works(Too old..)
 
 See below.
 
@@ -197,8 +204,16 @@ See below.
 
 ## License
 
-`nvim/init.lua`:
+- [apt-wrapper.sh](./common/apt-wrapper.sh): MIT
 
-GPL-3.0 license <https://github.com/LunarVim/LunarVim/blob/rolling/LICENSE>
+  Copyright (c) 2017- Josh Glendenning(<https://github.com/isobit/pac>),
+  SARDONYX
 
-Other: Unlicense
+- [pac-wrapper.sh](./common/pac-wrapper.sh): MIT
+
+  Copyright (c) 2017- Josh Glendenning(<https://github.com/isobit/pac>)
+
+- `nvim/init.lua`: GPL-3.0 license
+  <https://github.com/LunarVim/LunarVim/blob/rolling/LICENSE>
+
+- Other: Unlicense

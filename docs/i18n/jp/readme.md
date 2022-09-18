@@ -32,7 +32,7 @@
   - [手動でやらなければならないこと](#手動でやらなければならないこと)
     - [Windows-Terminal](#windows-terminal)
     - [.gitconfig](#gitconfig)
-  - [動作内容](#動作内容)
+  - [動作内容(要修正)](#動作内容要修正)
   - [参考サイト](#参考サイト)
   - [ライセンス](#ライセンス)
 
@@ -75,20 +75,24 @@ Set-ExecutionPolicy RemoteSigned
 
 どちらかのコマンドを選択します。
 
-- フルサイズモード
-
-```bash
-git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
-cd ~/dotfiles
-sudo bash "install-wsl.sh --zsh"
-```
-
-- 軽量モード(開発言語を自動で入れません)
+- **推奨コマンド**(開発言語は後ほど手動で入れます)
 
 ```bash
 git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
 cd ~/dotfiles
 bash "install-wsl.sh" --light --zsh
+```
+
+- フルサイズモード
+
+```bash
+git clone --depth 1 -- https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
+cd ~/dotfiles
+sudo bash "install-wsl.sh"
+
+# Options
+# --zsh: default shellをzshに変えます
+# --light: Lightweight mode (各言語を自動で入れません)
 ```
 
 ---
@@ -98,10 +102,20 @@ bash "install-wsl.sh" --light --zsh
 1. PowerShellターミナルにて
 
 ```powershell
-git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
+git clone  --depth 1 -- https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
 ```
 
-2.WSLで以下のコマンドのどれかを実行します。(--zshでzshをデフォルトシェルに指定できます)
+2 WSLのターミナルにて
+
+どちらかのコマンドを選択します。
+
+- **推奨コマンド**(開発言語は後ほど手動で入れます)
+
+```bash
+export USERNAME=`cmd.exe /c echo %username%`
+cd /mnt/c/Users/${USERNAME}/dotfiles
+bash "install-wsl.sh" --light --zsh
+```
 
 - フルサイズモード
 
@@ -109,14 +123,10 @@ git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
 export USERNAME=`cmd.exe /c echo %username%`
 cd /mnt/c/Users/${USERNAME}/dotfiles
 bash "./install-wsl.sh"
-```
 
-- 軽量モード(開発言語を自動で入れません)
-
-```bash
-export USERNAME=`cmd.exe /c echo %username%`
-cd /mnt/c/Users/${USERNAME}/dotfiles
-bash "install-wsl.sh" --light --zsh
+# Options
+# --zsh: default shellをzshに変えます
+# --light: Lightweight mode (各言語を自動で入れません)
 ```
 
 ---
@@ -170,7 +180,7 @@ git config --global user.name "ユーザ名"
 git config --global user.email "メールアドレス"
 ```
 
-## 動作内容
+## 動作内容(要修正)
 
 下記をご覧ください。
 
@@ -188,4 +198,16 @@ git config --global user.email "メールアドレス"
 
 ## ライセンス
 
-Unlicense
+- [apt-wrapper.sh](./common/apt-wrapper.sh): MIT
+
+  Copyright (c) 2017- Josh Glendenning(<https://github.com/isobit/pac>),
+  SARDONYX
+
+- [pac-wrapper.sh](./common/pac-wrapper.sh): MIT
+
+  Copyright (c) 2017- Josh Glendenning(<https://github.com/isobit/pac>)
+
+- `nvim/init.lua`: GPL-3.0 license
+  <https://github.com/LunarVim/LunarVim/blob/rolling/LICENSE>
+
+- Other: Unlicense
