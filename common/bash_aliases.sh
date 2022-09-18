@@ -64,26 +64,29 @@ alias gs="git status --short"
 # --------------------------------------------------------------------------------------------------
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-if (which rg) >/dev/null 2>&1; then
-  alias grep='rg' # need rust or apt
-fi
+# 
 
 # --------------------------------------------------------------------------------------------------
 # ls
 # --------------------------------------------------------------------------------------------------
-alias l="ls -GF"     # show grid `G`
-alias la="ls -aGF"   # show dotfile `a` show grid `G`
-alias ll='ls -al'    # list permission status
-alias lla="ls -alGF" # list grid permission status
+# -a, --all: Do not ignore entries starting with .
+# -l, --long: Display extended file metadata as a table
+# -F, --classify: Append indicator (one of */=>@|) at the end of the file names
+
+# -G, --no-group: in a long listing, don't print group names
+alias l="ls -GF"
+alias la="ls -aGF"
+alias ll='ls -al'
+alias lla="ls -alGF"
 
 if (which exa) >/dev/null 2>&1; then
   alias ls='exa --color=auto --time-style=long-iso -FH --icons' # need rust or apt
 elif (which lsd) >/dev/null 2>&1; then
-  alias l="lsd -F"     # Append indicator `F`
-  alias la="lsd -aF"   # show dotfile `a`, Append indicator `F`
-  alias ll='lsd -al'   # show dotfile `a`, list permission status `l`
-  alias lla="lsd -alF" # show dotfile `a`, list permission status `l`, Append indicator `F`
-  alias ls='lsd'       # need rust or scoop(scoop install lsd)
+  alias l="lsd -F"
+  alias la="lsd -aF"
+  alias ll='lsd -al'
+  alias lla="lsd -alF"
+  alias ls='lsd'
 fi
 
 # --------------------------------------------------------------------------------------------------
