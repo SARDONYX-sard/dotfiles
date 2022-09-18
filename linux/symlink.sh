@@ -39,6 +39,9 @@ fi
 # vim
 sudo ln -sf "$HOME_DIR"/dotfiles/init.vim "$HOME"/.vimrc
 
+# tmux
+sudo ln -sf "$HOME_DIR"/dotfiles/linux/.tmux.conf "$HOME"/.tmux.conf
+
 # Neovim
 mkdir -p "$HOME_DIR"/.config/nvim
 sudo ln -sf "$HOME_DIR"/dotfiles/init.vim "$HOME"/.config/nvim/init.vim
