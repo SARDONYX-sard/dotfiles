@@ -13,6 +13,7 @@
     "colortool",
     "commandline",
     "concfg",
+    "corepack",
     "ctags",
     "cython",
     "dein",
@@ -86,6 +87,11 @@
     ".gitignore": "ignore",
     "LICENSE": "txt"
   },
-  "Lua.diagnostics.globals": ["lvim", "vim"],
-  "conventionalCommits.scopes": ["oh-my-posh"]
+  "Lua.diagnostics.globals": [
+    "lvim",
+    "vim"
+  ],
+  "conventionalCommits.scopes": [
+    "oh-my-posh"
+  ]
 }
