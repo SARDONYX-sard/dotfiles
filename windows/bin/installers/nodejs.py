@@ -93,7 +93,7 @@ def check_nodejs_available():
     print("Nodejs is not available.")
     print(
         color(
-            "WARNING: Python is not installed.\n Please Nodejs install  before running this.",
+            "WARNING: Nodejs is not installed.\n Please Nodejs install  before running this.",
             'yellow'))
     print("You can install it in one of the following ways. \
 \
@@ -146,6 +146,8 @@ def initialize(manager: Literal["npm", "yarn", "pnpm"]):
     current_node_version = command("node -v")
     print(f"Current node version: {current_node_version}")
 
+    # We dare to use [0-9]
+    # because \d in python is not equivalent to [0-9] but wider.
     version_regexp = re.compile("([0-9]?[0-9]\\.[0-9]?[0-9])\\.[0-9]?[0-9]")
     node_version = float(version_regexp.search(current_node_version)[1])
 
