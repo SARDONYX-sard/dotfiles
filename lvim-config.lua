@@ -1,6 +1,3 @@
--- ii $HOME/AppData/Local/lvim/config.lua
--- windows: ii "$HOME\AppData\Roaming\lunarvim\lvim"
-
 -- lvim packer dir: ii "$HOME\AppData\Roaming\lunarvim\site\pack\packer"
 -- lvim compiled.lua: ii "$HOME\AppData\Local\lvim\plugin"
 
@@ -34,7 +31,6 @@ lvim.builtin.lualine.sections.lualine_y = {
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
--- edit a default keymapping
 lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
@@ -108,9 +104,6 @@ vim.opt.listchars = {
     tab = '>-',
     trail = '·',
 }
-
--- For rust-analayzer TypeHint
-vim.cmd [[ autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = '=>', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} } ]]
 
 if vim.fn.has("wsl") then
     -- For WSL clipboard issue.
@@ -238,13 +231,13 @@ lvim.plugins = {
             require "lsp_signature".setup()
         end
     },
-    {
-        "Pocco81/AutoSave.nvim",
-        config = function()
-            require("autosave").setup(
-            )
-        end
-    },
+    -- {
+    --     "Pocco81/AutoSave.nvim",
+    --     config = function()
+    --         require("autosave").setup(
+    --         )
+    --     end
+    -- },
     {
         "lukas-reineke/indent-blankline.nvim",
         event = "BufRead",
