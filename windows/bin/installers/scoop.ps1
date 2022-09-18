@@ -78,7 +78,6 @@ scoop install direnv    # Load or unload environment variables depending on the 
 scoop install OpenSSH   # SSH client for Windows
 
 scoop install make
-scoop install cmake
 scoop install psutils
 
 # DB
@@ -95,7 +94,7 @@ scoop install procs   # instead of `ps` commnad with color
 scoop install ripgrep # instead of `grep` commnad with color
 scoop install sd      # instead of `sed` commnad
 scoop install xh      # Http reqests like curl
-scoop install zoxide  # instead of cd
+scoop install zoxide  # instead of cd(Allows ambiguous travel to dirs that have been there.)
 
 
 # --------------------------------------------------------------------------------------------------
@@ -133,12 +132,12 @@ Remove-Item $HOME\scoop\apps\keyhac\current\_config.py
 # Terminal helper
 scoop install bottom           # Resource monitor with CLI (https://github.com/ClementTsang/bottom)
 scoop install broot            # A better way to navigate directories
-scoop install concfg           # Import and export Windows console settings (https://github.com/lukesampson/concfg)
+# scoop install concfg           # Import and export Windows console settings (https://github.com/lukesampson/concfg)
 scoop install fzf              # A command-line fuzzy finder written in go.(https://github.com/junegunn/fzf)
 scoop install gh               # GitHub Action in local PC.(https://cli.github.com/manual/)
 scoop install k9s              # Kubernetes wrapper
 scoop install lazydocker       # Better useful Docker wrapper
-scoop install lazygit          # Better useful Git wrapper
+# scoop install lazygit          # Better useful Git wrapper
 scoop install gitui            # GitUI provides you with the comfort of a git GUI but right in your terminal
 scoop install scoop-search     # Makes scoop search 50 times faster.(https://github.com/shilangyu/scoop-search)
 scoop install tokei            # A terminal code analyzer.
@@ -155,8 +154,10 @@ scoop install npm-completion
 # File converter
 # --------------------------------------------------------------------------------------------------
 # Image converter
-scoop install imagemagick
-scoop install waifu2x-ncnn-vulkan
+# I use realesrgan-ncnn-vulkan now.see more: https://github.com/xinntao/Real-ESRGAN/releases
+
+# scoop install imagemagick
+# scoop install waifu2x-ncnn-vulkan
 
 scoop install pandoc      # Markdown to PDF
 scoop install screentogif
@@ -166,7 +167,7 @@ scoop install screentogif
 # Editor
 # --------------------------------------------------------------------------------------------------
 scoop install neovim
-scoop install notepadplusplus
+# scoop install notepadplusplus
 
 # Editor helper
 scoop install ctags # For jump to reference
@@ -176,8 +177,8 @@ scoop install ctags # For jump to reference
 # Binaly Analysis
 # --------------------------------------------------------------------------------------------------
 scoop install radare2 # use r2 command
-scoop install ollydbg # binary analyzer GUI
-# sudo scoop install ida-free # Need Administrator. GUI
+# scoop install ollydbg # binary analyzer GUI
+sudo scoop install ida-free # Need Administrator. GUI
 
 # --------------------------------------------------------------------------------------------------
 # PowerShell Modules
