@@ -90,8 +90,7 @@ $files = @(
   if ($force) { Remove-Item -f $msys2HomeDir }
   @{ target = $HOME; fullpath = $msys2HomeDir; }
 
-  "windows/config/.bash_profile"
-  "windows/config/.bashrc"
+  "linux/.bashrc"
   "linux/.zshrc"
 )
 
