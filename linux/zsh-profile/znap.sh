@@ -1,18 +1,23 @@
 #!/usr/bin/env bash
 
+zsh_plugins_dir="$HOME/zsh_plugins"
+
 # Download Znap, if it's not there yet.
 [[ -f ~/Git/zsh-snap/znap.zsh ]] ||
   git clone --depth 1 -- \
-    https://github.com/marlonrichert/zsh-snap.git ~/Git/zsh-snap
+    https://github.com/marlonrichert/zsh-snap.git \
+    "$zsh_plugins_dir"/zsh-snap
 
-source ~/Git/zsh-snap/znap.zsh # Start Znap
+source "$HOME"/Git/zsh-snap/znap.zsh # Start Znap
 
 function read_znap() {
   local plugin="$1"
   plugin_name=$(echo "${plugin}" | awk -F "/" '{ print $NF }')
 
-  [ ! -e "$HOME"/Git/"$plugin_name" ] && znap install "$plugin"
-  source "$HOME"/Git/"$plugin_name"/"$plugin_name".plugin.zsh #! msys2 will give an error, so load directly.
+  [ ! -e "$zsh_plugins_dir"/"$plugin_name" ] && znap install "$plugin"
+
+  #! msys2 will give an error, so load directly.
+  source "$zsh_plugins_dir"/"$plugin_name"/"$plugin_name".plugin.zsh
 }
 
 plugins=(
