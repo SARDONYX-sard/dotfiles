@@ -59,6 +59,7 @@ apt_only_libs = [
     {"name": "bat & ripgrep", "description": "bat==cat / grep written in rust.",
      "installer": "sudo apt install -o Dpkg::Options::=\" - -force - overwrite\" bat ripgrep -y)"
      },
+    {"name": "exa", "description": "color ls command"},
     {"name": "fd-find", "description": "better find command"},
 ]
 
