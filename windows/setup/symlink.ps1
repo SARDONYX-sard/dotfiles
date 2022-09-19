@@ -85,13 +85,16 @@ $files = @(
   # @{ target = "scripts/startup.py"; fullpath = [IO.Path]::Combine($env:AppData, "Microsoft\Windows\Start Menu\Programs\Startup\startup.py"); name = "startup.py" }
 
   # msys2 HomeDir
-  $UserName = (Split-Path $HOME -Leaf)
-  $msys2HomeDir = [IO.Path]::Combine($HOME, "scoop\apps\msys2\current\home\$UserName")
-  if ($force) { Remove-Item -f $msys2HomeDir }
-  @{ target = $HOME; fullpath = $msys2HomeDir; }
+  if (Test-Path "$HOME\scoop\apps\msys2") {
+    $UserName = (Split-Path $HOME -Leaf)
+    $msys2HomeDir = [IO.Path]::Combine($HOME, "scoop\apps\msys2\current\home\$UserName")
+    if ($force) { Remove-Item -f $msys2HomeDir }
+    @{ target = $HOME; fullpath = $msys2HomeDir; }
 
-  "linux/.bashrc"
-  "linux/.zshrc"
+    "linux/.bashrc"
+    "linux/.fihrc.fish"
+    "linux/.zshrc"
+  }
 )
 
 $pwshProfilePath = @($(pwsh -NoProfile -Command "`$profile"))[0]
