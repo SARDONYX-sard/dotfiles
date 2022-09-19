@@ -28,6 +28,7 @@ end
 
 export HOME_DIR
 
+
 set -x SHELL_NAME fish
 set -e NO_FISH
 

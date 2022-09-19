@@ -110,7 +110,7 @@ esac
 
 # enable color support of ls, less and man, and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  (test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)") || eval "$(dircolors -b)"
   export LS_COLORS="$LS_COLORS:ow=30;44:" # fix ls color for folders with 777 permissions
 
   export LESS_TERMCAP_mb=$'\E[1;31m'  # begin blink
@@ -169,3 +169,7 @@ export COMMON="${HOME_DIR}/dotfiles/common"
 # Read other modules
 # --------------------------------------------------------------------------------------------------
 [[ -f "$COMMON/read-common-settings.sh" ]] && source "$COMMON/read-common-settings.sh" # env-paths, aliases, functions
+
+#! Hack to share environment variable files defined in bash with fish.
+#! If you want to use bash itself, remove it.
+(which fish) >/dev/null 2>&1 && exec fish
