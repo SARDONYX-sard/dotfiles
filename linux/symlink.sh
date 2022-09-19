@@ -43,7 +43,7 @@ sudo ln -sf "$HOME_DIR"/dotfiles/init.vim "$HOME"/.vimrc
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.tmux.conf "$HOME"/.tmux.conf
 
 # Neovim
-mkdir -p "$HOME_DIR"/.config/nvim
+mkdir -p "$HOME"/.config/nvim
 sudo ln -sf "$HOME_DIR"/dotfiles/init.vim "$HOME"/.config/nvim/init.vim
 sudo ln -sf "$HOME_DIR"/dotfiles/ginit.vim "$HOME"/.config/nvim/ginit.vim
 
@@ -60,7 +60,7 @@ sudo ln -sf "$HOME_DIR"/dotfiles/linux/.zshrc "$HOME"/.zshrc
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.inputrc "$HOME"/.inputrc
 
 # autokey
-if which autokey >/dev/null || which autokey-shell >/dev/null; then
+if (which autokey) >/dev/null 2>&1 || (which autokey-shell) >/dev/null 2>&1; then
   mkdir -p "$HOME"/.config/autokey/data
   sudo ln -sf "$HOME_DIR"/dotfiles/common/data/autokey "$HOME"/.config/autokey/data
 fi
