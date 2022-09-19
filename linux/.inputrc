@@ -1,46 +1,62 @@
 #!/usr/bin/env bash
 
+# manual
+# - https://man.archlinux.org/man/readline.3
+
 # Use Vi, not Emacs, style editing
 set editing-mode vi
 
-# Show all completions as soon as I press tab, even if there's more than one
+# --completions
+# - Show all completions as soon as I press tab, even if there's more than one
 set show-all-if-ambiguous on
-# Ignore case
+# - Ignore case
 set completion-ignore-case on
 # on menu-complete, first display the common prefix, then cycle through the
 # options when hitting TAB
 set menu-complete-display-prefix on
-
-###########################################################
-# Keymaps for when we're in command mode (e.g., after hitting ESC)
-
-###########################################################
-# Keymaps for when we're in insert (i.e., typing stuff in) mode
-set keymap vi-insert
-
 # Pressing tab will list all completions & select the first one. Pressing it
 # again will cycle through available completions.
 TAB: menu-complete
 # Shift-TAB cycles completions backward
 "\e[Z": menu-complete-backward
 
-# for vi mode
-set show-mode-in-prompt on
-set vi-ins-mode-string "\1\e[34;1m\2(ins) \1\e[0m\2"
-set vi-cmd-mode-string "\1\e[31;1m\2(cmd) \1\e[0m\2"
+# --color
+# Color files by types
+set colored-stats On
+# Append char to indicate type
+set visible-stats On
+# Mark symlinked directories
+set mark-symlinked-directories On
+# Color the common prefix
+set colored-completion-prefix On
+# Color the common prefix in menu-complete
+set menu-complete-display-prefix On
 
-set editing-mode vi
+# unshow `^C` etc.
+set echo-control-characters off
+
+# vi mode
+$if mode=vi
+set show-mode-in-prompt on
+set vi-ins-mode-string "\1\e[31;1m\2(ins) \1\e[0m\2"
+set vi-cmd-mode-string "\1\e[32;1m\2(cmd) \1\e[0m\2"
 set keyseq-timeout 5
 
-set show-mode-in-prompt on
+# --normal mode
 set keymap vi-command
-"v": ""
 "\ev": edit-and-execute-command
 "\C-p": history-search-backward
 "\C-n": history-search-forward
 
+# --insert mode
 set keymap vi-insert
 "\ev": edit-and-execute-command
 "\C-l": clear-screen
 "\C-p": history-search-backward
 "\C-n": history-search-forward
+"\ej\ej":"\e"
+
+$else
+# when input <Alt+s>, put `sudo` to head
+"\es":"\C-asudo \C-e"
+$endif
