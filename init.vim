@@ -13,20 +13,30 @@ if has('clipboard') || exists('g:vscode')
 endif
 
 " pure neovim settings
-if has('nvim') && !exists('g:vscode')
+if has('nvim') && !exists('g:vscode') && has('win32')
     lua pcall(require, 'init')
-endif
-
-" vim settings
-if !has('nvim')
-    :set clipboard+=unnamed
+else
+    " :set clipboard+=unnamed
+    :set mouse=a " use mouse 
     :set number  " show line numbers
     :set showcmd " show temporary commands
 
     :map <Space> <Leader>
     :map <Leader>q :q!<CR>
     :map <Leader>w :w<CR>
+    vnoremap <C-y> :'<,'>w !xclip -selection clipboard<Cr><Cr>
 
+    " Move current line to up/down
+    " Ref: https://vim.fandom.com/wiki/Moving_lines_up_or_down
+    nnoremap <A-j> :m .+1<CR>==
+    nnoremap <A-k> :m .-2<CR>==
+    inoremap <A-j> <Esc>:m .+1<CR>==gi
+    inoremap <A-k> <Esc>:m .-2<CR>==gi
+    vnoremap <A-j> :m '>+1<CR>gv=gv
+    vnoremap <A-k> :m '<-2<CR>gv=gv
+    " ---end
+
+    " mode change
     :inoremap jj <Esc>
     :inoremap jk <Esc>
     :inoremap kj <Esc>
