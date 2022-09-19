@@ -91,6 +91,6 @@ if [ "$is_zsh_mode" ]; then
   chsh -s /bin/zsh # Change shell to zsh.(option)
 elif [ "$is_fish_mode" ]; then
   echo "$(tput setaf 4)"fish selected. Enable fish."$(tput sgr0)"
-  chsh -s /usr/bin/fish
+  # chsh -s /usr/bin/fish
   fish -c "curl -L git.io/fisher | source && fisher install_fisher_plugins"
 fi
