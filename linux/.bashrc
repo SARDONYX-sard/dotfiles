@@ -139,7 +139,3 @@ export COMMON="${HOME_DIR}/dotfiles/common"
 # Read other modules
 # --------------------------------------------------------------------------------------------------
 [[ -f "$COMMON/read-common-settings.sh" ]] && source "$COMMON/read-common-settings.sh" # env-paths, aliases, functions
-
-if (which fish) >/dev/null 2>&1; then
-  exec fish
-fi
