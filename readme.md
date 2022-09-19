@@ -113,7 +113,7 @@ git clone  --depth 1 -- https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotf
 - **Recommended command**(The development language is put in manually.)
 
 ```bash
-export USERNAME=`cmd.exe /c echo %username%`
+export USERNAME=$(cmd.exe /c 'echo %username%' | sed -e 's/\r//g')
 cd /mnt/c/Users/${USERNAME}/dotfiles
 bash "install-wsl.sh" --light --zsh
 ```
@@ -121,7 +121,7 @@ bash "install-wsl.sh" --light --zsh
 - Full size mode
 
 ```bash
-export USERNAME=`cmd.exe /c echo %username%`
+export USERNAME=$(cmd.exe /c 'echo %username%' | sed -e 's/\r//g')
 cd /mnt/c/Users/${USERNAME}/dotfiles
 bash "./install-wsl.sh"
 
