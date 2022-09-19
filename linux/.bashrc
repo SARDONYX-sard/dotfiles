@@ -59,10 +59,51 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+  # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+  #!/bin/bash
+  grad() {
+    COUNTER=0
+    COLOR=$1
+    COLS=$2
+    TXT=${*:3}
+    MOD="$(($((${#TXT} / COLS)) * 2))"
+    if [ $MOD == 0 ]; then
+      MOD=1
+    fi
+    for ((i = 0; i < ${#TXT}; i++)); do
+      printf "\e[38;5;%sm%s" "${COLOR}" "${TXT:COUNTER:1}"
+      COUNTER=$((COUNTER + 1))
+      if [ $((i % MOD)) == 0 ]; then
+        COLOR=$(("$COLOR" + 1))
+      fi
+    done
+  }
+
+  MAIN_COLOR_CODE=36
+
+  MAIN_COLOR="\[\033[38;5;${MAIN_COLOR_CODE}m\]"
+  SECONDARY_COLOR="\[\033[38;5;37m\]"
+  ACCENT_COLOR="\[\033[38;5;39m\]"
+  ACCENT2_COLOR="\[\033[38;5;214m\]"
+  TEXT_COLOR="\[\033[38;5;253m\]"
+
+  # gitbranch=$(git branch 2>/dev/null | grep '^.*' | cut -c 2-)
+  FIRST_LINE="$MAIN_COLOR┌───[ ${ACCENT_COLOR}\W ]-($SECONDARY_COLOR \d \t $MAIN_COLOR)"
+  LAST_LINE="$ACCENT2_COLORλ $TEXT_COLOR"
+  PS1="\r\n${FIRST_LINE}\r\n${LAST_LINE}"
 else
   PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm* | rxvt*)
+  PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+  ;;
+*) ;;
+
+esac
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
@@ -77,7 +118,7 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
   if test -r "$HOME"/.dircolors && eval "$(dircolors -b "$HOME"/.dircolors)"; then
-    echo "ファイルを削除します"
+    echo "remove old dircolors"
   else
     eval "$(dircolors -b)"
   fi
