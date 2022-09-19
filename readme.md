@@ -95,6 +95,7 @@ sudo bash "install-wsl.sh"
 
 # Options
 # --zsh: Change default shell to zsh
+# --fish: Change default shell to fish
 # --light: Lightweight mode (does not automatically include the development language)
 ```
 
@@ -113,20 +114,17 @@ git clone  --depth 1 -- https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotf
 - **Recommended command**(The development language is put in manually.)
 
 ```bash
-export USERNAME=$(cmd.exe /c 'echo %username%' | sed -e 's/\r//g')
-cd /mnt/c/Users/${USERNAME}/dotfiles
-bash "install-wsl.sh" --light --zsh
+bash /mnt/c/Users/$(cmd.exe /c 'echo %username%' | sed -e 's/\r//g')/dotfiles/install-wsl.sh --light --zsh
 ```
 
 - Full size mode
 
 ```bash
-export USERNAME=$(cmd.exe /c 'echo %username%' | sed -e 's/\r//g')
-cd /mnt/c/Users/${USERNAME}/dotfiles
-bash "./install-wsl.sh"
+bash /mnt/c/Users/$(cmd.exe /c 'echo %username%' | sed -e 's/\r//g')/dotfiles/install-wsl.sh
 
 # Options
 # --zsh: Change default shell to zsh
+# --fish: Change default shell to fish
 # --light: Lightweight mode (does not automatically include the development language)
 ```
 
