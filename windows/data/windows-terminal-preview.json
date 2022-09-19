@@ -7,34 +7,16 @@
       "keys": "alt+enter"
     },
     {
-      "command": {
-        "action": "splitPane",
-        "split": "auto",
-        "splitMode": "duplicate"
-      },
-      "keys": "alt+shift+d"
-    },
-    {
       "command": "find",
       "keys": "ctrl+shift+f"
     },
     {
       "command": {
-        "action": "copy",
-        "singleLine": false
-      },
-      "keys": "ctrl+c"
-    },
-    {
-      "command": {
         "action": "splitPane",
-        "split": "right"
+        "split": "right",
+        "splitMode": "duplicate"
       },
       "keys": "ctrl+shift+l"
-    },
-    {
-      "command": "paste",
-      "keys": "ctrl+v"
     }
   ],
   "copyFormatting": "none",
@@ -138,12 +120,11 @@
         "hidden": false,
         "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Archlinux-icon-crystal-64.svg/1200px-Archlinux-icon-crystal-64.svg.png",
         "name": "Arch  Linux"
-        // "startingDirectory": "\\\\wsl.localhost\\Arch\\home\\sardonyx"
       },
       {
         "bellStyle": "taskbar",
         "guid": "{46ca431a-3a87-5fb3-83cd-11ececc031d2}",
-        "icon": "https://yun-craft.com/application/files/7216/2468/5916/kali-linux2.png",
+        "icon": "https://freepngimg.com/download/android/68988-kali-android-linux-free-clipart-hq.png",
         "hidden": false,
         "name": "kali-linux",
         "source": "Windows.Terminal.Wsl"
