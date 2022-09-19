@@ -8,12 +8,18 @@ else
   bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) --no-install-dependencies
 
   #nodejs libs
-  pnpm install -g neovim tree-sitter-cli
+  if (which npm) >/dev/null 2>&1; then
+    npm install -g neovim tree-sitter-cli
+  fi
 
   # python libs
+  if (which pip) >/dev/null 2>&1; then
+    sudo apt install python3-pip
+  fi
+
   pip install codespell
 
-  if (which apt) >/dev/null 2>&1; then
+  if (which asdf) >/dev/null 2>&1; then
     asdf reshim python
   fi
 
