@@ -12,15 +12,9 @@ else
     npm install -g neovim tree-sitter-cli
   fi
 
-  # python libs
-  if (which pip) >/dev/null 2>&1; then
-    sudo apt install python3-pip
-  fi
-
-  pip install codespell
-
-  if (which asdf) >/dev/null 2>&1; then
-    asdf reshim python
+  # for codespell
+  if (which apt) >/dev/null 2>&1; then
+    sudo apt install python3.10-venv
   fi
 
   cd "$HOME_DIR"/dotfiles/ || exit
@@ -28,5 +22,6 @@ else
   echo "$(tput setaf 3)"Because back to my custom lvim-config.lua"$(tput sgr0)"
 
   git checkout HEAD .
+  cd - || exit
 
 fi
