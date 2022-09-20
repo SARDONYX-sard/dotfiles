@@ -202,16 +202,16 @@ See below.
 
 ## License
 
-- [apt-wrapper.sh](./common/apt-wrapper.sh): MIT
+- [apt-wrapper.sh](./common/functions/apt-wrapper.sh): MIT license
 
   Copyright (c) 2017- Josh Glendenning(<https://github.com/isobit/pac>),
   SARDONYX
 
-- [pac-wrapper.sh](./common/pac-wrapper.sh): MIT
+- [pac-wrapper.sh](./common/functions/pac-wrapper.sh): MIT license
 
   Copyright (c) 2017- Josh Glendenning(<https://github.com/isobit/pac>)
 
-- `nvim/init.lua`: GPL-3.0 license
+- [nvim/init.lua](./nvim/init.lua): GPL-3.0 license
   <https://github.com/LunarVim/LunarVim/blob/rolling/LICENSE>
 
 - Other: Unlicense
