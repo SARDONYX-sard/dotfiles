@@ -207,7 +207,7 @@ See below.
   Copyright (c) 2017- Josh Glendenning(<https://github.com/isobit/pac>),
   SARDONYX
 
-- [pac-wrapper.sh](./common/functions/pac-wrapper.sh): MIT license
+- [pacman-wrapper.sh](./common/functions/pacman-wrapper.sh): MIT license
 
   Copyright (c) 2017- Josh Glendenning(<https://github.com/isobit/pac>)
 
