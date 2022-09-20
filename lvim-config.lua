@@ -118,10 +118,7 @@ local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
     {
         command = "black",
-        filetypes = { "python" }
-    },
-    {
-        command = "isort",
+        extra_args = { "--line-length=79" },
         filetypes = { "python" }
     },
     {
@@ -131,7 +128,7 @@ formatters.setup {
         -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
         extra_args = { "--print-with", "100" },
         ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-        filetypes = { "typescript", "typescriptreact" }
+        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
     },
     {
         command = "gofmt",
@@ -145,6 +142,7 @@ formatters.setup {
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
     {
+        -- need `Linux: apt install python3.10-venv`
         command = "codespell",
         filetypes = { "bash", "go", "javascript", "json", "lua", "python", "typescript", "css", "rust", "java", "yaml" }
     },
