@@ -23,16 +23,15 @@ common_libs = [
     # Utils
     {"name": "curl git make sudo unzip wget which zip", "description": "utils"},
     {"name": "exuberant-ctags", "description": "For editor."},
-    {"name": "rlwrap",
-     "description": "Provides history functionality to commands that do not have history functionality"},
     {"name": "openssh", "description": "For ssh-keygen command"},
-    {"name": "zsh", "description": "zsh shell"},
+    {"name": "zoxide", "description": "A smarter cd command."},
 
     {"name": "gawk", "description": "For fzf dependency."},
     {"name": "fzf", "description": "fuzzy finder."},
 
     # Shell
     {"name": "fish", "description": "fish shell."},
+    {"name": "zsh", "description": "zsh shell"},
 
     # Monitor
     {"name": "sysstat", "description": "Process Monitor."},
