@@ -32,7 +32,7 @@ export DOCKER_CONTENT_TRUST=1
 # [ -e /mnt/c ] && export DISPLAY
 
 # for personal's bash files
-PATH="$PATH:$HOME/.local/bin"
+PATH="$HOME/.local/bin:$PATH"
 
 CURRENT_SHELL=$(ps -ocomm= -q $$)
 export CURRENT_SHELL
