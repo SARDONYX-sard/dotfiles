@@ -3,7 +3,7 @@
 zsh_plugins_dir="$HOME/.config/zsh/plugins"
 
 # Download Znap, if it's not there yet.
-[[ -f "$zsh_plugins_dir" ]] ||
+[[ -f "$zsh_plugins_dir"/zsh-snap/znap.zsh ]] ||
   git clone --depth 1 -- \
     https://github.com/marlonrichert/zsh-snap.git \
     "$zsh_plugins_dir"/zsh-snap
@@ -20,18 +20,22 @@ function read_znap() {
 }
 
 plugins=(
-  lincheney/fzf-tab-completion
   marlonrichert/zsh-autocomplete
   zdharma-continuum/fast-syntax-highlighting
   zsh-users/zsh-autosuggestions
 )
 
+# `znap source` automatically downloads and starts your plugins.
 for plugin in "${plugins[@]}"; do
-  # `znap source` automatically downloads and starts your plugins.
-  ([ -e /mnt/c ] && znap source "${plugin}") || read_znap "${plugin}"
+  if [ -e /mnt/c ]; then
+    znap source "${plugin}" # `znap source` automatically downloads and starts your plugins.
+  else
+    read_znap "${plugin}"
+  fi
 done
 
 #! Manual loading because the plugin manager does not read it well.
+znap install lincheney/fzf-tab-completion
 source "$zsh_plugins_dir"/fzf-tab-completion/zsh/fzf-zsh-completion.sh
 
 # `znap eval` caches and runs any kind of command output for you.
