@@ -8,7 +8,7 @@ zsh_plugins_dir="$HOME/.config/zsh/plugins"
     https://github.com/marlonrichert/zsh-snap.git \
     "$zsh_plugins_dir"/zsh-snap
 
-source "$zsh_plugins_dir"/znap.zsh # Start Znap
+source "$zsh_plugins_dir"/zsh-snap/znap.zsh # Start Znap
 
 function read_znap() {
   local plugin="$1"
