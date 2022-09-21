@@ -124,7 +124,7 @@
       {
         "bellStyle": "taskbar",
         "guid": "{46ca431a-3a87-5fb3-83cd-11ececc031d2}",
-        "icon": "https://freepngimg.com/download/android/68988-kali-android-linux-free-clipart-hq.png",
+        "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Kali-dragon-icon.svg/2048px-Kali-dragon-icon.svg.png",
         "hidden": false,
         "name": "kali-linux",
         "source": "Windows.Terminal.Wsl"
