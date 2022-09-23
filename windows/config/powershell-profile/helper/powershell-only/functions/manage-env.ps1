@@ -51,5 +51,5 @@ function Remove-Env {
 
 function Get-Path {
   $toReplaceStr = "; `n"
-  [regex]::Replace($ENV:PATH, "; ", "$toReplaceStr") | Sort-Object | Write-Host
+  [regex]::Replace($ENV:PATH, ";", "$toReplaceStr") | Sort-Object | Write-Host
 }
