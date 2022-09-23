@@ -18,8 +18,7 @@ lvim.log.level = "warn"
 lvim.transparent_window = true
 lvim.builtin.telescope.defaults.layout_config.prompt_position = "bottom"
 lvim.builtin.treesitter.rainbow.enable = true -- need nvim-ts-rainbow plugin
-
-lvim.builtin.lualine.style = "default"
+lvim.builtin.lualine.options.theme = "tokyonight-strom"
 local components = require("lvim.core.lualine.components")
 lvim.builtin.lualine.sections.lualine_a = { "mode" }
 lvim.builtin.lualine.sections.lualine_y = {
@@ -32,6 +31,9 @@ lvim.builtin.lualine.sections.lualine_y = {
 lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
+lvim.keys.insert_mode["jj"] = "<ESC>"
+lvim.keys.insert_mode["jk"] = "<ESC>"
+lvim.keys.insert_mode["kj"] = "<ESC>"
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
