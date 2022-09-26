@@ -18,12 +18,10 @@ lvim.log.level = "warn"
 lvim.transparent_window = true
 lvim.builtin.telescope.defaults.layout_config.prompt_position = "bottom"
 lvim.builtin.treesitter.rainbow.enable = true -- need nvim-ts-rainbow plugin
-lvim.builtin.lualine.options.theme = "tokyonight-strom"
 local components = require("lvim.core.lualine.components")
 lvim.builtin.lualine.sections.lualine_a = { "mode" }
 lvim.builtin.lualine.sections.lualine_y = {
     components.diagnostics,
-    components.lsp,
     components.scrollbar,
 }
 
@@ -146,7 +144,7 @@ linters.setup {
     {
         -- need `Linux: apt install python3.10-venv`
         command = "codespell",
-        filetypes = { "bash", "go", "javascript", "json", "lua", "python", "typescript", "css", "rust", "java", "yaml" }
+        filetypes = languages
     },
     {
         command = "flake8",
@@ -166,9 +164,6 @@ linters.setup {
 lvim.plugins = {
     {
         "nvim-lua/lsp_extensions.nvim"
-    },
-    {
-        "folke/tokyonight.nvim"
     },
     {
         "folke/trouble.nvim",
@@ -238,18 +233,6 @@ lvim.plugins = {
     --         )
     --     end
     -- },
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        event = "BufRead",
-        setup = function()
-            vim.g.indentLine_enabled = 1
-            vim.g.indent_blankline_char = "▏"
-            vim.g.indent_blankline_filetype_exclude = { "help", "terminal", "dashboard" }
-            vim.g.indent_blankline_buftype_exclude = { "terminal" }
-            vim.g.indent_blankline_show_trailing_blankline_indent = false
-            vim.g.indent_blankline_show_first_indent_level = false
-        end
-    },
     {
         "felipec/vim-sanegx",
         event = "BufRead"
