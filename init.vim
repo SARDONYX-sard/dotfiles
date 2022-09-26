@@ -15,9 +15,10 @@ endif
 " pure neovim settings
 if has('nvim') && !exists('g:vscode') && has('win32')
     lua pcall(require, 'init')
+    :colorscheme tokyonight-storm
 else
     " :set clipboard+=unnamed
-    :set mouse=a " use mouse 
+    :set mouse=a " use mouse
     :set number  " show line numbers
     :set showcmd " show temporary commands
 
@@ -36,8 +37,11 @@ else
     vnoremap <A-k> :m '<-2<CR>gv=gv
     " ---end
 
-    " mode change
-    :inoremap jj <Esc>
-    :inoremap jk <Esc>
-    :inoremap kj <Esc>
 endif
+
+" mode change
+:inoremap jj <Esc>
+:inoremap jk <Esc>
+:inoremap kj <Esc>
+
+:nmap <Leader>e :Vexplore<CR>
