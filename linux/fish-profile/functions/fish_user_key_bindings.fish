@@ -8,6 +8,9 @@ function fish_user_key_bindings
     fish_vi_key_bindings --no-erase insert
 
 
+    # put i key(visual mode) => insert mode
+    bind -s --preset -M visual -m insert i end-selection repaint-mode
+
     # ---------- Set the debounce so that pressing jk within 150 ms
     # will allow the system to enter Normal mode. -------------------
     set -g start_time 0
