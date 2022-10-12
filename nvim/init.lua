@@ -125,8 +125,8 @@ vim.api.nvim_create_user_command("Te", "tabedit <args>", { nargs = "*", complete
 vim.api.nvim_create_user_command("Tn", "tabnew <args>", { nargs = "*", complete = "file" })
 vim.keymap.set("n", "<S-Right>", ":<C-U>tabnext<CR>", { silent = true })
 vim.keymap.set("n", "<S-Left>", ":<C-U>tabprevious<CR>", { silent = true })
-vim.keymap.set("n", "L", ":<C-U>tabnext<CR>", { silent = true })
-vim.keymap.set("n", "H", ":<C-U>tabprevious<CR>", { silent = true })
+-- vim.keymap.set("n", "L", ":<C-U>tabnext<CR>", { silent = true })
+-- vim.keymap.set("n", "H", ":<C-U>tabprevious<CR>", { silent = true })
 vim.keymap.set("n", "<C-L>", ":<C-U>tabmove +1<CR>", { silent = true })
 vim.keymap.set("n", "<C-H>", ":<C-U>tabmove -1<CR>", { silent = true })
 
