@@ -44,11 +44,13 @@ sudo ln -sf "$HOME_DIR"/dotfiles/linux/.tmux.conf "$HOME"/.tmux.conf
 
 # Neovim
 mkdir -p "$HOME"/.config/nvim
-sudo ln -sf "$HOME_DIR"/dotfiles/init.vim "$HOME"/.config/nvim/init.vim
-sudo ln -sf "$HOME_DIR"/dotfiles/ginit.vim "$HOME"/.config/nvim/ginit.vim
+sudo ln -sf "$HOME_DIR"/dotfiles/nvim/init.lua "$HOME"/.config/nvim/init.lua
 
-mkdir -p "$HOME"/.config/lvim
-sudo ln -sf "$HOME_DIR"/dotfiles/lvim-config.lua "$HOME"/.config/lvim/config.lua
+sudo ln -sf "$HOME_DIR"/dotfiles/nvim/lua "$HOME"/.config/nvim
+sudo ln -sf "$HOME_DIR"/dotfiles/nvim/ftplugin "$HOME"/.config/nvim
+
+# mkdir -p "$HOME"/.config/lvim
+# sudo ln -sf "$HOME_DIR"/dotfiles/lvim-config.lua "$HOME"/.config/lvim/config.lua
 
 # fish shell
 mkdir -p "$HOME"/.config/fish
