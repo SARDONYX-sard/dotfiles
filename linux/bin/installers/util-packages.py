@@ -42,6 +42,7 @@ common_libs = [
 
     # Editor
     {"name": "neovim", "description": "Editor."},
+    {"name": "luarocks", "description": "lua package manager.(to use luacheck)"},
     {"name": "rlwrap",
      "description": "History function can be added to commands that do not have history function.\
     (http://x68000.q-e-d.net/~68user/unix/pickup?rlwrap)"},

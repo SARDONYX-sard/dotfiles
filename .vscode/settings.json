@@ -39,6 +39,8 @@
     "keygen",
     "keyhac",
     "lessmsi",
+    "luacheck",
+    "luarocks",
     "mintty",
     "minttyrc",
     "mspaint",
@@ -95,11 +97,6 @@
     ".gitignore": "ignore",
     "LICENSE": "txt"
   },
-  "Lua.diagnostics.globals": [
-    "lvim",
-    "vim"
-  ],
-  "conventionalCommits.scopes": [
-    "oh-my-posh"
-  ]
+  "Lua.diagnostics.globals": ["lvim", "vim"],
+  "conventionalCommits.scopes": ["oh-my-posh"]
 }
