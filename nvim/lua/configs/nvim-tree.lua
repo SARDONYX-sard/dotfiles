@@ -44,6 +44,7 @@ local wk = require "which-key"
 wk.register({
     ["<leader>t"] = { name = "+NvimTree" },
 })
+vim.keymap.set("n", "<space>e", ":NvimTreeToggle<CR>", { desc = "Toggle Explore" })
 vim.keymap.set("n", "<leader>tt", ":NvimTreeToggle<CR>")
 vim.keymap.set("n", "<leader>tr", ":NvimTreeRefresh<CR>")
 vim.keymap.set("n", "<leader>tf", ":NvimTreeFindFile<CR>")

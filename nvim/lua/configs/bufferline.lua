@@ -47,5 +47,8 @@ vim.keymap.set("n", "<leader>9", function()
     require("bufferline").go_to_buffer(9, true)
 end, { silent = true, desc = "Go To Buffer 9" })
 
+vim.keymap.set("n", "L", "<cmd>BufferLineCycleNext<CR>", { silent = true })
+vim.keymap.set("n", "H", "<cmd>BufferLineCyclePrev<CR>", { silent = true })
 vim.keymap.set("n", "<space>n", "<cmd>BufferLineCycleNext<CR>", { silent = true })
 vim.keymap.set("n", "<space>p", "<cmd>BufferLineCyclePrev<CR>", { silent = true })
+vim.keymap.set("n", "<space>c", "<cmd>bdelete<CR>", { silent = true, desc = "Delete current buffer(window)" })
