@@ -17,11 +17,6 @@ $isDebug = $d.IsPresent -or $isDebug.IsPresent
   Symlink files
 #>
 
-# Import SymLink function
-$HelperDir = "$HOME/dotfiles/windows/config/powershell-profile/helper";
-. "$($HelperDir)/functions.ps1"
-
-
 # Are you root?
 if ($isDebug -eq $false) {
   if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(`
@@ -58,15 +53,10 @@ name(option):
 $files = @(
   # vim
   @{ target = "init.vim"; path = ""; name = ".vimrc" }
-  @{ target = "init.vim"; path = "AppData/Local/nvim" }
-  @{ target = "ginit.vim"; path = "AppData/Local/nvim" }
-  # lunarvim
-  @{ target = "lvim-config.lua"; fullpath = [IO.Path]::Combine($HOME, "AppData/Local/lvim/config.lua"); }
-  @{ target = "lvim-config.lua"; fullpath = [IO.Path]::Combine($HOME, "AppData/Local/nvim/config.lua"); }
-  @{ target = "nvim/init.lua"; fullpath = [IO.Path]::Combine($HOME, "AppData/Local/nvim/lua/init.lua"); }
-  @{ target = "$HOME\AppData\Roaming\lunarvim\lvim\lua\lvim"; fullpath = [IO.Path]::Combine($HOME, "AppData/Local/nvim/lua"); }
-
-
+  # neovim
+  @{ target = "nvim/lua"; fullpath = [IO.Path]::Combine($HOME, "AppData/Local/nvim/lua"); }
+  @{ target = "nvim/ftplugin"; fullpath = [IO.Path]::Combine($HOME, "AppData/Local/nvim/ftplugin"); }
+  @{ target = "nvim/init.lua"; fullpath = [IO.Path]::Combine($HOME, "AppData/Local/nvim/init.lua"); }
 
   # Terminal
   $terminalPath = [IO.Path]::Combine($env:LocalAppData, "Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json")
