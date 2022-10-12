@@ -113,14 +113,14 @@
       //     "startingDirectory": "%USERPROFILE%",
       //     "useAcrylic": false
       // },
-      {
-        "bellStyle": "none",
-        "commandline": "wsl.exe ~ -d Arch --user sardonyx",
-        "guid": "{b8586769-dd8b-46b2-afbf-247d7dd718f2}",
-        "hidden": false,
-        "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Archlinux-icon-crystal-64.svg/1200px-Archlinux-icon-crystal-64.svg.png",
-        "name": "Arch  Linux"
-      },
+      // {
+      //   "bellStyle": "none",
+      //   "commandline": "wsl.exe ~ -d Arch --user sardonyx",
+      //   "guid": "{b8586769-dd8b-46b2-afbf-247d7dd718f2}",
+      //   "hidden": false,
+      //   "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Archlinux-icon-crystal-64.svg/1200px-Archlinux-icon-crystal-64.svg.png",
+      //   "name": "Arch  Linux"
+      // },
       {
         "bellStyle": "taskbar",
         "guid": "{46ca431a-3a87-5fb3-83cd-11ececc031d2}",
