@@ -122,6 +122,7 @@ scoop install shellcheck # Shell linter
 scoop install capture2text    # Can read text from video.
 scoop install hugo            # Static site generator
 scoop install resource-hacker # exe icon edit
+scoop install luacheck        # lua package manager(to use neovim lua ckeck)
 
 scoop install keyhac          # keyboard key editor
 #? To enable the `$env:AppData\keyhac` path setting

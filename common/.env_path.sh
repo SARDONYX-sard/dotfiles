@@ -11,6 +11,9 @@ else
   export EDITOR=vim
 fi
 
+# lua package `apt install luarocksk`(to use luacheck)
+[ -e "$HOME/.luarocks/bin" ] && PATH="$HOME/.luarocks/bin:$PATH"
+
 # --------------------------------------------------------------------------------------------------
 # Language settings
 # --------------------------------------------------------------------------------------------------
