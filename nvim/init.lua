@@ -45,7 +45,7 @@ vim.cmd [[
 if exists("g:neovide")
   set guifont=Monospace:h11
   let g:neovide_cursor_vfx_mode="wireframe"
-  let g:neovide_transparency=0.4
+  let g:neovide_transparency=0.6
   let g:neovide_cursor_vfx_mode = "railgun"
   function! FontSizePlus()
     let l:gf_size_whole = matchstr(&guifont, 'h\@<=\d\+$')
@@ -80,13 +80,13 @@ vim.keymap.set("v", ":", ";", {})
 local sfile = debug.getinfo(1, "S").short_src
 vim.keymap.set("n", "<space>v", function()
     vim.cmd("edit " .. sfile)
-end, {})
+end, { desc = "Edit init.lua" })
 
 -- Reload vimrc"{{{
 vim.api.nvim_create_user_command("ReloadVimrc", function()
     vim.fn.source(sfile)
     print "Reload vimrc"
-end, {})
+end, { desc = "Reload init.lua" })
 -- }}}
 
 -- タブストップ設定
@@ -165,25 +165,25 @@ vim.keymap.set("v", "$", "g$", { silent = true })
 vim.keymap.set("v", "g$", "$", { silent = true })
 
 -- vscode like keymap
-vim.keymap.set("n", "<Leader>q", ":q!<CR>", { silent = true }) -- <space+q> => quit editor
-vim.keymap.set("n", "<space>w", ":w<CR>", { silent = true }) -- <space+w> => write editor
+vim.keymap.set("n", "<space>q", ":q<CR>", { silent = true, desc = "quit" }) -- <space+q> => quit editor
+vim.keymap.set("n", "<space>w", ":w<CR>", { silent = true, desc = "write file" }) -- <space+w> => write editor
 
-vim.keymap.set("i", "jj", "<Esc>", { silent = true })
-vim.keymap.set("i", "jk", "<Esc>", { silent = true })
-vim.keymap.set("i", "kj", "<Esc>", { silent = true })
+vim.keymap.set("i", "jj", "<Esc>", { silent = true, desc = "to Normal mode" })
+vim.keymap.set("i", "jk", "<Esc>", { silent = true, desc = "to Normal mode" })
+vim.keymap.set("i", "kj", "<Esc>", { silent = true, desc = "to Normal mode" })
 
 -- - Move current line to up/down `Alt+j/k`
 -- Ref: https://vim.fandom.com/wiki/Moving_lines_up_or_down
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { silent = true })
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { silent = true })
-vim.keymap.set("i", "<A-j>", "<Esc>:m .-2<CR>==", { silent = true })
-vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==", { silent = true })
-vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { silent = true })
-vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { silent = true })
+vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { silent = true, desc = "move line down" })
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { silent = true, desc = "move line up" })
+vim.keymap.set("i", "<A-j>", "<Esc>:m .-2<CR>==", { silent = true, desc = "move line down" })
+vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==", { silent = true, desc = "move line up" })
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { silent = true, desc = "move line down" })
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { silent = true, desc = "move line up" })
 
 -- JとDで半ページ移動
-vim.keymap.set("n", "J", "<C-D>", { silent = true })
-vim.keymap.set("n", "K", "<C-U>", { silent = true })
+vim.keymap.set("n", "J", "<C-D>", { silent = true, desc = "move down" })
+vim.keymap.set("n", "K", "<C-U>", { silent = true, desc = "move up" })
 
 -- 編集中のファイルのディレクトリに移動
 vim.cmd [[command! CdCurrent execute ":cd" . expand("%:p:h")]]
@@ -539,56 +539,23 @@ local on_attach = lsp_common.on_attach
 local capabilities = lsp_common.capabilities
 local add_bundle_exec = lsp_common.add_bundle_exec
 
-local noremap_silent = { noremap = true, silent = true }
-vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, noremap_silent)
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, noremap_silent)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, noremap_silent)
-vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, noremap_silent)
+vim.keymap.set("n", "<space>le", vim.diagnostic.open_float, { noremap = true, silent = true, desc = "diagnostic open" })
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { noremap = true, silent = true, desc = "diagnostic go prev" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { noremap = true, silent = true, desc = "diagnostic go next" })
+vim.keymap.set("n", "<space>ll", vim.diagnostic.setloclist, { noremap = true, silent = true, desc = "diagnostic list" })
 
 local luadev = require("lua-dev").setup()
 
 local lspconfig = require "lspconfig"
--- require("mason-lspconfig").setup_handlers({
---   function(server_name)
---     if server_name ~= "jdtls" then
---       lspconfig[server_name].setup({
---         capabilities = capabilities,
---         on_attach = on_attach,
---       })
---     end
---   end,
---   ["sumneko_lua"] = function()
---     lspconfig.sumneko_lua.setup(vim.tbl_deep_extend("force", luadev, {
---       on_attach = on_attach,
---       settings = {
---         Lua = {
---           workspace = {
---             checkThirdParty = false,
---           },
---         },
---       },
---     }))
---   end,
---   ["solargraph"] = function()
---     lspconfig.solargraph.setup({
---       capabilities = capabilities,
---       on_attach = on_attach,
---       on_new_config = function(config, root_dir)
---         add_bundle_exec(config, "solargraph", root_dir)
---         return config
---       end,
---     })
---   end,
--- })
 
 lspconfig.steep.setup({
     capabilities = capabilities,
     on_attach = function(client, bufnr)
         on_attach(client, bufnr)
-        vim.keymap.set("n", "<space>ct", function()
+        vim.keymap.set("n", "<space>lt", function()
             client.request("$/typecheck", { guid = "typecheck-" .. os.time() }, function()
             end, bufnr)
-        end, { silent = true, buffer = bufnr })
+        end, { silent = true, buffer = bufnr, desc = "lsp typecheck" })
     end,
     on_new_config = function(config, root_dir)
         add_bundle_exec(config, "steep", root_dir)
@@ -626,11 +593,6 @@ if not lspconfig_configs["ruby-lsp"] then
     }
 end
 
--- lspconfig["ruby-lsp"].setup({
---   capabilities = capabilities,
---   on_attach = on_attach,
--- })
-
 require("null-ls").setup({
     capabilities = capabilities,
     sources = {
@@ -664,3 +626,7 @@ require("null-ls").setup({
 local lsp = require('lsp-zero')
 lsp.preset('recommended')
 lsp.setup()
+vim.keymap.set("n", "<space>lf", ":LspZeroFormat<cr>", { desc = "lsp format" })
+vim.keymap.set("n", "<space>lI", ":Mason<cr>", { desc = "lsp installer" })
+vim.keymap.set("n", "<space>li", ":LspInfo<cr>", { desc = "lsp info" })
+vim.keymap.set("n", "<space>b", "<C-o>", { desc = "navigate back" })
