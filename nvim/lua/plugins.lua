@@ -232,31 +232,7 @@ return packer.startup(function(use)
             })
         end
     })
-    use({ "navarasu/onedark.nvim",
-        config = function()
-            require('onedark').setup {
-                -- Main options --
-                style = 'dark', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
-                transparent = true, -- Show/hide background
-                term_colors = true, -- Change terminal color as per the selected theme style
-
-                -- toggle theme style ---
-                toggle_style_key = nil, -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
-                toggle_style_list = { 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light' }, -- List of styles to toggle between
-
-                -- Lualine options --
-                lualine = {
-                    transparent = true, -- lualine center bar transparency
-                },
-
-                -- Plugins Config --
-                diagnostics = {
-                    darker = true, -- darker colors for diagnostic
-                    background = true, -- use background color for virtual text
-                },
-            }
-        end
-    })
+    use "lunarvim/Onedarker.nvim"
     -- }}}
 
     -- smartchr textobj {{{
