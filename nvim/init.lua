@@ -544,7 +544,7 @@ vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { noremap = true, silent = t
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { noremap = true, silent = true, desc = "diagnostic go next" })
 vim.keymap.set("n", "<space>ll", vim.diagnostic.setloclist, { noremap = true, silent = true, desc = "diagnostic list" })
 
-local luadev = require("lua-dev").setup()
+-- local luadev = require("lua-dev").setup()
 
 local lspconfig = require "lspconfig"
 
@@ -630,3 +630,10 @@ vim.keymap.set("n", "<space>lf", ":LspZeroFormat<cr>", { desc = "lsp format" })
 vim.keymap.set("n", "<space>lI", ":Mason<cr>", { desc = "lsp installer" })
 vim.keymap.set("n", "<space>li", ":LspInfo<cr>", { desc = "lsp info" })
 vim.keymap.set("n", "<space>b", "<C-o>", { desc = "navigate back" })
+
+-- Packer
+vim.keymap.set("n", "<space>pS", "<cmd>PackerStatus<CR>", { silent = true, desc = "Show plugins status" })
+vim.keymap.set("n", "<space>pc", "<cmd>PackerCompile<CR>", { silent = true, desc = "Compile plugins" })
+vim.keymap.set("n", "<space>pi", "<cmd>PackerInstall<CR>", { silent = true, desc = "Install plugins" })
+vim.keymap.set("n", "<space>pr", "<cmd>PackerReload<CR>", { silent = true, desc = "Reload plugins" })
+vim.keymap.set("n", "<space>ps", "<cmd>PackerSync<CR>", { silent = true, desc = "Sync plugins" })
