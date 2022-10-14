@@ -1,9 +1,9 @@
 function update-all-libs {
   # Install global library
   $Libs = @(
-    # JavaScript
+
     $ScoopCachePath = ([IO.Path]::Combine($HOME, "scoop", "cache"))
-    @{ name = "Scoop"; installer = "scoop update *;scoop cleanup * --cache;Get-ChildItem $ScoopCachePath -Include *.* -Recurse | Remove-Item" }
+    @{ name = "Scoop"; installer = "scoop update * && scoop cleanup * --cache;Get-ChildItem $ScoopCachePath -Include *.* -Recurse | Remove-Item" }
     @{ name = "corepack"; installer = "python3 -u `"$HOME/dotfiles/scripts/update-corepack.py`"" }
     @{ name = "npm"; installer = "npm up -g" }
     @{ name = "pnpm"; installer = "pnpm up -g" }
@@ -16,8 +16,9 @@ function update-all-libs {
     @{ name = "pip-review"; installer = "pip-review -a" }
     @{ name = "pipx"; installer = "pipx upgrade-all" }
 
-    # software
-    @{ name = "need sudo (scoop, windget)"; installer = "sudo scoop update * --global && winget upgrade --all;" }
+    # software(need sudo)
+    @{ name = "scoop global"; installer = "sudo scoop update * --global && sudo scoop cleanup * --cache --global;Get-ChildItem $ScoopCachePath -Include *.* -Recurse | Remove-Item;" }
+    @{ name = "windget"; installer = "sudo winget upgrade --all" }
   )
 
   foreach ($Lib in $Libs) {
