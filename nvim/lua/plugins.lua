@@ -165,12 +165,12 @@ return packer.startup(function(use)
         config = function()
             require("Comment").setup({
                 toggler = {
-                    line = "\\cc",
-                    block = "\\cb",
+                    line = "<space>/",
+                    block = "<A-S-a>",
                 },
                 opleader = {
-                    line = "\\cc",
-                    block = "\\cb",
+                    line = "<space>/",
+                    block = "<A-S-a>",
                 },
                 ignore = "^$",
             })
