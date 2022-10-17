@@ -163,7 +163,7 @@ docker-compose up
 ## 手動でやらなければならないこと
 
 - `Hard coded`とコメントが書かれたユーザー名の書き換え。(エディターの検索機能を使ってください)
-- ただし現状`scoop`のパスから`windows`のユーザー名を割り出しているため`scoop`のパスがWSLでも認識できる状態ならほとんど書き換える必要がありません。
+- ただし現状`scoop`のパスから`windows`のユーザー名を割り出しているため`scoop`のパスがWSLでも認識できる状態ならほとんど書き換える必要はありません。
 
 ### Windows-Terminal
 
@@ -206,8 +206,5 @@ git config --global user.email "メールアドレス"
 - [pacman-wrapper.sh](./common/functions/pacman-wrapper.sh): MIT license
 
   Copyright (c) 2017- Josh Glendenning(<https://github.com/isobit/pac>)
-
-- [nvim/init.lua](./nvim/init.lua): GPL-3.0 license
-  <https://github.com/LunarVim/LunarVim/blob/rolling/LICENSE>
 
 - Other: Unlicense
