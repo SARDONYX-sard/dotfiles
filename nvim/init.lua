@@ -135,7 +135,7 @@ vim.opt.complete = ".,w,b,u,t,i,d"
 vim.keymap.set("i", "<C-X><C-O>", "<C-X><C-O><C-P>")
 
 -- clipboard settings(vim's registers == clipboard)
-if vim.fn.has("$WSLENV") then
+if os.getenv("WSL_INTEROP") or os.getenv("WSL_DISTRO_NAME") then
     -- In case of WSL, specify the windows clipboard to prevent `display = ":0" error`.
     -- - https://github.com/asvetliakov/vscode-neovim/issues/103
     -- - https://github.com/Microsoft/WSL/issues/892
