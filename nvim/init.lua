@@ -134,8 +134,24 @@ vim.keymap.set("n", "<C-H>", ":<C-U>tabmove -1<CR>", { silent = true })
 vim.opt.complete = ".,w,b,u,t,i,d"
 vim.keymap.set("i", "<C-X><C-O>", "<C-X><C-O><C-P>")
 
--- クリップボード設定
-vim.opt.clipboard = "unnamedplus"
+-- clipboard settings(vim's registers == clipboard)
+if vim.fn.has("$WSLENV") then
+    -- In case of WSL, specify the windows clipboard to prevent `display = ":0" error`.
+    -- - https://github.com/asvetliakov/vscode-neovim/issues/103
+    -- - https://github.com/Microsoft/WSL/issues/892
+    if vim.fn.has("clipboard") or vim.fn.exists("g:vscode") then
+        vim.api.nvim_create_augroup("WSLYank", {})
+        vim.api.nvim_create_autocmd("TextYankPost", {
+            group = "WSLYank",
+            callback = function()
+                vim.cmd [[ if v:event.operator ==# 'y' | call system('/mnt/c/Windows/System32/clip.exe', @0) | endif ]]
+            end
+        })
+    end
+else
+    vim.opt.clipboard = "unnamedplus"
+end
+
 
 -- バッファ切り替え
 vim.opt.hidden = true
@@ -197,7 +213,13 @@ vim.cmd [[autocmd! vimrc BufReadPost * if line("'\"") > 1 && line("'\"") <= line
 vim.cmd [[autocmd! vimrc VimEnter,WinEnter * call matchadd('ZenkakuSpace', '　')]]
 
 vim.cmd [[autocmd! vimrc ColorScheme * highlight ZenkakuSpace ctermbg=239 guibg=none]] -- toggleterm transparent
-vim.cmd [[colorscheme onedarker]]
+
+if vim.api.nvim_call_function('has', { 'nvim-0.8' }) ~= 1 then
+    vim.cmd [[colorscheme duskfox]]
+else
+    vim.cmd [[colorscheme onedarker]]
+end
+
 
 --Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 --If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
