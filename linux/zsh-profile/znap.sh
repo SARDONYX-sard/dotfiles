@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-zsh_plugins_dir="$HOME/.config/zsh/plugins"
+zsh_plugins_dir="$HOME/.cache/zsh/plugins"
 
 # Download Znap, if it's not there yet.
 [[ -f "$zsh_plugins_dir"/zsh-snap/znap.zsh ]] ||
