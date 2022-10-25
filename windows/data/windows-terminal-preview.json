@@ -128,6 +128,13 @@
         "hidden": false,
         "name": "kali-linux",
         "source": "Windows.Terminal.Wsl"
+      },
+      {
+        "guid": "{55ca431b-3a87-5fb3-83cd-11ececc031d2}",
+        "hidden": false,
+        "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Kali-dragon-icon.svg/2048px-Kali-dragon-icon.svg.png",
+        "name": "Win-KeX",
+        "commandline": "wsl -d kali-linux kex --wtstart -m"
       }
     ]
   },
