@@ -69,6 +69,8 @@ else
   # asdf install python latest
   # asdf install ruby latest
 
+  "nodejs lts" >>"$HOME"/.tool-versions
+
   corepack enable pnpm yarn npm
   asdf reshim
 fi
