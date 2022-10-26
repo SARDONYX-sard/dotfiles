@@ -38,7 +38,7 @@ vim.opt.timeoutlen = 500
 vim.opt.pumblend = 5 -- completions windows opacity
 
 -- fileformat is local. fileformats is global.see more...(https://vim.fandom.com/wiki/File_format)
-vim.opt.fileformats = "unix" -- use unix line endings for windows too.(if you want to change, you can use :set ff=dos)
+-- vim.opt.fileformats = "unix" -- use unix line endings for windows too.(if you want to change, you can use :set ff=dos)
 
 -- gui configs
 vim.cmd [[
