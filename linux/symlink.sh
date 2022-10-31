@@ -10,14 +10,6 @@
 # -o(option-name): If any command in a pipeline has a non-zero exit status, the entire pipeline will be non-zero.
 set -euxo pipefail
 
-#! If you edit a file in the Ubuntu environment (VolFS) from a Windows application, that file will be corrupted.
-#! Never mess with files in the Ubuntu environment from Windows applications.
-# see(https://kledgeb.blogspot.com/2017/01/wsl-70-bashwindows.html)
-# Example:
-#     `Symlink target`` → `Destination``
-#          windows      →     Ubuntu       => OK!
-#           Ubuntu      →     windows      => Not recommended!
-
 # reference: (https://www.reddit.com/r/bashonubuntuonwindows/comments/8dhhrr/is_it_possible_to_get_the_windows_username_from/)
 # WSL can assign windows $HOME.
 HOME_DIR="$HOME"
@@ -35,6 +27,10 @@ fi
 
 # If the link is to a directory, it will fail.
 # (you can force it with -n, but it might be dangerous)
+
+# git
+mkdir -p "$HOME"/.config/git
+sudo ln -sf "$HOME_DIR"/dotfiles/common/data/git/gitignore-global.txt "$HOME"/.config/git/ignore
 
 # vim
 sudo ln -sf "$HOME_DIR"/dotfiles/init.vim "$HOME"/.vimrc
