@@ -659,3 +659,6 @@ vim.keymap.set("n", "<space>pc", "<cmd>PackerCompile<CR>", { silent = true, desc
 vim.keymap.set("n", "<space>pi", "<cmd>PackerInstall<CR>", { silent = true, desc = "Install plugins" })
 vim.keymap.set("n", "<space>pr", "<cmd>PackerReload<CR>", { silent = true, desc = "Reload plugins" })
 vim.keymap.set("n", "<space>ps", "<cmd>PackerSync<CR>", { silent = true, desc = "Sync plugins" })
+
+-- Show dashboard
+vim.keymap.set("n", "<space>;", "<cmd>Alpha<CR>", { silent = true, desc = "Open alpha(recent file list)" })
