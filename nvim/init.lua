@@ -662,3 +662,9 @@ vim.keymap.set("n", "<space>ps", "<cmd>PackerSync<CR>", { silent = true, desc = 
 
 -- Show dashboard
 vim.keymap.set("n", "<space>;", "<cmd>Alpha<CR>", { silent = true, desc = "Open alpha(recent file list)" })
+
+-- suppress clangd encoding warning
+-- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.offsetEncoding = { "utf-16" }
+require("lspconfig").clangd.setup({ capabilities = capabilities })
