@@ -13,6 +13,7 @@ function M.on_attach(client, bufnr)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
     vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", bufopts)
+    vim.keymap.set("n", "K", "<cmd>:Lspsaga hover_doc<cr>", { silent = true, desc = "lsp hover" })
     vim.keymap.set("n", "gh", "<cmd>Lspsaga hover_doc<CR>", bufopts)
     vim.keymap.set("n", "gs", "<cmd>Lspsaga lsp_finder<CR>", bufopts)
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
@@ -56,5 +57,9 @@ function M.add_bundle_exec(config, gem, dir)
         table.insert(config.cmd, 1, "bundle")
     end
 end
+
+vim.keymap.set("n", "<space>lI", ":Mason<cr>", { silent = true, desc = "lsp installer" })
+vim.keymap.set("n", "<space>li", ":LspInfo<cr>", { silent = true, desc = "lsp info" })
+vim.keymap.set("n", "<space>b", "<C-o>", { silent = true, desc = "navigate back" })
 
 return M

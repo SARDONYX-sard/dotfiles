@@ -568,7 +568,61 @@ vim.keymap.set("n", "<space>ll", vim.diagnostic.setloclist, { noremap = true, si
 
 -- local luadev = require("lua-dev").setup()
 
+
+local lsp = require('lsp-zero')
+lsp.preset('recommended')
+lsp.setup()
+
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.jsonc.filetype_to_parsename = "json"
+
 local lspconfig = require "lspconfig"
+
+local servers = {
+    'clangd',
+    'dockerls',
+    'jsonls',
+    'powershell_es',
+    'pylsp',
+    'remark_ls',
+    'rust_analyzer',
+    'sumneko_lua',
+    'tsserver',
+    'vimls',
+    'yamlls',
+}
+
+for _, lsp in ipairs(servers) do
+    lspconfig[lsp].setup {
+        on_attach = on_attach,
+        flags = {
+            debounce_text_changes = 150,
+        }
+    }
+end
+
+-- suppress clangd encoding warning
+-- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428
+capabilities.offsetEncoding = { "utf-16" }
+lspconfig.clangd.setup({ capabilities = capabilities })
+
+-- use json schema
+lspconfig["jsonls"].setup({
+    settings = {
+        json = {
+            schemas = require("schemastore").json.schemas(),
+        },
+    },
+    setup = {
+        commands = {
+            Format = {
+                function()
+                    vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line "$", 0 })
+                end,
+            },
+        },
+    },
+})
 
 lspconfig.steep.setup({
     capabilities = capabilities,
@@ -587,6 +641,7 @@ lspconfig.steep.setup({
 
 local lspconfig_configs = require "lspconfig.configs"
 local lspconfig_util = require "lspconfig.util"
+
 if not lspconfig_configs["ruby-lsp"] then
     lspconfig_configs["ruby-lsp"] = {
         default_config = {
@@ -645,14 +700,6 @@ require("null-ls").setup({
 -- }}}
 -- }}}
 
-local lsp = require('lsp-zero')
-lsp.preset('recommended')
-lsp.setup()
-vim.keymap.set("n", "<space>lf", ":LspZeroFormat<cr>", { desc = "lsp format" })
-vim.keymap.set("n", "<space>lI", ":Mason<cr>", { desc = "lsp installer" })
-vim.keymap.set("n", "<space>li", ":LspInfo<cr>", { desc = "lsp info" })
-vim.keymap.set("n", "<space>b", "<C-o>", { desc = "navigate back" })
-
 -- Packer
 vim.keymap.set("n", "<space>pS", "<cmd>PackerStatus<CR>", { silent = true, desc = "Show plugins status" })
 vim.keymap.set("n", "<space>pc", "<cmd>PackerCompile<CR>", { silent = true, desc = "Compile plugins" })
@@ -662,9 +709,3 @@ vim.keymap.set("n", "<space>ps", "<cmd>PackerSync<CR>", { silent = true, desc = 
 
 -- Show dashboard
 vim.keymap.set("n", "<space>;", "<cmd>Alpha<CR>", { silent = true, desc = "Open alpha(recent file list)" })
-
--- suppress clangd encoding warning
--- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.offsetEncoding = { "utf-16" }
-require("lspconfig").clangd.setup({ capabilities = capabilities })
