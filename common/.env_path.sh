@@ -15,7 +15,7 @@ fi
 [ -e "$HOME/.luarocks/bin" ] && PATH="$HOME/.luarocks/bin:$PATH"
 
 # --------------------------------------------------------------------------------------------------
-# Language settings
+# utils settings
 # --------------------------------------------------------------------------------------------------
 # Where user-specific configurations should be written
 # - https://wiki.archlinux.org/title/XDG_Base_Directory
@@ -39,6 +39,9 @@ PATH="$HOME/.local/bin:$PATH"
 
 CURRENT_SHELL=$(ps -ocomm= -q $$)
 export CURRENT_SHELL
+
+# https://github.com/ellie/atuin
+(command -v atuin) >/dev/null 2>&1 && eval "$(atuin init "$CURRENT_SHELL")"
 
 # --------------------------------------------------------------------------------------------------
 # Language settings
