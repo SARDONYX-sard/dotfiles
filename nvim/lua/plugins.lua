@@ -94,6 +94,8 @@ return packer.startup(function(use)
         }
     }
 
+    use "b0o/schemastore.nvim"
+
     use({
         "jose-elias-alvarez/null-ls.nvim",
         requires = { "nvim-lua/plenary.nvim" },
