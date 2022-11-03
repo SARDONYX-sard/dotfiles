@@ -40,7 +40,7 @@ function M.on_attach(client, bufnr)
     end, bufopts)
     vim.keymap.set("n", "<space>lf", function()
         vim.lsp.buf.format({ async = true })
-    end, bufopts)
+    end, { noremap = true, silent = true, buffer = bufnr, desc = "lsp format" })
 end
 
 function M.add_bundle_exec(config, gem, dir)
