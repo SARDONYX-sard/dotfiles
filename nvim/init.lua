@@ -575,13 +575,13 @@ lsp.setup()
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.jsonc.filetype_to_parsename = "json"
+parser_config.jsonc.used_by = "json"
 
 local lspconfig = require "lspconfig"
 
 local servers = {
     'clangd',
     'dockerls',
-    'jsonls',
     'powershell_es',
     'pylsp',
     'remark_ls',
@@ -608,9 +608,21 @@ lspconfig.clangd.setup({ capabilities = capabilities })
 
 -- use json schema
 lspconfig["jsonls"].setup({
+    on_attach = on_attach,
     settings = {
         json = {
-            schemas = require("schemastore").json.schemas(),
+            schemas = vim.list_extend(
+                {
+                    {
+                        description = 'VSCode devcontaier',
+                        fileMatch = { 'devcontainer.json' },
+                        name = 'devcontaier.json',
+                        url = 'https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json',
+                    },
+                },
+                require('schemastore').json.schemas {
+                }
+            ),
         },
     },
     setup = {
