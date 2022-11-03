@@ -173,3 +173,6 @@ export COMMON="${HOME_DIR}/dotfiles/common"
 #! Hack to share environment variable files defined in bash with fish.
 #! If you want to use bash itself, remove it.
 (which fish) >/dev/null 2>&1 && exec fish
+
+# https://github.com/ellie/atuin
+[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh

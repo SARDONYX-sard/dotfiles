@@ -55,3 +55,8 @@ set fish_cursor_replace_one underscore
 # The following variable can be used to configure cursor shape in
 # visual mode, but due to fish_cursor_default, is redundant here
 set fish_cursor_visual block
+
+if status --is-interactive
+    # https://github.com/ellie/atuin
+    command -sq atuin&>/dev/null && atuin init fish | source
+end
