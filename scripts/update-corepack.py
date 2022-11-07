@@ -47,8 +47,8 @@ def get_latest_version(manager_name: Literal["npm", "yarn", "pnpm"], is_debug: b
     """Get latest manager version
 
     Args:
-        manager_name (str): npm | yarn | pnpm
-        is_debug (bool): enable debug info
+        `manager_name`: Name of the package manager
+        `is_debug`: Enable debug mode
 
     Return:
         latest package manager's version
@@ -58,7 +58,7 @@ def get_latest_version(manager_name: Literal["npm", "yarn", "pnpm"], is_debug: b
 | rg -o "{version_regexp}"'
 
     if is_debug:
-        print(color("Execute command", "cyan") + f": {cmd}")
+        print(color("DEBUG: Execute command ", "cyan") + f"{cmd}")
     return shell_exec(cmd)  # `-o` is ripgrep only match option
 
 
@@ -82,13 +82,18 @@ def remove_prev_versions(
     """
     Removes previous versions of the package manager
 
-    Args:
-        manager_name (str): npm | yarn | pnpm
-        is_debug (bool): enable debug info. **not remove**
+    `manager_name`
+        Name of the package manager
+    `manager_latest_version`
+        Latest version of the package manager(e.g. 1.22.19)
+    `is_debug`
+        enable debug info. & not remove
     """
     manager_path = Path.joinpath(Path.home(), ".node/corepack", manager_name)
     manager_versions = listdir(manager_path)
-    manager_versions.remove(manager_latest_version)
+
+    if manager_latest_version in manager_versions:
+        manager_versions.remove(manager_latest_version)
 
     if is_debug:
         print(color("DEBUG: version to be removed ...", "cyan"), end="")
@@ -101,7 +106,7 @@ def remove_prev_versions(
 
 def run_dry_run(manager_name: str):
     search_cmd = f"npm search {manager_name}"
-    print(color("Execute command", "cyan") + f": {search_cmd}", end="\n")
+    print(color("DEBUG: Execute command ", "cyan") + f"{search_cmd}", end="\n")
     print(
         f"{search_cmd} Docs: https://docs.npmjs.com/cli/v6/commands/npm-search",
         end="\n",
@@ -156,6 +161,7 @@ Please visually check that the version assigned by the code is correct.\n",
 
     for manager_name in managers:
         manager_latest_version = get_latest_version(manager_name, is_dry_run)
+        print(f"{manager_name}'s latest version:  {manager_latest_version}")
 
         if args.enabled:
             print(color("INFO: Enabling management by corepack...", "cyan"))
@@ -165,11 +171,8 @@ Please visually check that the version assigned by the code is correct.\n",
             remove_prev_versions(manager_name, manager_latest_version, is_dry_run)
 
         if is_dry_run:
-            print(
-                f"Probably... the latest {manager_name} version: {manager_latest_version}"
-            )
-
             run_dry_run(manager_name)
+
         else:
             print(f"{manager_name} active: {manager_latest_version}")
             activate_corepack(manager_name, manager_latest_version)
