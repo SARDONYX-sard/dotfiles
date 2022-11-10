@@ -9,7 +9,7 @@ function update-all-libs
     end
 
     which node&>/dev/null && \
-        python3 -u "$HOME_DIR"/dotfiles/scripts/corepack-update.py
+        python3 -u "$HOME_DIR"/dotfiles/scripts/update-corepack.py --remove-prev
 
     which brew&>/dev/null && brew upgrade
     which npm&>/dev/null && npm up -g
