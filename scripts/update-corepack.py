@@ -74,6 +74,14 @@ def remove(path: Path):
         shell_exec(f'/bin/rm -rf "{path}"')
 
 
+def get_corepack_path():
+    if os.name == "nt":
+        return Path.joinpath(Path.home(), ".node/corepack")
+    else:
+        # For Posix
+        return Path.joinpath(Path.home(), ".cache/node/corepack")
+
+
 def remove_prev_versions(
     manager_name: Literal["npm", "yarn", "pnpm"],
     manager_latest_version: str,
@@ -89,7 +97,7 @@ def remove_prev_versions(
     `is_debug`
         enable debug info. & not remove
     """
-    manager_path = Path.joinpath(Path.home(), ".node/corepack", manager_name)
+    manager_path = Path.joinpath(get_corepack_path(), manager_name)
     manager_versions = listdir(manager_path)
 
     if manager_latest_version in manager_versions:
