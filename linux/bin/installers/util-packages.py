@@ -129,7 +129,9 @@ def initialize(manager: Literal["apt", "pacman", "yay"]):
     print(color("Update packages database", "cyan"))
 
     if manager == "apt":
-        system("sudo apt update - y;sudo apt upgrade - y; sudo apt autoremove -y")
+        system(
+            " sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y"
+        )
     elif manager == "pacman":
         system("sudo pacman -Syu --noconfirm")
     elif manager == "yay":
