@@ -6,7 +6,7 @@
 
 **このdotfilesは私用に最適化されているため直接使用することはオススメできません。**
 
-**`use template`を使用することを強く推奨します。**
+**[`Use this template`](https://github.com/SARDONYX-sard/dotfiles/generate)を使用することを強く推奨します。**
 
 <p align="center">
   <img src="./docs/images/../../../../images/terminals.jpg" alt="terminals" height="300" width="800"/>
@@ -25,7 +25,6 @@
   - [インストール方法](#インストール方法)
     - [windows](#windows)
     - [Linux](#linux)
-    - [WSL(Windows Subsystem for Linux)](#wslwindows-subsystem-for-linux)
     - [Docker](#docker)
   - [進捗状況](#進捗状況)
   - [注意!](#注意)
@@ -51,16 +50,16 @@
 
 どちらかのコマンドを選択します。
 
+- **推奨コマンド**(開発言語は後ほど手動で入れます)
+
+```powershell
+$env:DOTFILES_INSTALL_MODE = 'lightweight';Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
+```
+
 - フルサイズモード
 
 ```powershell
 Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
-```
-
-- 軽量モード(msys2や開発言語を自動で入れません)
-
-```powershell
-$env:DOTFILES_INSTALL_MODE = 'lightweight';Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
 ```
 
 エラーした場合は以下のコマンドを先に実行してください。
@@ -78,54 +77,19 @@ Set-ExecutionPolicy RemoteSigned
 - **推奨コマンド**(開発言語は後ほど手動で入れます)
 
 ```bash
-git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
-cd ~/dotfiles
-bash "install-wsl.sh" --light --zsh
+((which curl) >/dev/null 2>&1 && curl -sSfL https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh -o "/tmp/install-wsl.sh") ||
+ ((which wget) >/dev/null 2>&1 && wget -P /tmp/ https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh) && bash /tmp/install-wsl.sh --light --fish
 ```
 
 - フルサイズモード
 
 ```bash
-git clone --depth 1 -- https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
-cd ~/dotfiles
-sudo bash "install-wsl.sh"
+((which curl) >/dev/null 2>&1 && curl -sSfL https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh -o "/tmp/install-wsl.sh") ||
+ ((which wget) >/dev/null 2>&1 && wget -P /tmp/ https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh) && bash /tmp/install-wsl.sh
 
 # Options
 # --zsh: default shellをzshに変えます
-# --light: Lightweight mode (各言語を自動で入れません)
-```
-
----
-
-### WSL(Windows Subsystem for Linux)
-
-1. PowerShellターミナルにて
-
-```powershell
-git clone  --depth 1 -- https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
-```
-
-2 WSLのターミナルにて
-
-どちらかのコマンドを選択します。
-
-- **推奨コマンド**(開発言語は後ほど手動で入れます)
-
-```bash
-export USERNAME=$(cmd.exe /c 'echo %username%' | sed -e 's/\r//g')
-cd /mnt/c/Users/${USERNAME}/dotfiles
-bash "install-wsl.sh" --light --zsh
-```
-
-- フルサイズモード
-
-```bash
-export USERNAME=$(cmd.exe /c 'echo %username%' | sed -e 's/\r//g')
-cd /mnt/c/Users/${USERNAME}/dotfiles
-bash "./install-wsl.sh"
-
-# Options
-# --zsh: default shellをzshに変えます
+# --fish: fishシェルのプラグインをインストールします
 # --light: Lightweight mode (各言語を自動で入れません)
 ```
 
