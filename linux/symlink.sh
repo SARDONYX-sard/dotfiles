@@ -20,23 +20,27 @@ set -euxo pipefail
 HOME_DIR="$HOME"
 
 if [ -e /mnt/c ] || [ -e /c ]; then
-  if [ ! "$(command -v powershell.exe)" ]; then
-    echo "command \"powershell.exe\" not exists."
+  if [ ! "$(command -v cmd.exe)" ]; then #! use cmd.exe, powershell.exe is very slowly
+    echo "command \"cmd.exe\" not exists."
     echo "$(tput setaf 1)"Windows or r path is not inherited."$(tput sgr0)"
     exit 1
   fi
 
   if (which wslpath) >/dev/null 2>&1; then
     # shellcheck disable=SC2016
-    HOME_DIR=$(wslpath "$(powershell.exe -command 'echo $HOME')" | sed -E 's/\r//g')
+    HOME_DIR=$(wslpath "$(cmd.exe /c "echo %HOMEDRIVE%%HOMEPATH%" 2>/dev/null)" | sed -E 's/\r//g')
   elif (which cygpath) >/dev/null 2>&1; then
     # shellcheck disable=SC2016
-    HOME_DIR=$(cygpath "$(powershell.exe -command 'echo $HOME')" | sed -E 's/\r//g')
+    HOME_DIR=$(wslpath "$(cmd.exe /c "echo %HOMEDRIVE%%HOMEPATH%" 2>/dev/null)" | sed -E 's/\r//g')
   else
     echo "Not found path changer"
     exit 1
   fi
+
+  WIN_USER=$(echo "$HOME_DIR" | sed -E 's/.*Users\///g' | sed -E 's/\///g')
+  export WIN_USER
 fi
+export HOME_DIR
 
 # --------------------------------------------------------------------------------------------------
 # Create symlink
@@ -67,6 +71,9 @@ sudo ln -sf "$HOME_DIR"/dotfiles/nvim/ftplugin "$HOME"/.config/nvim
 # fish shell
 mkdir -p "$HOME"/.config/fish
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/fishrc.fish "$HOME"/.config/fish/config.fish
+
+# common env variables for all shell
+sudo ln -sf "$HOME_DIR"/dotfiles/common/common_profile.sh "$HOME"/common_profile.sh
 
 # dot rc
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.bashrc "$HOME"/.bashrc
