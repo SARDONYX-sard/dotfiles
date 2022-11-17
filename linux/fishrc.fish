@@ -11,18 +11,24 @@ set HOME_DIR "$HOME"
 # winodows environment variables
 # -----------------------------------------
 if [ -e /mnt/c ] || [ -e /c ]
-    if [ ! "$(command -v scoop)" ]
-        then
-        echo "command \"scoop\" not exists."
+    if [ ! "$(command -v powershell.exe)" ] then
+        echo "command \"powershell.exe\" not exists."
         echo "$(tput setaf 1)"Windows or r path is not inherited."$(tput sgr0)"
         exit 1
     end
 
-    set WIN_HOME $(which scoop | sed -E 's/scoop.*//g')
-    set HOME_DIR $WIN_HOME
-    export WIN_HOME
+    if which wslpath &>/dev/null
+        set HOME_DIR $(wslpath "$(powershell.exe -command 'echo $HOME')")
+        set HOME_DIR $(echo "$HOME_DIR" | sed -E 's/\r//g')
+    else if which cygpath&>/dev/null
+        set HOME_DIR $(cygpath "$(powershell.exe -command 'echo $HOME')")
+        set HOME_DIR $(echo "$HOME_DIR" | sed -E 's/\r//g')
+    else
+        echo "Not found path changer"
+        exit 1
+    end
 
-    set WIN_USER $(echo "$WIN_HOME" | sed -E 's/.*Users\///g' | sed -E 's/\///g')
+    set WIN_USER $(echo "$HOME_DIR" | sed -E 's/.*Users\///g' | sed -E 's/\///g')
     export WIN_USER
 end
 

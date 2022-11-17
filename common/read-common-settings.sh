@@ -4,7 +4,7 @@
 #* (It can be run after constant-values.sh has been executed and dependent variables have been registered.)
 
 #* The following constants are required.
-#* - COMMON
+#* - HOME_DIR
 
 function readFile {
   FILE_PATH=$1
@@ -14,6 +14,8 @@ function readFile {
     echo "$(tput setaf 1)WARNING$(tput sgr0): \"$FILE_PATH\" not found"
   fi
 }
+
+COMMON="$HOME_DIR/dotfiles/common"
 
 # not read msys2
 [ -e /c ] || readFile "${COMMON}/.env_path.sh"
