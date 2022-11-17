@@ -39,11 +39,11 @@ export HOME_DIR
 # Check dotfiles installed
 # --------------------------------------------------------------------------------------------------
 if (which yay) >/dev/null 2>&1; then
-  yay -S git python3
+  yay -S git python3 --noconfirm
 elif (which pacman) >/dev/null 2>&1; then
-  sudo pacman -S git python3
+  sudo pacman -S git python3 --noconfirm
 elif (which apt) >/dev/null 2>&1; then
-  sudo apt install git python3
+  sudo apt install git python3 -y
 else
   echo "Not supported package manager."
   exit 1
