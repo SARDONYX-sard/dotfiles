@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# Usage: bash ./symlink.sh.
-#! Please do not sudo bash ./symlink.sh Because $HOME is /root/ when use `sudo bash`
+if [ "$(whoami)" != "root" ] && [ "$SUDO_USER" != "" ]; then
+  echo "Please run with sudo."
+  exit 1
+fi
 
 # ? Strict setting of immediate termination if an error occurs.(for test command)
 # -u(nounset): During parameter expansion, if there are any variables that have not been set, an error will occur.
@@ -10,35 +12,35 @@
 # -o(option-name): If any command in a pipeline has a non-zero exit status, the entire pipeline will be non-zero.
 set -euxo pipefail
 
-# reference: (https://www.reddit.com/r/bashonubuntuonwindows/comments/8dhhrr/is_it_possible_to_get_the_windows_username_from/)
-# WSL can assign windows $HOME.
+# --------------------------------------------------------------------------------------------------
+# Constant variables
+# --------------------------------------------------------------------------------------------------
+# - msys2 or WSL => windows $HOME (e.g. /mnt/c/Users/SARDONYX)
+# - Linux => $HOME
 HOME_DIR="$HOME"
 
 if [ -e /mnt/c ] || [ -e /c ]; then
   if [ ! "$(command -v powershell.exe)" ]; then
     echo "command \"powershell.exe\" not exists."
-
     echo "$(tput setaf 1)"Windows or r path is not inherited."$(tput sgr0)"
     exit 1
   fi
 
   if (which wslpath) >/dev/null 2>&1; then
     # shellcheck disable=SC2016
-    WIN_HOME=$(wslpath "$(powershell.exe -command 'echo $HOME')")
+    HOME_DIR=$(wslpath "$(powershell.exe -command 'echo $HOME')" | sed -E 's/\r//g')
   elif (which cygpath) >/dev/null 2>&1; then
     # shellcheck disable=SC2016
-    WIN_HOME=$(cygpath "$(powershell.exe -command 'echo $HOME')")
+    HOME_DIR=$(cygpath "$(powershell.exe -command 'echo $HOME')" | sed -E 's/\r//g')
   else
     echo "Not found path changer"
     exit 1
   fi
-  HOME_DIR=$WIN_HOME
-  export WIN_HOME
-
-  WIN_USER=$(echo "$WIN_HOME" | sed -E 's/.*Users\///g' | sed -E 's/\///g')
-  export WIN_USER
 fi
 
+# --------------------------------------------------------------------------------------------------
+# Create symlink
+# --------------------------------------------------------------------------------------------------
 # If the link is to a directory, it will fail.
 # (you can force it with -n, but it might be dangerous)
 
