@@ -1,5 +1,23 @@
 #!/usr/bin/env bash
 
+function check_deps() {
+  local deps_array=(
+    'unzip'
+    "curl"
+  )
+
+  local no_deps="false"
+
+  for dep in "${deps_array[@]}"; do
+    (which "${dep}") >/dev/null 2>&1 && printf "%s not found" dep && no_deps="true"
+  done
+
+  [ $no_deps == "true" ] && exit 1
+}
+check_deps
+
+(which oh-my-posh) >/dev/null 2>&1 && printf "oh-my-posh already installed." && exit 0
+
 if (which brew) >/dev/null 2>&1; then
   brew install oh-my-posh
 else
