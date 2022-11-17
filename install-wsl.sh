@@ -8,18 +8,28 @@ fi
 # --------------------------------------------------------------------------------------------------
 # Constant variables
 # --------------------------------------------------------------------------------------------------
-# - msys2 or WSL => windows $HOME
+# - msys2 or WSL => windows $HOME (e.g. /mnt/c/Users/SARDONYX)
 # - Linux => $HOME
 HOME_DIR="$HOME"
 
 if [ -e /mnt/c ] || [ -e /c ]; then
-  if [ ! "$(command -v scoop)" ]; then
-    echo "command \"scoop\" not exists."
+  if [ ! "$(command -v powershell.exe)" ]; then
+    echo "command \"powershell.exe\" not exists."
+
     echo "$(tput setaf 1)"Windows or r path is not inherited."$(tput sgr0)"
     exit 1
   fi
 
-  WIN_HOME=$(which scoop | sed -E 's/scoop.*//g')
+  if (which wslpath) >/dev/null 2>&1; then
+    # shellcheck disable=SC2016
+    WIN_HOME=$(wslpath "$(powershell.exe -command 'echo $HOME')")
+  elif (which cygpath) >/dev/null 2>&1; then
+    # shellcheck disable=SC2016
+    WIN_HOME=$(cygpath "$(powershell.exe -command 'echo $HOME')")
+  else
+    echo "Not found path changer"
+    exit 1
+  fi
   HOME_DIR=$WIN_HOME
   export WIN_HOME
 
@@ -29,9 +39,26 @@ fi
 
 export HOME_DIR
 
-uname -a | grep microsoft >/dev/null 2>/dev/null
-export is_wsl=$((!$?))
+# --------------------------------------------------------------------------------------------------
+# Check dotfiles installed
+# --------------------------------------------------------------------------------------------------
+if (which yay) >/dev/null 2>&1; then
+  yay -S git python3
+elif (which pacman) >/dev/null 2>&1; then
+  sudo pacman -S git python3
+elif (which apt) >/dev/null 2>&1; then
+  sudo apt install git python3
+else
+  echo "Not supported package manager."
+  exit 1
+fi
 
+[ ! -d "$HOME_DIR"/dotfiles ] && echo "Not found $HOME_DIR/dotfiles/ dirctory." &&
+  git clone --depth 1 -- https://github.com/SARDONYX-sard/dotfiles.git "$HOME"/dotfiles
+
+# --------------------------------------------------------------------------------------------------
+# Options
+# --------------------------------------------------------------------------------------------------
 POSITIONAL=()
 while (($# > 0)); do
   case "${1}" in
@@ -45,7 +72,7 @@ while (($# > 0)); do
     ;;
   -l | --light)
     export IS_LIGHT="true"
-    shift $#
+    shift
     ;;
   *) # unknown flag/switch
     POSITIONAL+=("${1}")
@@ -56,17 +83,18 @@ done
 
 set -- "${POSITIONAL[@]}" # restore positional params
 
-if [ ! -d "$HOME_DIR"/dotfiles ]; then
-  echo "Not found $HOME_DIR/dotfiles/ dirctory."
-  exit 1
-fi
-
 # find "$HOME_DIR"/dotfiles -type d -exec chmod 755 {} +
 # find "$HOME_DIR"/dotfiles -type f -exec chmod 644 {} +
 
+# --------------------------------------------------------------------------------------------------
+# Setup setting files
+# --------------------------------------------------------------------------------------------------
 echo "Setting up symlink..."
 bash "$HOME_DIR"/dotfiles/linux/symlink.sh
 
+# --------------------------------------------------------------------------------------------------
+# Git
+# --------------------------------------------------------------------------------------------------
 echo "Setting up gitcofig..."
 gitcofig_path="$HOME/.gitconfig"
 if [ -f "$gitcofig_path" ]; then
@@ -75,14 +103,9 @@ else
   cat "$HOME_DIR"/dotfiles/common/data/git/git-config.txt >"$gitcofig_path"
 fi
 
-# -- Use symlink instead.
-# echo "Setting up global gitignore..."
-# gitignore_path="$HOME/.config/git/ignore"
-# if [ -f "$gitignore_path" ]; then
-#   mkdir -p "$HOME/.config/git"
-#   cat "$HOME_DIR"/dotfiles/common/data/git/gitignore-global.txt >"$gitignore_path"
-# fi
-
+# --------------------------------------------------------------------------------------------------
+# Install libs
+# --------------------------------------------------------------------------------------------------
 echo "Installation by package manager, etc."
 [ $IS_LIGHT ] && echo "$(tput setaf 4)"light mode selected."$(tput sgr0)"
 bash "$HOME_DIR"/dotfiles/linux/bin/all-installer.sh
