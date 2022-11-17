@@ -122,7 +122,8 @@
       //   "name": "Arch  Linux"
       // },
       {
-        "bellStyle": "taskbar",
+        "bellStyle": "none",
+        "commandline": "wsl.exe ~ -d kali-linux --user sardonyx",
         "guid": "{46ca431a-3a87-5fb3-83cd-11ececc031d2}",
         "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Kali-dragon-icon.svg/2048px-Kali-dragon-icon.svg.png",
         "hidden": false,
@@ -134,7 +135,7 @@
         "hidden": false,
         "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Kali-dragon-icon.svg/2048px-Kali-dragon-icon.svg.png",
         "name": "Win-KeX",
-        "commandline": "wsl -d kali-linux kex --wtstart -m"
+        "commandline": "wsl -d kali-linux --user sardonyx kex --wtstart -m"
       }
     ]
   },
