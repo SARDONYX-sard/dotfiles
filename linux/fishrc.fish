@@ -11,7 +11,8 @@ set HOME_DIR "$HOME"
 # winodows environment variables
 # -----------------------------------------
 if [ -e /mnt/c ] || [ -e /c ]
-    if [ ! "$(command -v cmd.exe)" ] then #! use cmd.exe, powershell.exe is very slowly
+    if [ ! "$(command -v cmd.exe)" ]
+        then #! use cmd.exe, powershell.exe is very slowly
         echo "command \"cmd.exe\" not exists."
         echo "$(tput setaf 1)"Windows or r path is not inherited."$(tput sgr0)"
         exit 1
