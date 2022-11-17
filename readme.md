@@ -7,7 +7,7 @@ English | [日本語](./docs/i18n/jp/readme.md)
 **This dotfiles is optimized for private use and is not recommended for direct**
 **use.**
 
-**It is strongly recommended to use `use template`.**
+**It is strongly recommended to use [`Use this template`](https://github.com/SARDONYX-sard/dotfiles/generate).**
 
 <p align="center">
   <img src="./docs/images/terminals.jpg" alt="terminals" height="300" width="800"/>
@@ -25,9 +25,8 @@ English | [日本語](./docs/i18n/jp/readme.md)
   - [Feature](#feature)
   - [Author's operating environment](#authors-operating-environment)
   - [How to install](#how-to-install)
-    - [windows](#windows)
+    - [Windows](#windows)
     - [Linux](#linux)
-    - [WSL(Windows Subsystem for Linux)](#wslwindows-subsystem-for-linux)
     - [Docker](#docker)
   - [Progress](#progress)
   - [Note!](#note)
@@ -49,21 +48,20 @@ English | [日本語](./docs/i18n/jp/readme.md)
 
 ## How to install
 
-### windows
+### Windows
 
 Select either command.
+
+- **Recommended command**(The development language is put in manually.)
+
+```powershell
+$env:DOTFILES_INSTALL_MODE = 'lightweight';Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
+```
 
 - Full size mode
 
 ```powershell
 Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
-```
-
-- Lightweight mode (does not automatically include msys2 or development
-  language)
-
-```powershell
-$env:DOTFILES_INSTALL_MODE = 'lightweight';Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-win.ps1')
 ```
 
 In case of an error, please execute the following command first.
@@ -81,50 +79,19 @@ Select either command.
 - **Recommended command**(The development language is put in manually.)
 
 ```bash
-git clone https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
-cd ~/dotfiles
-sudo bash "install-wsl.sh" --light --zsh
+((which curl) >/dev/null 2>&1 && curl -sSfL https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh -o "/tmp/install-wsl.sh") ||
+ ((which wget) >/dev/null 2>&1 && wget -P /tmp/ https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh) && bash /tmp/install-wsl.sh --light --fish
 ```
 
 - Full size mode
 
 ```bash
-git clone --depth 1 -- https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
-cd ~/dotfiles
-sudo bash "install-wsl.sh"
+((which curl) >/dev/null 2>&1 && curl -sSfL https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh -o "/tmp/install-wsl.sh") ||
+ ((which wget) >/dev/null 2>&1 && wget -P /tmp/ https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh) && bash /tmp/install-wsl.sh
 
 # Options
 # --zsh: Change default shell to zsh
-# --fish: Change default shell to fish
-# --light: Lightweight mode (does not automatically include the development language)
-```
-
----
-
-### WSL(Windows Subsystem for Linux)
-
-1 In the PowerShell terminal
-
-```powershell
-git clone  --depth 1 -- https://github.com/SARDONYX-sard/dotfiles.git $HOME/dotfiles
-```
-
-2 Execute one of the following commands in WSL.
-
-- **Recommended command**(The development language is put in manually.)
-
-```bash
-bash /mnt/c/Users/$(cmd.exe /c 'echo %username%' | sed -e 's/\r//g')/dotfiles/install-wsl.sh --light --zsh
-```
-
-- Full size mode
-
-```bash
-bash /mnt/c/Users/$(cmd.exe /c 'echo %username%' | sed -e 's/\r//g')/dotfiles/install-wsl.sh
-
-# Options
-# --zsh: Change default shell to zsh
-# --fish: Change default shell to fish
+# --fish: Install fish shell plugin
 # --light: Lightweight mode (does not automatically include the development language)
 ```
 
