@@ -10,30 +10,41 @@
 # --------------------------------------------------------------------------------------------------
 # Constant variables
 # --------------------------------------------------------------------------------------------------
-
-# - msys2 or WSL => windows $HOME
-# - Linux => $HOME.
+# - msys2 or WSL => windows $HOME (e.g. /mnt/c/Users/SARDONYX)
+# - Linux => $HOME
 HOME_DIR="$HOME"
 
-if [ -e /c ] || [ -e /mnt/c ]; then
-  # windows home directory
-  WIN_HOME=$(realpath -s $(which scoop | sed -E 's/scoop.*//g'))
-  export WIN_HOME
-  # windows user name
-  WIN_USER=$(echo "$WIN_HOME" | sed -E 's/.*Users\///g' | sed -E 's/\///g')
+if [ -e /mnt/c ] || [ -e /c ]; then
+  if [ ! "$(command -v powershell.exe)" ]; then
+    echo "command \"powershell.exe\" not exists."
+    echo "$(tput setaf 1)"Windows or r path is not inherited."$(tput sgr0)"
+    exit 1
+  fi
+
+  if (which wslpath) >/dev/null 2>&1; then
+    # shellcheck disable=SC2016
+    HOME_DIR=$(wslpath "$(powershell.exe -command 'echo $HOME')")
+    HOME_DIR=$(echo "$HOME_DIR" | sed -E 's/\r//g')
+  elif (which cygpath) >/dev/null 2>&1; then
+    # shellcheck disable=SC2016
+    HOME_DIR=$(cygpath "$(powershell.exe -command 'echo $HOME')")
+    HOME_DIR=$(echo "$HOME_DIR" | sed -E 's/\r//g')
+  else
+    echo "Not found path changer"
+    exit 1
+  fi
+
+  WIN_USER=$(echo "$HOME_DIR" | sed -E 's/.*Users\///g' | sed -E 's/\///g')
   export WIN_USER
-
-  HOME_DIR=$WIN_HOME
 fi
-
 export HOME_DIR
-export COMMON="${HOME_DIR}/dotfiles/common"
+
 export ZSH_PROFILE="$HOME_DIR/dotfiles/linux/zsh-profile"
 
 # --------------------------------------------------------------------------------------------------
 # Read other modules
 # --------------------------------------------------------------------------------------------------
-source "$COMMON/read-common-settings.sh" # env-paths, aliases, functions
+source "${HOME_DIR}/dotfiles/common/read-common-settings.sh" # env-paths, aliases, functions
 source "$ZSH_PROFILE/completion.sh"
 source "$ZSH_PROFILE/history.sh"
 source "$ZSH_PROFILE/shell-behavior.sh"
