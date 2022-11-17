@@ -45,7 +45,7 @@ else
 fi
 
 python3 "$HOME_DIR"/dotfiles/linux/bin/installers/util-packages.py --manager $manager
-bash "$HOME_DIR"/dotfiles/linux/bin/installers/gdb-init.sh
+bash "$HOME_DIR"/dotfiles/linux/bin/installers/gdb-dashboard.sh
 bash "$HOME_DIR"/dotfiles/linux/bin/installers/oh-my-posh.sh
 
 if [ ! "$IS_LIGHT" ]; then
