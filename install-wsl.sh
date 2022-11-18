@@ -24,7 +24,7 @@ if [ -e /mnt/c ] || [ -e /c ]; then
     HOME_DIR=$(wslpath "$(cmd.exe /c "echo %HOMEDRIVE%%HOMEPATH%" 2>/dev/null)" | sed -E 's/\r//g')
   elif (which cygpath) >/dev/null 2>&1; then
     # shellcheck disable=SC2016
-    HOME_DIR=$(wslpath "$(cmd.exe /c "echo %HOMEDRIVE%%HOMEPATH%" 2>/dev/null)" | sed -E 's/\r//g')
+    HOME_DIR=$(cygpath "$(cmd.exe /c "echo %HOMEDRIVE%%HOMEPATH%" 2>/dev/null)" | sed -E 's/\r//g')
   else
     echo "Not found path changer"
     exit 1
