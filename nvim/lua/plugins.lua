@@ -472,12 +472,6 @@ return packer.startup(function(use)
     use "mattn/webapi-vim"
     -- }}}
 
-    -- tweetvim {{{
-    use "basyura/bitly.vim"
-    use "basyura/twibill.vim"
-    use "basyura/TweetVim"
-    -- }}}
-
     -- git {{{
     use "tpope/vim-fugitive"
     use "rbong/vim-flog"
@@ -970,10 +964,10 @@ return packer.startup(function(use)
         end,
     })
 
-    use({
-        "folke/todo-comments.nvim",
-        requires = "nvim-lua/plenary.nvim",
-    })
+    -- use({
+    --     "folke/todo-comments.nvim",
+    --     requires = "nvim-lua/plenary.nvim",
+    -- })
 
     use({
         "anuvyklack/pretty-fold.nvim",
