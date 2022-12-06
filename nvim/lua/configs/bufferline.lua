@@ -49,4 +49,4 @@ end, { silent = true, desc = "Go To Buffer 9" })
 
 vim.keymap.set("n", "L", "<cmd>BufferLineCycleNext<CR>", { silent = true })
 vim.keymap.set("n", "H", "<cmd>BufferLineCyclePrev<CR>", { silent = true })
-vim.keymap.set("n", "<space>c", "<cmd>bdelete<CR>", { silent = true, desc = "Delete current buffer(window)" })
+vim.keymap.set("n", "<space>c", "<cmd>bdelete<CR>", { silent = true, desc = "Close window" })
