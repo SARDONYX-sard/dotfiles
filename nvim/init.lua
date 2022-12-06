@@ -504,14 +504,6 @@ vim.g.ale_lua_luacheck_options = "--globals vim"
 -- ag.vim
 vim.g.ag_prg = "rg --vimgrep --smart-case"
 
--- TweetVim {{{
-vim.keymap.set("n", "S", ":<C-u>TweetVimSay<CR>", { silent = true })
-vim.keymap.set("n", "<space>tt", ":<C-u>TweetVimHomeTimeline<CR>", { silent = true })
-vim.g.tweetvim_tweet_per_page = 50
-vim.g.tweetvim_include_rts = 1
-vim.g.tweetvim_display_icon = 1
--- }}}
-
 -- toggleterm {{{
 vim.keymap.set("t", "<A-n>", "<C-\\><C-n>")
 vim.keymap.set("t", "<A-h>", "<C-\\><C-N><C-w>h")
@@ -601,7 +593,10 @@ end
 -- suppress clangd encoding warning
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428
 capabilities.offsetEncoding = { "utf-16" }
-lspconfig.clangd.setup({ capabilities = capabilities })
+lspconfig["clangd"].setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
 
 -- use json schema
 lspconfig["jsonls"].setup({
@@ -710,6 +705,11 @@ require("null-ls").setup({
 -- }}}
 
 -- Packer
+wk.register({
+    ["<space>p"] = {
+        name = "+Packer",
+    },
+})
 vim.keymap.set("n", "<space>pS", "<cmd>PackerStatus<CR>", { silent = true, desc = "Show plugins status" })
 vim.keymap.set("n", "<space>pc", "<cmd>PackerCompile<CR>", { silent = true, desc = "Compile plugins" })
 vim.keymap.set("n", "<space>pi", "<cmd>PackerInstall<CR>", { silent = true, desc = "Install plugins" })
