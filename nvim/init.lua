@@ -152,6 +152,7 @@ else
     vim.opt.clipboard = "unnamedplus"
 end
 
+vim.keymap.set("n", "<space>;", "<cmd>Alpha<CR>", { silent = true, desc = "Show dashboard" })
 
 -- バッファ切り替え
 vim.opt.hidden = true
@@ -181,8 +182,8 @@ vim.keymap.set("v", "$", "g$", { silent = true })
 vim.keymap.set("v", "g$", "$", { silent = true })
 
 -- vscode like keymap
-vim.keymap.set("n", "<space>q", ":q<CR>", { silent = true, desc = "quit" }) -- <space+q> => quit editor
-vim.keymap.set("n", "<space>w", ":w<CR>", { silent = true, desc = "write file" }) -- <space+w> => write editor
+vim.keymap.set("n", "<space>q", ":q<CR>", { silent = true, desc = "Quit" }) -- <space+q> => quit editor
+vim.keymap.set("n", "<space>w", ":w<CR>", { silent = true, desc = "Write file" }) -- <space+w> => write editor
 
 vim.keymap.set("i", "jj", "<Esc>", { silent = true, desc = "to Normal mode" })
 vim.keymap.set("i", "jk", "<Esc>", { silent = true, desc = "to Normal mode" })
@@ -215,7 +216,8 @@ vim.cmd [[autocmd! vimrc VimEnter,WinEnter * call matchadd('ZenkakuSpace', '　'
 vim.cmd [[autocmd! vimrc ColorScheme * highlight ZenkakuSpace ctermbg=239 guibg=none]] -- toggleterm transparent
 
 if vim.api.nvim_call_function('has', { 'nvim-0.8' }) ~= 1 then
-    vim.cmd [[colorscheme duskfox]]
+    -- vim.cmd [[colorscheme duskfox]]
+    vim.cmd [[colorscheme onedarkpro]]
 else
     vim.cmd [[colorscheme onedarker]]
 end
@@ -352,6 +354,11 @@ let g:quickrun_config.ruby = {
 -- }}}
 
 -- vim-test
+wk.register({
+    ["<space>t"] = {
+        name = "+Test",
+    },
+})
 vim.keymap.set("n", "<space>tn", ":TestNearest<cr>")
 vim.keymap.set("n", "<space>tf", ":TestFile<cr>")
 
@@ -555,9 +562,6 @@ vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { noremap = true, silent = t
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { noremap = true, silent = true, desc = "diagnostic go next" })
 vim.keymap.set("n", "<space>ll", vim.diagnostic.setloclist, { noremap = true, silent = true, desc = "diagnostic list" })
 
--- local luadev = require("lua-dev").setup()
-
-
 local lsp = require('lsp-zero')
 lsp.preset('recommended')
 lsp.setup()
@@ -704,7 +708,7 @@ require("null-ls").setup({
 -- }}}
 -- }}}
 
--- Packer
+-- Packer {{{
 wk.register({
     ["<space>p"] = {
         name = "+Packer",
@@ -715,6 +719,4 @@ vim.keymap.set("n", "<space>pc", "<cmd>PackerCompile<CR>", { silent = true, desc
 vim.keymap.set("n", "<space>pi", "<cmd>PackerInstall<CR>", { silent = true, desc = "Install plugins" })
 vim.keymap.set("n", "<space>pr", "<cmd>PackerReload<CR>", { silent = true, desc = "Reload plugins" })
 vim.keymap.set("n", "<space>ps", "<cmd>PackerSync<CR>", { silent = true, desc = "Sync plugins" })
-
--- Show dashboard
-vim.keymap.set("n", "<space>;", "<cmd>Alpha<CR>", { silent = true, desc = "Open alpha(recent file list)" })
+-- }}}
