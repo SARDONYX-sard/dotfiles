@@ -9,19 +9,13 @@ function update-all-libs
     end
 
     command -v node&>/dev/null && \
-        python3 -u "$HOME_DIR"/dotfiles/scripts/update-corepack.py --remove-prev
+        python3 -u "$HOME_DIR"/dotfiles/scripts/update-corepack.py --remove-prev && \
+        command -v npm&>/dev/null && npm up -g && \
+        command -v pnpm&>/dev/null && pnpm up -g
 
     command -v brew&>/dev/null && brew upgrade
-    command -v node and command -v npm&>/dev/null && npm up -g
-    command -v node and command -v pnpm&>/dev/null && pnpm up -g
 
-    if command -v asdf&>/dev/null
-        asdf plugin update --all
-        asdf update
-    end
+    command -v asdf&>/dev/null && asdf plugin update --all && asdf update
 
-    if command -v gem&>/dev/null
-        gem update
-        gem cleanup
-    end
+    command -v gem&>/dev/null && gem update && gem cleanup
 end
