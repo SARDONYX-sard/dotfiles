@@ -32,7 +32,7 @@ function check_cmd() {
   local command="$1"
   local fallback_cmd="$2"
 
-  if (! which "${command}") >/dev/null 2>&1; then
+  if (! command -v "${command}") >/dev/null 2>&1; then
     eval "$fallback_cmd"
   fi
 }
@@ -49,7 +49,7 @@ check_commands "curl" "git"
 
 echo "$(tput setaf 4)"adsf installing..."$(tput sgr0)"
 
-if (! which asdf) >/dev/null 2>&1; then
+if (! command -v asdf) >/dev/null 2>&1; then
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
 fi
 
@@ -75,7 +75,7 @@ else
   asdf reshim
 fi
 
-if (! which fish) >/dev/null 2>&1; then
+if (! command -v fish) >/dev/null 2>&1; then
   mkdir -p ~/.config/fish/completions
   and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 fi

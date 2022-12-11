@@ -8,7 +8,7 @@ function check_deps() {
   local no_deps="false"
 
   for dep in "${deps_array[@]}"; do
-    (which "${dep}") >/dev/null 2>&1 && printf "%s not found" dep && no_deps="true"
+    (command -v "${dep}") >/dev/null 2>&1 && printf "%s not found" dep && no_deps="true"
   done
 
   [ $no_deps == "true" ] && exit 1

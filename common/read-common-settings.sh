@@ -25,8 +25,8 @@ readFile "${COMMON}/bash_aliases.sh"
 readFile "${COMMON}/functions/bash_functions.sh"
 
 # command wrapper
-if (which apt) >/dev/null 2>&1; then
+if (command -v apt) >/dev/null 2>&1; then
   source "${COMMON}"/functions/apt-wrapper.sh
-elif (which pacman) >/dev/null 2>&1; then
+elif (command -v pacman) >/dev/null 2>&1; then
   source "${COMMON}"/functions/pacman-wrapper.sh
 fi

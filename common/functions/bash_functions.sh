@@ -66,20 +66,25 @@ function git {
 }
 
 function update-all-libs() {
-  if [ -e /c ]; then
-    sudo pacman -Syyu
-    pwsh -Command "update-all-libs"
-  else
-    sudo apt update -y && sudo apt upgrade -y
-    asdf plugin update --all
-    asdf update
-    brew upgrade
-    python3 -u "$HOME_DIR"/dotfiles/scripts/corepack-update.py
-    npm up -g
-    pnpm up -g
-    gem update
-    gem cleanup
+  if [ -e /c ]; then # for msys2
+    sudo pacman -Syyu --noconfirm
+  elif command -v yay >/dev/null 2>&1; then
+    yay -Syyu --noconfirm
+  elif command -v apt >/dev/null 2>&1; then
+    sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove
+    end
   fi
+
+  (command -v node) >/dev/null 2>&1 &&
+    python3 -u "$HOME_DIR"/dotfiles/scripts/update-corepack.py --remove-prev
+
+  (command -v brew) >/dev/null 2>&1 && brew upgrade
+  (command -v node && command -v npm) >/dev/null 2>&1 && npm up -g
+  (command -v node && command -v pnpm) >/dev/null 2>&1 && pnpm up -g
+
+  (command -v asdf) >/dev/null 2>&1 && asdf plugin update --all && asdf update
+
+  (command -v gem) >/dev/null 2>&1 && gem update && gem cleanup
 }
 
 # checks to see if we are in a windows or linux dir
