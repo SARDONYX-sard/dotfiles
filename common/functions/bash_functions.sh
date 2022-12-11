@@ -76,11 +76,11 @@ function update-all-libs() {
   fi
 
   (command -v node) >/dev/null 2>&1 &&
-    python3 -u "$HOME_DIR"/dotfiles/scripts/update-corepack.py --remove-prev
+    python3 -u "$HOME_DIR"/dotfiles/scripts/update-corepack.py --remove-prev &&
+    (command -v npm) >/dev/null 2>&1 && npm up -g &&
+    (command -v pnpm) >/dev/null 2>&1 && pnpm up -g
 
   (command -v brew) >/dev/null 2>&1 && brew upgrade
-  (command -v node && command -v npm) >/dev/null 2>&1 && npm up -g
-  (command -v node && command -v pnpm) >/dev/null 2>&1 && pnpm up -g
 
   (command -v asdf) >/dev/null 2>&1 && asdf plugin update --all && asdf update
 
