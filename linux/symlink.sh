@@ -26,10 +26,10 @@ if [ -e /mnt/c ] || [ -e /c ]; then
     exit 1
   fi
 
-  if (which wslpath) >/dev/null 2>&1; then
+  if (command -v wslpath) >/dev/null 2>&1; then
     # shellcheck disable=SC2016
     HOME_DIR=$(wslpath "$(cmd.exe /c "echo %HOMEDRIVE%%HOMEPATH%" 2>/dev/null)" | sed -E 's/\r//g')
-  elif (which cygpath) >/dev/null 2>&1; then
+  elif (command -v cygpath) >/dev/null 2>&1; then
     # shellcheck disable=SC2016
     HOME_DIR=$(cygpath "$(cmd.exe /c "echo %HOMEDRIVE%%HOMEPATH%" 2>/dev/null)" | sed -E 's/\r//g')
   else
@@ -81,7 +81,7 @@ sudo ln -sf "$HOME_DIR"/dotfiles/linux/.zshrc "$HOME"/.zshrc
 sudo ln -sf "$HOME_DIR"/dotfiles/linux/.inputrc "$HOME"/.inputrc
 
 # autokey
-if (which autokey) >/dev/null 2>&1 || (which autokey-shell) >/dev/null 2>&1; then
+if (command -v autokey) >/dev/null 2>&1 || (command -v autokey-shell) >/dev/null 2>&1; then
   mkdir -p "$HOME"/.config/autokey/data
   sudo ln -sf "$HOME_DIR"/dotfiles/common/data/autokey "$HOME"/.config/autokey/data
 fi

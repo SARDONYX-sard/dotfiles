@@ -14,9 +14,9 @@ while (($# > 0)); do
 done
 
 if [ $is_multi_lib == "true" ] >/dev/null 2>&1; then
-  if which yay >/dev/null 2>&1; then
+  if command -v yay >/dev/null 2>&1; then
     yay -S lib32-gcc-libs
-  elif which apt >/dev/null 2>&1; then
+  elif command -v apt >/dev/null 2>&1; then
     sudo apt-get install gcc-multilib g++-multilib
   fi
 fi

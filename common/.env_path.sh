@@ -3,9 +3,9 @@
 # --------------------------------------------------------------------------------------------------
 # editor setting
 # --------------------------------------------------------------------------------------------------
-if (which lvim) >/dev/null 2>&1; then
+if (command -v lvim) >/dev/null 2>&1; then
   export EDITOR=lvim
-elif (which nvim) >/dev/null 2>&1; then
+elif (command -v nvim) >/dev/null 2>&1; then
   export EDITOR=nvim
 else
   export EDITOR=vim

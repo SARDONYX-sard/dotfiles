@@ -18,9 +18,9 @@ if [ -e /mnt/c ] || [ -e /c ]
         exit 1
     end
 
-    if which wslpath &>/dev/null
+    if command -v wslpath &>/dev/null
         set HOME_DIR $(wslpath "$(cmd.exe /c "echo %HOMEDRIVE%%HOMEPATH%" 2>/dev/null)" | sed -E 's/\r//g')
-    else if which cygpath&>/dev/null
+    else if command -v cygpath&>/dev/null
         set HOME_DIR $(cygpath "$(cmd.exe /c "echo %HOMEDRIVE%%HOMEPATH%" 2>/dev/null)" | sed -E 's/\r//g')
     else
         echo "Not found path changer"
