@@ -2,25 +2,25 @@ function update-all-libs
     if [ -e /c ]
         # for msys2
         sudo pacman -Syyu --noconfirm
-    else if which yay &>/dev/null
+    else if command -v yay &>/dev/null
         yay -Syyu --noconfirm
-    else if which apt&>/dev/null
+    else if command -v apt&>/dev/null
         sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove
     end
 
-    which node&>/dev/null && \
+    command -v node&>/dev/null && \
         python3 -u "$HOME_DIR"/dotfiles/scripts/update-corepack.py --remove-prev
 
-    which brew&>/dev/null && brew upgrade
-    which npm&>/dev/null && npm up -g
-    which pnpm&>/dev/null && pnpm up -g
+    command -v brew&>/dev/null && brew upgrade
+    command -v node and command -v npm&>/dev/null && npm up -g
+    command -v node and command -v pnpm&>/dev/null && pnpm up -g
 
-    if which asdf&>/dev/null
+    if command -v asdf&>/dev/null
         asdf plugin update --all
         asdf update
     end
 
-    if which gem&>/dev/null
+    if command -v gem&>/dev/null
         gem update
         gem cleanup
     end

@@ -77,15 +77,15 @@ Set-ExecutionPolicy RemoteSigned
 - **推奨コマンド**(開発言語は後ほど手動で入れます)
 
 ```bash
-((which curl) >/dev/null 2>&1 && curl -sSfL https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh -o "/tmp/install-wsl.sh") ||
- ((which wget) >/dev/null 2>&1 && wget -P /tmp/ https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh) && bash /tmp/install-wsl.sh --light --fish
+((command -v curl) >/dev/null 2>&1 && curl -sSfL https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh -o "/tmp/install-wsl.sh") ||
+ ((command -v wget) >/dev/null 2>&1 && wget -P /tmp/ https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh) && bash /tmp/install-wsl.sh --light --fish
 ```
 
 - フルサイズモード
 
 ```bash
-((which curl) >/dev/null 2>&1 && curl -sSfL https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh -o "/tmp/install-wsl.sh") ||
- ((which wget) >/dev/null 2>&1 && wget -P /tmp/ https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh) && bash /tmp/install-wsl.sh
+((command -v curl) >/dev/null 2>&1 && curl -sSfL https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh -o "/tmp/install-wsl.sh") ||
+ ((command -v wget) >/dev/null 2>&1 && wget -P /tmp/ https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh) && bash /tmp/install-wsl.sh
 
 # Options
 # --zsh: default shellをzshに変えます

@@ -7,7 +7,8 @@ English | [日本語](./docs/i18n/jp/readme.md)
 **This dotfiles is optimized for private use and is not recommended for direct**
 **use.**
 
-**It is strongly recommended to use [`Use this template`](https://github.com/SARDONYX-sard/dotfiles/generate).**
+**It is strongly recommended to use
+[`Use this template`](https://github.com/SARDONYX-sard/dotfiles/generate).**
 
 <p align="center">
   <img src="./docs/images/terminals.jpg" alt="terminals" height="300" width="800"/>
@@ -79,15 +80,15 @@ Select either command.
 - **Recommended command**(The development language is put in manually.)
 
 ```bash
-((which curl) >/dev/null 2>&1 && curl -sSfL https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh -o "/tmp/install-wsl.sh") ||
- ((which wget) >/dev/null 2>&1 && wget -P /tmp/ https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh) && bash /tmp/install-wsl.sh --light --fish
+((command -v curl) >/dev/null 2>&1 && curl -sSfL https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh -o "/tmp/install-wsl.sh") ||
+ ((command -v wget) >/dev/null 2>&1 && wget -P /tmp/ https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh) && bash /tmp/install-wsl.sh --light --fish
 ```
 
 - Full size mode
 
 ```bash
-((which curl) >/dev/null 2>&1 && curl -sSfL https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh -o "/tmp/install-wsl.sh") ||
- ((which wget) >/dev/null 2>&1 && wget -P /tmp/ https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh) && bash /tmp/install-wsl.sh
+((command -v curl) >/dev/null 2>&1 && curl -sSfL https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh -o "/tmp/install-wsl.sh") ||
+ ((command -v wget) >/dev/null 2>&1 && wget -P /tmp/ https://raw.githubusercontent.com/SARDONYX-sard/dotfiles/main/install-wsl.sh) && bash /tmp/install-wsl.sh
 
 # Options
 # --zsh: Change default shell to zsh
