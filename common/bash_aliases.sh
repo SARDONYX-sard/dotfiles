@@ -15,13 +15,13 @@ alias bb='cd -' # back to previous directory
 # --------------------------------------------------------------------------------------------------
 # some more aliases
 # --------------------------------------------------------------------------------------------------
-if (which bat) >/dev/null 2>&1; then # dev/null reference (https://qiita.com/ritukiii/items/b3d91e97b71ecd41d4ea)
-  alias cat='bat'                    # need rust or apt
-elif (which batcat) >/dev/null 2>&1; then
+if (command -v bat) >/dev/null 2>&1; then # dev/null reference (https://qiita.com/ritukiii/items/b3d91e97b71ecd41d4ea)
+  alias cat='bat'                         # need rust or apt
+elif (command -v batcat) >/dev/null 2>&1; then
   alias cat='batcat' # need rust or apt
 fi
 
-if (which br) >/dev/null 2>&1; then
+if (command -v br) >/dev/null 2>&1; then
   alias br='br --conf $HOME_DIR/dotfiles/common/data/broot-config.toml  -s -g -h'
 fi
 
@@ -78,9 +78,9 @@ alias la="ls -aGF"
 alias ll='ls -al'
 alias lla="ls -alGF"
 
-if (which exa) >/dev/null 2>&1; then
+if (command -v exa) >/dev/null 2>&1; then
   alias ls='exa --color=auto --time-style=long-iso -FH --icons' # need rust or apt
-elif (which lsd) >/dev/null 2>&1; then
+elif (command -v lsd) >/dev/null 2>&1; then
   alias l="lsd -F"
   alias la="lsd -aF"
   alias ll='lsd -al'
@@ -100,9 +100,9 @@ alias re=relogin
 alias v="vim"
 alias vi="vim -u NONE"
 alias g+='g++ -Wall -Wextra -Wpedantic -fsanitize=undefined -g'
-if (which lvim) >/dev/null 2>&1; then
+if (command -v lvim) >/dev/null 2>&1; then
   alias vim="lvim"
-elif (which nvim) >/dev/null 2>&1; then
+elif (command -v nvim) >/dev/null 2>&1; then
   alias vim="nvim"
 fi
 

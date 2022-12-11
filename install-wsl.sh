@@ -19,10 +19,10 @@ if [ -e /mnt/c ] || [ -e /c ]; then
     exit 1
   fi
 
-  if (which wslpath) >/dev/null 2>&1; then
+  if (command -v wslpath) >/dev/null 2>&1; then
     # shellcheck disable=SC2016
     HOME_DIR=$(wslpath "$(cmd.exe /c "echo %HOMEDRIVE%%HOMEPATH%" 2>/dev/null)" | sed -E 's/\r//g')
-  elif (which cygpath) >/dev/null 2>&1; then
+  elif (command -v cygpath) >/dev/null 2>&1; then
     # shellcheck disable=SC2016
     HOME_DIR=$(cygpath "$(cmd.exe /c "echo %HOMEDRIVE%%HOMEPATH%" 2>/dev/null)" | sed -E 's/\r//g')
   else
@@ -38,11 +38,11 @@ export HOME_DIR
 # --------------------------------------------------------------------------------------------------
 # Check dotfiles installed
 # --------------------------------------------------------------------------------------------------
-if (which yay) >/dev/null 2>&1; then
+if (command -v yay) >/dev/null 2>&1; then
   yay -S git python3 --noconfirm
-elif (which pacman) >/dev/null 2>&1; then
+elif (command -v pacman) >/dev/null 2>&1; then
   sudo pacman -S git python3 --noconfirm
-elif (which apt) >/dev/null 2>&1; then
+elif (command -v apt) >/dev/null 2>&1; then
   sudo apt install git python3 -y
 else
   echo "Not supported package manager."

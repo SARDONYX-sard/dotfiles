@@ -1,6 +1,6 @@
-if which lvim &>/dev/null
+if command -v lvim &>/dev/null
     alias vim='lvim'
-else if which nvim &>/dev/null
+else if command -v nvim &>/dev/null
     alias vim='nvim'
 else
     alias vim='vim'

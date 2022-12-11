@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
 #! have to answer these questions manually.
-if (which lvim) >/dev/null 2>&1; then # dev/null reference (https://qiita.com/ritukiii/items/b3d91e97b71ecd41d4ea)
+if (command -v lvim) >/dev/null 2>&1; then # dev/null reference (https://qiita.com/ritukiii/items/b3d91e97b71ecd41d4ea)
   echo "$(tput setaf 3)"[Skip] lunarvim already installed."$(tput sgr0)"
 else
 
   bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) --no-install-dependencies
 
   #nodejs libs
-  if (which npm) >/dev/null 2>&1; then
+  if (command -v npm) >/dev/null 2>&1; then
     npm install -g neovim tree-sitter-cli
   fi
 
   # for codespell
-  if (which apt) >/dev/null 2>&1; then
+  if (command -v apt) >/dev/null 2>&1; then
     sudo apt install python3.10-venv
   fi
 
