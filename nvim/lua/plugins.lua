@@ -223,8 +223,6 @@ return packer.startup(function(use)
     use({ "olimorris/onedarkpro.nvim",
         config = function()
             require("onedarkpro").setup({
-                dark_theme = "onedark", -- The default dark theme
-                light_theme = "onelight", -- The default light theme
                 cache_path = vim.fn.expand(vim.fn.stdpath("cache") .. "/onedarkpro/"), -- The path to the cache directory
                 options = {
                     transparency = true, -- Use a transparent background?
