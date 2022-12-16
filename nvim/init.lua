@@ -216,8 +216,8 @@ vim.cmd [[autocmd! vimrc VimEnter,WinEnter * call matchadd('ZenkakuSpace', '　'
 vim.cmd [[autocmd! vimrc ColorScheme * highlight ZenkakuSpace ctermbg=239 guibg=none]] -- toggleterm transparent
 
 if vim.api.nvim_call_function('has', { 'nvim-0.8' }) ~= 1 then
-    -- vim.cmd [[colorscheme duskfox]]
-    vim.cmd [[colorscheme onedarkpro]]
+    vim.cmd [[colorscheme duskfox]]
+    -- vim.cmd [[colorscheme onedarkpro]]
 else
     vim.cmd [[colorscheme onedarker]]
 end
@@ -552,28 +552,27 @@ vim.g.cursorhold_updatetime = 100
 
 -- LSP configs {{{
 
-local lsp_common = require "lsp_common"
-local on_attach = lsp_common.on_attach
-local capabilities = lsp_common.capabilities
-local add_bundle_exec = lsp_common.add_bundle_exec
-
 vim.keymap.set("n", "<space>le", vim.diagnostic.open_float, { noremap = true, silent = true, desc = "diagnostic open" })
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { noremap = true, silent = true, desc = "diagnostic go prev" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { noremap = true, silent = true, desc = "diagnostic go next" })
 vim.keymap.set("n", "<space>ll", vim.diagnostic.setloclist, { noremap = true, silent = true, desc = "diagnostic list" })
 
-local lsp = require('lsp-zero')
-lsp.preset('recommended')
-lsp.setup()
-
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.jsonc.filetype_to_parsename = "json"
-parser_config.jsonc.used_by = "json"
+-- parser_config.jsonc.used_by = "json"
 
-local lspconfig = require "lspconfig"
+
+-- local auto_install_servers = {
+--     "pylsp",
+--     "sumneko_lua",
+-- }
+
+local lsp_zero = require('lsp-zero')
+lsp_zero.preset('recommended')
+-- lsp_zero.ensure_installed(auto_install_servers)
+lsp_zero.setup()
 
 local servers = {
-    'clangd',
     'dockerls',
     'powershell_es',
     'pylsp',
@@ -584,6 +583,12 @@ local servers = {
     'vimls',
     'yamlls',
 }
+
+local lsp_common = require "lsp_common"
+local on_attach = lsp_common.on_attach
+local capabilities = lsp_common.capabilities
+local add_bundle_exec = lsp_common.add_bundle_exec
+local lspconfig = require "lspconfig"
 
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
@@ -601,6 +606,16 @@ lspconfig["clangd"].setup({
     on_attach = on_attach,
     capabilities = capabilities,
 })
+
+lspconfig["sumneko_lua"].setup {
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            }
+        }
+    }
+}
 
 -- use json schema
 lspconfig["jsonls"].setup({
@@ -699,33 +714,44 @@ local function ruff_fix()
     })
 end
 
-require("null-ls").setup({
+local null_ls = require("null-ls")
+
+null_ls.setup({
     capabilities = capabilities,
     sources = {
-        require("null-ls").builtins.formatting.stylua.with({
+        null_ls.builtins.formatting.stylua.with({
             condition = function(utils)
                 return utils.root_has_file({ ".stylua.toml" })
             end,
         }),
-        require("null-ls").builtins.diagnostics.rubocop.with({
+        null_ls.builtins.formatting.rubocop.with({
             prefer_local = "bundle_bin",
             condition = function(utils)
                 return utils.root_has_file({ ".rubocop.yml" })
             end,
         }),
-        require("null-ls").builtins.diagnostics.luacheck.with({
+        null_ls.builtins.diagnostics.rubocop.with({
+            prefer_local = "bundle_bin",
+            condition = function(utils)
+                return utils.root_has_file({ ".rubocop.yml" })
+            end,
+        }),
+        null_ls.builtins.diagnostics.luacheck.with({
             extra_args = { "--globals", "vim", "--globals", "awesome" },
         }),
-        require("null-ls").builtins.diagnostics.yamllint,
-        require("null-ls").builtins.formatting.rubocop.with({
-            prefer_local = "bundle_bin",
-            condition = function(utils)
-                return utils.root_has_file({ ".rubocop.yml" })
-            end,
+        null_ls.builtins.diagnostics.yamllint,
+        null_ls.builtins.completion.spell,
+        null_ls.builtins.diagnostics.codespell.with({
+            condition = function()
+                return vim.fn.executable("codespell") > 0
+            end
         }),
-        require("null-ls").builtins.completion.spell,
         ruff_fix(),
-        require("null-ls").builtins.diagnostics.ruff,
+        null_ls.builtins.diagnostics.ruff.with({
+            condition = function()
+                return vim.fn.executable("ruff") > 0
+            end
+        }),
     },
 })
 -- }}}
