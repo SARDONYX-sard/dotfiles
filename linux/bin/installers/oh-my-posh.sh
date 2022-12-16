@@ -2,7 +2,7 @@
 
 function check_deps() {
   local deps_array=(
-    'unzip'
+    "unzip"
     "curl"
   )
 
