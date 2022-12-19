@@ -25,41 +25,36 @@ libs = [
         "name": "haskell-dap",
         "description": "Haskell Debug Adapter Protocol",
     },
-    {
-        "name": "ghci-dap",
-        "description": "Glasgow Haskell Compiler debugger"
-    },
-    {
-        "name": "haskell-debug-adapter",
-        "description": "debug adapter for haskell"
-    },
+    {"name": "ghci-dap", "description": "Glasgow Haskell Compiler debugger"},
+    {"name": "haskell-debug-adapter", "description": "debug adapter for haskell"},
 ]
 
 
 class Color:
-    BLACK = '\033[30m'  # (letter) black
-    RED = '\033[31m'  # (letter) red
-    GREEN = '\033[32m'  # (letter) green
-    YELLOW = '\033[33m'  # (letter)
-    BLUE = '\033[34m'  # (letter) blue
-    MAGENTA = '\033[35m'  # (letter) magenta
-    CYAN = '\033[36m'  # (letter) cyan
-    WHITE = '\033[37m'  # (character) white
-    COLOR_DEFAULT = '\033[39m'  # Reset the character color to default
-    BOLD = '\033[1m'  # Bold text
-    UNDERLINE = '\033[4m'  # Underline
-    INVISIBLE = '\033[08m'  # invisible
-    REVERSE = '\033[07m'  # Reverses text and background color
-    BG_BLACK = '\033[40m'  # (background) black
-    BG_RED = '\033[41m'  # (background) red
-    BG_GREEN = '\033[42m'  # (background) green
-    BG_YELLOW = '\033[43m'  # (background) yellow
-    BG_BLUE = '\033[44m'  # (background) blue
-    BG_MAGENTA = '\033[45m'  # (background)magenta
-    BG_CYAN = '\033[46m'  # (background) cyan
-    BG_WHITE = '\033[47m'  # (background) white
-    BG_DEFAULT = '\033[49m'  # Reset background color to default
-    RESET = '\033[0m'  # Reset all
+    BLACK = "\033[30m"  # (letter) black
+    RED = "\033[31m"  # (letter) red
+    GREEN = "\033[32m"  # (letter) green
+    YELLOW = "\033[33m"  # (letter)
+    BLUE = "\033[34m"  # (letter) blue
+    MAGENTA = "\033[35m"  # (letter) magenta
+    CYAN = "\033[36m"  # (letter) cyan
+    WHITE = "\033[37m"  # (character) white
+    COLOR_DEFAULT = "\033[39m"  # Reset the character color to default
+    BOLD = "\033[1m"  # Bold text
+    UNDERLINE = "\033[4m"  # Underline
+    INVISIBLE = "\033[08m"  # invisible
+    REVERSE = "\033[07m"  # Reverses text and background color
+    BG_BLACK = "\033[40m"  # (background) black
+    BG_RED = "\033[41m"  # (background) red
+    BG_GREEN = "\033[42m"  # (background) green
+    BG_YELLOW = "\033[43m"  # (background) yellow
+    BG_BLUE = "\033[44m"  # (background) blue
+    BG_MAGENTA = "\033[45m"  # (background)magenta
+    BG_CYAN = "\033[46m"  # (background) cyan
+    BG_WHITE = "\033[47m"  # (background) white
+    BG_DEFAULT = "\033[49m"  # Reset background color to default
+    RESET = "\033[0m"  # Reset all
+
 
 # --------------------------------------------------------------------------------------------------
 # Installer functions
@@ -75,14 +70,15 @@ def check_haskell_available():
         system("scoop install stack")
         return True
     else:
+        print(f"{Color.RED} Scoop is not installed. Install scoop first.{Color.RESET}")
         print(
-            f"{Color.RED} Scoop is not installed. Install scoop first.{Color.RESET}")
-        print("\
+            "\
             Install with Scoop:\
 \
             Invoke - WebRequest - useb get.scoop.sh | Invoke - Expression \
             scoop install rustup \
-            ")
+            "
+        )
         sys.exit(-1)
 
 
@@ -91,23 +87,17 @@ def get_args():
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        "-uni",
-        "--uninstall",
-        help="Change uninstall mode.",
-        action="store_true")
+        "-uni", "--uninstall", help="Change uninstall mode.", action="store_true"
+    )
 
-    return (parser.parse_args())
+    return parser.parse_args()
 
 
 def manage_libs(mode: Literal["install", "uninstall"]):
     manage_lib(mode, libs)
 
 
-def manage_lib(
-    mode: Literal["install",
-                  "uninstall"],
-    libraries: list[dict[str,
-                         str]]):
+def manage_lib(mode: Literal["install", "uninstall"], libraries: list[dict[str, str]]):
     for lib in libraries:
         [name, description] = [lib["name"], lib["description"]]
 
@@ -142,7 +132,7 @@ def main():
     print(f"{Color.GREEN}Successes: Finished working on all libraries.{Color.RESET}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     args = get_args()
     if uninstall := [args.uninstall]:
         print("Uninstall mode has been selected.")
