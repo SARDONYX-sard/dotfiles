@@ -593,6 +593,7 @@ local lspconfig = require "lspconfig"
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
         on_attach = on_attach,
+        capabilities = capabilities,
         flags = {
             debounce_text_changes = 150,
         }
@@ -608,6 +609,7 @@ lspconfig["clangd"].setup({
 })
 
 lspconfig["sumneko_lua"].setup {
+    on_attach = on_attach,
     settings = {
         Lua = {
             diagnostics = {
