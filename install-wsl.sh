@@ -103,7 +103,7 @@ fi
 # Install libs
 # --------------------------------------------------------------------------------------------------
 echo "Installation by package manager, etc."
-[ $IS_LIGHT ] && echo "$(tput setaf 4)"light mode selected."$(tput sgr0)"
+[ "$IS_LIGHT" ] && echo "$(tput setaf 4)"light mode selected."$(tput sgr0)"
 bash "$HOME_DIR"/dotfiles/linux/bin/all-installer.sh
 
 if [ "$is_zsh_mode" ]; then
