@@ -7,6 +7,10 @@ Requires:
 
 Usage:
 
+- enable management by corepack.
+python3 update-corepack.py --enabled
+python3 update-corepack.py -e
+
 - activate latest version
 python3 update-corepack.py
 
@@ -41,6 +45,13 @@ def corepack_enabled(manager_name: Literal["npm", "yarn", "pnpm"]):
 
 def activate_corepack(manager_name: Literal["npm", "yarn", "pnpm"], version: str):
     system(f"corepack prepare {manager_name}@{version}  --activate")
+
+
+def get_current_corepack_version(manager_name: Literal["npm", "yarn", "pnpm"]):
+    cmd = (
+        f"{manager_name} --version" if manager_name == "yarn" else f"{manager_name} -v"
+    )
+    return shell_exec(cmd)
 
 
 def get_latest_version(manager_name: Literal["npm", "yarn", "pnpm"], is_debug: bool):
@@ -112,7 +123,7 @@ def remove_prev_versions(
             remove(Path.joinpath(manager_path, manager_version))
 
 
-def run_dry_run(manager_name: str):
+def debug_search(manager_name: str):
     search_cmd = f"npm search {manager_name}"
     print(color("DEBUG: Execute command ", "cyan") + f"{search_cmd}", end="\n")
     print(
@@ -169,21 +180,29 @@ Please visually check that the version assigned by the code is correct.\n",
 
     for manager_name in managers:
         manager_latest_version = get_latest_version(manager_name, is_dry_run)
+        manager_current_version = get_current_corepack_version(manager_name)
+        print("-----------------------------------------------------")
         print(f"{manager_name}'s latest version:  {manager_latest_version}")
+        if manager_current_version == manager_latest_version:
+            print(color("INFO: No need update", "cyan"))
+            continue
+        else:
+            print(
+                color(
+                    f"INFO: Update version \
+    {manager_current_version} => {manager_latest_version}",
+                    "cyan",
+                )
+            )
+            activate_corepack(manager_name, manager_latest_version)
+            if args.enabled:
+                corepack_enabled(manager_name)
 
-        if args.enabled:
-            print(color("INFO: Enabling management by corepack...", "cyan"))
-            corepack_enabled(manager_name)
+        if is_dry_run:
+            debug_search(manager_name)
 
         if args.remove_prev:
             remove_prev_versions(manager_name, manager_latest_version, is_dry_run)
-
-        if is_dry_run:
-            run_dry_run(manager_name)
-
-        else:
-            print(f"{manager_name} active: {manager_latest_version}")
-            activate_corepack(manager_name, manager_latest_version)
 
 
 if __name__ == "__main__":
