@@ -6,7 +6,7 @@
 
 # Remove-Item alias:ii -Force # already used by Invoke-Item
 
-# Invoke-Item Open
+# Invoke-Item Open(e.g. iio rg)
 function iio {
   [CmdletBinding()]
   param(
@@ -29,19 +29,14 @@ function iio {
   Write-Host "Open with explorer " -ForegroundColor Green -NoNewline
   Write-Host "`"$path`"" -ForegroundColor Yellow
 
-  if ($PSVersionTable.PSEdition -eq "Core") {
-    explorer.exe /e, /select, $path
-  }
-  elseif ($PSVersionTable.PSEdition -eq "Desktop") {
-    explorer.exe $path
-  }
+  Start-Process -FilePath C:\Windows\explorer.exe -ArgumentList "/select, ""$path"""
 }
 
-# Invoke-Item Open All
+# Invoke-Item Open All(e.g. iia scoop)
 function iia($cmd) {
   which $cmd -a | ForEach-Object {
     if ($_.CommandType -ne "Function") {
-      explorer.exe /e, /select, $_.Source
+      Start-Process -FilePath C:\Windows\explorer.exe -ArgumentList "/select, ""$($_.Source)"""
     }
   }
 }
