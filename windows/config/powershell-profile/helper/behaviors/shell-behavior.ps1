@@ -23,7 +23,7 @@ Set-PSReadLineOption -ViModeIndicator Script -ViModeChangeHandler {
 # https://github.com/PowerShell/PSReadLine/blob/master/PSReadLine/SamplePSReadLineProfile.ps1
 Set-PSReadlineOption -HistoryNoDuplicates
 
-# Debaounce insert mode to normal mode.
+# DeBounce insert mode to normal mode.
 # https://github.com/PowerShell/PSReadLine/issues/1701
 $j_timer = New-Object System.Diagnostics.Stopwatch
 
