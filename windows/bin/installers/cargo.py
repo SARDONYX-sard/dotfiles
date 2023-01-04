@@ -25,6 +25,11 @@ libs = [
         "description": "Greps through binaries from various OSs and architectures.",
     },
     {
+        "name": "cargo-show-asm",
+        "url": "https://github.com/pacak/cargo-show-asm",
+        "description": "Displays the Assembly, LLVM-IR, MIR and WASM generated for Rust source code.",
+    },
+    {
         "name": "cargo-update",
         "url": "https://github.com/nabijaczleweli/cargo-update",
         "description": "Checking and applying updates to installed executables.",
