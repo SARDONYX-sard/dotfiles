@@ -105,9 +105,7 @@ return packer.startup(function(use)
         "glepnir/lspsaga.nvim",
         branch = "main",
         config = function()
-            local saga = require "lspsaga"
-
-            saga.init_lsp_saga()
+            require("lspsaga").setup({})
         end,
     })
 
@@ -124,6 +122,8 @@ return packer.startup(function(use)
             require("illuminate").configure()
         end,
     })
+
+    use 'simrat39/rust-tools.nvim'
 
     use "folke/lua-dev.nvim"
 
