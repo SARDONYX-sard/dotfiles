@@ -608,6 +608,28 @@ lspconfig["clangd"].setup({
     capabilities = capabilities,
 })
 
+-- rust-analyzer
+require('rust-tools').setup({
+    tools = {
+        autoSetHints = true,
+        inlay_hints = {
+            parameter_hints_prefix = "",
+            other_hints_prefix = "",
+        },
+    },
+
+    server = {
+        on_attach = on_attach,
+        settings = {
+            ["rust-analyzer"] = {
+                checkOnSave = {
+                    command = "clippy"
+                },
+            }
+        }
+    },
+})
+
 lspconfig["sumneko_lua"].setup {
     on_attach = on_attach,
     settings = {
