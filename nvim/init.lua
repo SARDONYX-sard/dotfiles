@@ -199,8 +199,8 @@ vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { silent = true, desc = "move l
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { silent = true, desc = "move line up" })
 
 -- JとDで半ページ移動
-vim.keymap.set("n", "J", "<C-D>", { silent = true, desc = "move down" })
-vim.keymap.set("n", "K", "<C-U>", { silent = true, desc = "move up" })
+-- vim.keymap.set("n", "J", "<C-D>", { silent = true, desc = "move down" })
+-- vim.keymap.set("n", "K", "<C-U>", { silent = true, desc = "move up" })
 
 -- 編集中のファイルのディレクトリに移動
 vim.cmd [[command! CdCurrent execute ":cd" . expand("%:p:h")]]
