@@ -20,7 +20,7 @@ function color() {
 
 #w3mでALC検索
 function alc() {
-  if [ $# != 0 ]; then
+  if [[ $# != 0 ]]; then
     w3m "http://eow.alc.co.jp/$*/UTF-8/?ref=sa"
   else
     w3m "http://www.alc.co.jp/"
@@ -29,20 +29,20 @@ function alc() {
 
 function start() {
   dir="$1"
-  [ -z "$1" ] && dir="."
-  [ ! -d "$dir" ] && dir=$(dirname "$(which "$dir")")
+  [[ -z "$1" ]] && dir="."
+  [[ ! -d "${dir}" ]] && dir=$(dirname "$(command -v "${dir}")")
 
-  if [ -e /mnt/c ]; then
-    dir="$(wslpath -w "$dir")"
-  elif [ -e /c ]; then
-    dir="$(cygpath -w "$dir")"
+  if [[ -e /mnt/c ]]; then
+    dir="$(wslpath -w "${dir}")"
+  elif [[ -e /c ]]; then
+    dir="$(cygpath -w "${dir}")"
   fi
-  echo "$dir"
+  echo "${dir}"
 
-  if [ -e /mnt/c ] || [ -e /c ]; then
-    explorer.exe "$dir"
-  elif [ "$(command -v xdg-open)" ]; then
-    xdg-open "$dir"
+  if [[ -e /mnt/c ]] || [[ -e /c ]]; then
+    explorer.exe "${dir}"
+  elif command -v xdg-open; then
+    xdg-open "${dir}"
   else
     echo "No command to open file"
     exit 1
@@ -58,7 +58,7 @@ function cd() {
 isBool=isWinDir
 
 function git {
-  if [[ $isBool = "true" ]]; then
+  if [[ ${isBool} = "true" ]]; then
     git.ps1 "$@"
   else
     /usr/bin/git "$@"
@@ -66,7 +66,7 @@ function git {
 }
 
 function update-all-libs() {
-  if [ -e /c ]; then # for msys2
+  if [[ -e /c ]]; then # for msys2
     sudo pacman -Syyu --noconfirm
   elif command -v yay >/dev/null 2>&1; then
     yay -Syyu --noconfirm
@@ -77,7 +77,7 @@ function update-all-libs() {
 
   (command -v deno) >/dev/null 2>&1 && deno upgrade
   (command -v node) >/dev/null 2>&1 &&
-    python3 -u "$HOME_DIR"/dotfiles/scripts/update-corepack.py --remove-prev &&
+    python3 -u "${HOME_DIR}"/dotfiles/scripts/update-corepack.py --remove-prev &&
     (command -v npm) >/dev/null 2>&1 && npm up -g &&
     (command -v pnpm) >/dev/null 2>&1 && pnpm up -g
 
@@ -96,7 +96,7 @@ function update-all-libs() {
 
 # checks to see if we are in a windows or linux dir
 function isWinDir {
-  case $PWD/ in
+  case ${PWD}/ in
   /mnt/*) ;;
   /c/*) echo "true" ;;
   *) echo "false" ;;
@@ -106,23 +106,23 @@ function isWinDir {
 # 任意のソースコードを読み込む関数(read source)
 function rs() {
   path=$2
-  ZSHRC_PATH="$HOME/.zshrc"
+  ZSHRC_PATH="${HOME}/.zshrc"
 
   case "$1" in
   "-b" | "b" | "--bash")
     # shellcheck disable=SC1091
-    source "$HOME/.bashrc"
+    source "${HOME}/.bashrc"
     echo "Read .bashrc"
     ;;
 
   "-z" | "z" | "--zsh")
     # shellcheck disable=SC1090
-    source "$ZSHRC_PATH"
+    source "${ZSHRC_PATH}"
     echo "Read .zshrc"
     ;;
 
   "-f" | "f" | "--file")
-    if [ "$path" ]; then
+    if [[ -n "${path}" ]]; then
       # shellcheck disable=SC1090
       source "${path}"
       echo "Read ${path}"
@@ -152,10 +152,10 @@ Examples:
   *)
     shell=$(ps -ocomm= -q $$)
 
-    if [ "$shell" = bash ]; then
-      [ -f "$HOME/.bashrc" ] && "$HOME/.bashrc" && echo "Read .bashrc"
-    elif [ "$shell" = zsh ]; then
-      [ -f "$HOME/.zshrc" ] && source "$ZSHRC_PATH" && echo "Read .zshrc"
+    if [[ "${shell}" = bash ]]; then
+      [[ -f "${HOME}/.bashrc" ]] && "${HOME}/.bashrc" && echo "Read .bashrc"
+    elif [[ "${shell}" = zsh ]]; then
+      [[ -f "${HOME}/.zshrc" ]] && source "${ZSHRC_PATH}" && echo "Read .zshrc"
     fi
     ;;
   esac
@@ -181,7 +181,7 @@ function fd() {
   local dir
   dir=$(find "${1:-.}" -path '*/\.*' -prune \
     -o -type d -print 2>/dev/null | fzf +m) &&
-    cd "$dir" || return
+    cd "${dir}" || return
 }
 
 # worktree移動
@@ -197,7 +197,7 @@ function cdworktree() {
   local selectedWorkTreeDir
   selectedWorkTreeDir=$(git worktree list | fzf | awk '{print $1}')
 
-  if [ "$selectedWorkTreeDir" = "" ]; then
+  if [[ "${selectedWorkTreeDir}" = "" ]]; then
     # Ctrl-C.
     return
   fi
@@ -212,13 +212,13 @@ function fadd() {
       awk '{if (substr($0,2,1) !~ / /) print $2}' |
       fzf --multi --exit-0 --expect=ctrl-d
   ); do
-    q=$(head -1 <<<"$out")
-    n=$(($(wc -l <<<"$out") - 1))
-    addfiles=$(tail "-$n" <<<"$out")
+    q=$(head -1 <<<"${out}")
+    n=$(($(wc -l <<<"${out}") - 1))
+    addfiles=$(tail "-${n}" <<<"${out}")
     for value in "${addfiles[@]}"; do
-      [[ -z "$value" ]] && continue
+      [[ -z "${value}" ]] && continue
     done
-    if [ "$q" = ctrl-d ]; then
+    if [[ "${q}" = ctrl-d ]]; then
       git diff --color=always "${addfiles[@]}" | less -R
     else
       git add "${addfiles[@]}"
