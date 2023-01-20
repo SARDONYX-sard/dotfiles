@@ -5,7 +5,7 @@ function update-all-libs
     else if command -v yay &>/dev/null
         yay -Syyu --noconfirm
     else if command -v apt&>/dev/null
-        sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove
+        sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -y
     end
 
     command -v node&>/dev/null && \
