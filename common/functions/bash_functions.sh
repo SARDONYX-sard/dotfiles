@@ -30,7 +30,7 @@ function alc() {
 function start() {
   dir="$1"
   [ -z "$1" ] && dir="."
-  [ ! -d "$dir" ] && dir=$(dirname "$(which $dir)")
+  [ ! -d "$dir" ] && dir=$(dirname "$(which "$dir")")
 
   if [ -e /mnt/c ]; then
     dir="$(wslpath -w "$dir")"
@@ -75,16 +75,23 @@ function update-all-libs() {
     end
   fi
 
+  (command -v deno) >/dev/null 2>&1 && deno upgrade
   (command -v node) >/dev/null 2>&1 &&
     python3 -u "$HOME_DIR"/dotfiles/scripts/update-corepack.py --remove-prev &&
     (command -v npm) >/dev/null 2>&1 && npm up -g &&
     (command -v pnpm) >/dev/null 2>&1 && pnpm up -g
 
-  (command -v brew) >/dev/null 2>&1 && brew upgrade
-
   (command -v asdf) >/dev/null 2>&1 && asdf plugin update --all && asdf update
 
+  (command -v brew) >/dev/null 2>&1 && brew upgrade
+
   (command -v gem) >/dev/null 2>&1 && gem update && gem cleanup
+
+  (command -v cargo) >/dev/null 2>&1 && cargo install-update -a
+  (command -v rustup) >/dev/null 2>&1 && rustup update
+
+  (command -v pip-review) >/dev/null 2>&1 && pip-review -a
+  (command -v pipx) >/dev/null 2>&1 && pipx upgrade-all
 }
 
 # checks to see if we are in a windows or linux dir
