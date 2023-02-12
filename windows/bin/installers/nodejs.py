@@ -56,7 +56,6 @@ libs = [
         "description": "An opinionated code formatter",
     },  # Replacement of existing commands
     # Commands
-    {"name": "tree-cli", "description": "Instead of tree command."},
     {"name": "zx", "description": "A tool for writing better scripts."},  # Transpiler
     {"name": "typescript", "description": "Super set of JS."},
     {"name": "ts-node", "description": "TypeScript execution environment."},
@@ -155,12 +154,16 @@ def initialize(manager: Literal["npm", "yarn", "pnpm"]):
     # We dare to use [0-9]
     # because \d in python is not equivalent to [0-9] but wider.
     version_regexp = re.compile("([0-9]?[0-9]\\.[0-9]?[0-9])\\.[0-9]?[0-9]")
-    node_version = float(version_regexp.search(current_node_version)[1])
+    node_version_array = version_regexp.search(current_node_version)
+    if node_version_array is None:
+        print(color("Err! Failed to get node versions", "red"))
+        return
+
+    node_version = float(node_version_array[1])
 
     if node_version >= 14.19:
         print(color(f"Enable Corepack to use {manager} ...", "green"))
         command("corepack enable npm")
-
     else:
         print("Nodejs is older than v14.19.0")
         command(f"npm i -g ${manager}")
