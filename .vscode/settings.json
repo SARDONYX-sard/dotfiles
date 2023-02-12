@@ -2,6 +2,7 @@
   "cSpell.words": [
     "AllLib",
     "antialiasing",
+    "autoclean",
     "autohotkey",
     "autokey",
     "autopep",
@@ -43,6 +44,7 @@
     "luarocks",
     "mintty",
     "minttyrc",
+    "modcache",
     "mspaint",
     "msys",
     "MYGVIMRC",
