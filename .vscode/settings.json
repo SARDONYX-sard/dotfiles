@@ -1,4 +1,12 @@
 {
+  "[gitconfig]": {
+    "editor.semanticHighlighting.enabled": true
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python",
+    "editor.formatOnType": false,
+    "editor.tabSize": 4
+  },
   "cSpell.words": [
     "AllLib",
     "antialiasing",
@@ -90,15 +98,38 @@
     "wsltty",
     "zoxide"
   ],
+  "editor.rulers": [80],
+  "editor.tabCompletion": "on",
   "files.associations": {
+    ".editorconfig": "properties",
+    ".envpath": "shellscript",
+    ".gitconfig": "gitconfig",
+    ".gitignore": "ignore",
     "*.json": "jsonc",
     "*.txt": "txt",
     "*.vim": "viml",
-    ".editorconfig": "properties",
-    "git-config.txt": "properties",
-    ".gitignore": "ignore",
+    "git-config.txt": "gitconfig",
     "LICENSE": "txt"
   },
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.idea": true,
+    "**/.mypy_cache": true,
+    "**/.pytest_cache": true
+  },
+  "files.watcherExclude": {
+    "**/__pycache__": true,
+    "**/.git/objects/**": true,
+    "**/.idea": true,
+    "**/.mypy_cache": true,
+    "**/.pytest_cache": true,
+    "**/.venv": true
+  },
   "Lua.diagnostics.globals": ["lvim", "vim"],
-  "conventionalCommits.scopes": ["oh-my-posh"]
+  "python.analysis.typeCheckingMode": "strict",
+  "python.envFile": "${workspaceFolder}/.env",
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.lintOnSave": true,
+  "python.linting.pycodestyleEnabled": false
 }
