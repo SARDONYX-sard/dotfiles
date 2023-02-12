@@ -69,16 +69,12 @@ scoop bucket  add myBuket https://github.com/amano41/scoop-bucket.git # For keyh
 # --------------------------------------------------------------------------------------------------
 # Unix like for Windows
 # --------------------------------------------------------------------------------------------------
-if (! $Light) {
-  scoop install msys2     # windows in Unix shell: info JP(https://qiita.com/Ted-HM/items/4f2feb9fdacb6c72083c)
-  msys2 -mintty
-}
 scoop install mobaxterm # Enhanced terminal for Windows with X11 server.(https://mobaxterm.mobatek.net)
 scoop install direnv    # Load or unload environment variables depending on the current directory
 scoop install OpenSSH   # SSH client for Windows
 
 scoop install make
-scoop install psutils
+# scoop install psutils # The sudo command is included. This is global issunstooled in `install-win.ps1`.
 
 # DB
 scoop install sqlite  # Lightweight Database
@@ -95,7 +91,7 @@ scoop install ripgrep # instead of `grep` commnad with color
 scoop install sd      # instead of `sed` commnad
 scoop install xh      # Http reqests like curl
 scoop install zoxide  # instead of cd(Allows ambiguous travel to dirs that have been there.)
-
+scoop install tre-command # improved Rust `tree` command.
 
 # --------------------------------------------------------------------------------------------------
 # Shell design
@@ -123,6 +119,7 @@ scoop install capture2text    # Can read text from video.
 scoop install hugo            # Static site generator
 scoop install resource-hacker # exe icon edit
 scoop install luacheck        # lua package manager(to use neovim lua ckeck)
+scoop install git-filter-repo # The subcommand `git filter-repo` can be used to modify the git history.
 
 scoop install keyhac          # keyboard key editor
 #? To enable the `$env:AppData\keyhac` path setting
@@ -158,8 +155,6 @@ scoop install npm-completion
 # I use realesrgan-ncnn-vulkan now.see more: https://github.com/xinntao/Real-ESRGAN/releases
 
 # scoop install imagemagick
-# scoop install waifu2x-ncnn-vulkan
-
 scoop install pandoc      # Markdown to PDF
 scoop install screentogif
 
@@ -191,7 +186,6 @@ scoop install psfzf            # To use fzf on windows(`fzf` is installed by sco
 # --------------------------------------------------------------------------------------------------
 # Performance Scanner
 # --------------------------------------------------------------------------------------------------
-# Performance
 scoop install hyperfine # A benchmarking tool written in rust.(https://github.com/sharkdp/hyperfine)
 
 
