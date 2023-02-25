@@ -20,9 +20,9 @@ function update-all-libs
 
     command -v gem&>/dev/null && gem update && gem cleanup
 
-    command -v cargo&>/dev/null && cargo install-update -a
+    command -v cargo&>/dev/null && cargo install cargo-update # To use `install-update` command
+            && cargo install-update -a
     command -v rustup&>/dev/null && rustup update
 
     command -v pip-review&>/dev/null && pip-review -a
     command -v pipx&>/dev/null && pipx upgrade-all
-end
