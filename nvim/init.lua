@@ -564,7 +564,7 @@ parser_config.jsonc.filetype_to_parsename = "json"
 
 -- local auto_install_servers = {
 --     "pylsp",
---     "sumneko_lua",
+--     "lua_ls",
 -- }
 
 local lsp_zero = require('lsp-zero')
@@ -578,7 +578,6 @@ local servers = {
     'pylsp',
     'remark_ls',
     'rust_analyzer',
-    'sumneko_lua',
     'tsserver',
     'vimls',
     'yamlls',
@@ -609,7 +608,7 @@ lspconfig["clangd"].setup({
 })
 
 -- rust-analyzer
-require('rust-tools').setup({
+require("rust-tools").setup({
     tools = {
         autoSetHints = true,
         inlay_hints = {
@@ -617,7 +616,6 @@ require('rust-tools').setup({
             other_hints_prefix = "",
         },
     },
-
     server = {
         on_attach = on_attach,
         settings = {
@@ -630,7 +628,7 @@ require('rust-tools').setup({
     },
 })
 
-lspconfig["sumneko_lua"].setup {
+lspconfig["lua_ls"].setup {
     on_attach = on_attach,
     settings = {
         Lua = {
