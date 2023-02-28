@@ -125,11 +125,12 @@
     "**/.pytest_cache": true,
     "**/.venv": true
   },
-  "Lua.diagnostics.globals": ["lvim", "vim"],
+  "Lua.codeLens.enable": true,
+  "Lua.hint.enable": true,
+  "Lua.hint.setType": true,
   "python.analysis.typeCheckingMode": "strict",
   "python.envFile": "${workspaceFolder}/.env",
   "python.linting.enabled": true,
-  "python.linting.flake8Enabled": true,
   "python.linting.lintOnSave": true,
   "python.linting.pycodestyleEnabled": false
 }
