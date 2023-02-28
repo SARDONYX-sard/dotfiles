@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "charliermarsh.ruff",
+    "kampfkarren.selene-vscode",
     "ms-python.python",
     "ms-vscode.powershell",
     "rogalmic.bash-debug",
@@ -8,7 +9,6 @@
     "slevesque.vscode-autohotkey",
     "sumneko.lua",
     "timonwong.shellcheck",
-    "yinfei.luahelper",
     "yy0931.gitconfig-lsp"
   ]
 }
