@@ -1,11 +1,24 @@
 function update-all-libs
-    if [ -e /c ]
-        # for msys2
-        sudo pacman -Syyu --noconfirm
-    else if command -v yay &>/dev/null
+    set prefix ""
+    if [ ! -e /c ] # For not msys2
+        set prefix sudo
+    end
+
+    # openssl is used for `cargo install-update`
+    if command -v yay &>/dev/null
         yay -Syyu --noconfirm
+        command -v openssl &>/dev/null || yay -S openssl
+    else if command -v pacman &>/dev/null
+        $prefix pacman -Syyu --noconfirm
+        # for msys2
+        if [ -e /c ]
+            command -v openssl &>/dev/null || pacman -S mingw-w64-x86_64-openssl
+        else
+            command -v openssl &>/dev/null || $prefix pacman -S openssl
+        end
     else if command -v apt &>/dev/null
-        sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -y
+        $prefix apt update -y && $prefix apt upgrade -y && $prefix apt autoremove -y
+        command -v openssl &>/dev/null || $prefix apt install libssl-dev
     end
 
     command -v deno &>/dev/null && deno upgrade
@@ -20,7 +33,8 @@ function update-all-libs
 
     command -v gem &>/dev/null && gem update && gem cleanup
 
-    command -v cargo &>/dev/null && cargo install cargo-update && cargo install-update -a
+    [ -e "$HOME/.cargo/bin/cargo-install-update" ] || cargo install cargo-update
+    command -v cargo &>/dev/null && cargo install-update -a
     command -v rustup &>/dev/null && rustup update
 
     command -v pip-review &>/dev/null && pip-review -a
