@@ -687,6 +687,11 @@ lspconfig.steep.setup({
 local lspconfig_configs = require "lspconfig.configs"
 local lspconfig_util = require "lspconfig.util"
 
+lspconfig_configs["teal_ls"].setup({
+    on_attach = on_attach,
+    -- root_dir = lspconfig_util.root_pattern("main.tl")
+})
+
 if not lspconfig_configs["ruby-lsp"] then
     lspconfig_configs["ruby-lsp"] = {
         default_config = {
