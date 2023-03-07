@@ -3,7 +3,8 @@
 
 function Update-Modules {
   param (
-    [switch]$AllowPrerelease
+    [switch]$AllowPrerelease,
+    [switch]$Force
   )
 
   # Test admin privileges without using -Requires RunAsAdministrator,
@@ -44,7 +45,7 @@ function Update-Modules {
     $CounterLength = $Counter.Length
     Write-Host ('{0} Checking for updated version of module {1} ...' -f $Counter, $Module.Name) -ForegroundColor Green
     try {
-      Update-Module -Name $Module.Name -AllowPrerelease:$AllowPrerelease -AcceptLicense -Scope:AllUsers -ErrorAction Stop
+      Update-Module -Name $Module.Name -AllowPrerelease:$AllowPrerelease -AcceptLicense -Scope:AllUsers -ErrorAction Stop -Force:$Force
     }
     catch {
       Write-Host ("{0$CounterLength} Error updating module {1}!" -f ' ', $Module.Name) -ForegroundColor Red

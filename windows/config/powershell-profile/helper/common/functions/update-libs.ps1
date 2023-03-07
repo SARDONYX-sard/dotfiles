@@ -8,7 +8,7 @@ function update-all-libs {
     @{ name = "npm"; installer = "npm up -g" }
     @{ name = "pnpm"; installer = "pnpm up -g" }
     @{ name = "deno"; installer = "deno upgrade" }
-    @{ name = "PowerShell"; installer = "Update-Modules" }
+    @{ name = "PowerShell"; installer = "Update-Modules -Force" }
     @{ name = "cargo"; installer = "cargo install-update -a" }
     @{ name = "rustup"; installer = "rustup update" }
 
