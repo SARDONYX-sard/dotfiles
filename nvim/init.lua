@@ -13,7 +13,7 @@ vim.api.nvim_create_augroup("vimrc", {})
 
 -- Basic Setting {{{
 vim.opt.bs = "indent,eol,start" -- allow backspacing over everything in insert mode
-vim.opt.ai = true -- always set autoindenting on
+vim.opt.ai = true               -- always set autoindenting on
 vim.opt.backup = false
 vim.opt.swapfile = false
 vim.opt.shada = "'100,<1000,:10000,h"
@@ -182,7 +182,7 @@ vim.keymap.set("v", "$", "g$", { silent = true })
 vim.keymap.set("v", "g$", "$", { silent = true })
 
 -- vscode like keymap
-vim.keymap.set("n", "<space>q", ":q<CR>", { silent = true, desc = "Quit" }) -- <space+q> => quit editor
+vim.keymap.set("n", "<space>q", ":q<CR>", { silent = true, desc = "Quit" })       -- <space+q> => quit editor
 vim.keymap.set("n", "<space>w", ":w<CR>", { silent = true, desc = "Write file" }) -- <space+w> => write editor
 
 vim.keymap.set("i", "jj", "<Esc>", { silent = true, desc = "to Normal mode" })
@@ -650,7 +650,8 @@ lspconfig["jsonls"].setup({
                         description = 'VSCode devcontaier',
                         fileMatch = { 'devcontainer.json' },
                         name = 'devcontaier.json',
-                        url = 'https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json',
+                        url =
+                        'https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json',
                     },
                 },
                 require('schemastore').json.schemas {
