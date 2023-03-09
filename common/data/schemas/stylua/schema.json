@@ -1,0 +1,64 @@
+{
+  "$schema": "https://raw.githubusercontent.com/json-schema-org/json-schema-spec/main/schema.json",
+  "title": "Stylua",
+  "description": "Setting of .stylua.toml",
+  "properties": {
+    "column_width": {
+      "default": 120,
+      "description": "Approximate line length for printing. Used as a guide for line wrapping - this is not a hard requirement: lines may fall under or over the limit.",
+      "type": "number"
+    },
+    "line_endings": {
+      "default": "Unix",
+      "description": "Line endings type. Possible options: `Unix` (LF) or `Windows` (CRLF)",
+      "type": "string",
+      "enum": ["Unix", "Windows"]
+    },
+    "indent_type": {
+      "default": "Tabs",
+      "description": "Indent type. Possible options: `Tabs` or `Spaces`",
+      "type": "string",
+      "enum": ["Tabs", "Spaces"]
+    },
+    "indent_width": {
+      "default": 4,
+      "description": "Character size of single indentation. If `indent_type` is set to `Tabs`, this option is used as a heuristic to determine column width only.",
+      "type": "number"
+    },
+    "quote_style": {
+      "default": "AutoPreferDouble",
+      "description": "Quote style for string literals. Possible options: `AutoPreferDouble`, `AutoPreferSingle`, `ForceDouble`, `ForceSingle`. `AutoPrefer` styles will prefer the specified quote style, but fall back to the alternative if it has fewer string escapes. `Force` styles always use the specified style regardless of escapes.",
+      "type": "string",
+      "enum": [
+        "AutoPreferDouble",
+        "AutoPreferSingle",
+        "ForceDouble",
+        "ForceSingle",
+        "AutoPrefer"
+      ]
+    },
+    "call_parentheses": {
+      "default": "Always",
+      "description": "Whether parentheses should be applied on function calls with a single string/table argument. Possible options: `Always`, `NoSingleString`, `NoSingleTable`, `None`. `Always` applies parentheses in all cases. `NoSingleString` omits parentheses on calls with a single string argument. Similarly, `NoSingleTable` omits parentheses on calls with a single table argument. `None` omits parentheses in both cases. Note: parentheses are still kept in situations where removal can lead to obscurity (e.g. `foo \"bar\".setup -> foo(\"bar\").setup`, since the index is on the call result, not the string).",
+      "type": "string",
+      "enum": ["Always", "NoSingleString", "NoSingleTable", "None"]
+    },
+    "collapse_simple_statement": {
+      "default": "Never",
+      "description": "Specify whether to collapse simple statements. Possible options: `Never`, `FunctionOnly`, `ConditionalOnly`, or `Always`",
+      "type": "string",
+      "enum": ["Never", "FunctionOnly", "ConditionalOnly", "Always"]
+    },
+    "sort_requires": {
+      "type": "object",
+      "required": ["enabled"],
+      "properties": {
+        "enabled": {
+          "default": true,
+          "description": "StyLua has built-in support for sorting require statements. We group consecutive require statements into a single \"block\", \nand then requires are sorted only within that block. Blocks of requires do not move around the file.\nWe only include requires of the form `local NAME = require(EXPR)`, and sort lexicographically based on `NAME`.\n(We also sort Roblox services of the form `local NAME = game:GetService(EXPR)`)\nRequires sorting is off by default. To enable it, add the following to your `stylua.toml`:",
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
