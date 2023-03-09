@@ -101,15 +101,16 @@
   "editor.rulers": [80],
   "editor.tabCompletion": "on",
   "files.associations": {
+    "*.json": "jsonc",
+    "*.txt": "txt",
+    "*.vim": "viml",
     ".editorconfig": "properties",
     ".envpath": "shellscript",
     ".gitconfig": "gitconfig",
     ".gitignore": "ignore",
-    "*.json": "jsonc",
-    "*.txt": "txt",
-    "*.vim": "viml",
-    "git-config.txt": "gitconfig",
-    "LICENSE": "txt"
+    ".luacheckrc": "lua",
+    "LICENSE": "txt",
+    "git-config.txt": "gitconfig"
   },
   "files.exclude": {
     "**/__pycache__": true,
