@@ -2,6 +2,9 @@
   "[gitconfig]": {
     "editor.semanticHighlighting.enabled": true
   },
+  "[lua]": {
+    "editor.defaultFormatter": "JohnnyMorganz.stylua"
+  },
   "[python]": {
     "editor.defaultFormatter": "ms-python.python",
     "editor.formatOnType": false,
@@ -87,6 +90,7 @@
     "solargraph",
     "sonictemplate",
     "spellfile",
+    "stylua",
     "sysstat",
     "tolf",
     "treee",

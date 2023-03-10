@@ -1,0 +1,10 @@
+# Local shema is not yet implemented, but evenBetterToml supports it, so comment it out and use it as appropriate.
+# "$schema" = "./common/data/schemas/stylua/schema.json"
+line_endings = "Unix"
+indent_type = "Spaces"
+indent_width = 2                 # Must be set to the same value as `.editorconfig`. (It's a double definition, but it can't be helped)
+quote_style = "AutoPreferSingle"
+call_parentheses = "None"
+
+# [sort_requires] # Unimplement yet. see https://github.com/JohnnyMorganz/StyLua/issues/654
+# enabled = true
