@@ -29,7 +29,7 @@ scoop install luacheck
    be installed.
 
    ```bash
-   nvim +PackerSync
+   nvim
    ```
 
 2. When all plugins are installed, press `:q!`. (`;` will be changed to `:`).
@@ -42,4 +42,8 @@ This set of codes is written by customizing the following repositories.
 
 We thank you for the very easy-to-use setup.
 
-[joker1007 dotfiles/nvim](https://github.com/joker1007/dotfiles/tree/master/nvim)
+- [joker1007 dotfiles/nvim](https://github.com/joker1007/dotfiles/tree/master/nvim):
+  Unknown
+
+- [nvim-lua/kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim/blob/master/LICENSE.md):
+  MIT
