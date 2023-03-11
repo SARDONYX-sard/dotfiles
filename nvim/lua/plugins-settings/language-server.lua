@@ -10,7 +10,9 @@ local servers = {
   -- rust_analyzer = {},
   -- tsserver = {},
 
+  -- lsp name
   jsonls = {
+    -- settings items
     json = {
       schemas = vim.list_extend({
         {
@@ -21,9 +23,13 @@ local servers = {
         },
       }, require('schemastore').json.schemas {}),
     },
+    -- Meaning that this lsp setting is dependent on this command path being passed.
+    -- If the path is not followed, the setting is disabled.
+    -- (This prevents the installation error message from being displayed.)
     require_cmd = 'node',
   },
-
+  -- Neovim itself has a Lua execution environment,
+  -- so there is no need to include external commands on its own initiative.
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -41,6 +47,9 @@ local on_attach = function(_, buffer)
   --
   -- In this case, we create a function that lets us more easily define mappings specific
   -- for LSP related items. It sets the mode, buffer and description for us each time.
+  ---@param keys string
+  ---@param func function|string
+  ---@param desc string
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -50,29 +59,29 @@ local on_attach = function(_, buffer)
   end
 
   nmap('<F2>', vim.lsp.buf.rename, 'Rename')
-  nmap('<leader>lr', vim.lsp.buf.rename, 'Rename')
-  nmap('<leader>la', vim.lsp.buf.code_action, 'Code Action')
+  nmap('<leader>lr', vim.lsp.buf.rename, '[r]ename')
+  nmap('<leader>la', vim.lsp.buf.code_action, 'Code [a]ction')
 
-  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-  nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-  nmap('<leader>ltD', vim.lsp.buf.type_definition, 'Type Definition')
-  nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, 'Document [S]ymbols')
-  nmap('<leader>lws', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace [S]ymbols')
+  nmap('gd', vim.lsp.buf.definition, '[g]oto [d]efinition')
+  nmap('gr', require('telescope.builtin').lsp_references, '[g]oto [r]eferences')
+  nmap('gI', vim.lsp.buf.implementation, '[g]oto [I]mplementation')
+  nmap('<leader>lt', vim.lsp.buf.type_definition, '[t]ype Definition')
+  nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, 'Show Document [s]ymbols')
+  nmap('<leader>lws', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace: [s]ymbols')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
-  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  nmap('gD', vim.lsp.buf.declaration, '[g]oto [D]eclaration')
 
-  require('which-key').register { ['<leader>lw'] = { name = '+Lsp Workspace' } }
-  nmap('<leader>lwa', vim.lsp.buf.add_workspace_folder, 'Workspace [A]dd Folder')
-  nmap('<leader>lwr', vim.lsp.buf.remove_workspace_folder, 'Workspace [R]emove Folder')
+  require('which-key').register { ['<leader>lw'] = { name = '+Lsp [w]orkspace' } }
+  nmap('<leader>lwa', vim.lsp.buf.add_workspace_folder, 'Workspace: [a]dd Folder')
+  nmap('<leader>lwr', vim.lsp.buf.remove_workspace_folder, 'Workspace: [r]emove Folder')
   nmap('<leader>lwl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, '[W]orkspace [L]ist Folders')
+  end, 'Workspace: [l]ist Folders')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(buffer, 'Format', function(_)
@@ -80,7 +89,7 @@ local on_attach = function(_, buffer)
   end, { desc = 'Format current buffer with LSP' })
   nmap('<space>lf', function()
     vim.lsp.buf.format { async = true }
-  end, 'format')
+  end, '[f]ormat')
 end
 
 -- Setup neovim lua configuration
@@ -101,7 +110,6 @@ mason_lspconfig.setup {
   ensure_installed = (function()
     -- json_ls, etc. will cause an error if there is no `node`,
     -- so if there is no `node`, exclude it here.
-
     for _, server_name in ipairs(vim.tbl_keys(servers)) do
       if servers[server_name].require_cmd ~= nil and vim.fn.executable(servers[server_name].require_cmd) == 0 then
         -- Remove dependencies on external commands by putting nil in the server configuration.
@@ -169,7 +177,19 @@ cmp.setup {
   },
 }
 
+-- Nonattach lsp keymaps
+--
+---Normal mode lsp keymap creater function.
+---@param keys string
+---@param func function|string
+---@param desc string
+local nmap = function(keys, func, desc)
+  if desc then
+    desc = 'LSP: ' .. desc
+  end
+  vim.keymap.set('n', keys, func, { noremap = true, silent = true, desc = desc })
+end
 require('which-key').register { ['<leader>l'] = { name = '+Lsp' } }
-vim.keymap.set('n', '<leader>lI', ':Mason<CR>', { noremap = true, silent = true, desc = 'installer' })
-vim.keymap.set('n', '<space>li', ':LspInfo<CR>', { noremap = true, silent = true, desc = 'info' })
-vim.keymap.set('n', '<space>ll', ':LspLog<CR>', { noremap = true, silent = true, desc = 'log' })
+nmap('<leader>lI', ':Mason<CR>', '[I]nstaller')
+nmap('<space>li', ':LspInfo<CR>', '[i]nfo')
+nmap('<space>ll', ':LspLog<CR>', '[l]og')
