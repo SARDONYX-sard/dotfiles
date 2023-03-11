@@ -8,7 +8,7 @@ dotfiles installation.
 
 ## 1.Install dependencies
 
-- linux
+- linux(For ubuntu, kali-linux)
 
 ```bash
 sudo apt install sed luarocks; luarocks install luacheck
@@ -22,22 +22,16 @@ scoop install luacheck
 
 ## 2.Install plugins
 
-- execute the following $nvim
-
-1. (automatic installation synchronization by the plugin manager) will run for
+- execute the following $nvim 
+  (automatic installation synchronization by the plugin manager) will run for
    the first time. Keep pressing Enter and wait for the plugin to be installed.
 
-   ```bash
-   nvim
-   ```
-
-2. When all plugins are installed, press `:q!`. (`;` will be changed to `:`).
-
-3. Finally, run `nvim` again and it will start normally.
-
+ ```bash
+ nvim
+ ```
 ## Thanks
 
-This set of codes is written by customizing the following repositories.
+- This set of codes is written by customizing the following repositories.
 
 We thank you for the very easy-to-use setup.
 
