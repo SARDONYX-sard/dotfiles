@@ -44,7 +44,26 @@ M.plugins = {
           background = true, -- use background color for virtual text
         },
       }
+
       vim.cmd.colorscheme 'onedark'
+    end,
+  },
+
+  {
+    'xiyaowong/nvim-transparent',
+    config = function()
+      require('transparent').setup {
+        enable = true, -- boolean: enable transparent
+        extra_groups = { -- table/string: additional groups that should be cleared
+          -- In particular, when you set it to 'all', that means all available groups
+          'BufferLineTabClose',
+          'BufferlineBufferSelected',
+          'BufferLineFill',
+          'BufferLineBackground',
+          'BufferLineSeparator',
+        },
+        exclude = {}, -- table: groups you don't want to clear
+      }
     end,
   },
 
