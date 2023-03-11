@@ -4,13 +4,12 @@ M.plugins = {
   {
     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
-    opts = {},
+    lazy = true,
   },
 
   {
     -- "gc" to comment visual regions/lines
     'numToStr/Comment.nvim',
-    opts = {},
   },
 
   {

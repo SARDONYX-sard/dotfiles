@@ -29,20 +29,22 @@ M.highlight_languages = {
 }
 
 M.plugins = {
-  { -- Highlight, edit, and navigate code
+  {
+    -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     config = function()
-      local ok, _ = pcall(require('nvim-treesitter.install').update { with_sync = true })
-      if not ok then
-        vim.notify(
-          'Failed update syntax highlighter(treesitter).',
-          vim.log.levels.ERROR,
-          { title = 'plugins.syntax-highlight' }
-        )
-      end
+      -- Automatic updates at startup are commented out because they increase startup time by 500ms~1500ms
+      -- local ok, _ = pcall(require('nvim-treesitter.install').update {})
+      -- if not ok then
+      --   vim.notify(
+      --     'Failed update syntax highlighter(treesitter).',
+      --     vim.log.levels.ERROR,
+      --     { title = 'plugins.syntax-highlight' }
+      --   )
+      -- end
 
       -- [[ Configure Treesitter ]]
       -- See `:help nvim-treesitter`
@@ -112,8 +114,10 @@ M.plugins = {
     end,
   },
 
-  { -- auto highlight brackets pair
+  {
+    -- auto highlight brackets pair
     'windwp/nvim-autopairs',
+    lazy = true,
     config = function()
       require('nvim-autopairs').setup {}
       local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
