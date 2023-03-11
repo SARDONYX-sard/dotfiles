@@ -9,13 +9,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
-
-local ok, wk = pcall(require, 'which-key')
-if ok then
-  wk.register {
-    ['<leader>h'] = { name = '+highlight' },
-  }
-else
-  vim.notify('Warn registing `highlight` prefix.', vim.log.levels.WARN, { title = 'buildin.highlight' })
-end
-vim.keymap.set('n', '<leader>hn', ':noh<CR>', { deec = 'No highlight words' }) -- reset highlight
