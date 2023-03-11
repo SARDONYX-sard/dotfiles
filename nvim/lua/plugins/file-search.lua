@@ -5,6 +5,7 @@ M.plugins = {
   {
     'nvim-telescope/telescope.nvim',
     version = '*',
+    lazy = true,
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       -- [[ Configure Telescope ]]

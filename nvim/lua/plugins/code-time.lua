@@ -1,7 +1,10 @@
 local M = {}
 
 M.plugins = {
-  { 'wakatime/vim-wakatime' },
+  {
+    'wakatime/vim-wakatime',
+    lazy = true,
+  },
 }
 
 return M
