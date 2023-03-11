@@ -4,7 +4,8 @@
 local M = {}
 
 M.plugins = {
-  { -- LSP Configuration & Plugins
+  -- LSP Configuration & Plugins
+  {
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
@@ -20,7 +21,7 @@ M.plugins = {
     },
   },
 
-  { 'b0o/schemastore.nvim' }, -- Auto featch json schemas
+  { 'b0o/schemastore.nvim' }, -- Auto fetch json schemas
 }
 
 return M
