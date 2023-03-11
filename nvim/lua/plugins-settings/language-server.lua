@@ -10,18 +10,19 @@ local servers = {
   -- rust_analyzer = {},
   -- tsserver = {},
 
-  -- jsonls = {
-  --   json = {
-  --     schemas = vim.list_extend({
-  --       {
-  --         description = 'VSCode devcontaier',
-  --         fileMatch = { 'devcontainer.json' },
-  --         name = 'devcontaier.json',
-  --         url = 'https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json',
-  --       },
-  --     }, require('schemastore').json.schemas {}),
-  --   },
-  -- },
+  jsonls = {
+    json = {
+      schemas = vim.list_extend({
+        {
+          description = 'VSCode devcontaier',
+          fileMatch = { 'devcontainer.json' },
+          name = 'devcontaier.json',
+          url = 'https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json',
+        },
+      }, require('schemastore').json.schemas {}),
+    },
+    require_cmd = 'node',
+  },
 
   lua_ls = {
     Lua = {
@@ -96,10 +97,24 @@ require('mason').setup()
 local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
+
+  ensure_installed = (function()
+    -- json_ls, etc. will cause an error if there is no `node`,
+    -- so if there is no `node`, exclude it here.
+
+    for _, server_name in ipairs(vim.tbl_keys(servers)) do
+      if servers[server_name].require_cmd ~= nil and vim.fn.executable(servers[server_name].require_cmd) == 0 then
+        -- Remove dependencies on external commands by putting nil in the server configuration.
+        servers[server_name] = nil
+      end
+    end
+
+    return vim.tbl_keys(servers)
+  end)(),
 }
 
 mason_lspconfig.setup_handlers {
+  ---@param server_name string
   function(server_name)
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
@@ -108,23 +123,6 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
-
-if vim.fn.executable 'node' then
-  require('lspconfig').jsonls.setup {
-    settings = {
-      json = {
-        schemas = vim.list_extend({
-          {
-            description = 'VSCode devcontaier',
-            fileMatch = { 'devcontainer.json' },
-            name = 'devcontaier.json',
-            url = 'https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json',
-          },
-        }, require('schemastore').json.schemas {}),
-      },
-    },
-  }
-end
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
