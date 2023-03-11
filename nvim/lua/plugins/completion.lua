@@ -1,7 +1,8 @@
 local M = {}
 
 M.plugins = {
-  { -- Autocompletion
+  {
+    -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
       'L3MON4D3/LuaSnip',
@@ -81,10 +82,11 @@ M.plugins = {
     end,
   },
 
-  { -- Items that are not originally supported can be displayed as complementary items.
+  {
+    -- Items that are not originally supported can be displayed as complementary items.
     'jose-elias-alvarez/null-ls.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    cofnig = function()
+    config = function()
       local null_ls = require 'null-ls'
       null_ls.setup {
         sources = {

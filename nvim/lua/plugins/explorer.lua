@@ -48,7 +48,7 @@ M.plugins = {
         ['<leader>t'] = { name = '+NvimTree' },
       }
     else
-      vim.notify('Warn registing `NvimTree` prefix.', vim.log.levels.WARN, { title = 'buildin.highlight' })
+      vim.notify('Warn registering `NvimTree` prefix.', vim.log.levels.WARN, { title = 'buildin.highlight' })
     end
     vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { desc = 'Explorer' })
   end,
