@@ -46,16 +46,16 @@ local on_attach = function(_, buffer)
     vim.keymap.set('n', keys, func, { buffer = buffer, desc = desc })
   end
 
-  nmap('<F2>', vim.lsp.buf.rename, 'lsp: Rename')
-  nmap('<leader>lr', vim.lsp.buf.rename, 'lsp: [R]ename')
-  nmap('<leader>la', vim.lsp.buf.code_action, 'lsp: Code [A]ction')
+  nmap('<F2>', vim.lsp.buf.rename, 'Rename')
+  nmap('<leader>lr', vim.lsp.buf.rename, 'Rename')
+  nmap('<leader>la', vim.lsp.buf.code_action, 'Code Action')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-  nmap('<leader>ltD', vim.lsp.buf.type_definition, 'lsp: Type Definition')
-  nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, 'lsp: Document [S]ymbols')
-  nmap('<leader>lws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  nmap('<leader>ltD', vim.lsp.buf.type_definition, 'Type Definition')
+  nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, 'Document [S]ymbols')
+  nmap('<leader>lws', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace [S]ymbols')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -63,8 +63,10 @@ local on_attach = function(_, buffer)
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  nmap('<leader>lwa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-  nmap('<leader>lwr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+
+  require('which-key').register { ['<leader>lw'] = { name = '+Lsp Workspace' } }
+  nmap('<leader>lwa', vim.lsp.buf.add_workspace_folder, 'Workspace [A]dd Folder')
+  nmap('<leader>lwr', vim.lsp.buf.remove_workspace_folder, 'Workspace [R]emove Folder')
   nmap('<leader>lwl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
@@ -75,7 +77,7 @@ local on_attach = function(_, buffer)
   end, { desc = 'Format current buffer with LSP' })
   nmap('<space>lf', function()
     vim.lsp.buf.format { async = true }
-  end, 'lsp: Format')
+  end, 'format')
 end
 
 -- Setup neovim lua configuration
@@ -150,9 +152,7 @@ cmp.setup {
   },
 }
 
-require('which-key').register {
-  ['<leader>l'] = { name = '+lsp' },
-}
-vim.keymap.set('n', '<leader>lI', ':Mason<CR>', { noremap = true, silent = true, desc = '[l]sp: installer' })
-vim.keymap.set('n', '<space>li', ':LspInfo<CR>', { noremap = true, silent = true, desc = '[l]sp: info' })
-vim.keymap.set('n', '<space>ll', ':LspLog<CR>', { noremap = true, silent = true, desc = '[l]sp: log' })
+require('which-key').register { ['<leader>l'] = { name = '+Lsp' } }
+vim.keymap.set('n', '<leader>lI', ':Mason<CR>', { noremap = true, silent = true, desc = 'installer' })
+vim.keymap.set('n', '<space>li', ':LspInfo<CR>', { noremap = true, silent = true, desc = 'info' })
+vim.keymap.set('n', '<space>ll', ':LspLog<CR>', { noremap = true, silent = true, desc = 'log' })

@@ -7,7 +7,7 @@ M.plugins = {
     config = function()
       require('which-key').register {
         ['<leader>g'] = {
-          name = '+git',
+          name = '+Git',
         },
       }
     end,
