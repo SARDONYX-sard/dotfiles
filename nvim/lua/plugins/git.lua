@@ -13,26 +13,31 @@ M.plugins = {
     end,
   },
 
-  'tpope/vim-rhubarb',
+  { 'tpope/vim-rhubarb' },
 
-  -- Adds git releated signs to the gutter, as well as utilities for managing changes
-  'lewis6991/gitsigns.nvim',
-  opts = {
-    -- See `:help gitsigns.txt`
-    signs = {
-      add = { text = '+' },
-      change = { text = '~' },
-      delete = { text = '_' },
-      topdelete = { text = '‾' },
-      changedelete = { text = '~' },
-    },
+  {
+    -- Adds git related signs to the gutter, as well as utilities for managing changes
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require('gitsigns').setup {
+        -- signs = {
+        --   add = { text = '+' },
+        --   change = { text = '~' },
+        --   delete = { text = '_' },
+        --   topdelete = { text = '‾' },
+        --   changedelete = { text = '~' },
+        -- },
+      }
+    end,
   },
 }
 
-vim.keymap.set('n', '<leader>gC', ':<C-u>Git commit --amend<CR>')
-vim.keymap.set('n', '<leader>gN', ':<C-u>Git now --all<CR>')
-vim.keymap.set('n', '<leader>gb', ':<C-u>Git blame<CR>')
-vim.keymap.set('n', '<leader>gc', ':<C-u>Git commit<CR>')
-vim.keymap.set('n', '<leader>gs', ':<C-u>Git<CR>')
+--commit keymaps
+vim.keymap.set('n', '<leader>gc', ':<C-u>Git commit<CR>', { desc = 'Git: [c]ommit' })
+vim.keymap.set('n', '<leader>gv', ':<C-u>Git commit -S<CR>', { desc = 'Git: [v]erifying signed commit' })
+vim.keymap.set('n', '<leader>gC', ':<C-u>Git commit --amend<CR>', { desc = 'Git: modify prev commit message' })
+-- other
+vim.keymap.set('n', '<leader>gb', ':<C-u>Git blame<CR>', { desc = 'Git: [b]lame open' })
+vim.keymap.set('n', '<leader>gs', ':<C-u>Git<CR>', { desc = 'Git: [s]tatus tool open' })
 
 return M
