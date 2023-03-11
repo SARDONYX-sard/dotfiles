@@ -12,7 +12,7 @@ M.highlight_languages = {
   'html',
   'java',
   'javascript',
-  'json',
+  'jsonc',
   'lua',
   'make',
   'markdown',
