@@ -5,7 +5,6 @@
 
 local M = {}
 M.plugins = {
-
   { -- If an `.editorconfig` file exists in the parent directory, its character encoding, line feed code, etc. must be followed.
     --? Not required since neovim 0.9.0 or higher comes standard.
     -- see :lua print(vim.fn.has("nvim-0.9.0"))
