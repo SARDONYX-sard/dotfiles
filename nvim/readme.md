@@ -24,9 +24,8 @@ scoop install luacheck
 
 - execute the following $nvim
 
-1. PackerSync (automatic installation synchronization by the plugin manager)
-   will run for the first time. Keep pressing Enter and wait for the plugin to
-   be installed.
+1. (automatic installation synchronization by the plugin manager) will run for
+   the first time. Keep pressing Enter and wait for the plugin to be installed.
 
    ```bash
    nvim
