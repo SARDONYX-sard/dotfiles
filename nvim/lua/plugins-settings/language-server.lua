@@ -9,18 +9,19 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
-  jsonls = {
-    json = {
-      schemas = vim.list_extend({
-        {
-          description = 'VSCode devcontaier',
-          fileMatch = { 'devcontainer.json' },
-          name = 'devcontaier.json',
-          url = 'https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json',
-        },
-      }, require('schemastore').json.schemas {}),
-    },
-  },
+
+  -- jsonls = {
+  --   json = {
+  --     schemas = vim.list_extend({
+  --       {
+  --         description = 'VSCode devcontaier',
+  --         fileMatch = { 'devcontainer.json' },
+  --         name = 'devcontaier.json',
+  --         url = 'https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json',
+  --       },
+  --     }, require('schemastore').json.schemas {}),
+  --   },
+  -- },
 
   lua_ls = {
     Lua = {
@@ -29,6 +30,7 @@ local servers = {
     },
   },
 }
+
 --  This function gets run when an LSP connects to a particular buffer.
 -- LSP settings.
 local on_attach = function(_, buffer)
@@ -106,6 +108,23 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
+
+if vim.fn.executable 'node' then
+  require('lspconfig').jsonls.setup {
+    settings = {
+      json = {
+        schemas = vim.list_extend({
+          {
+            description = 'VSCode devcontaier',
+            fileMatch = { 'devcontainer.json' },
+            name = 'devcontaier.json',
+            url = 'https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json',
+          },
+        }, require('schemastore').json.schemas {}),
+      },
+    },
+  }
+end
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
