@@ -58,8 +58,13 @@ vim.keymap.set('n', 'Y', 'y$', {})
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>ld', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating [D]iagnostic message' })
+vim.keymap.set('n', '<leader>D', vim.diagnostic.setloclist, { desc = 'Open [d]iagnostics list' })
 
 -- highlight keymaps
-vim.keymap.set('n', '<leader>h', ':noh<CR>', { desc = 'No highlight words' }) -- reset highlight
+vim.keymap.set(
+  'n',
+  '<leader>h',
+  ":execute(&hls && v:hlsearch ? 'noh' : 'set hls')<CR>",
+  { silent = true, desc = 'Toggle [h]ighlight' }
+)
