@@ -50,11 +50,19 @@ M.plugins = {
           name = '+Search',
         },
       }
-      vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch: Files' })
-      vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch: Help' })
-      vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch: current Word' })
-      vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch: by Grep' })
-      vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch: Diagnostics' })
+
+      ---Normal mode keymap creator function.
+      ---@param keys string
+      ---@param func function|string
+      ---@param desc string
+      local nmap = function(keys, func, desc)
+        vim.keymap.set('n', keys, func, { noremap = true, silent = true, desc = 'Search: ' .. desc })
+      end
+      nmap('<leader>sf', require('telescope.builtin').find_files, '[f]iles')
+      nmap('<leader>sh', require('telescope.builtin').help_tags, '[h]elp')
+      nmap('<leader>sw', require('telescope.builtin').grep_string, 'current [w]ord')
+      nmap('<leader>sg', require('telescope.builtin').live_grep, 'By [g]rep')
+      nmap('<leader>sd', require('telescope.builtin').diagnostics, '[d]iagnostics')
     end,
   },
 
