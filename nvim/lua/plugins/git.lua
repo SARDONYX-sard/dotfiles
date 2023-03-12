@@ -33,9 +33,15 @@ M.plugins = {
 }
 
 --commit keymaps
-vim.keymap.set('n', '<leader>gc', ':<C-u>Git commit<CR>', { desc = 'Git: [c]ommit' })
-vim.keymap.set('n', '<leader>gg', ':<C-u>Git commit -S<CR>', { desc = 'Git: [g]o to do a signed commit' })
-vim.keymap.set('n', '<leader>gC', ':<C-u>Git commit --amend<CR>', { desc = 'Git: modify prev commit message' })
+vim.keymap.set('n', '<leader>gcc', ':<C-u>Git commit<CR>', { desc = 'Git: [c]ommit' })
+vim.keymap.set('n', '<leader>gC', ':<C-u>Git commit --amend<CR>', { desc = 'Git: modify prev commit msg' })
+vim.keymap.set('n', '<leader>gg', ':<C-u>Git commit -S<CR>', { desc = 'Git: commit(with [g]pg)' })
+vim.keymap.set(
+  'n',
+  '<leader>gG',
+  ':<C-u>Git commit --amend -S<CR>',
+  { desc = 'Git: modify prev commit msg(with [G]pg)' }
+)
 -- other
 vim.keymap.set('n', '<leader>gb', ':<C-u>Git blame<CR>', { desc = 'Git: [b]lame open' })
 vim.keymap.set('n', '<leader>gp', ':<C-u>Git push<CR>', { desc = 'Git: [p]ush to remote' })
