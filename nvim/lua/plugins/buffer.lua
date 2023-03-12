@@ -51,7 +51,7 @@ M.plugins = {
 ---Normal mode buffer keymaps creator function.
 ---@param buf_num number
 local nmap = function(buf_num)
-  vim.keymap.set('n', '<leader>' .. buf_num, function()
+  vim.keymap.set('n', '<leader>b' .. buf_num, function()
     require('bufferline').go_to_buffer(buf_num, true)
   end, { silent = true, desc = 'Buffer: ' .. buf_num })
 end
@@ -61,7 +61,7 @@ end
 
 vim.keymap.set('n', 'L', ':BufferLineCycleNext<CR>', { silent = true, desc = 'Buffer: next' })
 vim.keymap.set('n', 'H', ':BufferLineCyclePrev<CR>', { silent = true, desc = 'Buffer: prev' })
-vim.keymap.set('n', '<space>bc', ':bdelete<CR>', { silent = true, desc = 'Buffer: [c]lose' })
+vim.keymap.set('n', '<space>c', ':bdelete<CR>', { silent = true, desc = 'Buffer: [c]lose' })
 --See: https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one
 vim.keymap.set('n', '<space>bl', ':%bd|e#|bd#<CR>', { silent = true, desc = 'Buffer: [l]ast(current) only' })
 
