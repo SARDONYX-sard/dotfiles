@@ -1,18 +1,36 @@
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
+
+-- See: https://github.com/LuaLS/lua-language-server/wiki/Annotations#field
+---
+---@class LanguageServers
+---@field [string] LspConfig  -Lsp name(e.g. 'clangd' | 'gopls')
+
+---@class LspConfig settings items
+---@field capabilities table -nvim-cmp supports additional completion capabilities, so broadcast that to servers.
+---@field require_cmd string -Dependent on this command path being passed.(e.g. 'node')
+
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
+--
+---@type LanguageServers
 local servers = {
-  -- clangd = {},
+  clangd = {
+    ---To suppress `clangd` encoding warning
+    ---See: https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428
+    capabilities = (function()
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+      capabilities.offsetEncoding = { 'utf-16' }
+      return capabilities
+    end)(),
+  },
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
 
-  -- lsp name
   jsonls = {
-    -- settings items
     json = {
       schemas = vim.list_extend({
         {
@@ -23,9 +41,6 @@ local servers = {
         },
       }, require('schemastore').json.schemas {}),
     },
-    -- Meaning that this lsp setting is dependent on this command path being passed.
-    -- If the path is not followed, the setting is disabled.
-    -- (This prevents the installation error message from being displayed.)
     require_cmd = 'node',
   },
   -- Neovim itself has a Lua execution environment,
@@ -106,7 +121,6 @@ require('mason').setup()
 local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
-
   ensure_installed = (function()
     -- json_ls, etc. will cause an error if there is no `node`,
     -- so if there is no `node`, exclude it here.
@@ -125,7 +139,12 @@ mason_lspconfig.setup_handlers {
   ---@param server_name string
   function(server_name)
     require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
+      capabilities = (function()
+        if servers[server_name] ~= nil and servers[server_name].capabilities ~= nil then
+          return servers[server_name].capabilities
+        end
+        return capabilities
+      end)(),
       on_attach = on_attach,
       settings = servers[server_name],
     }
@@ -179,7 +198,7 @@ cmp.setup {
 
 -- Nonattach lsp keymaps
 --
----Normal mode lsp keymap creater function.
+---Normal mode lsp keymap creator function.
 ---@param keys string
 ---@param func function|string
 ---@param desc string
