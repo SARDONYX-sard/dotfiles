@@ -35,7 +35,7 @@ vim.keymap.set('v', '$', 'g$', { silent = true })
 vim.keymap.set('v', 'g$', '$', { silent = true })
 
 -- vscode like keymap
-vim.keymap.set('n', '<leader>q', ':q!<CR>', { silent = true, desc = 'Quit whatever' })
+vim.keymap.set('n', '<leader>q', ':q!<CR>', { silent = true, desc = 'Quit window(not multi buffer!)' })
 vim.keymap.set('n', '<leader>w', ':w!<CR>', { silent = true, desc = 'Write file' })
 
 -- mode changer
@@ -58,8 +58,8 @@ vim.keymap.set('n', 'Y', 'y$', {})
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating [D]iagnostic message' })
-vim.keymap.set('n', '<leader>D', vim.diagnostic.setloclist, { desc = 'Open [d]iagnostics list' })
+vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open [d]iagnostic current line' })
+vim.keymap.set('n', '<leader>D', vim.diagnostic.setloclist, { desc = 'Open [D]iagnostics list' })
 
 -- highlight keymaps
 vim.keymap.set(

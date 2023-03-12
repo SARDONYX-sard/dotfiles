@@ -46,6 +46,6 @@ function M.load(plugins)
   }
 end
 
-vim.keymap.set('n', '<leader>p', '<cmd>Lazy<CR>', { silent = true, desc = 'Show Plugins' })
+vim.keymap.set('n', '<leader>p', '<cmd>Lazy<CR>', { silent = true, desc = 'Show [p]lugins' })
 
 return M
