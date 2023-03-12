@@ -36,7 +36,7 @@ vim.keymap.set('v', 'g$', '$', { silent = true })
 
 -- vscode like keymap
 vim.keymap.set('n', '<leader>q', ':q!<CR>', { silent = true, desc = 'Quit whatever' })
-vim.keymap.set('n', '<leader>w', ':w<CR>', { silent = true, desc = 'Write file' })
+vim.keymap.set('n', '<leader>w', ':w!<CR>', { silent = true, desc = 'Write file' })
 
 -- mode changer
 vim.keymap.set('i', 'jj', '<Esc>', { silent = true, desc = 'to Normal mode' })
