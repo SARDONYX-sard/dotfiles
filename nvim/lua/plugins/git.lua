@@ -33,8 +33,8 @@ M.plugins = {
 }
 
 --commit keymaps
-vim.keymap.set('n', '<leader>gcc', ':<C-u>Git commit<CR>', { desc = 'Git: [c]ommit' })
-vim.keymap.set('n', '<leader>gC', ':<C-u>Git commit --amend<CR>', { desc = 'Git: modify prev commit msg' })
+vim.keymap.set('n', '<leader>gc', ':<C-u>Git commit<CR>', { desc = 'Git: [c]ommit' })
+vim.keymap.set('n', '<leader>gC', ':<C-u>Git commit --amend<CR>', { desc = 'Git: modify prev [c]ommit msg' })
 vim.keymap.set('n', '<leader>gg', ':<C-u>Git commit -S<CR>', { desc = 'Git: commit(with [g]pg)' })
 vim.keymap.set(
   'n',
