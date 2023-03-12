@@ -5,7 +5,9 @@ M.plugins = {
   {
     'akinsho/bufferline.nvim',
     version = 'v3.*',
-    dependencies = 'kyazdani42/nvim-web-devicons',
+    dependencies = {
+      'kyazdani42/nvim-web-devicons',
+    },
     config = function()
       vim.opt.termguicolors = true
 
@@ -30,11 +32,11 @@ M.plugins = {
         },
       }
 
-      require('which-key').register {
+      pcall(require('which-key').register, {
         ['<leader>b'] = {
           name = '+Buffer',
         },
-      }
+      })
     end,
   },
 

@@ -5,11 +5,11 @@ M.plugins = {
   {
     'tpope/vim-fugitive',
     config = function()
-      require('which-key').register {
+      pcall(require('which-key').register, {
         ['<leader>g'] = {
           name = '+Git',
         },
-      }
+      })
     end,
   },
 
