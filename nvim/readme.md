@@ -11,7 +11,8 @@ dotfiles installation.
 - linux(For ubuntu, kali-linux)
 
 ```bash
-sudo apt install sed luarocks; luarocks install luacheck
+sudo apt install python3.11-venv # for python-lsp
+sudo apt install sed luarocks; luarocks install luacheck # for lua-lsp, luacheck
 ```
 
 - windows
