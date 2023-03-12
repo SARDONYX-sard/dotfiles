@@ -23,6 +23,14 @@ M.plugins = {
   },
 
   { 'b0o/schemastore.nvim' }, -- Auto fetch json schemas
+
+  {
+    -- Displaying references and definition counts upon functions.
+    'VidocqH/lsp-lens.nvim',
+    config = function()
+      require('lsp-lens').setup {}
+    end,
+  },
 }
 
 return M
