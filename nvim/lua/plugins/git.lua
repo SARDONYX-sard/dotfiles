@@ -34,10 +34,11 @@ M.plugins = {
 
 --commit keymaps
 vim.keymap.set('n', '<leader>gc', ':<C-u>Git commit<CR>', { desc = 'Git: [c]ommit' })
-vim.keymap.set('n', '<leader>gv', ':<C-u>Git commit -S<CR>', { desc = 'Git: [v]erifying signed commit' })
+vim.keymap.set('n', '<leader>gg', ':<C-u>Git commit -S<CR>', { desc = 'Git: [g]o to do a signed commit' })
 vim.keymap.set('n', '<leader>gC', ':<C-u>Git commit --amend<CR>', { desc = 'Git: modify prev commit message' })
 -- other
 vim.keymap.set('n', '<leader>gb', ':<C-u>Git blame<CR>', { desc = 'Git: [b]lame open' })
+vim.keymap.set('n', '<leader>gp', ':<C-u>Git push<CR>', { desc = 'Git: [p]ush to remote' })
 vim.keymap.set('n', '<leader>gs', ':<C-u>Git<CR>', { desc = 'Git: [s]tatus tool open' })
 
 return M
