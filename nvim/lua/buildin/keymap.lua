@@ -62,9 +62,13 @@ vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open [d]ia
 vim.keymap.set('n', '<leader>D', vim.diagnostic.setloclist, { desc = 'Open [D]iagnostics list' })
 
 -- highlight keymaps
+--
+-- quote string refferences
+-- `:help :put`
+-- See: https://stackoverflow.com/questions/24164365/vimscript-quotes-in-strings-when-used-as-expressions
 vim.keymap.set(
   'n',
   '<leader>h',
-  ":execute(&hls && v:hlsearch ? 'noh' : 'set hls')<CR>",
+  ":execute(&hls && v:hlsearch ? 'noh|echo ''Highlight: Off'' ' : 'set hls|echo ''Highlight: On'' ')<CR>",
   { silent = true, desc = 'Toggle [h]ighlight' }
 )
