@@ -24,12 +24,20 @@ M.plugins = {
 
   { 'b0o/schemastore.nvim' }, -- Auto fetch json schemas
 
+  -- The handling of the range is nil and other errors occur frequently in python,
+  -- so the handling of the range is temporarily stopped.
+  -- {
+  --   -- Displaying references and definition counts upon functions.
+  --   --
+  --   'VidocqH/lsp-lens.nvim',
+  --   config = function()
+  --     require('lsp-lens').setup {}
+  --   end,
+  -- },
+
   {
-    -- Displaying references and definition counts upon functions.
-    'VidocqH/lsp-lens.nvim',
-    config = function()
-      require('lsp-lens').setup {}
-    end,
+    -- It displays the code results in real time (use cmd `:Codi`).
+    'metakirby5/codi.vim',
   },
 }
 
