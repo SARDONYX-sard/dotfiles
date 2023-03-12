@@ -27,8 +27,7 @@ utils.module_loader.load_all(base_plugins_dir .. '/lua/plugins-settings', 'plugi
 
 -- Edit vimrc
 vim.keymap.set('n', '<leader>v', function()
-  -- local sfile = debug.getinfo(1, 'S').short_src
-  local sfile = base_plugins_dir .. '/init.lua'
+  local sfile = debug.getinfo(1, 'S').short_src
   -- I'm clenching errors in pcall to prevent buff errors in `editerconfig.nvim`.
   pcall(vim.cmd.edit, sfile)
 end, { desc = '[v]iew & edit init.lua' })
