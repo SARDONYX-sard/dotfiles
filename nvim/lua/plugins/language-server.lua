@@ -22,22 +22,85 @@ M.plugins = {
     },
   },
 
-  { 'b0o/schemastore.nvim' }, -- Auto fetch json schemas
+  {
+    -- Lint and formatter results from external commands can be used for lsp hover, code_action, etc.
+    'jose-elias-alvarez/null-ls.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local null_ls = require 'null-ls'
+      null_ls.setup {
+        ---The `null_ls` already has default settings for various external commands.
+        ---Some of these cannot be executed without the corresponding command.
+        ---
+        ----See: https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins
+        sources = {
+          null_ls.builtins.code_actions.eslint_d, -- js, ts linter
+          null_ls.builtins.code_actions.gitsigns,
+          null_ls.builtins.code_actions.shellcheck,
+          null_ls.builtins.completion.luasnip,
+          null_ls.builtins.completion.spell,
+          null_ls.builtins.diagnostics.codespell,
+          null_ls.builtins.diagnostics.commitlint,
+          null_ls.builtins.diagnostics.eslint_d,   -- js, ts linter
+          null_ls.builtins.diagnostics.mypy,       -- static type checker for Python
+          null_ls.builtins.diagnostics.ruff,       -- fast python linter
+          null_ls.builtins.diagnostics.selene,     -- fast lua linter
+          null_ls.builtins.diagnostics.stylelint,  -- css linter
+          null_ls.builtins.diagnostics.yamllint,
+          null_ls.builtins.formatting.black,       -- python fmt
+          null_ls.builtins.formatting.fish_indent, -- fish shell formatter
+          null_ls.builtins.formatting.prettier,    -- js,ts,md,yml,css etc. formatter
+          null_ls.builtins.formatting.stylua,      -- fast lua formatter
+          null_ls.builtins.hover.printenv,
+        },
+      }
+    end,
+  },
 
-  -- The handling of the range is nil and other errors occur frequently in python,
-  -- so the handling of the range is temporarily stopped.
-  -- {
-  --   -- Displaying references and definition counts upon functions.
-  --   --
-  --   'VidocqH/lsp-lens.nvim',
-  --   config = function()
-  --     require('lsp-lens').setup {}
-  --   end,
-  -- },
+  {
+    -- General framework for context aware hover providers (similar to vim.lsp.buf.hover).
+    'lewis6991/hover.nvim',
+    config = function()
+      require('hover').setup {
+        init = function()
+          -- Require providers
+          require 'hover.providers.lsp'
+
+          if vim.fn.executable 'gh' then
+            require 'hover.providers.gh'
+            require 'hover.providers.gh_user'
+          end
+          if vim.fn.executable 'jira' then
+            require 'hover.providers.jira'
+          end
+
+          require 'hover.providers.man'
+          require 'hover.providers.dictionary'
+        end,
+        -- preview_opts = {
+        --   border = nil,
+        -- },
+        -- -- Whether the contents of a currently open hover window should be moved
+        -- -- to a :h preview-window when pressing the hover keymap.
+        -- preview_window = false,
+        -- title = true,
+      }
+
+      -- Setup keymaps
+      vim.keymap.set('n', 'K', require('hover').hover, { desc = 'hover.nvim' })
+      vim.keymap.set('n', 'gK', require('hover').hover_select, { desc = 'hover.nvim (select)' })
+    end,
+  },
+
+  { 'b0o/schemastore.nvim' }, -- Auto fetch json schemas
 
   {
     -- It displays the code results in real time (use cmd `:Codi`).
     'metakirby5/codi.vim',
+    config = function()
+      -- realtime code evaluate(REPL: Read-Eval-Print Loop). Maybe write each time.
+      vim.keymap.set('n', '<leader>r', ':Codi<CR>', { silent = true, desc = '[r]ealtime code evaluate On/Off' })
+    end,
   },
 }
 
