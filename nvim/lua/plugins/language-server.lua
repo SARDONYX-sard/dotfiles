@@ -52,43 +52,69 @@ M.plugins = {
           null_ls.builtins.formatting.prettier,    -- js,ts,md,yml,css etc. formatter
           null_ls.builtins.formatting.stylua,      -- fast lua formatter
           null_ls.builtins.hover.printenv,
+          null_ls.builtins.hover.dictionary.with {
+            -- method = 'NULL_LS_HOVER', -- See: https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/lua/null-ls/methods.lua#L19
+            -- filetypes = {}, -- any filetypes == {}
+            generator = {
+              fn = function(_, done)
+                local cword = vim.fn.expand '<cword>'
+                local send_definition = function(...)
+                  done { ... }
+                end
+
+                require('plenary.curl').request {
+                  -- https://github.com/nvim-lua/plenary.nvim/blob/master/lua/plenary/curl.lua#L245
+                  compressed = false,
+                  url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' .. cword,
+                  method = 'get',
+                  callback = vim.schedule_wrap(function(data)
+                    if not (data and data.body) then
+                      return
+                    end
+
+                    local ok, decoded = pcall(vim.json.decode, data.body)
+                    if not ok or not (decoded and decoded[1]) then
+                      -- vim.notify("Failed to parse dictionary response", vim.log.levels.ERROR)
+                      return
+                    end
+
+                    ---See: https://github.com/lewis6991/hover.nvim/blob/main/lua/hover/providers/dictionary.lua#L9
+                    ---@type table
+                    local json = decoded[1]
+
+                    ---@type string[]
+                    local lines = {
+                      json.word,
+                    }
+
+                    if json.phonetics ~= nil then
+                      lines[#lines + 1] = ''
+                      local phonetics = 'Phonetics: '
+                      for _, phonetic in ipairs(json.phonetics) do
+                        if phonetic.text then
+                          phonetics = phonetics .. ' ' .. phonetic.text
+                        end
+                      end
+                      lines[#lines + 1] = phonetics
+                    end
+
+                    for _, def in ipairs(json.meanings[1].definitions) do
+                      lines[#lines + 1] = ''
+                      lines[#lines + 1] = def.definition
+                      if def.example then
+                        lines[#lines + 1] = 'Example: ' .. def.example
+                      end
+                    end
+
+                    send_definition(lines)
+                  end),
+                }
+              end,
+              async = true,
+            },
+          }, -- --I can't use this to error compressed option
         },
       }
-    end,
-  },
-
-  {
-    -- General framework for context aware hover providers (similar to vim.lsp.buf.hover).
-    'lewis6991/hover.nvim',
-    config = function()
-      require('hover').setup {
-        init = function()
-          -- Require providers
-          require 'hover.providers.lsp'
-
-          if vim.fn.executable 'gh' then
-            require 'hover.providers.gh'
-            require 'hover.providers.gh_user'
-          end
-          if vim.fn.executable 'jira' then
-            require 'hover.providers.jira'
-          end
-
-          require 'hover.providers.man'
-          require 'hover.providers.dictionary'
-        end,
-        -- preview_opts = {
-        --   border = nil,
-        -- },
-        -- -- Whether the contents of a currently open hover window should be moved
-        -- -- to a :h preview-window when pressing the hover keymap.
-        -- preview_window = false,
-        -- title = true,
-      }
-
-      -- Setup keymaps
-      vim.keymap.set('n', 'K', require('hover').hover, { desc = 'hover.nvim' })
-      vim.keymap.set('n', 'gK', require('hover').hover_select, { desc = 'hover.nvim (select)' })
     end,
   },
 

@@ -55,7 +55,7 @@ local servers = {
 
 --  This function gets run when an LSP connects to a particular buffer.
 -- LSP settings.
-local on_attach = function(_, buffer)
+local on_attach = function(client, buffer)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -85,7 +85,7 @@ local on_attach = function(_, buffer)
   nmap('<leader>lws', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace: [s]ymbols')
 
   -- See `:help K` for why this keymap
-  -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation') -- I use `hover.nvim` instead of it.
+  nmap('K', vim.lsp.buf.hover, 'Hover Documentation') -- I use `hover.nvim` instead of it.
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
