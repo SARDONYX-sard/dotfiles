@@ -40,7 +40,7 @@ M.plugins = {
           null_ls.builtins.completion.luasnip,
           null_ls.builtins.completion.spell,
           null_ls.builtins.diagnostics.codespell,
-          null_ls.builtins.diagnostics.commitlint,
+          null_ls.builtins.diagnostics.gitlint,
           null_ls.builtins.diagnostics.eslint_d,   -- js, ts linter
           null_ls.builtins.diagnostics.mypy,       -- static type checker for Python
           null_ls.builtins.diagnostics.ruff,       -- fast python linter
