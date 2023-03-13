@@ -1,1 +1,10 @@
+# If `std = "lua51"`, the lua5.1 standard library is allowed to be used by the linter.
+# To suppress the error of `vim`, a global variable, you can define vim.toml
+# and write `+vim` in `lua51` to define `vim: any` tentatively.
+#
+# -See: https://kampfkarren.github.io/selene/usage/configuration.html#setting-the-standard-library
 std = "lua51+vim"
+
+[rules]
+global_usage = "allow"        # _G.sample()
+multiple_statements = "allow"
