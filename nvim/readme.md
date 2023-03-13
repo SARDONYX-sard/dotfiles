@@ -23,13 +23,14 @@ scoop install luacheck
 
 ## 2.Install plugins
 
-- execute the following $nvim 
+- execute the following $nvim
   (automatic installation synchronization by the plugin manager) will run for
-   the first time. Keep pressing Enter and wait for the plugin to be installed.
+  the first time. Keep pressing Enter and wait for the plugin to be installed.
 
- ```bash
- nvim
- ```
+```bash
+nvim
+```
+
 ## Thanks
 
 - This set of codes is written by customizing the following repositories.
