@@ -85,7 +85,7 @@ local on_attach = function(_, buffer)
   nmap('<leader>lws', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace: [s]ymbols')
 
   -- See `:help K` for why this keymap
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation') -- I use `hover.nvim` instead of it.
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality

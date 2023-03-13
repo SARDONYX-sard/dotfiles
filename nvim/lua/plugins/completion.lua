@@ -82,62 +82,6 @@ M.plugins = {
       require('cmp_git').setup()
     end,
   },
-
-  {
-    -- Items that are not originally supported can be displayed as complementary items.
-    'jose-elias-alvarez/null-ls.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      local null_ls = require 'null-ls'
-      null_ls.setup {
-        sources = {
-
-          null_ls.builtins.formatting.stylua.with {
-            condition = function(utils)
-              return utils.root_has_file { '.stylua.toml' }
-            end,
-          },
-          null_ls.builtins.diagnostics.luacheck.with {
-            extra_args = { '--globals', 'vim', '--globals', 'awesome' },
-          },
-          null_ls.builtins.diagnostics.yamllint,
-          -- spell checker
-          null_ls.builtins.completion.spell,
-          null_ls.builtins.diagnostics.codespell.with {
-            condition = function()
-              return vim.fn.executable 'codespell' > 0
-            end,
-          },
-          -- fast python linter
-          function() -- ruff fix
-            local helpers = require 'null-ls.helpers'
-            local methods = require 'null-ls.methods'
-
-            return helpers.make_builtin {
-              name = 'ruff',
-              meta = {
-                url = 'https://github.com/charliermarsh/ruff/',
-                description = 'An extremely fast Python linter, written in Rust.',
-              },
-              method = methods.internal.FORMATTING,
-              filetypes = { 'python' },
-              generator_opts = {
-                command = 'ruff',
-                args = { '--fix', '-e', '-n', '--stdin-filename', '$FILENAME', '-' },
-                to_stdin = true,
-              },
-              factory = helpers.formatter_factory,
-            }
-          end,
-          null_ls.builtins.diagnostics.ruff.with {
-            condition = function()
-              return vim.fn.executable 'ruff' > 0
-            end,
-          },
-        },
-      }
-    end,
-  },
 }
 
 return M
