@@ -47,8 +47,8 @@ end
 nmap('<leader>gc', ':<C-u>Git commit<CR>', '[c]ommit')
 nmap('<leader>gC', ':<C-u>Git commit --amend<CR>', 'modify prev [C]ommit msg')
 
--- In WSL, if GPG_TTY is not set as in `export GPG_TTY=$(tty)`, the prompt will not appear and the prominent commit will fail.
--- Therefore, currently the only way to do a prominent commit is to do it manually with a command.
+-- In WSL, if GPG_TTY is not set as in `export GPG_TTY=$(tty)`, the prompt will not appear and the signed commit will fail.
+-- Therefore, currently the only way to do a signed commit is to do it manually with a command.
 if not (os.getenv 'WSL_INTEROP' and os.getenv 'WSL_DISTRO_NAME') then
   nmap('<leader>gg', ':<C-u>Git commit -S<CR>', 'commit(with [g]pg)')
   nmap('<leader>gG', ':<C-u>Git commit --amend -S<CR>', 'modify prev commit msg(with [G]pg)')
