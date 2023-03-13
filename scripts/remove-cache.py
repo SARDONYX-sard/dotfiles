@@ -54,13 +54,11 @@ def libs_cmd_exec(
     if blacklist is None:
         blacklist = []
     for lib in libraries:
-        [name, description, command] = [lib["name"], lib["description"], lib["command"]]
+        [name, description, command] = [
+            lib["name"], lib["description"], lib["command"]]
         name_title = color("Name", "green")
         description_title = color("Description", "cyan")
-
-        print(
-            "-----------------------------------------------------------------------------------"
-        )
+        print(83 * "-")
         print(f"{name_title}: {name}")
         if description:
             print(f"{description_title}: {description}")
