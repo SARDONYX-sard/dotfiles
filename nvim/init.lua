@@ -1,3 +1,9 @@
+-- Edit vimrc keymap
+vim.keymap.set('n', '<space>v', function()
+  -- I'm clenching errors in pcall to prevent buff errors in `editorconfig.nvim`.
+  pcall(vim.cmd.edit, debug.getinfo(1, 'S').short_src)
+end, { desc = '[v]iew & edit init.lua' })
+
 -- Imports dependencies
 local utils = {
   table = require 'utils.table',
@@ -7,8 +13,8 @@ local utils = {
 -- stdpath
 local base_plugins_dir = vim.fn.stdpath 'config'
 
--- 1/4: Read all files directly under the `buildin` folder.
-utils.module_loader.load_all(base_plugins_dir .. '/lua/buildin', 'buildin.')
+-- 1/4: Read all files directly under the `builtin` folder.
+utils.module_loader.load_all(base_plugins_dir .. '/lua/builtin', 'builtin.')
 
 -- 2/4:
 -- - Read all files directly under the `plugins` folder.
@@ -25,9 +31,9 @@ require('plugins-manager').load(plugins)
 -- 4/4: Load plugins settings.
 utils.module_loader.load_all(base_plugins_dir .. '/lua/plugins-settings', 'plugins-settings.')
 
--- Edit vimrc
-vim.keymap.set('n', '<leader>v', function()
-  local sfile = debug.getinfo(1, 'S').short_src
-  -- I'm clenching errors in pcall to prevent buff errors in `editerconfig.nvim`.
-  pcall(vim.cmd.edit, sfile)
-end, { desc = '[v]iew & edit init.lua' })
+-- Show White space.
+-- https://gist.github.com/kawarimidoll/ed105a754f3d64f9f174d2c4c43c0a6a#file-highlight_extra_whitespaces-vim
+vim.cmd [[ autocmd VimEnter * ++once
+      \ call matchadd('ExtraWhitespace', "[\u00A0\u2000-\u200B\u3000]")
+      \ | highlight default ExtraWhitespace  ctermbg=239 guibg=none
+]]
