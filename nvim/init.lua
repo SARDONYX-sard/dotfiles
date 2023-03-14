@@ -31,13 +31,6 @@ require('plugins-manager').load(plugins)
 -- 4/4: Load plugins settings.
 utils.module_loader.load_all(base_plugins_dir .. '/lua/plugins-settings', 'plugins-settings.')
 
--- Show White space.
--- https://gist.github.com/kawarimidoll/ed105a754f3d64f9f174d2c4c43c0a6a#file-highlight_extra_whitespaces-vim
-vim.cmd [[ autocmd VimEnter * ++once
-      \ call matchadd('ExtraWhitespace', "[\u00A0\u2000-\u200B\u3000]")
-      \ | highlight default ExtraWhitespace  ctermbg=239 guibg=none
-]]
-
 -- Force json to be treated as jsonc because errors in jsonc are annoying.
 -- See: https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
 vim.cmd [[
