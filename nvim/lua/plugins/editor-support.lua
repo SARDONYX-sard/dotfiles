@@ -2,6 +2,15 @@ local M = {}
 
 M.plugins = {
   -- Editor Behavior
+  --
+  {
+    -- Auto jump at your last edit position when reopen files.
+    'ethanholz/nvim-lastplace',
+    config = function()
+      require('nvim-lastplace').setup {}
+    end,
+  },
+
   {
     -- A list of recently opened files is displayed.
     'goolord/alpha-nvim',
