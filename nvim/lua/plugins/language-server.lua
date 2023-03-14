@@ -41,19 +41,28 @@ M.plugins = {
           null_ls.builtins.completion.spell,
           null_ls.builtins.diagnostics.codespell,
           null_ls.builtins.diagnostics.gitlint,
-          null_ls.builtins.diagnostics.eslint_d,   -- js, ts linter
-          null_ls.builtins.diagnostics.mypy,       -- static type checker for Python
-          null_ls.builtins.diagnostics.ruff,       -- fast python linter
-          null_ls.builtins.diagnostics.selene,     -- fast lua linter
-          null_ls.builtins.diagnostics.stylelint,  -- css linter
+          null_ls.builtins.diagnostics.eslint_d, -- js, ts linter
+          null_ls.builtins.diagnostics.mypy, -- static type checker for Python
+          null_ls.builtins.diagnostics.ruff, -- fast python linter
+          null_ls.builtins.diagnostics.selene, -- fast lua linter
+          null_ls.builtins.diagnostics.stylelint, -- css linter
           null_ls.builtins.diagnostics.yamllint,
-          null_ls.builtins.formatting.black,       -- python fmt
+          null_ls.builtins.formatting.black, -- python fmt
           null_ls.builtins.formatting.fish_indent, -- fish shell formatter
-          null_ls.builtins.formatting.prettier,    -- js,ts,md,yml,css etc. formatter
-          null_ls.builtins.formatting.stylua,      -- fast lua formatter
+          null_ls.builtins.formatting.prettier, -- js,ts,md,yml,css etc. formatter
+          null_ls.builtins.formatting.stylua, -- fast lua formatter
           null_ls.builtins.hover.printenv,
         },
       }
+    end,
+  },
+
+  {
+    'folke/trouble.nvim',
+    requires = 'nvim-tree/nvim-web-devicons',
+    config = function()
+      require('trouble').setup {}
+      vim.keymap.set('n', '<leader>d', ':TroubleToggle<CR>', { desc = 'Show errors([D]iabonostics)' })
     end,
   },
 
@@ -63,27 +72,16 @@ M.plugins = {
     config = function()
       require('hover').setup {
         init = function()
-          -- Require providers
           require 'hover.providers.lsp'
 
           if vim.fn.executable 'gh' then
             require 'hover.providers.gh'
             require 'hover.providers.gh_user'
           end
-          if vim.fn.executable 'jira' then
-            require 'hover.providers.jira'
-          end
 
           require 'hover.providers.man'
           require 'hover.providers.dictionary'
         end,
-        -- preview_opts = {
-        --   border = nil,
-        -- },
-        -- -- Whether the contents of a currently open hover window should be moved
-        -- -- to a :h preview-window when pressing the hover keymap.
-        -- preview_window = false,
-        -- title = true,
       }
 
       -- Setup keymaps
