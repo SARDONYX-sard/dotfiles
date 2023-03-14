@@ -82,7 +82,6 @@ local on_attach = function(_, buffer)
   nmap('gI', vim.lsp.buf.implementation, '[g]oto [I]mplementation')
   nmap('<leader>lt', vim.lsp.buf.type_definition, '[t]ype Definition')
   nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, 'Show Document [s]ymbols')
-  nmap('<leader>lws', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace: [s]ymbols')
 
   -- See `:help K` for why this keymap
   -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation') -- I use `hover.nvim` instead of it.
@@ -92,19 +91,29 @@ local on_attach = function(_, buffer)
   nmap('gD', vim.lsp.buf.declaration, '[g]oto [D]eclaration')
 
   require('which-key').register { ['<leader>lw'] = { name = '+Lsp [w]orkspace' } }
-  nmap('<leader>lwa', vim.lsp.buf.add_workspace_folder, 'Workspace: [a]dd Folder')
-  nmap('<leader>lwr', vim.lsp.buf.remove_workspace_folder, 'Workspace: [r]emove Folder')
-  nmap('<leader>lwl', function()
+
+  --- For workspace normal keymap function
+  ---@param keys string
+  ---@param func function|string
+  ---@param desc string
+  local w_nmap = function(keys, func, desc)
+    if desc then
+      desc = 'Workspace: ' .. desc
+    end
+    vim.keymap.set('n', keys, func, { buffer = buffer, desc = desc })
+  end
+  w_nmap('<leader>lwa', vim.lsp.buf.add_workspace_folder, '[a]dd Folder')
+  w_nmap('<leader>lwr', vim.lsp.buf.remove_workspace_folder, '[r]emove Folder')
+  w_nmap('<leader>lws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[s]ymbols')
+  w_nmap('<leader>lwl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, 'Workspace: [l]ist Folders')
+  end, '[l]ist Folders')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(buffer, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
-  nmap('<space>lf', function()
     vim.lsp.buf.format { async = true }
-  end, '[f]ormat')
+  end, { desc = 'Format current buffer with LSP' })
+  nmap('<space>lf', ':Format<CR>', '[f]ormat')
 end
 
 -- Setup neovim lua configuration
@@ -199,17 +208,16 @@ cmp.setup {
 ---Prevent multi hover notifications warning.
 ---See: https://github.com/neovim/neovim/issues/20457#issuecomment-1266782345
 ---@param _ any
----@param result table
+---@param result table<string,table>
 ---@param ctx table
----@param config table
----@return integer|nil|unknown
+---@param config table<string,table>
 vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)
   config = config or {}
   config.focus_id = ctx.method
   if not (result and result.contents) then
     return
   end
-  local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+  local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines('MarkupContent', result.contents)
   markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
   if vim.tbl_isempty(markdown_lines) then
     return
