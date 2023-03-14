@@ -6,6 +6,11 @@ M.plugins = {
     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     lazy = true,
+    config = function()
+      require('which-key').setup {
+        window = { border = 'double', winblend = 20 },
+      }
+    end,
   },
 
   {
