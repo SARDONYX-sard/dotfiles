@@ -30,6 +30,168 @@ M.highlight_languages = {
 
 M.plugins = {
   {
+    -- Theme inspired by Atom
+    'navarasu/onedark.nvim',
+    priority = 1000,
+    config = function()
+      require('onedark').setup {
+        style = 'dark', ---@type 'dark'| 'darker'| 'cool'| 'deep'| 'warm'| 'warmer'| 'light' Default theme style.
+        transparent = true, -- Show/hide background
+        term_colors = true, -- Change terminal color as per the selected theme style
+        ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
+        cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
+        -- Lualine options --
+        lualine = {
+          transparent = true, -- lualine center bar transparency
+        },
+        -- Plugins Config --
+        diagnostics = {
+          darker = true, -- darker colors for diagnostic
+          undercurl = true, -- use undercurl instead of underline for diagnostics
+          background = true, -- use background color for virtual text
+        },
+      }
+
+      vim.cmd.colorscheme 'onedark'
+    end,
+  },
+
+  {
+    -- Set lualine as statusline
+    'nvim-lualine/lualine.nvim',
+    -- See `:help lualine.txt`
+    opts = {
+      options = {
+        icons_enabled = false,
+        theme = 'onedark',
+        component_separators = '|',
+        section_separators = '',
+      },
+    },
+  },
+
+  {
+    -- display hex, RGB color
+    'norcalli/nvim-colorizer.lua',
+    config = function()
+      require('colorizer').setup()
+    end,
+  },
+
+  {
+    'petertriho/nvim-scrollbar',
+    dependencies = { 'kevinhwang91/nvim-hlslens' },
+    config = function()
+      require('scrollbar').setup {
+        handle = {
+          -- color = '#008080',
+          color = '#808080',
+        },
+      }
+      require('scrollbar.handlers.search').setup()
+    end,
+  },
+
+  {
+    'xiyaowong/nvim-transparent',
+    config = function()
+      require('transparent').setup {
+        enable = false, -- boolean: enable transparent
+        extra_groups = { -- table/string: additional groups that should be cleared
+          -- In particular, when you set it to 'all', that means all available groups
+          'BufferLineTabClose',
+          'BufferlineBufferSelected',
+          'BufferLineFill',
+          'BufferLineBackground',
+          'BufferLineSeparator',
+        },
+        exclude = {}, -- table: groups you don't want to clear
+      }
+    end,
+  },
+
+  -- Show indent, space, color brackets
+  {
+    -- Indentation display, showing bracket pair connections.
+    'shellRaining/hlchunk.nvim',
+    config = function()
+      local exclude_filetype = {
+        alpha = true,
+        dashboard = true,
+        help = true,
+        lazy = true,
+        lspinfo = true,
+        packer = true,
+        checkhealth = true,
+        man = true,
+        mason = true,
+        NvimTree = true,
+        plugin = true,
+      }
+
+      require('hlchunk').setup {
+        chunk = {
+          enable = true,
+          support_filetypes = {
+            '*.ts',
+            '*.js',
+            '*.json',
+            '*.go',
+            '*.c',
+            '*.cpp',
+            '*.rs',
+            '*.h',
+            '*.hpp',
+            '*.lua',
+            '*.vue',
+          },
+          chars = {
+            horizontal_line = '─',
+            vertical_line = '│',
+            left_top = '╭',
+            left_bottom = '╰',
+            right_arrow = '>',
+          },
+          style = '#BB0000',
+        },
+        indent = {
+          enable = true,
+          chars = { '┊' },
+          exclude_filetype = exclude_filetype,
+        },
+        line_num = {
+          enable = false,
+          style = '#008080',
+        },
+        blank = {
+          enable = true,
+          chars = { '·' },
+          exclude_filetype = exclude_filetype,
+          style = {
+            vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID 'Whitespace'), 'fg', 'gui'),
+          },
+        },
+      }
+    end,
+  },
+
+  {
+    -- Rainbow delimiters for Neovim through Tree-sitter
+    'HiPhish/nvim-ts-rainbow2',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+    },
+    config = function()
+      require('nvim-treesitter.configs').setup {
+        rainbow = {
+          enable = true,
+          query = 'rainbow-parens', -- Which query to use for finding delimiters
+        },
+      }
+    end,
+  },
+
+  {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
@@ -111,18 +273,6 @@ M.plugins = {
           },
         },
       }
-    end,
-  },
-
-  {
-    -- auto highlight brackets pair
-    'windwp/nvim-autopairs',
-    lazy = true,
-    config = function()
-      require('nvim-autopairs').setup {}
-      local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
-      local cmp = require 'cmp'
-      cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
     end,
   },
 }

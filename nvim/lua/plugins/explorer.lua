@@ -2,12 +2,13 @@ local M = {}
 
 M.plugins = {
   'nvim-tree/nvim-tree.lua',
+  -- See: https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt#L217https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt#L217
+  -- :help nvim-tree
   config = function()
     require('nvim-tree').setup {
       sort_by = 'case_sensitive',
-      sync_root_with_cwd = true,
       diagnostics = {
-        enable = false,
+        enable = true,
         icons = {
           hint = '',
           info = '',
@@ -15,12 +16,8 @@ M.plugins = {
           error = '',
         },
       },
-      update_focused_file = {
-        enable = true,
-        update_root = true,
-      },
       view = {
-        width = 36,
+        width = 30,
         side = 'left',
         mappings = {
           custom_only = false,
@@ -33,23 +30,27 @@ M.plugins = {
         indent_markers = {
           enable = true,
         },
-      },
-      actions = {
-        use_system_clipboard = true,
-        change_dir = {
-          enable = false,
+        icons = {
+          show = {
+            git = true,
+          },
+          glyphs = {
+            -- For VSCode like
+            -- See: https://stackoverflow.com/questions/48304195/what-are-the-u-and-m-file-markers-in-visual-studio-code
+            git = {
+              unstaged = 'M',
+              staged = 'A',
+              unmerged = '',
+              renamed = 'R',
+              untracked = 'U',
+              deleted = 'D',
+              ignored = '◌',
+            },
+          },
         },
       },
     }
 
-    local ok, wk = pcall(require, 'which-key')
-    if ok then
-      wk.register {
-        ['<leader>t'] = { name = '+NvimTree' },
-      }
-    else
-      vim.notify('Warn registering `NvimTree` prefix.', vim.log.levels.WARN, { title = 'buildin.highlight' })
-    end
     vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { desc = 'Explorer' })
   end,
 }

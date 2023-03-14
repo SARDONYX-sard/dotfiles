@@ -8,6 +8,7 @@ vim.opt.clipboard = 'unnamedplus'
 
 -- Editor behavior
 vim.opt.ai = true -- always set autoindenting on
+vim.opt.autochdir = true -- change the current working directory whenever you open a file.
 vim.opt.ambiwidth = 'single'
 vim.opt.autoread = true
 vim.opt.backup = false

@@ -31,10 +31,3 @@ vim.keymap.set('n', '<leader>v', function()
   -- I'm clenching errors in pcall to prevent buff errors in `editerconfig.nvim`.
   pcall(vim.cmd.edit, sfile)
 end, { desc = '[v]iew & edit init.lua' })
-
--- vim.keymap.set('n', '<leader>r', function()
---   --See: https://github.com/folke/lazy.nvim/issues/445#issuecomment-1426070401
---   for _, plugin in ipairs(require('lazy.core.config').plugins) do
---     require('lazy.core.loader').reload(plugin)
---   end
--- end, { desc = '[r]eload init.lua' })

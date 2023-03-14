@@ -93,15 +93,6 @@ M.plugins = {
   },
 
   { 'b0o/schemastore.nvim' }, -- Auto fetch json schemas
-
-  {
-    -- It displays the code results in real time (use cmd `:Codi`).
-    'metakirby5/codi.vim',
-    config = function()
-      -- realtime code evaluate(REPL: Read-Eval-Print Loop). Maybe write each time.
-      vim.keymap.set('n', '<leader>r', ':Codi<CR>', { silent = true, desc = '[r]ealtime code evaluate On/Off' })
-    end,
-  },
 }
 
 return M
