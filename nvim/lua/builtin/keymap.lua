@@ -61,7 +61,7 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>D', vim.diagnostic.open_float, { desc = 'Open [D]iagnostic current line' })
 vim.keymap.set('n', '<leader>d', vim.diagnostic.setloclist, { desc = 'Open [d]iagnostics list' })
 
--- highlight keymaps
+-- Highlight keymaps
 --
 -- quote string refferences
 -- `:help :put`
