@@ -37,3 +37,9 @@ vim.cmd [[ autocmd VimEnter * ++once
       \ call matchadd('ExtraWhitespace', "[\u00A0\u2000-\u200B\u3000]")
       \ | highlight default ExtraWhitespace  ctermbg=239 guibg=none
 ]]
+
+-- Force json to be treated as jsonc because errors in jsonc are annoying.
+-- See: https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
+vim.cmd [[
+  autocmd FileType json syntax match Comment +\/\/.\+$+ | set filetype=jsonc
+]]
