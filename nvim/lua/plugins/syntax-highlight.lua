@@ -35,7 +35,7 @@ M.plugins = {
     priority = 1000,
     config = function()
       require('onedark').setup {
-        style = 'dark', ---@type 'dark'| 'darker'| 'cool'| 'deep'| 'warm'| 'warmer'| 'light' Default theme style.
+        style = 'dark', ---@type 'dark'|'darker'|'cool'|'deep'|'warm'|'warmer'|'light' Default theme style.
         transparent = true, -- Show/hide background
         term_colors = true, -- Change terminal color as per the selected theme style
         ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
@@ -84,8 +84,7 @@ M.plugins = {
     config = function()
       require('scrollbar').setup {
         handle = {
-          -- color = '#008080',
-          color = '#808080',
+          color = '#808080', ---@type '#008080'|'#808080'
         },
       }
       require('scrollbar.handlers.search').setup()
@@ -160,8 +159,8 @@ M.plugins = {
           exclude_filetype = exclude_filetype,
         },
         line_num = {
-          enable = false,
-          style = '#008080',
+          enable = true,
+          style = '#6b8f81', ---@type '#008080'|'#8b8f81'|'#6b8f81' - Candidate colors.
         },
         blank = {
           enable = true,
@@ -208,7 +207,6 @@ M.plugins = {
       --   )
       -- end
 
-      -- [[ Configure Treesitter ]]
       -- See `:help nvim-treesitter`
       require('nvim-treesitter.configs').setup {
         -- Add languages to be installed here that you want installed for treesitter
