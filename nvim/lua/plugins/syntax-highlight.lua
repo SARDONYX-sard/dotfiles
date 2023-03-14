@@ -37,22 +37,22 @@ M.plugins = {
       require('onedark').setup {
         style = 'dark', ---@type 'dark'|'darker'|'cool'|'deep'|'warm'|'warmer'|'light' Default theme style.
         transparent = true, -- Show/hide background
-        term_colors = true, -- Change terminal color as per the selected theme style
-        ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
-        cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
         -- Lualine options --
         lualine = {
           transparent = true, -- lualine center bar transparency
         },
-        -- Plugins Config --
-        diagnostics = {
-          darker = true, -- darker colors for diagnostic
-          undercurl = true, -- use undercurl instead of underline for diagnostics
-          background = true, -- use background color for virtual text
-        },
       }
-
       vim.cmd.colorscheme 'onedark'
+    end,
+  },
+
+  {
+    -- Display vertical ruler of VSCode like
+    'xiyaowong/virtcolumn.nvim',
+    config = function()
+      vim.g.virtcolumn_char = '┊'
+      vim.opt.colorcolumn = '100'
+      vim.api.nvim_set_hl(0, 'VirtColumn', { fg = '#979797' }) -- VScode ruler color '#979797'
     end,
   },
 
@@ -95,7 +95,7 @@ M.plugins = {
     'xiyaowong/nvim-transparent',
     config = function()
       require('transparent').setup {
-        enable = false, -- boolean: enable transparent
+        enable = true, -- boolean: enable transparent
         extra_groups = { -- table/string: additional groups that should be cleared
           -- In particular, when you set it to 'all', that means all available groups
           'BufferLineTabClose',
@@ -116,16 +116,7 @@ M.plugins = {
     config = function()
       local exclude_filetype = {
         alpha = true,
-        dashboard = true,
-        help = true,
         lazy = true,
-        lspinfo = true,
-        packer = true,
-        checkhealth = true,
-        man = true,
-        mason = true,
-        NvimTree = true,
-        plugin = true,
       }
 
       require('hlchunk').setup {
@@ -144,13 +135,6 @@ M.plugins = {
             '*.lua',
             '*.vue',
           },
-          chars = {
-            horizontal_line = '─',
-            vertical_line = '│',
-            left_top = '╭',
-            left_bottom = '╰',
-            right_arrow = '>',
-          },
           style = '#BB0000',
         },
         indent = {
@@ -166,9 +150,6 @@ M.plugins = {
           enable = true,
           chars = { '·' },
           exclude_filetype = exclude_filetype,
-          style = {
-            vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID 'Whitespace'), 'fg', 'gui'),
-          },
         },
       }
     end,
