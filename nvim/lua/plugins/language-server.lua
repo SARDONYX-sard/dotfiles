@@ -15,7 +15,15 @@ M.plugins = {
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      {
+        'j-hui/fidget.nvim',
+        opts = {
+          text = {
+            -- animation shown when tasks are ongoing
+            spinner = 'dots2', ---@type 'dots_negative'|'dots_snake'|''
+          },
+        },
+      },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim', -- Neovim api type definitions
