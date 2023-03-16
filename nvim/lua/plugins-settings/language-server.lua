@@ -9,6 +9,7 @@
 ---@class LspConfig settings items
 ---@field capabilities table -nvim-cmp supports additional completion capabilities, so broadcast that to servers.
 ---@field require_cmd string -Dependent on this command path being passed.(e.g. 'node')
+---@field pre_install boolean|nil -ensure install On/Off(default: On)
 
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
@@ -28,27 +29,57 @@ local servers = {
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
+
+  denols = {
+    init_options = {
+      lint = true,
+      unstable = true,
+      suggest = {
+        imports = {
+          hosts = {
+            ['https://deno.land'] = true,
+            ['https://cdn.nest.land'] = true,
+            ['https://crux.land'] = true,
+          },
+        },
+      },
+    },
+    require_cmd = 'deno',
+    -- Trigger specific files or folders to prevent conflicts with `tsserver`.
+    -- root_dir = require('lspconfig').util.root_pattern 'deno.json',
+  },
+
+  tsserver = {
+    require_cmd = 'node',
+    -- Trigger specific files or folders to prevent conflicts with `deno`.
+    -- root_dir = require('lspconfig').util.root_pattern('package.json', 'node_modules'),
+    single_file_support = false,
+  },
 
   jsonls = {
-    json = {
-      schemas = vim.list_extend({
-        {
-          description = 'VSCode devcontaier',
-          fileMatch = { 'devcontainer.json' },
-          name = 'devcontaier.json',
-          url = 'https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json',
-        },
-      }, require('schemastore').json.schemas {}),
-    },
     require_cmd = 'node',
+    settings = {
+      json = {
+        schemas = vim.list_extend({
+          {
+            description = 'VSCode devcontaier',
+            fileMatch = { 'devcontainer.json' },
+            name = 'devcontaier.json',
+            url = 'https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json',
+          },
+        }, require('schemastore').json.schemas {}),
+      },
+    },
   },
+
   -- Neovim itself has a Lua execution environment,
   -- so there is no need to include external commands on its own initiative.
   lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
+    settings = {
+      Lua = {
+        workspace = { checkThirdParty = false },
+        telemetry = { enable = false },
+      },
     },
   },
 }
@@ -134,7 +165,10 @@ mason_lspconfig.setup {
     -- json_ls, etc. will cause an error if there is no `node`,
     -- so if there is no `node`, exclude it here.
     for _, server_name in ipairs(vim.tbl_keys(servers)) do
-      if servers[server_name].require_cmd ~= nil and vim.fn.executable(servers[server_name].require_cmd) == 0 then
+      if
+        servers[server_name]['pre_install'] == false
+        or servers[server_name]['require_cmd'] ~= nil and vim.fn.executable(servers[server_name].require_cmd) == 0
+      then
         -- Remove dependencies on external commands by putting nil in the server configuration.
         servers[server_name] = nil
       end
@@ -147,15 +181,21 @@ mason_lspconfig.setup {
 mason_lspconfig.setup_handlers {
   ---@param server_name string
   function(server_name)
+    ---@param item string
+    local get_server_item = function(item)
+      if servers[server_name] ~= nil and servers[server_name][item] ~= nil then
+        return servers[server_name][item]
+      end
+      return nil
+    end
+
     require('lspconfig')[server_name].setup {
-      capabilities = (function()
-        if servers[server_name] ~= nil and servers[server_name].capabilities ~= nil then
-          return servers[server_name].capabilities
-        end
-        return capabilities
-      end)(),
+      capabilities = get_server_item 'capabilities' or capabilities,
+      init_options = get_server_item 'init_options',
       on_attach = on_attach,
-      settings = servers[server_name],
+      root_dir = get_server_item 'root_dir',
+      settings = get_server_item 'settings' or {},
+      single_file_support = get_server_item 'single_file_support',
     }
   end,
 }

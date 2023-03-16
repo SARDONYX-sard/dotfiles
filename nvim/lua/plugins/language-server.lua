@@ -79,14 +79,11 @@ M.plugins = {
         ----See: https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins
         sources = {
           null_ls.builtins.code_actions.cspell,
-          null_ls.builtins.code_actions.eslint, -- js, ts linter
-          null_ls.builtins.code_actions.eslint_d, -- js, ts linter faster than eslint
           null_ls.builtins.code_actions.gitsigns,
           null_ls.builtins.code_actions.shellcheck,
           null_ls.builtins.completion.luasnip,
           null_ls.builtins.completion.spell,
-          -- null_ls.builtins.completion.tags,
-          null_ls.builtins.diagnostics.eslint_d, -- js, ts linter
+          null_ls.builtins.completion.tags,
           null_ls.builtins.diagnostics.gitlint,
           null_ls.builtins.diagnostics.mypy, -- static type checker for Python
           null_ls.builtins.diagnostics.ruff, -- fast python linter
@@ -95,11 +92,32 @@ M.plugins = {
           null_ls.builtins.diagnostics.yamllint,
           null_ls.builtins.formatting.black, -- python fmt
           null_ls.builtins.formatting.fish_indent, -- fish shell formatter
-          null_ls.builtins.formatting.prettier, -- js,ts,md,yml,css etc. formatter
           null_ls.builtins.formatting.stylua, -- fast lua formatter
           null_ls.builtins.hover.printenv,
 
           -- Override configurations
+          null_ls.builtins.code_actions.eslint_d.with {
+            condition = function(utils)
+              return vim.fn.executable 'eslint_d' > 0
+                and utils.root_has_file { 'package.json' }
+                -- Trigger specific files or folders to prevent conflicts with `denols`.
+                and not utils.root_has_file { 'deno.json' }
+            end,
+          }, -- js, ts linter
+
+          null_ls.builtins.diagnostics.eslint_d.with {
+            condition = function(utils)
+              return vim.fn.executable 'eslint_d' > 0
+                and utils.root_has_file { 'package.json' }
+                -- Trigger specific files or folders to prevent conflicts with `denols`.
+                and not utils.root_has_file { 'deno.json' }
+            end,
+          }, -- js, ts linter
+
+          null_ls.builtins.diagnostics.luacheck.with {
+            extra_args = { '--globals', 'vim', '--globals', 'awesome' },
+          }, -- static type check of lua
+
           null_ls.builtins.diagnostics.cspell.with {
             diagnostics_postprocess = function(diagnostic)
               diagnostic.severity = vim.diagnostic.severity['WARN']
@@ -107,7 +125,21 @@ M.plugins = {
             condition = function()
               return vim.fn.executable 'cspell' > 0
             end,
-          },
+          }, -- spell checker(need `npm`(node.js)
+
+          null_ls.builtins.formatting.prettierd.with {
+            condition = function(utils)
+              return vim.fn.executable 'prettierd' > 0
+                -- Trigger specific files or folders to prevent conflicts with `deno_fmt`.
+                and not utils.root_has_file { 'deno.json' }
+            end,
+          }, -- js,ts,md,yml,css etc. formatter
+
+          null_ls.builtins.formatting.deno_fmt.with {
+            condition = function(utils)
+              return vim.fn.executable 'deno' > 0 and utils.root_has_file { 'deno.json' }
+            end,
+          }, -- Formatter with new server-side JS runtime environment written in Rust
         },
       }
     end,
