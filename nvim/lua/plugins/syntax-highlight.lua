@@ -156,6 +156,11 @@ M.plugins = {
   },
 
   {
+    -- automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter
+    'RRethy/vim-illuminate',
+  },
+
+  {
     -- Rainbow delimiters for Neovim through Tree-sitter
     'HiPhish/nvim-ts-rainbow2',
     dependencies = {
