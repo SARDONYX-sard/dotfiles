@@ -66,6 +66,11 @@ M.plugins = {
     },
   },
 
+  { -- Settings for Rust-analyzer, including inlay hints
+    'simrat39/rust-tools.nvim',
+    config = function() end,
+  },
+
   {
     -- Lint and formatter results from external commands can be used for lsp hover, code_action, etc.
     'jose-elias-alvarez/null-ls.nvim',

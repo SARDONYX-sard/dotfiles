@@ -265,6 +265,26 @@ vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)
   return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
 end
 
+require('rust-tools').setup {
+  tools = {
+    autoSetHints = true,
+    inlay_hints = {
+      parameter_hints_prefix = '',
+      other_hints_prefix = '',
+    },
+  },
+  server = {
+    on_attach = on_attach,
+    settings = {
+      ['rust-analyzer'] = {
+        checkOnSave = {
+          command = 'clippy',
+        },
+      },
+    },
+  },
+}
+
 -- Nonattach lsp keymaps
 --
 ---Normal mode lsp keymap creator function.
