@@ -49,6 +49,11 @@ M.plugins = {
           },
         },
       },
+      actions = {
+        change_dir = {
+          restrict_above_cwd = true,
+        },
+      },
     }
 
     vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { desc = 'Explorer' })
