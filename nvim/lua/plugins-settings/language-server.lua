@@ -84,7 +84,8 @@ local servers = {
   },
 }
 
---  This function gets run when an LSP connects to a particular buffer.
+--#region
+-- This function gets run when an LSP connects to a particular buffer.
 -- LSP settings.
 local on_attach = function(_, buffer)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
@@ -109,17 +110,15 @@ local on_attach = function(_, buffer)
   nmap('<leader>la', vim.lsp.buf.code_action, 'Code [a]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[g]oto [d]efinition')
+  nmap('gD', vim.lsp.buf.declaration, '[g]oto [D]eclaration') -- Lesser used LSP functionality
   nmap('gr', require('telescope.builtin').lsp_references, '[g]oto [r]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[g]oto [I]mplementation')
   nmap('<leader>lt', vim.lsp.buf.type_definition, '[t]ype Definition')
   nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, 'Show Document [s]ymbols')
 
-  -- See `:help K` for why this keymap
-  -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation') -- I use `hover.nvim` instead of it.
+  -- Commented out because `hover.nvim` is used instead.
+  -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation') -- See `:help K` for why this keymap
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
-
-  -- Lesser used LSP functionality
-  nmap('gD', vim.lsp.buf.declaration, '[g]oto [D]eclaration')
 
   require('which-key').register { ['<leader>lw'] = { name = '+Lsp [w]orkspace' } }
 
@@ -146,16 +145,10 @@ local on_attach = function(_, buffer)
   end, { desc = 'Format current buffer with LSP' })
   nmap('<space>lf', ':Format<CR>', '[f]ormat')
 end
+--#endregion
 
--- Setup neovim lua configuration
-require('neodev').setup()
-
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
--- Setup mason so it can manage external tooling
-require('mason').setup()
+require('neodev').setup() -- Setup neovim lua configuration
+require('mason').setup() -- Setup mason so it can manage external tooling
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
@@ -189,6 +182,9 @@ mason_lspconfig.setup_handlers {
       return nil
     end
 
+    -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+    local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
     require('lspconfig')[server_name].setup {
       capabilities = get_server_item 'capabilities' or capabilities,
       init_options = get_server_item 'init_options',
@@ -198,51 +194,6 @@ mason_lspconfig.setup_handlers {
       single_file_support = get_server_item 'single_file_support',
     }
   end,
-}
-
--- nvim-cmp setup
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-
-luasnip.config.setup {}
-
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  },
 }
 
 ---Prevent multi hover notifications warning.
