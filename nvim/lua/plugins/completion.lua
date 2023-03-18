@@ -78,10 +78,10 @@ M.plugins = {
     lazy = true,
     dependencies = 'hrsh7th/nvim-cmp',
     build = (function()
-      if vim.fn.has 'win32' then
-        return 'powershell ./install.ps1'
+      if vim.fn.has 'unix' == 1 then
+        return './install.sh'
       end
-      return './install.sh'
+      return 'powershell ./install.ps1'
     end)(),
     config = function()
       require('cmp_tabnine.config'):setup {
