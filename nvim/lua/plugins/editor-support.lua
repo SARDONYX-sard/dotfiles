@@ -2,27 +2,35 @@ local M = {}
 
 M.plugins = {
   -- Editor Behavior
-  --
-  {
-    -- Auto jump at your last edit position when reopen files.
-    'ethanholz/nvim-lastplace',
-    config = function()
-      require('nvim-lastplace').setup {}
-    end,
-  },
 
   {
     -- A list of recently opened files is displayed.
     'goolord/alpha-nvim',
     dependencies = { 'kyazdani42/nvim-web-devicons' },
     config = function()
+      require('alpha.themes.startify').section.header.val = {} -- Remove logo
       require('alpha').setup(require('alpha.themes.startify').config)
       vim.keymap.set('n', '<leader>;', '<cmd>Alpha<CR>', { silent = true, desc = 'Show dashboard' })
     end,
-    opts = {
-      -- but it will prevent the FileType autocmd from firing, which may break integration with other plguins.
-      noautocmd = true, ---@type boolean - default: false (disabled)
+  },
+
+  {
+    --Automatically opens the last project and jumps to the last changed point in the file.
+    'Shatur/neovim-session-manager',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
     },
+    config = function()
+      require('session_manager').setup {}
+    end,
+  },
+
+  {
+    -- Change your working directory to the project root(.git) when you open a file.
+    'notjedi/nvim-rooter.lua',
+    config = function()
+      require('nvim-rooter').setup()
+    end,
   },
 
   {
