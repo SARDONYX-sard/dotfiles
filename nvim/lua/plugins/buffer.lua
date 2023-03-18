@@ -65,6 +65,6 @@ vim.keymap.set('n', 'L', ':BufferLineCycleNext<CR>', { silent = true, desc = 'Bu
 vim.keymap.set('n', 'H', ':BufferLineCyclePrev<CR>', { silent = true, desc = 'Buffer: prev' })
 vim.keymap.set('n', '<space>c', ':bdelete<CR>', { silent = true, desc = 'Buffer: [c]lose' })
 --See: https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one
-vim.keymap.set('n', '<space>bl', ':%bd|e#|bd#<CR>', { silent = true, desc = 'Buffer: [l]ast(current) only' })
+vim.keymap.set('n', '<space>bo', ':%bd|e#|bd#<CR>', { silent = true, desc = 'Buffer: [o]nly current' })
 
 return M
