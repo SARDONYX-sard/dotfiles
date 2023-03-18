@@ -46,6 +46,7 @@ vim.opt.cursorline = false -- highlight cursor line, use highlight to change dis
 vim.opt.list = false -- Display tabs and line breaks. It's pretty annoying, so I leave it as no.
 vim.opt.matchtime = 3 -- set the number of seconds to display the above showmatch to 3 seconds
 vim.opt.number = true -- display line numbers
+vim.opt.pumblend = 10 -- float transparency
 vim.opt.ruler = true
 vim.opt.scrolloff = 5 -- always take 5 lines extra from the cursor position opt.virtualedit = 'block'
 vim.opt.showmatch = true -- show the corresponding parentheses when typing parentheses, flush the corresponding parentheses

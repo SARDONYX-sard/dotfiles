@@ -1,4 +1,4 @@
-if vim.fn.exists(vim.g.neovide) then
+if vim.fn.exists(vim.g.neovide) == 1 then
   vim.cmd [[
     set guifont=Monospace:h11
     let g:neovide_cursor_vfx_mode="wireframe"

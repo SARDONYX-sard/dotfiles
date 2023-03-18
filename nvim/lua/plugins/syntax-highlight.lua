@@ -106,7 +106,6 @@ M.plugins = {
         },
         exclude = {}, -- table: groups you don't want to clear
       }
-      vim.cmd 'highlight Pmenu guibg=None' -- transparent complition menu
     end,
   },
 
