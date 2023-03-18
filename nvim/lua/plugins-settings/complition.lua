@@ -110,6 +110,12 @@ cmp.setup {
       },
     },
   },
+
+  window = {
+    -- When the completion menu is transparent, it is difficult to see the boundary line, so a border is set.
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
 }
 
 cmp.setup.cmdline({ '/', '?' }, {
