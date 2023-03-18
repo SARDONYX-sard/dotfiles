@@ -63,11 +63,6 @@ M.plugins = {
 
       -- if you only want these mappings for toggle term use term://*toggleterm#* instead
       vim.cmd 'autocmd! TermOpen term://* lua set_terminal_keymaps()'
-
-      -- Highlight full-width spaces
-      -- vim.cmd [[autocmd! vimrc VimEnter,WinEnter * call matchadd('ZenkakuSpace', '　')]]
-      -- toggleterm transparent
-      -- vim.cmd [[autocmd! vimrc ColorScheme * highlight ZenkakuSpace ctermbg=239 guibg=none]]
     end,
   },
 }

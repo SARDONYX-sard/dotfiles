@@ -66,9 +66,9 @@ M.plugins = {
     },
   },
 
-  { -- Settings for Rust-analyzer, including inlay hints
+  {
+    -- Settings for Rust-analyzer, including inlay hints
     'simrat39/rust-tools.nvim',
-    config = function() end,
   },
 
   {
