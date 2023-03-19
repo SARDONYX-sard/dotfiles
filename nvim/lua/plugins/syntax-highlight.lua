@@ -95,7 +95,6 @@ M.plugins = {
     'xiyaowong/nvim-transparent',
     config = function()
       require('transparent').setup {
-        enable = true, -- boolean: enable transparent
         extra_groups = { -- table/string: additional groups that should be cleared
           -- In particular, when you set it to 'all', that means all available groups
           'BufferLineTabClose',
@@ -104,7 +103,6 @@ M.plugins = {
           'BufferLineBackground',
           'BufferLineSeparator',
         },
-        exclude = {}, -- table: groups you don't want to clear
       }
     end,
   },
@@ -150,6 +148,9 @@ M.plugins = {
           enable = true,
           chars = { '·' },
           exclude_filetype = exclude_filetype,
+          style = {
+            vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID 'Whitespace'), 'fg', 'gui'),
+          },
         },
       }
     end,
