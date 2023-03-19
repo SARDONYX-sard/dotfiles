@@ -11,10 +11,6 @@ vim.g.maplocalleader = ' '
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'Y', 'y$', { desc = 'Yanks without line breaks to increase convenience' })
 
--- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
 -- swap ; and :
 vim.keymap.set('n', ';', ':', { desc = 'command' })
 vim.keymap.set('n', ':', ';', {})
@@ -69,3 +65,8 @@ vim.keymap.set(
   ":execute(&hls && v:hlsearch ? 'noh|echo ''Highlight: Off'' ' : 'set hls|echo ''Highlight: On'' ')<CR>",
   { silent = true, desc = 'Toggle [h]ighlight' }
 )
+
+-- General buffer keymaps
+vim.keymap.set('n', '<space>c', ':bdelete<CR>', { silent = true, desc = 'Buffer: [c]lose' })
+--See: https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one
+vim.keymap.set('n', '<space>bl', ':%bd|e#|bd#<CR>', { silent = true, desc = 'Buffer: [l]ast only ' })
