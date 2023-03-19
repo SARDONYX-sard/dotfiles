@@ -37,6 +37,32 @@ M.plugins = {
           name = '+Buffer',
         },
       })
+
+      ---Normal mode buffer keymaps creator function.
+      ---@param buf_num number
+      local buf_nmap = function(buf_num)
+        vim.keymap.set('n', '<leader>b' .. buf_num, function()
+          require('bufferline').go_to_buffer(buf_num, true)
+        end, { silent = true, desc = 'Buffer: ' .. buf_num })
+      end
+      for i = 1, 9 do
+        buf_nmap(i)
+      end
+
+      ---Normal mode buffer keymaps creator function.
+      ---@param keys string
+      ---@param func function|string
+      ---@param desc string
+      local nmap = function(keys, func, desc)
+        if desc then
+          desc = 'Buffer: ' .. desc
+        end
+        vim.keymap.set('n', keys, func, { noremap = true, silent = true, desc = desc })
+      end
+      nmap('<S-Tab>', ':BufferLineCyclePrev<CR>', 'Buffer: prev')
+      nmap('<Tab>', ':BufferLineCycleNext<CR>', 'Buffer: next')
+      nmap('H', ':BufferLineCyclePrev<CR>', 'Buffer: prev')
+      nmap('L', ':BufferLineCycleNext<CR>', 'Buffer: next')
     end,
   },
 
@@ -49,22 +75,5 @@ M.plugins = {
     dependencies = { 'moll/vim-bbye' },
   },
 }
-
----Normal mode buffer keymaps creator function.
----@param buf_num number
-local nmap = function(buf_num)
-  vim.keymap.set('n', '<leader>b' .. buf_num, function()
-    require('bufferline').go_to_buffer(buf_num, true)
-  end, { silent = true, desc = 'Buffer: ' .. buf_num })
-end
-for i = 1, 10, 1 do
-  nmap(i)
-end
-
-vim.keymap.set('n', 'L', ':BufferLineCycleNext<CR>', { silent = true, desc = 'Buffer: next' })
-vim.keymap.set('n', 'H', ':BufferLineCyclePrev<CR>', { silent = true, desc = 'Buffer: prev' })
-vim.keymap.set('n', '<space>c', ':bdelete<CR>', { silent = true, desc = 'Buffer: [c]lose' })
---See: https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one
-vim.keymap.set('n', '<space>bl', ':%bd|e#|bd#<CR>', { silent = true, desc = 'Buffer: [l]ast only ' })
 
 return M
