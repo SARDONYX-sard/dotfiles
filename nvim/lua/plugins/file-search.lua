@@ -73,9 +73,19 @@ M.plugins = {
     'nvim-telescope/telescope-fzf-native.nvim',
     -- NOTE: If you are having trouble with this installation,
     --       refer to the README for telescope-fzf-native for more instructions.
-    build = 'make',
+    build = (function()
+      if vim.fn.has 'win32' then
+        return 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+      elseif vim.fn.has 'unix' then
+        return 'make'
+      end
+    end)(),
     cond = function()
-      return vim.fn.executable 'make' == 1
+      if vim.fn.has 'win32' then
+        return vim.fn.executable 'cmake' == 1 and vim.fn.executable 'cl.exe' == 1
+      elseif vim.fn.has 'unix' then
+        return vim.fn.executable 'make' == 1 and (vim.fn.executable 'gcc' == 1 or vim.fn.executable 'clang' == 1)
+      end
     end,
   },
 }
