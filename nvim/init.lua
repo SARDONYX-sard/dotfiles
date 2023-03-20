@@ -15,7 +15,7 @@ vim.keymap.set('n', '<space>V', function()
       if vim.fn.has 'wsl' == 1 then
         pwd = vim.fn.system("bash -c 'wslpath -w " .. pwd .. "'")
       elseif vim.fn.has 'win32unix' == 1 then
-        pwd = vim.fn.system("bash -c 'cygwinpath -w " .. pwd .. "'")
+        pwd = vim.fn.system("bash -c 'cygpath -w " .. pwd .. "'")
       end
       -- NOTE: Cannot jump to path location correctly without powershell.
       vim.fn.system("powershell.exe -c 'explorer.exe " .. pwd .. "'")
