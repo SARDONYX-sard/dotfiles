@@ -186,7 +186,8 @@ M.plugins = {
 
   {
     -- General framework for context aware hover providers (similar to vim.lsp.buf.hover).
-    'lewis6991/hover.nvim',
+    'SARDONYX-forks/hover.nvim',
+    branch = 'feature/fix-resume-dead-coroutine-error',
     config = function()
       require('hover').setup {
         init = function()
@@ -203,7 +204,7 @@ M.plugins = {
       }
 
       -- Setup keymaps
-      vim.keymap.set('n', 'K', require('hover').hover, { desc = 'hover.nvim' })
+      vim.keymap.set('n', '<A-l>', require('hover').hover, { desc = 'hover.nvim' })
       vim.keymap.set('n', 'gK', require('hover').hover_select, { desc = 'hover.nvim (select)' })
     end,
   },

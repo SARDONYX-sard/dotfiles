@@ -117,7 +117,7 @@ local on_attach = function(_, buffer)
   nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, 'Show Document [s]ymbols')
 
   -- Commented out because `hover.nvim` is used instead.
-  -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation') -- See `:help K` for why this keymap
+  nmap('K', vim.lsp.buf.hover, 'Hover Documentation') -- See `:help K` for why this keymap
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   require('which-key').register { ['<leader>lw'] = { name = '+Lsp [w]orkspace' } }
