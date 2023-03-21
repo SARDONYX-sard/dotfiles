@@ -52,7 +52,10 @@ M.plugins = {
     config = function()
       vim.g.virtcolumn_char = '┊'
       vim.opt.colorcolumn = '100'
-      vim.api.nvim_set_hl(0, 'VirtColumn', { fg = '#979797' }) -- VScode ruler color '#979797'
+      vim.api.nvim_set_hl(0, 'VirtColumn', {
+        -- - VScode ruler color '#979797'
+        fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID 'Whitespace'), 'fg', 'gui'),
+      })
     end,
   },
 
@@ -91,22 +94,6 @@ M.plugins = {
     end,
   },
 
-  {
-    'xiyaowong/nvim-transparent',
-    config = function()
-      require('transparent').setup {
-        extra_groups = { -- table/string: additional groups that should be cleared
-          -- In particular, when you set it to 'all', that means all available groups
-          'BufferLineTabClose',
-          'BufferlineBufferSelected',
-          'BufferLineFill',
-          'BufferLineBackground',
-          'BufferLineSeparator',
-        },
-      }
-    end,
-  },
-
   -- Show indent, space, color brackets
   {
     -- Indentation display, showing bracket pair connections.
@@ -114,25 +101,11 @@ M.plugins = {
     config = function()
       local exclude_filetype = {
         alpha = true,
-        lazy = true,
       }
 
       require('hlchunk').setup {
         chunk = {
           enable = true,
-          support_filetypes = {
-            '*.ts',
-            '*.js',
-            '*.json',
-            '*.go',
-            '*.c',
-            '*.cpp',
-            '*.rs',
-            '*.h',
-            '*.hpp',
-            '*.lua',
-            '*.vue',
-          },
           style = '#BB0000',
         },
         indent = {
