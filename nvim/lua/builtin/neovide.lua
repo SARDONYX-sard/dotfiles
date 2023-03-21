@@ -2,7 +2,7 @@ if vim.fn.exists(vim.g.neovide) == 1 then
   vim.cmd [[
     set guifont=Monospace:h11
     let g:neovide_cursor_vfx_mode="wireframe"
-    let g:neovide_transparency=0.5
+    let g:neovide_transparency=0.6
     let g:neovide_cursor_vfx_mode = "railgun"
     function! FontSizePlus()
       let l:gf_size_whole = matchstr(&guifont, 'h\@<=\d\+$')
