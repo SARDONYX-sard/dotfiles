@@ -30,8 +30,7 @@ M.highlight_languages = {
 
 M.plugins = {
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+    'navarasu/onedark.nvim', -- Theme inspired by Atom
     priority = 1000,
     config = function()
       require('onedark').setup {
@@ -47,8 +46,7 @@ M.plugins = {
   },
 
   {
-    -- Display vertical ruler of VSCode like
-    'xiyaowong/virtcolumn.nvim',
+    'xiyaowong/virtcolumn.nvim', -- Display vertical ruler of VSCode like
     config = function()
       vim.g.virtcolumn_char = '┊'
       vim.opt.colorcolumn = '100'
@@ -60,8 +58,7 @@ M.plugins = {
   },
 
   {
-    -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
+    'nvim-lualine/lualine.nvim', -- Set lualine as statusline
     -- See `:help lualine.txt`
     opts = {
       options = {
@@ -74,8 +71,7 @@ M.plugins = {
   },
 
   {
-    -- display hex, RGB color
-    'norcalli/nvim-colorizer.lua',
+    'norcalli/nvim-colorizer.lua', -- display hex, RGB color
     config = function()
       require('colorizer').setup()
     end,
@@ -132,49 +128,64 @@ M.plugins = {
   {
     -- automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter
     'RRethy/vim-illuminate',
-  },
-
-  {
-    -- Rainbow delimiters for Neovim through Tree-sitter
-    'HiPhish/nvim-ts-rainbow2',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-    },
+    lazy = true,
+    event = { 'CursorHold', 'CursorHoldI' },
     config = function()
-      require('nvim-treesitter.configs').setup {
-        rainbow = {
-          enable = true,
-          query = 'rainbow-parens', -- Which query to use for finding delimiters
+      require('illuminate').configure {
+        providers = {
+          'lsp',
+          'treesitter',
+          'regex',
         },
+        delay = 100,
+        filetypes_denylist = {
+          'DoomInfo',
+          'DressingSelect',
+          'NvimTree',
+          'Outline',
+          'TelescopePrompt',
+          'Trouble',
+          'alpha',
+          'dashboard',
+          'dirvish',
+          'fugitive',
+          'help',
+          'lsgsagaoutline',
+          'neogitstatus',
+          'norg',
+          'toggleterm',
+        },
+        under_cursor = false,
       }
     end,
   },
 
   {
-    -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
+    'nvim-treesitter/nvim-treesitter', -- Highlight, edit, and navigate code
+    lazy = true,
+    build = function()
+      if #vim.api.nvim_list_uis() ~= 0 then
+        local ok, _ = pcall(vim.api.nvim_command, 'TSUpdate')
+        if not ok then
+          vim.notify(
+            'Failed update syntax highlighter(treesitter).',
+            vim.log.levels.ERROR,
+            { title = 'plugins.syntax-highlight' }
+          )
+        end
+      end
+    end,
+    event = { 'CursorHold', 'CursorHoldI' },
     dependencies = {
+      'HiPhish/nvim-ts-rainbow2',
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     config = function()
       -- Automatic updates at startup are commented out because they increase startup time by 500ms~1500ms
-      -- local ok, _ = pcall(require('nvim-treesitter.install').update {})
-      -- if not ok then
-      --   vim.notify(
-      --     'Failed update syntax highlighter(treesitter).',
-      --     vim.log.levels.ERROR,
-      --     { title = 'plugins.syntax-highlight' }
-      --   )
-      -- end
-
       -- See `:help nvim-treesitter`
       require('nvim-treesitter.configs').setup {
-        -- Add languages to be installed here that you want installed for treesitter
         ensure_installed = M.highlight_languages,
-
-        -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
         auto_install = false,
-
         highlight = { enable = true },
         indent = { enable = true, disable = { 'python' } },
         incremental_selection = {
@@ -185,6 +196,11 @@ M.plugins = {
             scope_incremental = '<c-s>',
             node_decremental = '<M-space>',
           },
+        },
+        rainbow = {
+          enable = true,
+          query = 'rainbow-parens', -- Which query to use for finding delimiters
+          strategy = require('ts-rainbow').strategy.global, -- Highlight the entire buffer all at once
         },
         textobjects = {
           select = {
