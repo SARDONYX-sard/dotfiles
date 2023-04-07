@@ -8,6 +8,7 @@ M.plugins = {
   {
     'neovim/nvim-lspconfig',
     lazy = true,
+    event = { 'BufReadPost', 'BufAdd', 'BufNewFile' },
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason-lspconfig.nvim',
@@ -74,7 +75,12 @@ M.plugins = {
   {
     -- Lint and formatter results from external commands can be used for lsp hover, code_action, etc.
     'jose-elias-alvarez/null-ls.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    lazy = true,
+    event = { 'CursorHold', 'CursorHoldI' },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'jay-babu/mason-null-ls.nvim',
+    },
     config = function()
       local null_ls = require 'null-ls'
       null_ls.setup {

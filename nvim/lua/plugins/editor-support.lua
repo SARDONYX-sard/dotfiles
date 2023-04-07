@@ -2,6 +2,17 @@ local M = {}
 
 M.plugins = {
   -- Editor Behavior
+  {
+    'rainbowhxch/accelerated-jk.nvim',
+    lazy = true,
+    event = 'VeryLazy',
+    config = function()
+      -- See: https://github.com/rainbowhxch/accelerated-jk.nvim#configuration
+      require('accelerated-jk').setup {}
+      vim.api.nvim_set_keymap('n', 'j', '<Plug>(accelerated_jk_gj)', {})
+      vim.api.nvim_set_keymap('n', 'k', '<Plug>(accelerated_jk_gk)', {})
+    end,
+  },
 
   {
     -- A list of recently opened files is displayed.

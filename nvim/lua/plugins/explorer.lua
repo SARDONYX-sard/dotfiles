@@ -2,8 +2,8 @@ local M = {}
 
 M.plugins = {
   'nvim-tree/nvim-tree.lua',
-  -- See: https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt#L217https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt#L217
   -- :help nvim-tree
+  -- See: https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt#L217https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt#L217
   config = function()
     require('nvim-tree').setup {
       sort_by = 'case_sensitive',
@@ -54,8 +54,12 @@ M.plugins = {
           restrict_above_cwd = true,
         },
       },
+      update_cwd = true,
+      update_focused_file = {
+        enable = true,
+        -- update_cwd = true, -- Deprecated as enabling this will disable git root.
+      },
     }
-
     vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { desc = 'Explorer' })
   end,
 }
