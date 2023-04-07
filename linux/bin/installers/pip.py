@@ -27,7 +27,7 @@ from typing import Literal
 libs = [
     # Formatter & Linter
     {"name": "black", "description": "formatter."},
-    {"name": "flake8", "description": "linter."},
+    {"name": "ruff", "description": "linter."},
     {"name": "codespell", "description": "spell checker."},
     # Manager(For update libs)
     {"name": "pip-search", "description": "Search PyPI."},
@@ -79,10 +79,18 @@ def check_python_available():
         print(color("Trying to install with pyenv...", "cyan"))
         system("pyenv install 3.8.10")
 
-    elif which("scoop"):
+    import os
+
+    if os.name == "nt" and bool(which("scoop")):
         print(color("Trying to install with scoop...", "cyan"))
         # latest python version (e.g. python3.10)
         system("scoop install python")
+
+    elif os.name == "posix":
+        if which("rtx"):
+            system("rtx install python3@3.8.10")
+        elif which("asdf"):
+            system("asdf install python3@3.8.10")
 
     else:
         print(color("Python cannot installed.", "red"))
@@ -136,6 +144,10 @@ def rehash():
     if which("pyenv"):
         print("rehash pyenv...")
         system("pyenv rehash")
+
+    if which("asdf"):
+        print("reshim asdf...")
+        system("asdf reshim")
 
 
 def manage_libs(
