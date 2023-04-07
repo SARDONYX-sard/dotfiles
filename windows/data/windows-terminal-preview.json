@@ -22,6 +22,11 @@
   "copyFormatting": "none",
   "copyOnSelect": true,
   "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+  "newTabMenu": [
+    {
+      "type": "remainingProfiles"
+    }
+  ],
   "profiles": {
     "defaults": {
       "colorScheme": "Campbell",
@@ -94,48 +99,27 @@
         "opacity": 75,
         "useAcrylic": false
       },
-      // {
-      //     "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u81ea\u7136\\night-3078326_960_720.jpg",
-      //     "backgroundImageOpacity": 0.0,
-      //     "bellStyle": "none",
-      //     "closeOnExit": "always",
-      //     "colorScheme": "Campbell",
-      //     "commandline": "mingw64.cmd -shell fish",
-      //     "font":
-      //     {
-      //         "face": "CodeNewRoman NF"
-      //     },
-      //     "guid": "{91ac1de2-3700-4767-a146-bcce0e1170b4}",
-      //     "hidden": false,
-      //     "icon": "C:\\Users\\SARDONYX\\scoop\\apps\\msys2\\current\\mingw64.ico",
-      //     "name": "MinGW64",
-      //     "opacity": 75,
-      //     "startingDirectory": "%USERPROFILE%",
-      //     "useAcrylic": false
-      // },
-      // {
-      //   "bellStyle": "none",
-      //   "commandline": "wsl.exe ~ -d Arch --user sardonyx",
-      //   "guid": "{b8586769-dd8b-46b2-afbf-247d7dd718f2}",
-      //   "hidden": false,
-      //   "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Archlinux-icon-crystal-64.svg/1200px-Archlinux-icon-crystal-64.svg.png",
-      //   "name": "Arch  Linux"
-      // },
       {
         "bellStyle": "none",
         "commandline": "wsl.exe ~ -d kali-linux --user sardonyx",
         "guid": "{46ca431a-3a87-5fb3-83cd-11ececc031d2}",
-        "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Kali-dragon-icon.svg/2048px-Kali-dragon-icon.svg.png",
         "hidden": false,
+        "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Kali-dragon-icon.svg/2048px-Kali-dragon-icon.svg.png",
         "name": "kali-linux",
         "source": "Windows.Terminal.Wsl"
       },
       {
+        "commandline": "wsl -d kali-linux --user sardonyx kex --wtstart -m",
         "guid": "{55ca431b-3a87-5fb3-83cd-11ececc031d2}",
         "hidden": false,
         "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Kali-dragon-icon.svg/2048px-Kali-dragon-icon.svg.png",
-        "name": "Win-KeX",
-        "commandline": "wsl -d kali-linux --user sardonyx kex --wtstart -m"
+        "name": "Win-KeX"
+      },
+      {
+        "guid": "{16208362-94fc-5b1f-a491-5b2624d5ab56}",
+        "hidden": true,
+        "name": "Visual Studio Debug Console",
+        "source": "VSDebugConsole"
       }
     ]
   },
