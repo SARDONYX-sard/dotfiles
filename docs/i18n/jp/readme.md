@@ -116,7 +116,8 @@ docker-compose up
 
 ## <font color=yellow>注意!</font>
 
-- これは私の開発環境のセットアップリポジトリです。 あなたが何をしているのか分かっていないのであれば、むやみにこのコードを実行しないでください。
+- これは私の開発環境のセットアップリポジトリです。
+  あなたが何をしているのか分かっていないのであれば、むやみにこのコードを実行しないでください。
   安易に実行すると、現在のあなたの開発環境が私の開発環境の設定に上書きされてしまいます。
 
 - いくつかの設定は、日本語になっており、英語話者向けではない可能性があります。
@@ -171,4 +172,9 @@ git config --global user.email "メールアドレス"
 
   Copyright (c) 2017- Josh Glendenning(<https://github.com/isobit/pac>)
 
-- Other: Unlicense
+- nvim: [nvim-licenses](./nvim/readme.md#licenses)
+
+- その他: 3つのうち**どれか一つだけ**をお選びください。
+  - [Unlicense](./LICENCE)
+  - [Apache2.0](./LICENSE-APACHE)
+  - [MIT](./LICENSE-MIT)
