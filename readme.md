@@ -179,4 +179,6 @@ See below.
 
   Copyright (c) 2017- Josh Glendenning(<https://github.com/isobit/pac>)
 
+- [nvim-licenses](./nvim/readme.md#licenses)
+
 - Other: Unlicense
