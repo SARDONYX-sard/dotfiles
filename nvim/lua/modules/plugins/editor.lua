@@ -68,10 +68,9 @@ editor['luukvbaal/stabilize.nvim'] = {
   lazy = true,
   event = 'BufReadPost',
 }
-editor['Shatur/neovim-session-manager'] = {
-  lazy = false,
-  config = require 'editor.session-manager',
-}
+-- editor['Shatur/neovim-session-manager'] = { -- Auto jump to last location
+--   config = require 'editor.session-manager',
+-- }
 editor['romainl/vim-cool'] = { -- Improved highlighting usability
   lazy = true,
   event = { 'CursorMoved', 'InsertEnter' },
