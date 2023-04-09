@@ -1,5 +1,5 @@
 .apikey
 keyhac.ini
 
-nvim/.luarc.json
+.luarc.json
 nvim/plugin/
