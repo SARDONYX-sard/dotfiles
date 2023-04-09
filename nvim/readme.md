@@ -23,22 +23,26 @@ scoop install luacheck
 
 ## 2.Install plugins
 
-- execute the following $nvim
-  (automatic installation synchronization by the plugin manager) will run for
-  the first time. Keep pressing Enter and wait for the plugin to be installed.
+- execute the following $nvim (automatic installation synchronization by the
+  plugin manager) will run for the first time. Keep pressing Enter and wait for
+  the plugin to be installed.
 
 ```bash
 nvim
 ```
 
-## Thanks
+## Licenses
 
 - This set of codes is written by customizing the following repositories.
 
 We thank you for the very easy-to-use setup.
+
+See licenses by the following links.
 
 - [joker1007 dotfiles/nvim](https://github.com/joker1007/dotfiles/tree/master/nvim):
   Unknown
 
 - [nvim-lua/kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim/blob/master/LICENSE.md):
   MIT
+
+- [ayamir/nvimdots](https://github.com/ayamir/nvimdots/blob/main/LICENSE): MIT
