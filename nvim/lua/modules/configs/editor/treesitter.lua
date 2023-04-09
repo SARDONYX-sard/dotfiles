@@ -14,7 +14,6 @@ return vim.schedule_wrap(function()
       'dockerfile',
       'go',
       'gomod',
-      'help',
       'html',
       'javascript',
       'jsonc',

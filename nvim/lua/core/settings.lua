@@ -3,7 +3,7 @@ local home = require('core.global').home
 
 -- Set it to false if you want to use https to update plugins and treesitter parsers.
 ---@type boolean
-settings['use_ssh'] = true
+settings['use_ssh'] = false
 
 -- Set it to false if there are no need to format on save.
 ---@type boolean
@@ -63,15 +63,8 @@ settings['server_formatting_block_list'] = {
 ---@type string[]
 settings['lsp_deps'] = {
   'clangd',
-  'html',
   'lua_ls',
-  'pyright',
-  -- "gopls",
 }
-
-if vim.fn.executable 'node' then
-  table.insert(settings['lsp_deps'], 'jsonls')
-end
 
 -- Set the general-purpose servers that will be installed during bootstrap here
 -- check the below link for all supported sources
@@ -79,25 +72,40 @@ end
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins
 ---@type string[]
 settings['null_ls_deps'] = {
-  'black',
   'clang_format',
   'editorconfig_checker',
-  'eslintd',
-  'fish_indent',
   'gitlint',
   'gitsigns',
-  'mypy',
-  'prettierd',
-  'printenv',
-  'ruff',
-  'rustfmt',
   'selene',
-  'shellcheck',
-  'shfmt',
-  'stylelint',
   'stylua',
   'yamllint',
   -- 'vint',
 }
+
+if vim.fn.executable 'bash' == 1 then
+  table.insert(settings['null_ls_deps'], 'shellcheck')
+  table.insert(settings['null_ls_deps'], 'shfmt')
+end
+if vim.fn.executable 'cargo' == 1 then
+  table.insert(settings['lsp_deps'], 'rust_analyzer')
+
+  table.insert(settings['null_ls_deps'], 'rustfmt')
+end
+if vim.fn.executable 'fish' == 1 then
+  table.insert(settings['null_ls_deps'], 'fish_indent')
+end
+if vim.fn.executable 'node' == 1 then
+  table.insert(settings['lsp_deps'], 'jsonls')
+  table.insert(settings['lsp_deps'], 'html')
+  table.insert(settings['null_ls_deps'], 'prettierd')
+  table.insert(settings['null_ls_deps'], 'eslintd')
+  table.insert(settings['null_ls_deps'], 'stylelint')
+end
+if vim.fn.executable 'python3' == 1 then
+  table.insert(settings['null_ls_deps'], 'black')
+  table.insert(settings['null_ls_deps'], 'mypy')
+  table.insert(settings['null_ls_deps'], 'printenv')
+  table.insert(settings['null_ls_deps'], 'ruff')
+end
 
 return settings

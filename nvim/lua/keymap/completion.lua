@@ -4,6 +4,9 @@ local map_cr = bind.map_cr
 local map_callback = bind.map_callback
 
 local plug_map = {
+  -- Mason
+  ['n|<leader>lI'] = map_cr('Mason'):with_noremap():with_silent():with_nowait():with_desc 'lsp: Mason',
+  ['n|<leader>ll'] = map_cr('MasonLog'):with_noremap():with_silent():with_nowait():with_desc 'lsp: MasonLog',
   -- LSP-related keymaps, work only when event = { "InsertEnter", "LspStart" }
   ['n|<leader>li'] = map_cr('LspInfo'):with_noremap():with_silent():with_nowait():with_desc 'lsp: Info',
   ['n|<leader>lr'] = map_cr('LspRestart'):with_noremap():with_silent():with_nowait():with_desc 'lsp: Restart',
