@@ -15,7 +15,6 @@ ui['catppuccin/nvim'] = {
   name = 'catppuccin',
   config = require 'ui.catppuccin',
 }
-
 ui['j-hui/fidget.nvim'] = {
   lazy = true,
   event = 'BufReadPost',
