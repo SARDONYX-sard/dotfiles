@@ -31,4 +31,38 @@ return function()
       winblend = 0,
     },
   }
+
+  local wk = require 'which-key'
+  wk.register {
+    ['<leader><space>'] = {
+      name = '+GitDiffClose',
+    },
+    ['<leader>b'] = {
+      name = '+Buffer',
+    },
+    ['<leader>f'] = {
+      name = '+Find',
+    },
+    ['<leader>g'] = {
+      name = '+Git',
+    },
+    ['<leader>h'] = {
+      name = '+GitSign',
+    },
+    ['<leader>l'] = {
+      name = '+LspMason',
+    },
+    ['<leader>n'] = {
+      name = '+FileTree',
+    },
+    ['<leader>p'] = {
+      name = '+Plugins',
+    },
+    ['<leader>s'] = {
+      name = '+Session',
+    },
+    ['<leader>t'] = {
+      name = '+Lsp',
+    },
+  }
 end
