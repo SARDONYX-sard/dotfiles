@@ -23,6 +23,15 @@ tool['nvim-tree/nvim-tree.lua'] = {
   event = 'BufEnter',
   config = require 'tool.nvim-tree',
 }
+tool['aymericbeaumet/vim-symlink'] = {
+  -- Automatically follow symlinks
+  --
+  -- In the case of a symlinked init.lua file,
+  -- install it in order to follow the link and edit it.
+  -- lazy = true,
+  event = 'BufEnter',
+  dependencies = { 'moll/vim-bbye' },
+}
 tool['ibhagwan/smartyank.nvim'] = {
   lazy = true,
   event = 'BufReadPost',
