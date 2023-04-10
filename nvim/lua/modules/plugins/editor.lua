@@ -59,6 +59,14 @@ editor['phaazon/hop.nvim'] = {
   event = 'BufReadPost',
   config = require 'editor.hop',
 }
+editor['GeekMasher/securitree.nvim'] = {
+  lazy = true,
+  event = 'BufReadPost',
+  config = require 'editor.securitree',
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter',
+  },
+}
 editor['RRethy/vim-illuminate'] = {
   lazy = true,
   event = { 'CursorHold', 'CursorHoldI' },
