@@ -30,8 +30,8 @@ local plug_map = {
 
   -- Plugin: toggleterm
   ['t|<Esc><Esc>'] = map_cmd([[<C-\><C-n>]]):with_noremap():with_silent(), -- switch to normal mode in terminal.
-  ['t|jk'] = map_cmd([[<C-\><C-n>]]):with_noremap():with_silent(), -- switch to normal mode in terminal.
-  ['n|<C-\\>'] = map_cr([[execute v:count . "ToggleTerm direction=horizontal"]])
+  ['t|JK'] = map_cmd([[<C-\><C-n>]]):with_noremap():with_silent(), -- switch to normal mode in terminal.
+  ['n|<C-l>'] = map_cr([[execute v:count . "ToggleTerm direction=horizontal"]])
     :with_noremap()
     :with_silent()
     :with_desc 'terminal: Toggle horizontal',
@@ -39,7 +39,7 @@ local plug_map = {
     :with_noremap()
     :with_silent()
     :with_desc 'terminal: Toggle horizontal',
-  ['t|<C-\\>'] = map_cmd('<Cmd>ToggleTerm<CR>'):with_noremap():with_silent():with_desc 'terminal: Toggle horizontal',
+  ['t|<C-l>'] = map_cmd('<Cmd>ToggleTerm<CR>'):with_noremap():with_silent():with_desc 'terminal: Toggle horizontal',
   ['n|<A-\\>'] = map_cr([[execute v:count . "ToggleTerm direction=vertical"]])
     :with_noremap()
     :with_silent()
@@ -87,6 +87,7 @@ local plug_map = {
 
   -- Plugin: telescope
   ['n|<C-p>'] = map_callback(function()
+      --  selene: allow(undefined_variable)
       _command_panel()
     end)
     :with_noremap()
