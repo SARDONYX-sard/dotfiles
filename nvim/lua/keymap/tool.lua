@@ -10,6 +10,14 @@ local plug_map = {
   ['n|gps'] = map_cr('G push'):with_noremap():with_silent():with_desc 'git: Push',
   ['n|gpl'] = map_cr('G pull'):with_noremap():with_silent():with_desc 'git: Pull',
   ['n|<leader>G'] = map_cu('Git'):with_noremap():with_silent():with_desc 'git: Open git-fugitive',
+  ['n|<leader>gb'] = map_cu('Git blame'):with_noremap():with_silent():with_desc 'git: Blame',
+  ['n|<leader>gc'] = map_cu('Git commit'):with_noremap():with_silent():with_desc 'git: Commit',
+  ['n|<leader>gC'] = map_cu('Git commit --amend'):with_noremap():with_silent():with_desc 'git: Modify prev commit msg',
+  ['n|<leader>gg'] = map_cu('Git commit -S'):with_noremap():with_silent():with_desc 'git: Commit with gpg',
+  ['n|<leader>gG'] = map_cu('Git commit --amend -S')
+    :with_noremap()
+    :with_silent()
+    :with_desc 'git: Modify prev commit gpg msg',
 
   -- Plugin: nvim-tree
   ['n|<leader>e'] = map_cr('NvimTreeToggle'):with_noremap():with_silent():with_desc 'filetree: Toggle',
@@ -59,12 +67,6 @@ local plug_map = {
     :with_silent()
     :with_desc 'terminal: Toggle float',
   ['t|<A-d>'] = map_cmd('<Cmd>ToggleTerm<CR>'):with_noremap():with_silent():with_desc 'terminal: Toggle float',
-  ['n|<leader>g'] = map_callback(function()
-      _toggle_lazygit()
-    end)
-    :with_noremap()
-    :with_silent()
-    :with_desc 'git: Toggle lazygit',
 
   -- Plugin: trouble
   ['n|gt'] = map_cr('TroubleToggle'):with_noremap():with_silent():with_desc 'lsp: Toggle trouble list',
