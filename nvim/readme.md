@@ -12,7 +12,7 @@ dotfiles installation.
 
 ```bash
 sudo apt install python3.11-venv # for python-lsp
-sudo apt install sed luarocks; luarocks install luacheck # for lua-lsp, luacheck
+sudo apt install sed luarocks libsqlite3-dev;luarocks install luacheck # for lua-lsp, luacheck
 ```
 
 - windows
