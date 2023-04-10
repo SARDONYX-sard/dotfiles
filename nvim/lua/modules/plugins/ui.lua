@@ -28,7 +28,7 @@ ui['lewis6991/gitsigns.nvim'] = {
 }
 ui['shellRaining/hlchunk.nvim'] = {
   lazy = true,
-  event = 'BufReadPost',
+  event = 'BufWinEnter',
   config = require 'ui.hlchunk',
 }
 ui['nvim-lualine/lualine.nvim'] = {
