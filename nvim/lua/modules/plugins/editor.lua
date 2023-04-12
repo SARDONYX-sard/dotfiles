@@ -45,6 +45,11 @@ editor['numToStr/Comment.nvim'] = {
   event = { 'CursorHold', 'CursorHoldI' },
   config = require 'editor.comment',
 }
+editor['monaqa/dial.nvim'] = { -- Enhanced increment/decrement
+  lazy = true,
+  event = { 'BufReadPost' },
+  config = require 'editor.dial',
+}
 editor['sindrets/diffview.nvim'] = {
   lazy = true,
   cmd = { 'DiffviewOpen', 'DiffviewClose' },
