@@ -27,8 +27,9 @@ editor['LunarVim/bigfile.nvim'] = {
 }
 editor['wakatime/vim-wakatime'] = { -- calculate coding time(need wakatime account.)
   lazy = true,
+  event = 'BufEnter',
   cond = function()
-    return vim.fn.isdirectory(os.getenv 'HOME' .. '/.wakatime') ~= 0
+    return vim.fn.isdirectory(vim.fn.expand '$HOME' .. '/.wakatime') == 1
   end,
 }
 editor['ojroques/nvim-bufdel'] = {
@@ -70,6 +71,9 @@ editor['GeekMasher/securitree.nvim'] = {
   config = require 'editor.securitree',
   dependencies = {
     'nvim-treesitter/nvim-treesitter',
+    'MunifTanjim/nui.nvim',
+    -- optional
+    -- "nvim-treesitter/playground"
   },
 }
 editor['RRethy/vim-illuminate'] = {
