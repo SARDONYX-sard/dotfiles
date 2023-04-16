@@ -23,8 +23,8 @@ return function()
     chunk = {
       -- enable = true,
       style = {
-        hibiscus = '#c06f98',
-        primrose = '#BB0000',
+        hibiscus = '#BB0000',
+        primrose = '#c06f98',
       },
     },
     indent = {
