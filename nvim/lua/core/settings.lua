@@ -1,5 +1,6 @@
 local settings = {}
 local home = require('core.global').home
+local is_windows = require('core.global').is_windows
 
 -- Set it to false if you want to use https to update plugins and treesitter parsers.
 ---@type boolean
@@ -41,7 +42,13 @@ settings['background'] = 'dark'
 -- Set the command for handling external URLs here. The executable must be available on your $PATH.
 -- This entry is IGNORED on Windows and macOS, which have their default handlers builtin.
 ---@type string
-settings['external_browser'] = "powershell.exe -Command 'Start-Process '"
+settings['external_browser'] = (function()
+  if is_windows == 1 then
+    return "powershell.exe -Command 'Start-Process '"
+  else
+    return 'start '
+  end
+end)()
 
 -- Filetypes in this list will skip lsp formatting if rhs is true
 ---@type table<string, boolean>
@@ -88,8 +95,6 @@ if vim.fn.executable 'bash' == 1 then
 end
 if vim.fn.executable 'cargo' == 1 then
   table.insert(settings['lsp_deps'], 'rust_analyzer')
-
-  table.insert(settings['null_ls_deps'], 'rustfmt')
 end
 if vim.fn.executable 'fish' == 1 then
   table.insert(settings['null_ls_deps'], 'fish_indent')
@@ -97,6 +102,7 @@ end
 if vim.fn.executable 'node' == 1 then
   table.insert(settings['lsp_deps'], 'jsonls')
   table.insert(settings['lsp_deps'], 'html')
+  table.insert(settings['null_ls_deps'], 'cspell')
   table.insert(settings['null_ls_deps'], 'prettierd')
   table.insert(settings['null_ls_deps'], 'eslintd')
   table.insert(settings['null_ls_deps'], 'stylelint')
