@@ -5,11 +5,11 @@ editor['rainbowhxch/accelerated-jk.nvim'] = {
   event = 'VeryLazy',
   config = require 'editor.accelerated-jk',
 }
-editor['rmagatti/auto-session'] = {
-  lazy = true,
-  cmd = { 'SaveSession', 'RestoreSession', 'DeleteSession' },
-  config = require 'editor.auto-session',
-}
+-- editor['rmagatti/auto-session'] = {
+--   lazy = true,
+--   cmd = { 'SessionSave', 'SessionRestore', 'SessionDelete' },
+--   config = require 'editor.auto-session',
+-- }
 editor['m4xshen/autoclose.nvim'] = {
   lazy = true,
   event = 'InsertEnter',
@@ -65,17 +65,22 @@ editor['phaazon/hop.nvim'] = {
   event = 'BufReadPost',
   config = require 'editor.hop',
 }
-editor['GeekMasher/securitree.nvim'] = {
+editor['kylechui/nvim-surround'] = {
   lazy = true,
-  event = 'BufReadPost',
-  config = require 'editor.securitree',
-  dependencies = {
-    'nvim-treesitter/nvim-treesitter',
-    'MunifTanjim/nui.nvim',
-    -- optional
-    -- "nvim-treesitter/playground"
-  },
+  event = 'VeryLazy',
+  config = require 'editor.nvim-surround',
 }
+-- editor['GeekMasher/securitree.nvim'] = {
+--   lazy = true,
+--   event = 'BufReadPost',
+--   config = require 'editor.securitree',
+--   dependencies = {
+--     'nvim-treesitter/nvim-treesitter',
+--     'MunifTanjim/nui.nvim',
+--     -- optional
+--     -- "nvim-treesitter/playground"
+--   },
+-- }
 editor['RRethy/vim-illuminate'] = {
   lazy = true,
   event = { 'CursorHold', 'CursorHoldI' },
@@ -85,9 +90,9 @@ editor['luukvbaal/stabilize.nvim'] = {
   lazy = true,
   event = 'BufReadPost',
 }
--- editor['Shatur/neovim-session-manager'] = { -- Auto jump to last location
---   config = require 'editor.session-manager',
--- }
+editor['Shatur/neovim-session-manager'] = { -- Auto jump to last location
+  config = require 'editor.session-manager',
+}
 editor['romainl/vim-cool'] = { -- Improved highlighting usability
   lazy = true,
   event = { 'CursorMoved', 'InsertEnter' },

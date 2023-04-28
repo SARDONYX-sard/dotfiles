@@ -18,34 +18,20 @@ return function()
   -- Please set additional flags for the supported servers here
   -- Don't specify any config here if you are using the default one.
   local sources = {
-    -- btns.code_actions.cspell,
-    -- btns.code_actions.gitsigns,
-    -- btns.code_actions.shellcheck,
-    -- btns.completion.luasnip,
-    -- btns.completion.spell,
-    -- btns.completion.tags,
-    -- btns.diagnostics.gitlint,
-    -- btns.diagnostics.mypy, -- static type checker for Python
-    -- btns.diagnostics.ruff, -- fast python linter
-    -- btns.diagnostics.selene, -- fast lua linter
-    -- btns.diagnostics.stylelint, -- css linter
-    -- btns.diagnostics.yamllint,
-    -- btns.formatting.fish_indent, -- fish shell formatter
-    -- btns.formatting.stylua, -- fast lua formatter
-    -- btns.hover.printenv,
-
     -- With override configurations
     btns.code_actions.eslint_d.with { condition = prevenet_conflict_deno_lint }, -- js, ts linter
     btns.diagnostics.eslint_d.with { condition = prevenet_conflict_deno_lint }, -- js, ts linter
     btns.diagnostics.luacheck.with { extra_args = { '--globals', 'vim', '--globals', 'awesome' } }, -- static type check of lua
-    btns.diagnostics.cspell.with { -- spell checker(need `npm`(node.js)
-      diagnostics_postprocess = function(diagnostic)
-        diagnostic.severity = vim.diagnostic.severity['INFO']
-      end,
-      condition = function()
-        return vim.fn.executable 'cspell' > 0
-      end,
-    },
+    -- NOTE: Comment out because for some reason the setting cannot be overwritten
+    --
+    -- btns.diagnostics.cspell.with { -- spell checker(need `npm`(node.js)
+    --   diagnostics_postprocess = function(diagnostic)
+    --     diagnostic.severity = vim.diagnostic.severity['INFO']
+    --   end,
+    --   condition = function()
+    --     return vim.fn.executable 'cspell' > 0
+    --   end,
+    -- },
     btns.formatting.prettierd.with { condition = prevenet_conflict_deno_fmt 'prettierd' }, -- frontend fmt
     btns.formatting.deno_fmt.with { condition = prevenet_conflict_deno_fmt 'deno' }, -- js runtime env by Rust
     btns.formatting.black.with { extra_args = { '--fast' } }, -- python fmt
