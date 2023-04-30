@@ -21,23 +21,16 @@ return function()
 
   require('hlchunk').setup {
     chunk = {
-      -- enable = true,
-      style = {
-        hibiscus = '#BB0000',
-        primrose = '#c06f98',
-      },
+      style = '#BB0000',
     },
     indent = {
-      -- enable = true,
       chars = { '┊' },
       exclude_filetype = exclude_filetype,
     },
     line_num = {
-      -- enable = true,
       style = '#6b8f81', ---@type '#008080'|'#8b8f81'|'#6b8f81' - Candidate colors.
     },
     blank = {
-      -- enable = true,
       chars = { '·' },
       exclude_filetype = exclude_filetype,
       style = {
