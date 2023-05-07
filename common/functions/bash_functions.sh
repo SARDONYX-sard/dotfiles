@@ -72,7 +72,6 @@ function update-all-libs() {
     yay -Syyu --noconfirm
   elif command -v apt >/dev/null 2>&1; then
     sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove
-    end
   fi
 
   (command -v deno) >/dev/null 2>&1 && deno upgrade
