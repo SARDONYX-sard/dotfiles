@@ -16,13 +16,17 @@
   ui = auto
 [credential "helperselector"]
   selected = manager
+[credential]
+  helper = manager
 [init]
   defaultBranch = main
-[difftool "sourcetree"]
-  cmd = '' \"$LOCAL\" \"$REMOTE\"
-[mergetool "sourcetree"]
-  cmd = "'' "
-  trustExitCode = true
+[merge]
+  conflictstyle = diff3
+  defaultToUpstream = true
+[push]
+  default = current
+[rebase]
+  stat = true
 [alias]                   # `!`: Meaning run an external command instead of a git subcommand.
   aa = add -A .# Staged all files.
   amend = commit --amend -m# Rewrite the latest commit message that has not been pushed
@@ -36,7 +40,7 @@
   chf = !git fetch && git checkout# Check fetch
   cp = cherry-pick# Can bring in commits from another branch.
   # Multiple commits from different branches can be selected and brought in.
-  df = "!f() { args=$@; [ -z \"$args\" ] && args=HEAD; ([ \"$args\" = \"HEAD\" ] && git status --short || git diff --name-status $args | sed 's/\t/  /')  | cut -c 4- | xargs git diff --color=always $args --\" --multi --height 90% | cut -c 4-; }; f"
+  df = "!f() { args=$@; [ -z \"$args\" ] && args=HEAD; ([ \"$args\" = \"HEAD\" ] && git status --short || git diff --name-status $args | sed 's/\t/  /')  | cut -c 4- | xargs git diff --color=always $args -- --multi --height 90% | cut -c 4-; }; f"
   delete-merged-branch = "!f() { branch=${1:-main}; git checkout main; git branch --merged|egrep -v '\\*|develop|main|master'|xargs --max-args=1 --no-run-if-empty git branch -d; };f"
   dfw = diff --word-diff# Display word-level differences in color.
   edit = config --global --edit
@@ -70,4 +74,3 @@
   sync = !git stash push --include-untracked && git fetch -p && git push origin --tags && git delete-merged-branch && git stash pop
   undo = reset HEAD~1
   unstage = reset# unstaged all files.
-
