@@ -82,7 +82,6 @@ settings['null_ls_deps'] = {
   'clang_format',
   'editorconfig_checker',
   'gitlint',
-  'gitsigns',
   'selene',
   'stylua',
   'yamllint',
@@ -104,13 +103,12 @@ if vim.fn.executable 'node' == 1 then
   table.insert(settings['lsp_deps'], 'html')
   table.insert(settings['null_ls_deps'], 'cspell')
   table.insert(settings['null_ls_deps'], 'prettierd')
-  table.insert(settings['null_ls_deps'], 'eslintd')
+  -- table.insert(settings['null_ls_deps'], 'eslintd')
   table.insert(settings['null_ls_deps'], 'stylelint')
 end
 if vim.fn.executable 'python3' == 1 then
   table.insert(settings['null_ls_deps'], 'black')
   table.insert(settings['null_ls_deps'], 'mypy')
-  table.insert(settings['null_ls_deps'], 'printenv')
   table.insert(settings['null_ls_deps'], 'ruff')
 end
 
