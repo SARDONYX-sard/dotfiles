@@ -5,8 +5,8 @@
     "@cspell/dict-powershell/cspell-ext.json",
     "@cspell/dict-public-licenses/cspell-ext.json",
     "@cspell/dict-python/cspell-ext.json",
-    "@cspell/dict-rust/cspell-ext.json",
-    "cspell-dict-vimlang/cspell-ext.json"
+    "@cspell/dict-rust/cspell-ext.json"
+    // ,"cspell-dict-vimlang/cspell-ext.json"
   ],
   "version": "0.2",
   "language": "en",

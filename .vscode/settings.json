@@ -102,19 +102,21 @@
     "wsltty",
     "zoxide"
   ],
-  "editor.rulers": [80],
+  "editor.rulers": [
+    80
+  ],
   "editor.tabCompletion": "on",
   "files.associations": {
-    "*.json": "jsonc",
-    "*.txt": "txt",
-    "*.vim": "viml",
     ".editorconfig": "properties",
     ".envpath": "shellscript",
     ".gitconfig": "gitconfig",
     ".gitignore": "ignore",
     ".luacheckrc": "lua",
-    "LICENSE": "txt",
-    "git-config.txt": "gitconfig"
+    "*.json": "jsonc",
+    "*.txt": "txt",
+    "*.vim": "viml",
+    "git-config.txt": "gitconfig",
+    "LICENSE": "txt"
   },
   "files.exclude": {
     "**/__pycache__": true,
@@ -135,6 +137,7 @@
   "Lua.hint.setType": true,
   "python.analysis.typeCheckingMode": "strict",
   "python.envFile": "${workspaceFolder}/.env",
+  "python.formatting.provider": "none",
   "python.linting.enabled": true,
   "python.linting.lintOnSave": true,
   "python.linting.pycodestyleEnabled": false
