@@ -35,11 +35,11 @@ ui['nvim-lualine/lualine.nvim'] = {
   event = { 'BufReadPost', 'BufAdd', 'BufNewFile' },
   config = require 'ui.lualine',
 }
-ui['zbirenbaum/neodim'] = {
-  lazy = true,
-  event = 'LspAttach',
-  config = require 'ui.neodim',
-}
+-- ui['zbirenbaum/neodim'] = { -- Now it's buggy and therefore not used.
+--   lazy = true,
+--   event = 'LspAttach',
+--   config = require 'ui.neodim',
+-- }
 ui['karb94/neoscroll.nvim'] = {
   lazy = true,
   event = 'BufReadPost',
