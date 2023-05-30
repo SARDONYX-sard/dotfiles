@@ -1,3 +1,6 @@
-if (Get-Command pip) {
-  function pips() { pip_search $args };
+if (Get-Command pip -ErrorAction SilentlyContinue)
+{
+  function pips()
+  { pip_search $args
+  };
 }
