@@ -24,14 +24,14 @@ return function()
     btns.diagnostics.luacheck.with { extra_args = { '--globals', 'vim', '--globals', 'awesome' } }, -- static type check of lua
     -- NOTE: Comment out because for some reason the setting cannot be overwritten
     --
-    -- btns.diagnostics.cspell.with { -- spell checker(need `npm`(node.js)
-    --   diagnostics_postprocess = function(diagnostic)
-    --     diagnostic.severity = vim.diagnostic.severity['INFO']
-    --   end,
-    --   condition = function()
-    --     return vim.fn.executable 'cspell' > 0
-    --   end,
-    -- },
+    btns.diagnostics.cspell.with { -- spell checker(need `npm`(node.js)
+      diagnostics_postprocess = function(diagnostic)
+        diagnostic.severity = vim.diagnostic.severity['INFO']
+      end,
+      condition = function()
+        return vim.fn.executable 'cspell' > 0
+      end,
+    },
     btns.formatting.prettierd.with { condition = prevenet_conflict_deno_fmt 'prettierd' }, -- frontend fmt
     btns.formatting.deno_fmt.with { condition = prevenet_conflict_deno_fmt 'deno' }, -- js runtime env by Rust
     btns.formatting.black.with { extra_args = { '--fast' } }, -- python fmt
