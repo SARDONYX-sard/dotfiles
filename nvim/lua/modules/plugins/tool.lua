@@ -102,9 +102,9 @@ tool['nvim-telescope/telescope.nvim'] = {
       -- NOTE: If you are having trouble with this installation,
       --       refer to the README for telescope-fzf-native for more instructions.
       build = (function()
-        if vim.fn.has 'win32' then
+        if vim.fn.has 'win32' == 1 then
           return 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
-        elseif vim.fn.has 'unix' then
+        elseif vim.fn.has 'unix' == 1 then
           return 'make'
         end
       end)(),
