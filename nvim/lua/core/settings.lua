@@ -101,7 +101,7 @@ end
 if vim.fn.executable 'node' == 1 then
   table.insert(settings['lsp_deps'], 'jsonls')
   table.insert(settings['lsp_deps'], 'html')
-  table.insert(settings['null_ls_deps'], 'cspell')
+  -- table.insert(settings['null_ls_deps'], 'cspell')
   table.insert(settings['null_ls_deps'], 'prettierd')
   -- table.insert(settings['null_ls_deps'], 'eslintd')
   table.insert(settings['null_ls_deps'], 'stylelint')
