@@ -45,6 +45,7 @@ function Get-ShortenPath([string] $path) {
 }
 
 if ($PSVersionTable.PSEdition -eq "Core") {
-  oh-my-posh --init --shell pwsh --config "$HOME\dotfiles\common\data\oh-my-posh-themes\my-custom.json" | Invoke-Expression
+  oh-my-posh --init pwsh --config "$HOME\dotfiles\common\data\oh-my-posh-themes\my-custom.json" | Invoke-Expression
 }
+
 Set-KaliTheme
