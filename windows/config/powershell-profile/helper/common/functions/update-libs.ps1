@@ -22,9 +22,11 @@ function update-all-libs {
   )
 
   foreach ($Lib in $Libs) {
-    Write-Host "`n`n"
-    Write-Host "$($Lib.name): " -NoNewline
-    Write-Host "libs or itself is updating..." -ForegroundColor Blue
-    $Lib.installer | Invoke-Expression
+    if ($Lib.name -Split " " | Get-Command -ErrorAction SilentlyContinue) {
+      Write-Host "`n`n"
+      Write-Host "$($Lib.name): " -NoNewline
+      Write-Host "libs or itself is updating..." -ForegroundColor Blue
+      $Lib.installer | Invoke-Expression
+    }
   }
 }
