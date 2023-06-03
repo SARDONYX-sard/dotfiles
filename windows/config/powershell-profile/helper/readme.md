@@ -16,6 +16,10 @@
   tab completion, etc. can be lazy-loaded. Normal functions will fail to load
   lazily.
 
+## enhanced-lazy.ps1
+
+- Lazy loading "behavior", "external-modules-settings" dirs.
+
 ## shell-design.ps1
 
 - Delayed loading of oh-my-posh and other functions to speed up terminal
