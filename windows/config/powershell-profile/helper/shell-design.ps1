@@ -16,19 +16,21 @@ function Set-KaliTheme {
     Write-Host ("[") -NoNewline -ForegroundColor DarkGreen
     Write-Host (Get-ShortenPath([string] (Get-Location).Path)) -NoNewline -ForegroundColor White
     Write-Host ("]") -NoNewline -ForegroundColor Green
-    Write-Host (" ") -NoNewline
-    Write-Host (Get-Date -Format g) -NoNewline -ForegroundColor DarkYellow
-    Write-Host (" ") -NoNewline
-    # Write-Host ("[") -NoNewline -ForegroundColor DarkGreen
-    # Write-Host ($env:username) -NoNewline -ForegroundColor DarkCyan
-    # Write-Host ("@") -NoNewline -ForegroundColor yellow
-    # Write-Host (hostname) -NoNewline -ForegroundColor DarkCyan
-    # Write-Host ("]") -NoNewline -ForegroundColor DarkGreen
-    Write-Host (" ") -ForegroundColor DarkGray
+
+    if ((Get-History).count -ge 1) {
+      $executionTime = ((Get-History)[-1].EndExecutionTime - (Get-History)[-1].StartExecutionTime).Totalmilliseconds
+    }
+    $executionTime = [math]::Round($executionTime, 2)
+    Write-Host " (" -NoNewline -ForegroundColor darkcyan
+    Write-Host "$executionTime" -NoNewline
+    Write-Host "ms" -NoNewline -ForegroundColor DarkGray
+    Write-Host ") " -NoNewline -ForegroundColor darkcyan
+
+    Write-Host (Get-Date -Format g)  -ForegroundColor DarkYellow
     if ($PSVersionTable.PSEdition -eq "Core") {
       Write-Host ("└─") -NoNewline -ForegroundColor DarkGreen
     }
-    Write-Host ($isAdmin) -NoNewline -ForegroundColor DarkCyan
+    Write-Host ($isAdmin) -NoNewline -ForegroundColor darkcyan
   }
   # Default color for the rest
   else {
