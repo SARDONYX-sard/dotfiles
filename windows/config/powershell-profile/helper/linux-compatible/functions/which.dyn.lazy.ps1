@@ -29,8 +29,7 @@ if ($path -match "scoop?:(\/|\\)shims") {
 switch ($path.CommandType) {
   "Alias" { $path = Get-Command $path.Definition }
   "Function" {
-    $path = $path.Definition -replace '^(\w+)\s.*$', '$1' `
-    | Get-Command -ErrorAction SilentlyContinue
+    $path = $path.Definition -replace '^(\w+)\s.*$', '$1' | Get-Command -ErrorAction SilentlyContinue
   }
   Default {}
 }

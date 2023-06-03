@@ -3,8 +3,8 @@
 # Are you root?
 $isDebug = $d.IsPresent -or $isDebug.IsPresen
 if ($isDebug -eq $false) {
-  if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(`
-        [Security.Principal.WindowsBuiltInRole] "Administrator")) {
+  if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(
+      [Security.Principal.WindowsBuiltInRole] "Administrator")) {
     Invoke-Expression "sudo $PsCommandPath $(if ($force) {"-force"})"
     exit $?
   }
