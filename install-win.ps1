@@ -10,8 +10,8 @@ if ($Light) { Write-Host "Lightweight mode is enabled." -ForegroundColor Blue }
 
 # Are you root?
 if ($isDebug -eq $false) {
-  if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(`
-        [Security.Principal.WindowsBuiltInRole] "Administrator")) {
+  if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(
+      [Security.Principal.WindowsBuiltInRole] "Administrator")) {
     Write-Error "This script must be run as an administrator."
     exit $?
   }
