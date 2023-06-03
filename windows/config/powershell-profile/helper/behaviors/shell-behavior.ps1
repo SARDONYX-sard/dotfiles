@@ -1,7 +1,6 @@
 Set-PSReadLineOption -BellStyle None
-
-Set-PsReadLineOption -EditMode Vi
-
+Set-PSReadLineOption -EditMode Vi
+Set-PSReadLineOption -HistoryNoDuplicates # https://github.com/PowerShell/PSReadLine/blob/master/PSReadLine/SamplePSReadLineProfile.ps1
 
 if (Get-Command nvim -ErrorAction SilentlyContinue) {
   $env:EDITOR = $env:VISUAL = 'nvim'
@@ -11,43 +10,48 @@ if (Get-Command nvim -ErrorAction SilentlyContinue) {
 Set-PSReadLineOption -ViModeIndicator Script -ViModeChangeHandler {
   $ESC = "$([char]0x1b)"
   if ($args[0] -eq 'Command') {
-    # Set the cursor to a blinking block.
-    Write-Host -NoNewline "${ESC}[1 q"
+    Write-Host -NoNewline "${ESC}[1 q" # Set the cursor to a blinking block.
+    return
   }
-  else {
-    # Set the cursor to a blinking line.
-    Write-Host -NoNewline "${ESC}[5 q"
-  }
+  Write-Host -NoNewline "${ESC}[5 q" # Set the cursor to a blinking line.
 }
 
-# https://github.com/PowerShell/PSReadLine/blob/master/PSReadLine/SamplePSReadLineProfile.ps1
-Set-PSReadlineOption -HistoryNoDuplicates
-
-# DeBounce insert mode to normal mode.
+# DeBounce insert mode to normal mode.(insert mode -> "jj" or "jk" -> normal mode)
 # https://github.com/PowerShell/PSReadLine/issues/1701
-$j_timer = New-Object System.Diagnostics.Stopwatch
-
-Set-PSReadLineKeyHandler -Key j -ViMode Insert -ScriptBlock {
-  [Microsoft.PowerShell.PSConsoleReadLine]::Insert("j")
-  $j_timer.Restart()
-}
-
-Set-PSReadLineKeyHandler -Key k -ViMode Insert -ScriptBlock {
-  if (!$j_timer.IsRunning -or $j_timer.ElapsedMilliseconds -gt 150) {
-    [Microsoft.PowerShell.PSConsoleReadLine]::Insert("k")
-  }
-  else {
+$local:j_timer = New-Object System.Diagnostics.Stopwatch
+function Set-DebounceChangeMode {
+  Set-PSReadLineKeyHandler -Key "j" -ViMode Insert -ScriptBlock {
+    if (!$j_timer.IsRunning -or $j_timer.ElapsedMilliseconds -gt 300) {
+      [Microsoft.PowerShell.PSConsoleReadLine]::Insert("j")
+      $j_timer.Restart()
+      return
+    }
+    [Microsoft.PowerShell.PSConsoleReadLine]::Insert("j")
     [Microsoft.PowerShell.PSConsoleReadLine]::ViCommandMode()
-    $line = $null
-    $cursor = $null
+    $local:line = $null
+    $local:cursor = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+    [Microsoft.PowerShell.PSConsoleReadLine]::Delete($cursor - 1, 2)
+    [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor - 2)
+  }
+
+  Set-PSReadLineKeyHandler -Key "k" -ViMode Insert -ScriptBlock {
+    if (!$j_timer.IsRunning -or $j_timer.ElapsedMilliseconds -gt 300) {
+      [Microsoft.PowerShell.PSConsoleReadLine]::Insert("k")
+      return
+    }
+    [Microsoft.PowerShell.PSConsoleReadLine]::ViCommandMode()
+    $local:line = $null
+    $local:cursor = $null
     [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
     [Microsoft.PowerShell.PSConsoleReadLine]::Delete($cursor, 1)
     [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor - 1)
   }
 }
+Set-DebounceChangeMode
 
 # Commands with only one alphabetic character are not kept in the history.
-Set-PSReadlineOption -AddToHistoryHandler {
+Set-PSReadLineOption -AddToHistoryHandler {
   param ($command)
   switch -regex ($command) {
     "SKIPHISTORY" { return $false }
@@ -57,7 +61,7 @@ Set-PSReadlineOption -AddToHistoryHandler {
 }
 
 # Don't forget closing brackets when completing methods
-Remove-PSReadlineKeyHandler "tab"
+Remove-PSReadLineKeyHandler "tab"
 Set-PSReadLineKeyHandler -Key "tab" -BriefDescription "smartNextCompletion" -LongDescription "insert closing parenthesis in forward completion of method" -ScriptBlock {
   [Microsoft.PowerShell.PSConsoleReadLine]::TabCompleteNext()
   $line = $null
@@ -72,7 +76,7 @@ Set-PSReadLineKeyHandler -Key "tab" -BriefDescription "smartNextCompletion" -Lon
   }
 }
 
-Remove-PSReadlineKeyHandler "shift+tab"
+Remove-PSReadLineKeyHandler "shift+tab"
 Set-PSReadLineKeyHandler -Key "shift+tab" -BriefDescription "smartPreviousCompletion" -LongDescription "insert closing parenthesis in backward completion of method" -ScriptBlock {
   [Microsoft.PowerShell.PSConsoleReadLine]::TabCompletePrevious()
   $line = $null
