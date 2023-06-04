@@ -20,7 +20,3 @@ if (Get-Command winget -ErrorAction SilentlyContinue) {
     Default { winget $cmd }
   }
 }
-
-if (Get-Command sudo -ErrorAction SilentlyContinue) {
-  function wua { sudo winget upgrade --all }
-}
