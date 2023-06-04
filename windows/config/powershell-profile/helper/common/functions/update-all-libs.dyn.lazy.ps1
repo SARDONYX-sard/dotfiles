@@ -17,7 +17,7 @@ $Libs = @(
 
   # software(need sudo)
   @{ name = "scoop global"; installer = "sudo scoop update * --global && sudo scoop cleanup * --cache --global;Get-ChildItem $ScoopCachePath -Include *.* -Recurse | Remove-Item;" }
-  @{ name = "windget"; installer = "sudo winget upgrade --all" }
+  @{ name = "winget"; installer = "sudo winget upgrade --all" }
 )
 
 foreach ($Lib in $Libs) {
