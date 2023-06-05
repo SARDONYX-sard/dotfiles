@@ -6,3 +6,6 @@ if (Get-Command pip_search -ErrorAction SilentlyContinue) {
     pip.exe @args
   }
 }
+else {
+  pip.exe @args
+}

@@ -6,3 +6,6 @@ if (Get-Command scoop-search -ErrorAction SilentlyContinue) {
     scoop.ps1 @args
   }
 }
+else {
+  scoop.ps1 @args
+}
