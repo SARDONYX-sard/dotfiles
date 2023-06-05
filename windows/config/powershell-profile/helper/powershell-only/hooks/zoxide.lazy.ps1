@@ -29,8 +29,4 @@ New-CacheFile -CreateCacheCmd "`$(zoxide init --cmd z --hook $hook powershell).R
 
 if (Test-Path "$CachePwsh/hooks/zoxide.ps1") {
   . "$CachePwsh/hooks/zoxide.ps1"
-  Remove-Item alias:cd -Force
-  # we don't want to use hook.Because we want to use cd && ls.
-  # cd function Couldn't lazy load.
-  New-DynamicFunction -CommandName cd -FunctionBody  'Invoke-Expression "z $args;ls"'
 }
