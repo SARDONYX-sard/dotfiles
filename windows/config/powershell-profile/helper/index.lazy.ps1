@@ -8,7 +8,7 @@ function New-DynamicFunction {
   )
 
   if ($FunctionBody -eq $null) {
-    $Body = $ScriptBlock
+    $Body = $ScriptBlock.ToString()
   }
   elseif ($ScriptBlock -eq $null) {
     $Body = $FunctionBody
