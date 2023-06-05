@@ -7,6 +7,12 @@
       "keys": "alt+enter"
     },
     {
+      "command": {
+        "action": "scrollDown"
+      },
+      "keys": "ctrl+shift+j"
+    },
+    {
       "command": "find",
       "keys": "ctrl+shift+f"
     },
@@ -17,6 +23,12 @@
         "splitMode": "duplicate"
       },
       "keys": "ctrl+shift+l"
+    },
+    {
+      "command": {
+        "action": "scrollUp"
+      },
+      "keys": "ctrl+shift+k"
     }
   ],
   "copyFormatting": "none",
