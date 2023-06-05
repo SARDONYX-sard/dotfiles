@@ -25,11 +25,10 @@ function New-CacheFile {
   $CreateCacheCmd | Invoke-Expression > $FullPath
 }
 
-$local:hook = if ($PSVersionTable.PSVersion.Major -lt 6) { 'prompt' } else { 'pwd' }
 $local:CachePwsh = "$HOME/.cache/pwsh/"
-New-CacheFile -CreateCacheCmd "`$(zoxide init --cmd z --hook $hook powershell).Replace('function ', 'function script:')" `
-  -FileName zoxide -TargetDir "$CachePwsh/hooks"
-
-if (Test-Path "$CachePwsh/hooks/zoxide.ps1") {
-  . "$CachePwsh/hooks/zoxide.ps1"
+if (!(Test-Path "$CachePwsh/hooks/zoxide.ps1")) {
+  $local:hook = if ($PSVersionTable.PSVersion.Major -lt 6) { 'prompt' } else { 'pwd' }
+  New-CacheFile -FileName zoxide -TargetDir "$CachePwsh/hooks" `
+    -CreateCacheCmd "`$(zoxide init --cmd z --hook $hook powershell).Replace('function ', 'function script:').Replace('function script:prompt', 'function prompt')"
 }
+. "$CachePwsh/hooks/zoxide.ps1"
