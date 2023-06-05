@@ -6,15 +6,11 @@
 @(
   @{ name = "$HOME"; alias_name = "~" }
   @{ name = "clear"; alias_name = "c" }
-) |
-ForEach-Object { Set-Alias $_.alias_name $_.name }
 
-# exe files
-@(
+  #! Conditional branching by `Get-Command` causes a delay of `100ms` or more,
+  #! so assume that the command is present to prevent reading delays.
   # Virtual machine
   @{ name = "docker-compose"; alias_name = "dc" }
   @{ name = "docker"; alias_name = "dk" }
 ) |
-ForEach-Object {
-  if (Get-Command $_.name -ErrorAction SilentlyContinue) { Set-Alias $_.alias_name $_.name }
-}
+ForEach-Object { Set-Alias $_.alias_name $_.name }

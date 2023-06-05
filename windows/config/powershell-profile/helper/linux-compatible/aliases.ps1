@@ -14,7 +14,7 @@ if ($PSVersionTable.PSEdition -eq "Core") {
     @{ name = "procs"; alias_name = "ps" }
     @{ name = "rg"; alias_name = "grep" }
   ) |
-  ForEach-Object {
-    if (Get-Command $_.name -ErrorAction SilentlyContinue) { Set-Alias $_.alias_name $_.name }
-  }
+  #! Conditional branching by `Get-Command` causes a delay of `100ms` or more,
+  #! so assume that the command is present to prevent reading delays.
+  ForEach-Object { Set-Alias $_.alias_name $_.name }
 }
