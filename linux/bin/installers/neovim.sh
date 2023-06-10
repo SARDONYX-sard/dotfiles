@@ -1,29 +1,52 @@
 #!/usr/bin/env bash
 
-function check_deps() {
-  local deps_array=(
-    "command"
-    "tar"
-    "wget"
-  )
+help=@"
+-f | --force: Force install neovim.
+-h | --help : Show this help.
+"@
 
+while (($# > 0)); do
+  case "${1}" in
+  -f | --force)
+    force="true"
+    shift # shift once since flags have no values
+    ;;
+  -h | --help)
+    echo "${help}"
+    exit 0
+    ;;
+  *) # unknown flag/switch
+    shift
+    ;;
+  esac
+done
+
+function check_deps() {
+  declare -a deps=("command" "tar" "curl" "arch")
   local no_deps="false"
 
-  for dep in "${deps_array[@]}"; do
-    (command -v "${dep}") >/dev/null 2>&1 && printf "%s not found" dep && no_deps="true"
+  for dep in "${deps[@]}"; do
+    if ! command -v "${dep}" >/dev/null 2>&1; then
+      printf "%s not found \n" "${dep}"
+      no_deps="true"
+    fi
   done
 
-  [ $no_deps == "true" ] && exit 1
+  [[ "${no_deps}" == "true" ]] && exit 1
 }
 check_deps
 
-(command -v nvim) >/dev/null 2>&1 && printf "oh-my-posh already installed." && exit 0
+arch=$(arch)
+[[ "${arch}" != "x86_64" ]] && printf "This installer only x86_64.\n" && exit 1
 
-wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.deb -O "$HOME"/nvim-linux64.deb
-sudo apt install "$HOME"/nvim-linux64.deb || read -rep "dangerous fix? y/n" -i "n" answer
-test "${answer}" == "y" && sudo dpkg -i --force-overwrite "$HOME"/nvim-linux64.deb
+([[ "${force}" != "true" ]] && command -v nvim) >/dev/null 2>&1 && printf "neovim already installed.\n" && exit 0
 
-# wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz -o "$HOME"/nvim-linux64.tar.gz
-# tar zxf nvim-linux64.tar.gz
-# sudo mv "$HOME"/nvim-linux64/bin/nvim /usr/local/bin
-# rm "$HOME"/nvim-linux64.tar.gz ./nvim-linux64
+printf "Installing neovim...\n"
+
+curl -OL https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz -o "${HOME}"/nvim-linux64.tar.gz
+tar zxf "${HOME}"/nvim-linux64.tar.gz
+sudo mv "${HOME}/nvim-linux64/bin/nvim" /usr/local/bin/
+sudo -p /usr/share # -p: preserve group verctor
+sudo mv "${HOME}/nvim-linux64/share/" /usr/share/
+/bin/rm "${HOME}/nvim-linux64.tar.gz" ./nvim-linux64
+printf "Installing neovim.\n"
