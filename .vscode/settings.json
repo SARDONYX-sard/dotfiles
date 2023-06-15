@@ -6,7 +6,7 @@
     "editor.defaultFormatter": "JohnnyMorganz.stylua"
   },
   "[python]": {
-    "editor.defaultFormatter": "ms-python.python",
+    "editor.defaultFormatter": "ms-python.black-formatter",
     "editor.formatOnType": false,
     "editor.tabSize": 4
   },
@@ -102,9 +102,7 @@
     "wsltty",
     "zoxide"
   ],
-  "editor.rulers": [
-    80
-  ],
+  "editor.rulers": [80],
   "editor.tabCompletion": "on",
   "files.associations": {
     ".editorconfig": "properties",
