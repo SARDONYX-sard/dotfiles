@@ -54,7 +54,9 @@ def get_current_corepack_version(manager_name: Literal["npm", "yarn", "pnpm"]):
     return shell_exec(cmd)
 
 
-def get_latest_version(manager_name: Literal["npm", "yarn", "pnpm"], is_debug: bool):
+def get_latest_version(
+    manager_name: Literal["npm", "yarn", "pnpm"], is_debug: bool
+):  # noqa: E501
     """Get latest manager version
 
     Args:
@@ -65,12 +67,21 @@ def get_latest_version(manager_name: Literal["npm", "yarn", "pnpm"], is_debug: b
         latest package manager's version
     """
     version_regexp = "[0-9]?[0-9]\\.[0-9]?[0-9]\\.[0-9]?[0-9]"
+
     cmd = f'npm search {manager_name} | rg "^{manager_name} .* {version_regexp}" \
 | rg -o "{version_regexp}"'
 
     if is_debug:
         print(color("DEBUG: Execute command ", "cyan") + f"{cmd}")
-    return shell_exec(cmd)  # `-o` is ripgrep only match option
+
+    latest_version = shell_exec(cmd)  # `-o` is ripgrep only match option
+    if latest_version == "":
+        print(
+            color("WARN: Failed to get latest version. Fallback to use pnpm", "yellow")
+        )
+        latest_version = shell_exec(f"p{cmd}")
+
+    return latest_version
 
 
 def remove(path: Path):
