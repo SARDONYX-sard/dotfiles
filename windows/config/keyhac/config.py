@@ -13,35 +13,17 @@ from keyhac import Keymap
 
 
 def configure(keymap: Keymap):
+    keymap_global = keymap.defineWindowKeymap()
 
-    # --------------------------------------------------------------------
-    # Text editor setting for editing config.py file
+    keymap.defineModifier(235, "User0")  # User modifier key definition
+    keymap.replaceKey("RShift", 235)  # Simple key replacement
 
-    # Setting with program file path (Simple usage)
-    if 1:
-        keymap.editor = "nvim.exe"
-
-    # --------------------------------------------------------------------
-    # Customizing the display
-
-    # Font
+    keymap.editor = "nvim.exe" if os.name == "nt" else "nvim"
     keymap.setFont("MS Gothic", 12)
-
-    # Theme
     keymap.setTheme("black")
-
-    # --------------------------------------------------------------------
-
-    # Simple key replacement
-    keymap.replaceKey("RShift", 235)
-
-    # User modifier key definition
-    keymap.defineModifier(235, "User0")
 
     # Global keymap which affects any windows
     if 1:
-        keymap_global = keymap.defineWindowKeymap()
-
         # vim like
         keymap_global["LShift-Alt-H"] = "Left"
         keymap_global["LShift-Alt-J"] = "Down"
@@ -50,7 +32,6 @@ def configure(keymap: Keymap):
 
         keymap_global["LCtrl-H"] = "Back"
         keymap_global["LCtrl-M"] = "Enter"
-        # keymap_global["LCtrl-I"] = "Tab"
         keymap_global["LCtrl-OpenBracket"] = "Escape"
 
         # USER0-Ctrl-Up/Down/Left/Right : Move active window to screen edges
@@ -59,7 +40,6 @@ def configure(keymap: Keymap):
         keymap_global["U0-C-W"] = keymap.MoveWindowToMonitorEdgeCommand(1)
         keymap_global["U0-C-S"] = keymap.MoveWindowToMonitorEdgeCommand(3)
 
-        # Mark for quote pasting
         keymap.quote_mark = "> "
 
         # Keyboard macro
@@ -71,42 +51,35 @@ def configure(keymap: Keymap):
 
     # USER0-Space : Application launcher using custom list window
     if 1:
-        def command_pop_application_list():
 
-            # If the list window is already opened, just close it
+        def command_pop_application_list():
+            # For toggle window.
             if keymap.isListWindowOpened():
                 keymap.cancelListWindow()
                 return
 
             def pop_application_list():
+                # config
+                dl_dir = "E:\\ダウンロード"
 
-                applications = [
-                    ("Notepad", keymap.ShellExecuteCommand(
-                        None, "notepad.exe", "", "")), ("Paint", keymap.ShellExecuteCommand(
-                            None, "mspaint.exe", "", "")), ]
-
-                websites = [
-                    ("Google",
-                     keymap.ShellExecuteCommand(
-                         None,
-                         "https://www.google.co.jp/",
-                         "",
-                         "")),
-                    ("Twitter",
-                     keymap.ShellExecuteCommand(
-                         None,
-                         "https://twitter.com/",
-                         "",
-                         "")),
+                shell = keymap.ShellExecuteCommand
+                is_win = os.name == "nt"
+                apps = [
+                    ("-- Editor --", None),
+                    ("Notepad", shell(None, "notepad.exe", "", "") if is_win else None),
+                    ("Neovide", shell(None, "neovide.exe", "", "") if is_win else None),
+                    ("VSCode", shell(None, "code", "", "")),
+                    #
+                    (
+                        "-- Explorer --",
+                        shell(None, "explorer.exe", dl_dir, "") if is_win else None,
+                    ),
+                    #
+                    ("-- Web --", shell(None, "https://www.google.com/", "", "")),
+                    ("Twitter", shell(None, "https://twitter.com/", "", "")),
                 ]
 
-                listers = [
-                    ("App", cblister_FixedPhrase(applications)),
-                    ("WebSite", cblister_FixedPhrase(websites)),
-                ]
-
-                item, mod = keymap.popListWindow(listers)
-
+                item, _ = keymap.popListWindow([("App", cblister_FixedPhrase(apps))])
                 if item:
                     item[1]()
 
@@ -116,61 +89,63 @@ def configure(keymap: Keymap):
 
         keymap_global["U0-Shift-Space"] = command_pop_application_list
 
-    # USER0-Alt-Up/Down/Left/Right/Space/PageUp/PageDown : Virtual mouse
-    # operation by keyboard
     if 1:
+        # USER0-Alt-↑/↓/←/→/Space/PageUp/PageDown : Virtual mouse by keyboard.
         keymap_global["U0-Left"] = keymap.MouseMoveCommand(-10, 0)
         keymap_global["U0-Right"] = keymap.MouseMoveCommand(10, 0)
         keymap_global["U0-Up"] = keymap.MouseMoveCommand(0, -10)
         keymap_global["U0-Down"] = keymap.MouseMoveCommand(0, 10)
-        keymap_global["D-U0-Space"] = keymap.MouseButtonDownCommand('left')
-        keymap_global["U-U0-Space"] = keymap.MouseButtonUpCommand('left')
+        keymap_global["D-U0-Space"] = keymap.MouseButtonDownCommand("left")
+        keymap_global["U-U0-Space"] = keymap.MouseButtonUpCommand("left")
 
     # Execute the System commands by sendMessage
     if 1:
+
         def close():
             keymap.InputKeyCommand("Alt-F4")()
 
         def shutdown():
-            os.system('shutdown -s')
+            os.system("shutdown -s")
 
         def sleep():  # https://qiita.com/sharow/items/ef78f2f5a8053f6a7a41
             shellExecute(
                 None,
                 "powershell.exe",
-                "-NoProfile -Command \"Add-Type -Assembly \
-                System.Windows.Forms;[System.Windows.Forms.Application]::SetSuspendState(\'Suspend\', $false, $false);\"",
-                "")
+                "-NoProfile -Command \
+\"Add-Type -Assembly \
+System.Windows.Forms;\
+[System.Windows.Forms.Application]::SetSuspendState('Suspend', $false, $false);\
+\"",
+                "",
+            )
 
-        def open_windows_terminal():
-            shellExecute(
-                None, "cmd.exe", "/c wt.exe", None)
+        def win_terminal():
+            shellExecute(None, "wt.exe", "", None)
+
+        def win_terminal_as_admin():
+            shellExecute(None, "sudo", "wt.exe", None)
 
         def clear_trash():
             shellExecute(
                 None,
                 "cmd.exe",
                 "/c echo Y| powershell.exe -NoProfile -Command Clear-RecycleBin",
-                None)
+                None,
+            )
 
         def open_task_manager():
             keymap.InputKeyCommand("LCtrl-LShift-Escape")()
 
+        keymap_global["U0-C"] = close
         keymap_global["U0-Pause"] = shutdown
         keymap_global["U0-Period"] = open_task_manager
         keymap_global["U0-ScrollLock"] = sleep
         keymap_global["U0-Slash"] = clear_trash
-        keymap_global["U0-T"] = open_windows_terminal
-        keymap_global["U0-C"] = close
+        keymap_global["U0-T"] = win_terminal
 
-    # Test of text input
+        keymap_global["U0-LShift-T"] = win_terminal_as_admin
+
     if 1:
-        def input_func(text: str):
-            def _input_func():
-                keymap.InputKeyCommand("Escape")()
-                keymap.InputTextCommand(text)()
-            return _input_func
-
         keymap_global["U0-S"] = keymap.InputTextCommand("scoop search ")
 
         keymap_global["U0-A"] = keymap.InputTextCommand("update-all-libs")
@@ -178,15 +153,9 @@ def configure(keymap: Keymap):
         keymap_global["U0-F"] = keymap.InputTextCommand(" --help")
         keymap_global["U0-W"] = keymap.InputTextCommand("ほう…（´・ω・｀）？")
 
-    # Customizing clipboard history list
-    if 1:
-        # Enable clipboard monitoring hook (Default:Enabled)
-        keymap.clipboard_history.enableHook(False)
-
-        # Maximum number of clipboard history (Default:1000)
+    if 1:  # Customizing clipboard history list
+        keymap.clipboard_history.enableHook(False)  # clipboard monitoring hook
         keymap.clipboard_history.maxnum = 0
-
-        # Total maximum size of clipboard history (Default:10MB)
         keymap.clipboard_history.quota = 10 * 1024 * 1024
 
         # Fixed phrases
@@ -197,10 +166,8 @@ def configure(keymap: Keymap):
         ]
 
         # Return formatted date-time string
-        def date_and_time(fmt):
-            def _date_and_time():
-                return datetime.datetime.now().strftime(fmt)
-            return _date_and_time
+        def date_and_time(fmt: str):
+            return lambda: datetime.datetime.now().strftime(fmt)
 
         # Date-time
         datetime_items = [
@@ -239,16 +206,19 @@ def configure(keymap: Keymap):
                 for i in range(4 + 1):
                     if i >= len(line):
                         break
-                    if line[i] == '\t':
+                    if line[i] == "\t":
                         i += 1
                         break
-                    if line[i] != ' ':
+                    if line[i] != " ":
                         break
-                s += line[i:]
+                    s += line[i:]
             return s
 
-        full_width_chars = "ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ！”＃＄％＆’（）＊＋，−．／：；＜＝＞？＠［￥］＾＿‘｛｜｝～０１２３４５６７８９　"
-        half_width_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}～0123456789 "
+        full_width_chars = "ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ\
+ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ\
+！”＃＄％＆’（）＊＋，−．／：；＜＝＞？＠［￥］＾＿‘｛｜｝～０１２３４５６７８９　"
+        half_width_chars = "abcdefghijklmnopqrstuvwxyz\
+ABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}～0123456789 "
 
         # Convert to half-with characters
         def to_half_width_clipboard_text():
@@ -264,7 +234,6 @@ def configure(keymap: Keymap):
 
         # Save the clipboard contents as a file in Desktop directory
         def command_save_clipboard_to_desktop():
-
             text = getClipboardText()
             if not text:
                 return
@@ -279,7 +248,8 @@ def configure(keymap: Keymap):
             # Save in Desktop directory
             fullpath = os.path.join(
                 getDesktopPath(),
-                datetime.datetime.now().strftime("clip_%Y%m%d_%H%M%S.txt"))
+                datetime.datetime.now().strftime("clip_%Y%m%d_%H%M%S.txt"),
+            )
             with open(fullpath, "wb") as fd:
                 fd.write(utf8_bom)
                 fd.write(text)
@@ -287,16 +257,17 @@ def configure(keymap: Keymap):
             keymap.editTextFile(fullpath)
 
         # Menu item list
+        separetor = ("", None)
         other_items = [
             ("Quote clipboard", quote_clipboard_text),
             ("Indent clipboard", indent_clipboard_text),
             ("Unindent clipboard", unindent_clipboard_text),
-            ("", None),
+            separetor,
             ("To Half-Width", to_half_width_clipboard_text),
             ("To Full-Width", to_full_width_clipboard_text),
-            ("", None),
+            separetor,
             ("Save clipboard to Desktop", command_save_clipboard_to_desktop),
-            ("", None),
+            separetor,
             ("Edit config.py", keymap.command_EditConfig),
             ("Reload config.py", keymap.command_ReloadConfig),
         ]
