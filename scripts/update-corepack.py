@@ -176,11 +176,43 @@ def color(string: str, mode: Literal["green", "red", "yellow", "cyan"]):
     return f"{colors[mode]}{string}\033[0m"
 
 
-def main():
-    args = get_args()
-    managers: list[Literal["npm", "pnpm", "yarn"]] = ["npm", "pnpm", "yarn"]
+def enable_manager_with_corepack_for_old_node(
+    manager_name: Literal["npm", "yarn", "pnpm"], args: argparse.Namespace
+):
+    manager_latest_version = get_latest_version(manager_name, args.is_dry_run)
+    manager_current_version = get_current_corepack_version(manager_name)
+    print("-----------------------------------------------------")
+    print(f"{manager_name}'s latest version:  {manager_latest_version}")
+    if manager_current_version == manager_latest_version:
+        print(color("INFO: No need update", "cyan"))
+        return
+    else:
+        print(
+            color(
+                f"INFO: Update version \
+{manager_current_version} => {manager_latest_version}",
+                "cyan",
+            )
+        )
+        activate_corepack(manager_name, manager_latest_version)
+        if args.enabled:
+            corepack_enabled(manager_name)
 
-    if is_dry_run := args.dry_run:
+    if args.is_dry_run:
+        debug_search(manager_name)
+
+    if args.remove_prev:
+        remove_prev_versions(manager_name, manager_latest_version, args.is_dry_run)
+
+
+def main():
+    # ! Temporary measure:
+    # !  Use `npm` installed via pnpm, because for some reason,
+    # !  when corepack's npm is activated, it fails with "module not found".
+    shell_exec("corepack disable npm;corepack pnpm install -g npm")
+
+    args = get_args()
+    if args.dry_run:
         print(
             color(
                 "INFO: Dry run mode enabled.\n\
@@ -189,31 +221,17 @@ Please visually check that the version assigned by the code is correct.\n",
             )
         )
 
+    current_node_ver = shell_exec("node -v").replace("v", "")
+    # See: https://pnpm.io/installation#using-corepack
+    supported_new_corepack_cmd_node = float(current_node_ver) >= 16.7
+
+    # Code written for type inference.
+    managers: list[Literal["pnpm", "yarn"]] = ["pnpm", "yarn"]
     for manager_name in managers:
-        manager_latest_version = get_latest_version(manager_name, is_dry_run)
-        manager_current_version = get_current_corepack_version(manager_name)
-        print("-----------------------------------------------------")
-        print(f"{manager_name}'s latest version:  {manager_latest_version}")
-        if manager_current_version == manager_latest_version:
-            print(color("INFO: No need update", "cyan"))
-            continue
+        if supported_new_corepack_cmd_node and args.dry_run is False:
+            shell_exec(f"corepack prepare {manager_name}@latest --activate")
         else:
-            print(
-                color(
-                    f"INFO: Update version \
-    {manager_current_version} => {manager_latest_version}",
-                    "cyan",
-                )
-            )
-            activate_corepack(manager_name, manager_latest_version)
-            if args.enabled:
-                corepack_enabled(manager_name)
-
-        if is_dry_run:
-            debug_search(manager_name)
-
-        if args.remove_prev:
-            remove_prev_versions(manager_name, manager_latest_version, is_dry_run)
+            enable_manager_with_corepack_for_old_node(manager_name, args)
 
 
 if __name__ == "__main__":
