@@ -24,12 +24,14 @@ python3 update-corepack.py -r
 """
 
 
-import argparse
 from os import listdir, system
-import os
 from pathlib import Path
+from typing import List, Literal
+import argparse
+import json
+import os
+import re
 import subprocess
-from typing import Literal
 
 
 def shell_exec(command: str) -> str:
@@ -40,10 +42,17 @@ def shell_exec(command: str) -> str:
 
 
 def prepare_corepack(
-    manager_name: Literal["npm", "yarn", "pnpm"], version: str, is_activated: bool
+    manager_name: Literal["npm", "yarn", "pnpm"],
+    version: str,
+    is_activated: bool,
+    is_debug: bool,
 ):
     opt_cmd = "--activate" if is_activated else ""
-    system(f"corepack prepare {manager_name}@{version} ${opt_cmd}")
+    cmd = f"corepack prepare {manager_name}@{version} {opt_cmd}"
+    if is_debug:
+        print(color("DEBUG: ", "cyan") + f"{cmd}")
+    else:
+        system(cmd)
 
 
 def get_current_corepack_version(manager_name: Literal["npm", "yarn", "pnpm"]):
@@ -53,30 +62,33 @@ def get_current_corepack_version(manager_name: Literal["npm", "yarn", "pnpm"]):
     return shell_exec(cmd)
 
 
-def get_latest_version(
-    manager_name: Literal["npm", "yarn", "pnpm"], is_debug: bool
-):  # noqa: E501
+def get_latest_version(manager_name: Literal["npm", "yarn", "pnpm"], is_debug: bool):
     """Get latest manager version
 
     Args:
-        `manager_name`: Name of the package manager
-        `is_debug`: Enable debug mode
+            `manager_name`: Name of the package manager
+            `is_debug`: Enable debug mode
 
     Return:
-        latest package manager's version
+            latest package manager's version
     """
-    version_regexp = "[0-9]?[0-9]\\.[0-9]?[0-9]\\.[0-9]?[0-9]"
 
-    latest_search_cmd = f'npm search {manager_name} \
-| rg "^{manager_name} .* {version_regexp}" | rg -o "{version_regexp}"'
+    def search_leatest_ver_from_json_array(npm_modules: List[dict[str, str]]):
+        for module in npm_modules:
+            if module["name"] == manager_name:
+                return module["version"]
 
+    latest_search_cmd = f"npm search {manager_name} --json"
     if is_debug:
-        print(color("DEBUG: Execute command ", "cyan") + f"{latest_search_cmd}")
+        debug("DEBUG: Execute command ", f"{latest_search_cmd}")
 
-    latest_ver = shell_exec(latest_search_cmd)  # `-o` is ripgrep only match option
-    if latest_ver == "":
+    npm_modules: List[dict[str, str]] = json.loads(shell_exec(latest_search_cmd))
+    latest_ver = search_leatest_ver_from_json_array(npm_modules)
+
+    if latest_ver is None:
         print(color("WARN: Couldn't get latest ver. Attempt to use pnpm...", "yellow"))
-        latest_ver = shell_exec(f"corepack p{latest_search_cmd}")
+        npm_modules = json.loads(shell_exec(f"corepack p{latest_search_cmd}"))
+        latest_ver = search_leatest_ver_from_json_array(npm_modules)
 
     return latest_ver
 
@@ -109,11 +121,11 @@ def remove_prev_versions(
     Removes previous versions of the package manager
 
     `manager_name`
-        Name of the package manager
+            Name of the package manager
     `manager_latest_version`
-        Latest version of the package manager(e.g. 1.22.19)
+            Latest version of the package manager(e.g. 1.22.19)
     `is_debug`
-        enable debug info. & not remove
+            enable debug info. & not remove
     """
     manager_path = Path.joinpath(get_corepack_path(), manager_name)
     manager_versions = sorted(
@@ -134,7 +146,7 @@ def remove_prev_versions(
 
 def debug_search(manager_name: str):
     search_cmd = f"npm search {manager_name}"
-    print(color("DEBUG: Execute command ", "cyan") + f"{search_cmd}", end="\n")
+    debug("Execute command ", search_cmd)
     print(
         f"{search_cmd} Docs: https://docs.npmjs.com/cli/v6/commands/npm-search",
         end="\n",
@@ -174,12 +186,24 @@ def color(string: str, mode: Literal["green", "red", "yellow", "cyan"]):
     return f"{colors[mode]}{string}\033[0m"
 
 
+def debug(prefix: str, values: str | None = None):
+    print(color(f"DEBUG: {prefix} ", "cyan") + f"{values}")
+
+
+def warn(prefix: str, values: str | None = None):
+    print(color(f"WARN: {prefix}", "yellow") + f"{values}")
+
+
+def error(prefix: str, values: str | None = None):
+    print(color(f"ERROR: {prefix}", "red") + f"{values}")
+
+
 def enable_manager_with_corepack_for_old_node(
     manager_name: Literal["npm", "yarn", "pnpm"], args: argparse.Namespace
 ):
-    latest_ver = get_latest_version(manager_name, args.is_dry_run)
-    if latest_ver == "":
-        print(color("ERROR: Couldn't get latest version.", "red"))
+    latest_ver = get_latest_version(manager_name, args.dry_run)
+    if latest_ver is None:
+        error("Couldn't get latest version.")
         return
 
     current_ver = get_current_corepack_version(manager_name)
@@ -189,8 +213,8 @@ def enable_manager_with_corepack_for_old_node(
         print(color("INFO: No need update", "cyan"))
     else:
         print(color(f"INFO: Update version {current_ver} => {latest_ver}", "cyan"))
-        if not args.is_dry_run:
-            prepare_corepack(manager_name, latest_ver, args.enabled)
+        if not args.dry_run:
+            prepare_corepack(manager_name, latest_ver, args.enabled, args.dry_run)
 
 
 def main():
@@ -209,22 +233,25 @@ Please visually check that the version assigned by the code is correct.\n",
             )
         )
 
-    current_node_ver = shell_exec("node -v").replace("v", "")
+    current_node_ver = re.sub(
+        r"v(\d{1,2}\.\d{1,2})\.(\d{1,2})",
+        r"\1\2",
+        shell_exec("node -v"),
+    )
     # See: https://pnpm.io/installation#using-corepack
     is_supported_new_corepack = float(current_node_ver) >= 16.7
 
-    # Code written for type inference.
     managers: list[Literal["pnpm", "yarn"]] = ["pnpm", "yarn"]
     for manager_name in managers:
-        if is_supported_new_corepack and args.dry_run is False:
-            prepare_corepack(manager_name, "latest", True)
+        if is_supported_new_corepack:
+            prepare_corepack(manager_name, "latest", True, args.dry_run)
         else:
             enable_manager_with_corepack_for_old_node(manager_name, args)
 
-        if args.is_dry_run:
+        if args.dry_run:
             debug_search(manager_name)
         if args.remove_prev:
-            remove_prev_versions(manager_name, args.is_dry_run)
+            remove_prev_versions(manager_name, args.dry_run)
 
 
 if __name__ == "__main__":
