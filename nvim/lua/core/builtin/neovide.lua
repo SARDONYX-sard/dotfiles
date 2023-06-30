@@ -1,14 +1,13 @@
 -- https://neovide.dev/configuration.html
 if vim.fn.exists(vim.g.neovide) == 1 then
+  local M = {}
+  M.font_settings = 'CodeNewRoman NF:h13'
+
   vim.g.neovide_cursor_vfx_mode = 'railgun'
   vim.g.neovide_cursor_vfx_mode = 'wireframe'
   vim.g.neovide_refresh_rate = 60
   vim.g.neovide_transparency = 0.6
-
-  local font_settings = 'Cascadia Code:h13'
-  vim.o.guifont = font_settings
-
-  local M = {}
+  vim.o.guifont = M.font_settings
 
   ---@param size number
   function M.change_font_size(size)
@@ -30,7 +29,7 @@ if vim.fn.exists(vim.g.neovide) == 1 then
   end
 
   function M.reset_font()
-    vim.o.guifont = font_settings
+    vim.o.guifont = M.font_settings
   end
 
   vim.keymap.set('n', '<leader>0', M.reset_font, { desc = 'Font: reset', noremap = true })
