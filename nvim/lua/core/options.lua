@@ -127,7 +127,17 @@ local function load_options()
   -- Fix sqlite3 missing-lib issue on Windows
   if global.is_windows then
     -- Download the DLLs form https://www.sqlite.org/download.html
-    vim.g.sqlite_clib_path = global.home .. '/Documents/sqlite-dll-win64-x64-3400100/sqlite3.dll'
+    vim.g.sqlite_clib_path = global.home .. '/Documents/sqlite-dll-win64-x64-3400200/sqlite3.dll'
+    if vim.fn.isdirectory(vim.g.sqlite_clib_path:match '(.*[/\\])') == 0 then
+      vim.notify 'Installing sqlite3.dll... please wait 6~15secs.'
+      local exit_num = vim.fn.system(global.home .. '/dotfiles/scripts/install-sqlite3.ps1')
+      print(exit_num)
+      if tonumber(exit_num) == 0 then
+        vim.notify 'Installed sqlite3.dll.'
+      else
+        vim.notify('Failed to install sqlite3.dll.', 3)
+      end
+    end
   end
 end
 
