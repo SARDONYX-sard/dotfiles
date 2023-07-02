@@ -64,10 +64,11 @@ def configure(keymap: Keymap):
 
                 shell = keymap.ShellExecuteCommand
                 is_win = os.name == "nt"
+                shell_neovide = shell(None, "neovide.exe", "", "") if is_win else None
                 apps = [
-                    ("-- Editor --", None),
+                    ("-- Editor --", shell_neovide),
+                    ("Neovide", shell_neovide),
                     ("Notepad", shell(None, "notepad.exe", "", "") if is_win else None),
-                    ("Neovide", shell(None, "neovide.exe", "", "") if is_win else None),
                     ("VSCode", shell(None, "code", "", "")),
                     #
                     (

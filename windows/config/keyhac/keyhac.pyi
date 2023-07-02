@@ -276,9 +276,7 @@ class CronTable:
 
 class cblister_FixedPhrase:
     def __init__(self, apps:list[tuple[str, str]]
-                # | list[tuple[str, Callable[[], str]]]
-                # | list[tuple[str, Callable[[], None]]]
-                | list[tuple[str, Callable[[], None] | Any]]
+                | list[tuple[Any, Any]]
               ) -> None: ...
 
 class Keymap:
