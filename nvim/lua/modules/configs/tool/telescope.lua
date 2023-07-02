@@ -69,6 +69,7 @@ return function()
 
   require('telescope').load_extension 'frecency'
   pcall(require('telescope').load_extension, 'fzf') -- Enable telescope fzf native, if installed
+  pcall(require('telescope').load_extension, 'possession')
   require('telescope').load_extension 'live_grep_args'
   require('telescope').load_extension 'notify'
   require('telescope').load_extension 'projects'
