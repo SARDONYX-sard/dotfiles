@@ -1,4 +1,5 @@
 return function()
+  -- https://github.com/jedrzejboczar/possession.nvim#configuration
   require('possession').setup {
     silent = false,
     load_silent = true,
@@ -6,7 +7,7 @@ return function()
     logfile = false,
     prompt_no_cr = false,
     autosave = {
-      current = false, -- or fun(name): boolean
+      current = true, -- or fun(name): boolean
       tmp = false, -- or fun(): boolean
       tmp_name = 'tmp', -- or fun(): string
       on_load = true,
@@ -28,14 +29,9 @@ return function()
         preserve_layout = true, -- or fun(win): boolean
         match = {
           floating = true,
-          buftype = {},
-          filetype = {},
           custom = false, -- or fun(win): boolean
         },
       },
-      nvim_tree = true,
-      tabby = true,
-      dap = true,
       delete_buffers = false,
     },
     telescope = {
@@ -51,11 +47,15 @@ return function()
     },
   }
 
-  vim.keymap.set('n', '<leader>sc', ':PossessionClose<CR>', { silent = true, desc = 'Session: Close' })
-  vim.keymap.set('n', '<leader>sd', ':PossessionDelete<CR>', { silent = true, desc = 'Session: Delete' })
-  vim.keymap.set('n', '<leader>sl', ':Telescope possession list<CR>', { silent = true, desc = 'Session: List' })
-  vim.keymap.set('n', '<leader>sr', ':PossessionLoad<CR>', { silent = true, desc = 'Session: Restore' })
-  vim.keymap.set('n', '<leader>ss', ':PossessionSave<CR>', { silent = true, desc = 'Session: Save' })
+  local function save_with_leaf_dir()
+    local leaf_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':t')
+
+    if leaf_dir ~= '' then
+      vim.fn.execute('PossessionSave ' .. leaf_dir)
+    else
+      vim.fn.execute 'PossessionSave'
+    end
+  end
 
   --- If this is not enabled, tree-sitter and lsp will not be enabled the first time. 2 reloads will occur.
   local function enable_autoload()
@@ -69,4 +69,9 @@ return function()
   end
 
   enable_autoload()
+  vim.keymap.set('n', '<leader>sc', ':PossessionClose<CR>', { silent = true, desc = 'Session: Close' })
+  vim.keymap.set('n', '<leader>sd', ':PossessionDelete<CR>', { silent = true, desc = 'Session: Delete' })
+  vim.keymap.set('n', '<leader>sl', ':Telescope possession list<CR>', { silent = true, desc = 'Session: List' })
+  vim.keymap.set('n', '<leader>sr', ':PossessionLoad<CR>', { silent = true, desc = 'Session: Restore' })
+  vim.keymap.set('n', '<leader>ss', save_with_leaf_dir, { silent = true, desc = 'Session: Save' })
 end
