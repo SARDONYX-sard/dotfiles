@@ -21,8 +21,8 @@ $null = Register-ObjectEvent -InputObject $LazyLoadProfile -EventName Invocation
     oh-my-posh --init --shell pwsh --config "$HOME\dotfiles\common\data\oh-my-posh-themes\my-custom.json" | Invoke-Expression
     Import-Module posh-git
     # https://docs.microsoft.com/powershell/module/psreadline/about/about_psreadline?view=powershell-7.2
-    Set-PSReadLineOption -PredictionSource History #* Core only module
   }
+
   @('behaviors', 'external-modules-settings') | ForEach-Object {
     $local:ImportFullDirectory = "$HelperDir\$_";
     if (Test-Path $ImportFullDirectory) {
