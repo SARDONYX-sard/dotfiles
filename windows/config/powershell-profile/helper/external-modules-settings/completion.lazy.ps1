@@ -24,3 +24,7 @@ function Set-Complition {
 Set-Complition -CmdName rye -CreateCmpCmd "rye self completion --shell powershell"
 Set-Complition -CmdName rustup -CreateCmpCmd "rustup completions powershell | Out-String"
 Set-Complition -CmdName deno -CreateCmpCmd "deno completions powershell"
+
+# windows\bin\installers\pwsh-modules.ps1
+Import-Module -Name CompletionPredictor
+Import-Module npm-completion
