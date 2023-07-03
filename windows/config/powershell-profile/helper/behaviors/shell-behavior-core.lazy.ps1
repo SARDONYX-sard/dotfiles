@@ -1,5 +1,9 @@
 if ($PSVersionTable.PSEdition -eq "Core") {
-
+  Set-PSReadLineOption -PredictionSource HistoryAndPlugin
+  # For VSCode terminl
+  if ($Host.UI.RawUI.WindowSize.Height -ge 15) {
+    Set-PSReadLineOption -PredictionViewStyle ListView
+  }
 
   # Parentheses/quotes input completion
   Set-PSReadLineKeyHandler -Key "(", "{", "[" -BriefDescription "InsertPairedBraces" -LongDescription "Insert matching braces or wrap selection by matching braces" -ScriptBlock {
