@@ -51,11 +51,16 @@ def prepare_corepack(
     debug(cmd, "[expected to run]") if is_debug else shell_exec(cmd)
 
 
+def enable_corepack(manager_name: Literal["npm", "yarn", "pnpm"], is_debug: bool):
+    cmd = f"corepack enable {manager_name}"
+    return debug(cmd, "[expected to enable]") if is_debug else shell_exec(cmd)
+
+
 def get_current_manager_ver(manager_name: Literal["npm", "yarn", "pnpm"]):
     cmd = (
         f"{manager_name} --version" if manager_name == "yarn" else f"{manager_name} -v"
     )
-    return shell_exec(cmd)
+    return shell_exec(f"corepack {cmd}")
 
 
 def get_latest_version(manager_name: Literal["npm", "yarn", "pnpm"], is_debug: bool):
@@ -223,6 +228,8 @@ def main():
         activate_ver = "latest" if is_supported_new_corepack else latest_ver
         prepare_corepack(manager_name, activate_ver, args.enabled, args.dry_run)
 
+        if args.enabled:
+            enable_corepack(manager_name, args.dry_run)
         if args.remove_prev:
             remove_prev_versions(manager_name, latest_ver, args.dry_run)
 
