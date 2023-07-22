@@ -11,7 +11,7 @@ if has('clipboard') || exists('g:vscode')
     endif
 endif
 
-" Status Line Custom(https://gist.github.com/meskarune/57b613907ebd1df67eb7bdb83c6e6641)
+" ---Status Line Custom(https://gist.github.com/meskarune/57b613907ebd1df67eb7bdb83c6e6641)
 
 " status bar colors
 au InsertEnter * hi statusline guifg=black guibg=#d7afff ctermfg=black ctermbg=magenta
@@ -56,7 +56,7 @@ endfunction
 set laststatus=2
 set noshowmode
 set statusline=
-set statusline+=%0*\ %{ModeCurrent()}\
+set statusline+=%0*\ %{ModeCurrent()}
 set statusline+=%3*\                                     " Separator
 set statusline+=%0*\ %n\                                 " Buffer number
 set statusline+=%1*\ %<%F%m%r%h%w\                       " File path, modified, readonly, helpfile, preview
@@ -99,13 +99,13 @@ set number                     " - Show line numbers
 set ruler                      " - Show line and column number
 set showcmd                    " - Show incomplete cmds down the bottom
 set showmode                   " - Show current mode down the bottom
-set spell                      " - add spell check
+" set spell                      " - Enable spell check
 set nobackup                   " - Do not create backup file
 set noswapfile                 " - Do not create swap file
 set novisualbell               " - No flash
+set wildmenu                   " - Show completion list in Command Mode
 
-" colorscheme evening
-colorscheme slate
+colorscheme slate " slate|evening
 
 scriptencoding utf-8
 syntax enable
@@ -121,9 +121,13 @@ map <Space> <Leader>
 map <Leader>q :quit!<CR>
 map <Leader>w :write<CR>
 
-nmap <Leader>c :bd<CR>                " delete buffer
-nmap <Leader>v :edit ~/.vimrc<CR>
+nmap <Leader>rv :so %<CR>                                " Reload .vimrc
+nmap <silent> <Leader>V :!start explorer /select,%:p<CR> " Open current dir with exploer
+nmap <silent> <Leader>c :bd<CR>                          " delete buffer
+nmap <silent> <Leader>v :edit ~/.vimrc<CR>
+
 nnoremap ; :
+vnoremap ; :
 
 " --- Explore
 let g:netrw_altv = 1
@@ -164,12 +168,12 @@ inoremap kj <Esc>
 
 " - Move current line to up/down `Alt+j/k`
 " Ref: https://vim.fandom.com/wiki/Moving_lines_up_or_down
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+nnoremap <silent> <A-j> :m .+1<CR>==
+nnoremap <silent> <A-k> :m .-2<CR>==
+inoremap <silent> <A-j> <Esc>:m .+1<CR>==gi
+inoremap <silent> <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <silent> <A-j> :m '>+1<CR>gv=gv
+vnoremap <silent> <A-k> :m '<-2<CR>gv=gv
 
 " - automatically close parentheses, etc.
 inoremap { {}<LEFT>
