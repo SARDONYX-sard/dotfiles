@@ -35,6 +35,10 @@ ui['nvim-lualine/lualine.nvim'] = {
   event = { 'BufReadPost', 'BufAdd', 'BufNewFile' },
   config = require 'ui.lualine',
 }
+ui['kosayoda/nvim-lightbulb'] = {
+  lazy = false,
+  config = require 'ui.lightbulb'
+}
 -- ui['zbirenbaum/neodim'] = { -- Now it's buggy and therefore not used.
 --   lazy = true,
 --   event = 'LspAttach',
