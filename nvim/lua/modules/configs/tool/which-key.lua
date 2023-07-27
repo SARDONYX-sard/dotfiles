@@ -62,7 +62,7 @@ return function()
       name = '+Session',
     },
     ['<leader>t'] = {
-      name = '+Lsp',
+      name = '+Trouble',
     },
   }
 end
