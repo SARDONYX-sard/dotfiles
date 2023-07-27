@@ -17,7 +17,8 @@ ui['catppuccin/nvim'] = {
 }
 ui['j-hui/fidget.nvim'] = {
   lazy = true,
-  event = 'BufReadPost',
+  event = 'LspAttach',
+  tag = 'legacy', -- Suppress waring
   config = require 'ui.fidget',
 }
 ui['lewis6991/gitsigns.nvim'] = {
@@ -37,7 +38,7 @@ ui['nvim-lualine/lualine.nvim'] = {
 }
 ui['kosayoda/nvim-lightbulb'] = {
   lazy = false,
-  config = require 'ui.lightbulb'
+  config = require 'ui.lightbulb',
 }
 -- ui['zbirenbaum/neodim'] = { -- Now it's buggy and therefore not used.
 --   lazy = true,
