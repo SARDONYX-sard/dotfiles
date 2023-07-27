@@ -39,7 +39,10 @@ return function()
   capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
   local opts = {
-    on_attach = function()
+    --- lsp attach event handler
+    ---@param client any
+    ---@param bufnr number -- buffer numbler
+    on_attach = function(client, bufnr)
       require('lsp_signature').on_attach {
         bind = true,
         use_lspsaga = false,
@@ -51,6 +54,8 @@ return function()
           border = 'rounded',
         },
       }
+
+      require('modules.configs.completion.inlay_hints').on_lsp_attach(client, bufnr)
     end,
     capabilities = capabilities,
   }
