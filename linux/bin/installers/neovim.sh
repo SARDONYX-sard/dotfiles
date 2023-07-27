@@ -61,7 +61,7 @@ arch=$(arch)
 ([[ "${force}" != "true" ]] && command -v nvim) >/dev/null 2>&1 &&
   warn "neovim already installed." && exit 0
 
-nvim_share="/usr/share/share/nvim/"
+nvim_share="/usr/share/nvim/"
 if [[ "${force}" == "true" ]]; then
   info "UnInstalling previous neovim dirs if exists..."
   remove_if_exists "${nvim_share}" "/usr/local/bin/nvim"
@@ -81,7 +81,8 @@ fi
 
 info "Installing neovim..."
 sudo mv -f "${extract_dir}/bin/nvim" /usr/local/bin/
-sudo mv -f "${extract_dir}/share/" "/usr/share/share/nvim"
+sudo mkdir -p /usr/share/nvim
+sudo mv -f "${extract_dir}/share/" "/usr/share/nvim"
 
 if [[ -e "${nvim_share}" ]]; then
   info "move ${nvim_share} completed."
