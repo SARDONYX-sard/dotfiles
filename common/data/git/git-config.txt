@@ -14,10 +14,12 @@
   safecrlf = true
 [color]
   ui = auto
-[credential "helperselector"]
-  selected = manager
 [credential]
   helper = manager
+[credential "helperselector"]
+  selected = manager
+[credential "https://github.com"]
+  username = SARDONYX-sard
 [init]
   defaultBranch = main
 [merge]
