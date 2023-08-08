@@ -37,5 +37,5 @@ vim.keymap.set(
 
 -- plugins
 vim.keymap.set('n', '<leader>;', '<cmd>Alpha<CR>', { silent = true, desc = 'Show dashboard' })
-vim.keymap.set('n', '<space>c', ':bd<CR>', { silent = true, desc = 'Buffer: [c]lose' })
+vim.keymap.set('n', '<space>c', ':BufDel<CR>', { silent = true, desc = 'Buffer: [c]lose' })
 vim.keymap.set('n', '<space>bl', ':BufDelOthers<CR>', { silent = true, desc = 'Buffer: de[l]ete others' })
