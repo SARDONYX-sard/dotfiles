@@ -69,5 +69,21 @@ return function()
     opts = vim.tbl_deep_extend('force', opts, catppuccin_hl_overwrite)
   end
 
+  -- Fix bufferline unavailability when displaying alpha.
+  -- ref: https://github.com/akinsho/bufferline.nvim/issues/631#issuecomment-1341583854
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'AlphaReady',
+    desc = 'disable tabline for alpha',
+    callback = function()
+      vim.opt.showtabline = 0
+    end,
+  })
+  vim.api.nvim_create_autocmd('BufUnload', {
+    desc = 'enable tabline after alpha',
+    callback = function()
+      vim.opt.showtabline = 2
+    end,
+  })
+
   require('bufferline').setup(opts)
 end
