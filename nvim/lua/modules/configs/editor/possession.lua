@@ -104,7 +104,7 @@ return function()
   --- $nvim.exe -p --embed <path> => argv = [nil, 'nvim.exe', '-p', '--embed', <path>]
   --- @return boolean
   local contain_path_in_arg = function()
-    return (vim.fn.filereadable(vim.v.argv[3]) or vim.fn.filereadable(vim.v.argv[4])) == 1
+    return (vim.fn.filereadable(vim.v.argv[3]) == 1) or (vim.fn.filereadable(vim.v.argv[4]) == 1)
   end
 
   if not contain_path_in_arg() then
