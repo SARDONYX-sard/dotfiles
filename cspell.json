@@ -1,4 +1,7 @@
 {
+  "version": "0.2",
+  "language": "en",
+  "allowCompoundWords": true,
   "import": [
     "@cspell/dict-bash/cspell-ext.json",
     "@cspell/dict-lua/cspell-ext.json",
@@ -6,12 +9,7 @@
     "@cspell/dict-public-licenses/cspell-ext.json",
     "@cspell/dict-python/cspell-ext.json",
     "@cspell/dict-rust/cspell-ext.json"
-    // ,"cspell-dict-vimlang/cspell-ext.json"
   ],
-  "version": "0.2",
-  "language": "en",
-  "allowCompoundWords": true,
-  "flagWords": [],
   "words": [
     "AllLib",
     "CFUNCTYPE",
@@ -44,9 +42,11 @@
     "endregions",
     "ensurepath",
     "executiontime",
+    "fnamemodify",
     "foregroundcolor",
     "fprettify",
     "fullpath",
+    "getcwd",
     "ginit",
     "githubusercontent",
     "gitlint",
@@ -128,5 +128,6 @@
     "wekyb",
     "wsltty",
     "zoxide"
-  ]
+  ],
+  "flagWords": []
 }
