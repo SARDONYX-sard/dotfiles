@@ -11,10 +11,26 @@ function M.enable_autoload()
   })
 end
 
-function M.save_with_leaf_dir()
-  local leaf_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':t')
-  local no_confirm_opt = '!'
+---Get `.git` directory.
+---@return string|nil
+local function get_git_dir()
+  -- Run git command to get the root directory
+  local git_root_cmd = io.popen 'git rev-parse --show-toplevel'
+  if git_root_cmd == nil then
+    return nil
+  end
+  -- Read a line from the output of the subprocess created by `io.popen`.
+  local git_root_dir = git_root_cmd:read '*line'
+  git_root_cmd:close()
 
+  return git_root_dir
+end
+
+function M.save_with_leaf_dir()
+  local cwd = get_git_dir() or vim.fn.getcwd()
+  local leaf_dir = vim.fn.fnamemodify(cwd, ':t')
+
+  local no_confirm_opt = '!'
   if leaf_dir == '' then
     vim.fn.execute('PossessionSave' .. no_confirm_opt)
   else
