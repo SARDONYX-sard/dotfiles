@@ -59,7 +59,7 @@ function M.enable_save_on(event_name)
     pattern = '*',
     callback = function()
       local cur_buf_abs_path = vim.fn.expand '%:p'
-      if not is_tmp_file(cur_buf_abs_path) then
+      if is_tmp_file(cur_buf_abs_path) == false then
         M.save_with_leaf_dir()
       end
     end,
