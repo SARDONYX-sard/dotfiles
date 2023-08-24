@@ -40,6 +40,9 @@ return function()
     ['<leader>b'] = {
       name = '+Buffer',
     },
+    ['<leader>d'] = {
+      name = '+Debug',
+    },
     ['<leader>f'] = {
       name = '+Find',
     },

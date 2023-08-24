@@ -24,9 +24,9 @@ vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { silent = true, desc = 'move l
 -- See: https://stackoverflow.com/questions/24164365/vimscript-quotes-in-strings-when-used-as-expressions
 vim.keymap.set(
   'n',
-  '<leader>h',
+  '<leader>H',
   ":execute(&hls && v:hlsearch ? 'noh|echo ''Highlight: Off'' ' : 'set hls|echo ''Highlight: On'' ')<CR>",
-  { silent = true, desc = 'Toggle [h]ighlight' }
+  { silent = true, desc = 'Toggle [H]ighlight' }
 )
 
 -- General buffer keymaps
