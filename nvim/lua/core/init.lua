@@ -105,7 +105,7 @@ local load_core = function()
 
   clipboard_config()
 
-  -- require 'core.builtin.options'
+  require 'core.builtin.better-gx'
   require 'core.builtin.highlight'
   require 'core.builtin.wsl'
 
