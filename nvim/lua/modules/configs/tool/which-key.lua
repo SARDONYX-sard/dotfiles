@@ -49,9 +49,9 @@ return function()
     ['<leader>g'] = {
       name = '+Git',
     },
-    ['<leader>h'] = {
-      name = '+GitSign',
-    },
+    -- ['<leader>h'] = {
+    --   name = '+GitSign',
+    -- },
     ['<leader>l'] = {
       name = '+LspMason',
     },
