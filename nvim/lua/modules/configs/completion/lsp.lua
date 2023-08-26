@@ -38,6 +38,8 @@ return function()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+  require('modules.configs.completion.inlay_hints').on_lsp_attach()
+
   local opts = {
     --- lsp attach event handler
     ---@param client any
@@ -54,8 +56,6 @@ return function()
           border = 'rounded',
         },
       }
-
-      require('modules.configs.completion.inlay_hints').on_lsp_attach(client, bufnr)
     end,
     capabilities = capabilities,
   }
