@@ -5,13 +5,6 @@ editor['rainbowhxch/accelerated-jk.nvim'] = {
   event = 'VeryLazy',
   config = require 'editor.accelerated-jk',
 }
-editor['TobinPalmer/BetterGX.nvim'] = {
-  lazy = true,
-  event = 'BufEnter',
-  keys = {
-    { 'gx', '<CMD>lua require("better-gx").BetterGx()<CR>' },
-  },
-}
 editor['m4xshen/autoclose.nvim'] = {
   lazy = true,
   event = 'InsertEnter',
