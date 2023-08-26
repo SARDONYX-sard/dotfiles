@@ -2,42 +2,35 @@
 --- NOTE: Neovim inlay hint supported >=0.10
 local M = {}
 
+---@param event string
 ---@param on_or_off boolean
----@param bufnr number -- buffer numbler
----@return table
-local function inlay_hint_turn(on_or_off, bufnr)
-  return {
-    buffer = bufnr,
-    callback = function()
-      vim.lsp.inlay_hint(bufnr, on_or_off)
+--- - ref: https://vinnymeller.com/posts/neovim_nightly_inlay_hints/#globally
+local function inlay_hint_on(event, on_or_off)
+  vim.api.nvim_create_autocmd(event, {
+    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    callback = function(args)
+      if vim.lsp.inlay_hint == nil then
+        return
+      end
+
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if client ~= nil and client.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint(args.buf, on_or_off)
+      end
     end,
-    group = 'lsp_augroup',
-  }
+  })
 end
 
----@param _client any
----@param bufnr number -- buffer numbler
 --- - NOTE: Neovim inlay hint supported >=0.10. If you call with unsupported Neovim, it does nothing.
 --- - ref: https://www.reddit.com/r/neovim/comments/14e41rb/today_on_nightly_native_lsp_inlay_hint_support/
-function M.only_insert(_client, bufnr)
-  if vim.lsp.inlay_hint == nil then
-    return
-  end
-
-  vim.api.nvim_create_augroup('lsp_augroup', { clear = true })
-  vim.api.nvim_create_autocmd('InsertEnter', inlay_hint_turn(true, bufnr))
-  vim.api.nvim_create_autocmd('InsertLeave', inlay_hint_turn(false, bufnr))
+function M.only_insert()
+  inlay_hint_on('InsertEnter', false)
+  inlay_hint_on('InsertLeave', true)
 end
 
----@param _client any
----@param bufnr number -- buffer numbler
 --- - NOTE: Neovim inlay hint supported >=0.10. If you call with unsupported Neovim, it does nothing.
-function M.on_lsp_attach(_client, bufnr)
-  if vim.lsp.inlay_hint == nil then
-    return
-  end
-  vim.api.nvim_create_augroup('lsp_augroup', { clear = true })
-  vim.api.nvim_create_autocmd('LspAttach', inlay_hint_turn(true, bufnr))
+function M.on_lsp_attach()
+  inlay_hint_on('LspAttach', true)
 end
 
 return M

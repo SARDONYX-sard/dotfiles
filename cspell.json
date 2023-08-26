@@ -1,15 +1,6 @@
 {
-  "version": "0.2",
   "language": "en",
-  "allowCompoundWords": true,
-  "import": [
-    "@cspell/dict-bash/cspell-ext.json",
-    "@cspell/dict-lua/cspell-ext.json",
-    "@cspell/dict-powershell/cspell-ext.json",
-    "@cspell/dict-public-licenses/cspell-ext.json",
-    "@cspell/dict-python/cspell-ext.json",
-    "@cspell/dict-rust/cspell-ext.json"
-  ],
+  "flagWords": [],
   "words": [
     "AllLib",
     "CFUNCTYPE",
@@ -27,8 +18,10 @@
     "autohotkey",
     "autokey",
     "autopep",
+    "bufnr",
     "cblister",
     "cblisters",
+    "clangd",
     "cmake",
     "codespell",
     "colortool",
@@ -129,5 +122,15 @@
     "wsltty",
     "zoxide"
   ],
-  "flagWords": []
+  "version": "0.2",
+  "allowCompoundWords": true,
+  "import": [
+    "@cspell/dict-bash/cspell-ext.json",
+    "@cspell/dict-lua/cspell-ext.json",
+    "@cspell/dict-powershell/cspell-ext.json",
+    "@cspell/dict-public-licenses/cspell-ext.json",
+    "@cspell/dict-python/cspell-ext.json",
+    "@cspell/dict-rust/cspell-ext.json"
+  ],
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json"
 }
