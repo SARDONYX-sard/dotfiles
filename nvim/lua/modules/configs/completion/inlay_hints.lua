@@ -9,6 +9,8 @@ local function inlay_hint_on(event, on_or_off)
   vim.api.nvim_create_autocmd(event, {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(args)
+      -- I thought lua can check nil at the same time for short circuit evaluation for now,
+      -- but I have to split it because of frequent errors in nightly
       if vim.lsp.inlay_hint == nil then
         return
       end
