@@ -14,7 +14,14 @@ local function inlay_hint_on(event, on_or_off)
       end
 
       local client = vim.lsp.get_client_by_id(args.data.client_id)
-      if client ~= nil and client.server_capabilities.inlayHintProvider then
+      if client == nil then
+        return
+      end
+      if client.server_capabilities == nil then
+        return
+      end
+
+      if client.server_capabilities.inlayHintProvider then
         vim.lsp.inlay_hint(args.buf, on_or_off)
       end
     end,
