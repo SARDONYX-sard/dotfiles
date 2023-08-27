@@ -30,14 +30,8 @@ local plug_map = {
   ['n|gd'] = map_cr('Lspsaga peek_definition'):with_noremap():with_silent():with_desc 'lsp: Preview definition',
   ['n|gD'] = map_cr('Lspsaga goto_definition'):with_noremap():with_silent():with_desc 'lsp: Goto definition',
   ['n|gh'] = map_cr('Lspsaga lsp_finder'):with_noremap():with_silent():with_desc 'lsp: Show reference',
-  ['n|<leader>lci'] = map_cr('lsp: Lspsaga incoming_calls')
-    :with_noremap()
-    :with_silent()
-    :with_desc 'lsp: Show incoming calls',
-  ['n|<leader>lco'] = map_cr('lsp: Lspsaga outgoing_calls')
-    :with_noremap()
-    :with_silent()
-    :with_desc 'lsp: Show outgoing calls',
+  ['n|<leader>lci'] = map_cr('Lspsaga incoming_calls'):with_noremap():with_silent():with_desc 'lsp: Show incoming calls',
+  ['n|<leader>lco'] = map_cr('Lspsaga outgoing_calls'):with_noremap():with_silent():with_desc 'lsp: Show outgoing calls',
 }
 
 bind.nvim_load_mapping(plug_map)
