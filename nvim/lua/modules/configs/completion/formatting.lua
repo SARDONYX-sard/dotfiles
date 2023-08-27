@@ -98,13 +98,13 @@ end
 function M.format(opts)
   local cwd = vim.fn.getcwd()
   for i = 1, #disabled_workspaces do
-    if cwd.find(cwd, disabled_workspaces[i]) ~= nil then
+    if (cwd ~= nil) and (cwd.find(cwd, disabled_workspaces[i]) ~= nil) then
       return
     end
   end
 
   local bufnr = opts.bufnr or vim.api.nvim_get_current_buf()
-  local clients = vim.lsp.buf_get_clients(bufnr)
+  local clients = vim.lsp.get_clients { bufnr }
 
   if opts.filter then
     clients = opts.filter(clients)
