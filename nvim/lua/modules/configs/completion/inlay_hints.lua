@@ -11,21 +11,14 @@ local function inlay_hint_on(event, on_or_off)
   vim.api.nvim_create_autocmd(event, {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(args)
-      -- I thought lua can check nil at the same time for short circuit evaluation for now,
-      -- but I have to split it because of frequent errors in nightly
       if vim.lsp.inlay_hint == nil then
         return
       end
 
       local client = vim.lsp.get_client_by_id(args.data.client_id)
-      if client == nil then
-        return
-      end
-      if client.server_capabilities == nil then
-        return
-      end
+      local supported_inlayhint = client and client.server_capabilities and client.server_capabilities.inlayHintProvider
 
-      if client.server_capabilities.inlayHintProvider then
+      if supported_inlayhint then
         vim.lsp.inlay_hint(args.buf, on_or_off)
         vim.g.inlayhint_enabled = on_or_off
       end
@@ -47,13 +40,8 @@ end
 
 function M.toggle_inlayhint_key()
   local toggle_inlayhint = function()
-    local current_buf = vim.fn.bufnr()
-    if current_buf == nil then
-      vim.notify_once 'Not found buffer number. Canceled action.'
-      return
-    end
     vim.g.inlayhint_enabled = not vim.g.inlayhint_enabled
-    vim.lsp.inlay_hint(current_buf, vim.g.inlayhint_enabled)
+    vim.lsp.inlay_hint(vim.api.nvim_get_current_buf(), vim.g.inlayhint_enabled)
   end
   vim.keymap.set('n', '<leader>lh', toggle_inlayhint, { silent = true, desc = 'lsp: Toggle inlayhint' })
 end
