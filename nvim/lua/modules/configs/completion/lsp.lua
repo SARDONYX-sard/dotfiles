@@ -38,13 +38,15 @@ return function()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-  require('modules.configs.completion.inlay_hints').on_lsp_attach()
+  local inlay_hint = require 'modules.configs.completion.inlay_hints'
+  inlay_hint.on_lsp_attach()
+  inlay_hint.toggle_inlayhint_key()
 
   local opts = {
     --- lsp attach event handler
     ---@param client any
     ---@param bufnr number -- buffer numbler
-    on_attach = function(client, bufnr)
+    on_attach = function(_client, _bufnr)
       require('lsp_signature').on_attach {
         bind = true,
         use_lspsaga = false,

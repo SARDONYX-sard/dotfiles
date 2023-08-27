@@ -1,6 +1,8 @@
 --- inlay_hint manager
 --- NOTE: Neovim inlay hint supported >=0.10
 local M = {}
+--- Use your own global variables because We can't find a way to get the state.
+vim.g.inlayhint_enabled = false
 
 ---@param event string
 ---@param on_or_off boolean
@@ -25,6 +27,7 @@ local function inlay_hint_on(event, on_or_off)
 
       if client.server_capabilities.inlayHintProvider then
         vim.lsp.inlay_hint(args.buf, on_or_off)
+        vim.g.inlayhint_enabled = on_or_off
       end
     end,
   })
@@ -40,6 +43,19 @@ end
 --- - NOTE: Neovim inlay hint supported >=0.10. If you call with unsupported Neovim, it does nothing.
 function M.on_lsp_attach()
   inlay_hint_on('LspAttach', true)
+end
+
+function M.toggle_inlayhint_key()
+  local toggle_inlayhint = function()
+    local current_buf = vim.fn.bufnr()
+    if current_buf == nil then
+      vim.notify_once 'Not found buffer number. Canceled action.'
+      return
+    end
+    vim.g.inlayhint_enabled = not vim.g.inlayhint_enabled
+    vim.lsp.inlay_hint(current_buf, vim.g.inlayhint_enabled)
+  end
+  vim.keymap.set('n', '<leader>lh', toggle_inlayhint, { silent = true, desc = 'lsp: Toggle inlayhint' })
 end
 
 return M
