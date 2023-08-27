@@ -38,8 +38,8 @@ end
 
 function M.toggle_inlayhint_key()
   local toggle_inlayhint = function()
-    vim.g.inlayhint_enabled = not vim.g.inlayhint_enabled
-    vim.lsp.inlay_hint(vim.api.nvim_get_current_buf(), vim.g.inlayhint_enabled)
+    M.inlayhint_enabled = not M.inlayhint_enabled
+    vim.lsp.inlay_hint(vim.api.nvim_get_current_buf(), M.inlayhint_enabled)
   end
   vim.keymap.set('n', '<leader>lh', toggle_inlayhint, { silent = true, desc = 'lsp: Toggle inlayhint' })
 end
