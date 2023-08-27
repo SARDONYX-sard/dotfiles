@@ -1,8 +1,6 @@
 --- inlay_hint manager
 --- NOTE: Neovim inlay hint supported >=0.10
 local M = {}
---- Use your own global variables because We can't find a way to get the state.
-vim.g.inlayhint_enabled = false
 
 ---@param event string
 ---@param on_or_off boolean
@@ -20,7 +18,7 @@ local function inlay_hint_on(event, on_or_off)
 
       if supported_inlayhint then
         vim.lsp.inlay_hint(args.buf, on_or_off)
-        vim.g.inlayhint_enabled = on_or_off
+        M.inlayhint_enabled = on_or_off
       end
     end,
   })
