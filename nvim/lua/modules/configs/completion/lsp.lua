@@ -44,8 +44,8 @@ return function()
 
   local opts = {
     --- lsp attach event handler
-    ---@param client any
-    ---@param bufnr number -- buffer numbler
+    ---@param _client any
+    ---@param _bufnr number -- buffer number
     on_attach = function(_client, _bufnr)
       require('lsp_signature').on_attach {
         bind = true,
