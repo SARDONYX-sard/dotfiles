@@ -1,11 +1,12 @@
 return function()
   local null_ls = require 'null-ls'
   local mason_null_ls = require 'mason-null-ls'
-  local btns = null_ls.builtins
+  local builtins = null_ls.builtins
 
   -- Trigger specific files or folders to prevent conflicts with `denols`.
   local prevent_conflict_deno_lint = function(utils)
     return vim.fn.executable 'eslint_d' > 0
+      and utils.root_has_file { '.eslintrc.json', '.eslintrc.yaml', '.eslintrc.js' }
       and utils.root_has_file { 'package.json' }
       and not utils.root_has_file { 'deno.json' }
   end
@@ -25,6 +26,8 @@ return function()
   local set_diag_level = function(diag_level)
     ---@param diagnostic table<string, string>
     return function(diagnostic)
+      -- The truth is, the numbers are in. If you use tostring, it makes an error.
+      ---@diagnostic disable-next-line: assign-type-mismatch
       diagnostic.severity = vim.diagnostic.severity[diag_level]
     end
   end
@@ -37,22 +40,22 @@ return function()
     -- With override configurations
 
     -- spell checker(need `npm`(node.js)
-    btns.code_actions.cspell.with { condition = executable_cspell },
-    btns.diagnostics.cspell.with { diagnostics_postprocess = set_diag_level 'INFO', condition = executable_cspell },
+    builtins.code_actions.cspell.with { condition = executable_cspell },
+    builtins.diagnostics.cspell.with { diagnostics_postprocess = set_diag_level 'INFO', condition = executable_cspell },
     -- js, ts linter
-    btns.code_actions.eslint_d.with { condition = prevent_conflict_deno_lint },
-    btns.diagnostics.eslint_d.with { condition = prevent_conflict_deno_lint },
+    builtins.code_actions.eslint_d.with { condition = prevent_conflict_deno_lint },
+    builtins.diagnostics.eslint_d.with { condition = prevent_conflict_deno_lint },
 
-    btns.formatting.deno_fmt.with { condition = prevent_conflict_deno_fmt 'deno' }, -- js runtime env by Rust
-    btns.formatting.prettierd.with { condition = prevent_conflict_deno_fmt 'prettierd' }, -- frontend fmt
+    builtins.formatting.deno_fmt.with { condition = prevent_conflict_deno_fmt 'deno' }, -- js runtime env by Rust
+    builtins.formatting.prettierd.with { condition = prevent_conflict_deno_fmt 'prettierd' }, -- frontend fmt
 
     -- lua
-    btns.diagnostics.luacheck.with { extra_args = { '--globals', 'vim', '--globals', 'awesome' } }, -- static type check of lua
+    builtins.diagnostics.luacheck.with { extra_args = { '--globals', 'vim', '--globals', 'awesome' } }, -- static type check of lua
 
     -- python
-    btns.formatting.black.with { extra_args = { '--fast' } },
+    builtins.formatting.black.with { extra_args = { '--fast' } },
 
-    btns.formatting.clang_format.with {
+    builtins.formatting.clang_format.with {
       filetypes = { 'c', 'cpp' },
       extra_args = require 'completion.formatters.clang_format',
     },
