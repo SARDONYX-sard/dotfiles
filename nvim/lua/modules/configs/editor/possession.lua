@@ -116,11 +116,9 @@ return function()
   }
 
   --- Do not want session to load if a file path, etc., is passed as an argument.
-  --- # Example
-  --- $nvim.exe -p --embed <path> => argv = [nil, 'nvim.exe', '-p', '--embed', <path>]
   --- @return boolean
   local contain_path_in_arg = function()
-    return (vim.fn.filereadable(vim.v.argv[3]) == 1) or (vim.fn.filereadable(vim.v.argv[4]) == 1)
+    return vim.fn.argc() > 0
   end
 
   if not contain_path_in_arg() then
