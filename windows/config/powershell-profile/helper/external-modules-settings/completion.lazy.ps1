@@ -20,7 +20,7 @@ function Set-Complition {
     . $cmp_file
   }
 }
-
+Enable-PowerType -LazyLoad
 Set-Complition -CmdName rye -CreateCmpCmd "rye self completion --shell powershell"
 Set-Complition -CmdName rustup -CreateCmpCmd "rustup completions powershell | Out-String"
 Set-Complition -CmdName deno -CreateCmpCmd "deno completions powershell"

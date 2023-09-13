@@ -4,6 +4,7 @@
 # Modules that run only on PowerShell Core
 if ($PSVersionTable.PSEdition -eq "Core") {
   $CoreOnlyLibs = @(
+    'PowerType' # Auto complete
     'WslInterop' # use WSL commands on pwsh(nothing `wsl` prefix)
   )
   Install-Module -Name $CoreOnlyLibs -Scope CurrentUser -Force
