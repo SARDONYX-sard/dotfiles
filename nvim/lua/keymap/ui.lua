@@ -5,6 +5,8 @@ local map_cr = bind.map_cr
 -- local map_callback = bind.map_callback
 
 local plug_map = {
+  -- Plugin: alpha
+  ['n|<leader>;'] = map_cr('Alpha'):with_noremap():with_silent():with_desc 'Show dashboard',
   -- Plugin: bufferline
   ['n|L'] = map_cr('BufferLineCycleNext'):with_noremap():with_silent():with_desc 'buffer: Switch to next',
   ['n|H'] = map_cr('BufferLineCyclePrev'):with_noremap():with_silent():with_desc 'buffer: Switch to prev',

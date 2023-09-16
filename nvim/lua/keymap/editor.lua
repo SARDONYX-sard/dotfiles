@@ -15,7 +15,8 @@ local plug_map = {
   end):with_expr(),
 
   -- Plugin: nvim-bufdel
-  ['n|<A-q>'] = map_cr('BufDel'):with_noremap():with_silent():with_desc 'buffer: Close current',
+  ['n|<leader>c'] = map_cr('BufDel'):with_noremap():with_silent():with_desc 'buffer: Close current',
+  ['n|<leader>bl'] = map_cr('BufDelOthers'):with_noremap():with_silent():with_desc 'buffer: Close others',
 
   -- Plugin: clever-f
   ['n|:'] = map_callback(function()

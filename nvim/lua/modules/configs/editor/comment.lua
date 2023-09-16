@@ -37,7 +37,11 @@ return function()
       extra = false,
     },
     -- Function to call before (un)comment
-    pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+    pre_hook = (function()
+      if not vim.g.vscode then
+        require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
+      end
+    end)(),
     -- Function to call after (un)comment
     post_hook = nil,
   }
