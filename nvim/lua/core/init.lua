@@ -106,21 +106,22 @@ local load_core = function()
   clipboard_config()
 
   require 'core.builtin.better-gx'
-  require 'core.builtin.highlight'
-  require 'core.builtin.wsl'
-
-  require 'core.neovide'
   require 'core.options'
-  require 'core.mapping'
   require 'keymap'
-  require 'core.event'
   require 'core.pack'
   require 'core.builtin.keymap'
+  if not vim.g.vscode then
+    require 'core.builtin.highlight'
+    require 'core.builtin.wsl'
+    require 'core.neovide'
+    require 'core.mapping'
+    require 'core.event'
 
-  local colorscheme = require('core.settings').colorscheme
-  local background = require('core.settings').background
-  vim.api.nvim_command('set background=' .. background)
-  vim.api.nvim_command('colorscheme ' .. colorscheme)
+    local colorscheme = require('core.settings').colorscheme
+    local background = require('core.settings').background
+    vim.api.nvim_command('set background=' .. background)
+    vim.api.nvim_command('colorscheme ' .. colorscheme)
+  end
 end
 
 load_core()

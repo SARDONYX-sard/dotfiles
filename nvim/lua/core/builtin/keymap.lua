@@ -29,13 +29,17 @@ vim.keymap.set(
   { silent = true, desc = 'Toggle [H]ighlight' }
 )
 
--- General buffer keymaps
+-- buffer
+--See: https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one
+-- vim.keymap.set('n', '<space>bl', ':%bd|e#|bd#<CR>', { silent = true, desc = 'Buffer: delete others' })
 -- vim.keymap.set('n', '<space>c', ':bdelete<CR>', { silent = true, desc = 'Buffer: [c]lose' })
 
---See: https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one
--- vim.keymap.set('n', '<space>bl', ':%bd|e#|bd#<CR>', { silent = true, desc = 'Buffer: [l]ast only ' })
-
--- plugins
-vim.keymap.set('n', '<leader>;', '<cmd>Alpha<CR>', { silent = true, desc = 'Show dashboard' })
-vim.keymap.set('n', '<space>c', ':BufDel<CR>', { silent = true, desc = 'Buffer: [c]lose' })
-vim.keymap.set('n', '<space>bl', ':BufDelOthers<CR>', { silent = true, desc = 'Buffer: de[l]ete others' })
+-- See: https://github.com/vscode-neovim/vscode-neovim/issues/121#issuecomment-1505164619
+if vim.g.vscode then
+  vim.api.nvim_set_keymap('x', 'gc', '<Plug>VSCodeCommentary', {})
+  vim.api.nvim_set_keymap('n', 'gc', '<Plug>VSCodeCommentary', {})
+  vim.api.nvim_set_keymap('o', 'gc', '<Plug>VSCodeCommentary', {})
+  vim.api.nvim_set_keymap('n', 'gcc', '<Plug>VSCodeCommentaryLine', {})
+  vim.api.nvim_set_keymap('n', '<D-/>', 'gcc', {})
+  vim.api.nvim_set_keymap('x', '<D-/>', 'gc', {})
+end
