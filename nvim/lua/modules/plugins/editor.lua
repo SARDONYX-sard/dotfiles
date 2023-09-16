@@ -1,20 +1,5 @@
 local editor = {}
 
-editor['rainbowhxch/accelerated-jk.nvim'] = {
-  lazy = true,
-  event = 'VeryLazy',
-  config = require 'editor.accelerated-jk',
-}
-editor['m4xshen/autoclose.nvim'] = {
-  lazy = true,
-  event = 'InsertEnter',
-  config = require 'editor.autoclose',
-}
-editor['max397574/better-escape.nvim'] = {
-  lazy = true,
-  event = { 'CursorHold', 'CursorHoldI' },
-  config = require 'editor.better-escape',
-}
 editor['rhysd/clever-f.vim'] = {
   lazy = true,
   event = { 'BufReadPost', 'BufAdd', 'BufNewFile' },
@@ -22,8 +7,6 @@ editor['rhysd/clever-f.vim'] = {
 }
 editor['monaqa/dial.nvim'] = { -- Enhanced increment/decrement
   lazy = true,
-  -- event = { 'BufReadPost' },
-  -- config = require 'editor.dial',
 }
 editor['phaazon/hop.nvim'] = {
   lazy = true,
@@ -38,10 +21,20 @@ editor['kylechui/nvim-surround'] = {
 }
 
 if not vim.g.vscode then
-  editor['numToStr/Comment.nvim'] = {
+  editor['rainbowhxch/accelerated-jk.nvim'] = {
+    lazy = true,
+    event = 'VeryLazy',
+    config = require 'editor.accelerated-jk',
+  }
+  editor['m4xshen/autoclose.nvim'] = {
+    lazy = true,
+    event = 'InsertEnter',
+    config = require 'editor.autoclose',
+  }
+  editor['max397574/better-escape.nvim'] = {
     lazy = true,
     event = { 'CursorHold', 'CursorHoldI' },
-    config = require 'editor.comment',
+    config = require 'editor.better-escape',
   }
   editor['junegunn/vim-easy-align'] = {
     lazy = true,
@@ -50,6 +43,11 @@ if not vim.g.vscode then
   editor['sindrets/diffview.nvim'] = {
     lazy = true,
     cmd = { 'DiffviewOpen', 'DiffviewClose' },
+  }
+  editor['numToStr/Comment.nvim'] = {
+    lazy = true,
+    event = { 'CursorHold', 'CursorHoldI' },
+    config = require 'editor.comment',
   }
   editor['romainl/vim-cool'] = { -- Improved highlighting usability
     lazy = true,

@@ -107,21 +107,21 @@ local load_core = function()
 
   require 'core.builtin.better-gx'
   require 'core.options'
-  require 'keymap'
   require 'core.pack'
-  require 'core.builtin.keymap'
   if not vim.g.vscode then
     require 'core.builtin.highlight'
     require 'core.builtin.wsl'
     require 'core.neovide'
     require 'core.mapping'
     require 'core.event'
+    require 'keymap'
 
     local colorscheme = require('core.settings').colorscheme
     local background = require('core.settings').background
     vim.api.nvim_command('set background=' .. background)
     vim.api.nvim_command('colorscheme ' .. colorscheme)
   end
+  require 'core.builtin.keymap'
 end
 
 load_core()
