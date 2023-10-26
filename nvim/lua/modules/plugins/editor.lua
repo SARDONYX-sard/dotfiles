@@ -63,8 +63,11 @@ if not vim.g.vscode then
     event = 'BufReadPost',
   }
   editor['jedrzejboczar/possession.nvim'] = {
-    dependencies = { 'nvim-lua/plenary.nvim' },
     config = require 'editor.possession',
+  }
+  editor['ojroques/nvim-bufdel'] = {
+    lazy = true,
+    event = { 'CursorHold' },
   }
 
   editor['nvim-treesitter/nvim-treesitter'] = {

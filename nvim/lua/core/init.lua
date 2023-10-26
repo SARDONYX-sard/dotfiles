@@ -99,18 +99,17 @@ local clipboard_config = function()
 end
 
 local load_core = function()
-  createdir()
-  disable_distribution_plugins()
-  leader_map()
-
-  clipboard_config()
-
   require 'core.builtin.better-gx'
-  require 'core.options'
   require 'core.pack'
   if not vim.g.vscode then
+    createdir()
+    disable_distribution_plugins()
+    leader_map()
+    clipboard_config()
+
     require 'core.builtin.highlight'
     require 'core.builtin.wsl'
+    require 'core.options'
     require 'core.neovide'
     require 'core.mapping'
     require 'core.event'

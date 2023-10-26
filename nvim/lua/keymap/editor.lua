@@ -70,8 +70,15 @@ local plug_map = {
   -- Plugin: hop
   ['nv|<leader>k'] = map_cmd('<Cmd>HopWord<CR>'):with_noremap():with_desc 'jump: Goto word',
   ['nv|<leader>j'] = map_cmd('<Cmd>HopLine<CR>'):with_noremap():with_desc 'jump: Goto line',
-  -- ['nv|<leader>c'] = map_cmd('<Cmd>HopChar1<CR>'):with_noremap():with_desc 'jump: Goto one char',
-  -- ['nv|<leader>cc'] = map_cmd('<Cmd>HopChar2<CR>'):with_noremap():with_desc 'jump: Goto two chars',
+  -- ['nv|<leader>c'] = map_cmd('<Cmd>HopChar1<CR>'): with_noremap(): with_desc 'jump: Goto one char',
+  -- ['nv|<leader>cc'] = map_cmd('<Cmd>HopChar2<CR>'): with_noremap(): with_desc 'jump: Goto two chars',
+
+  -- Possession
+  ['nv|<leader>sc'] = map_cr('PossessionClose'):with_noremap():with_desc 'Session: Close',
+  ['nv|<leader>sd'] = map_cr('PossessionDelete'):with_noremap():with_desc 'Session: Delete',
+  ['nv|<leader>sl'] = map_cr('Telescope possession list'):with_noremap():with_desc 'Session: List',
+  ['nv|<leader>sr'] = map_cr('PossessionLoad'):with_noremap():with_desc 'Session: Load',
+  ['nv|<leader>ss'] = map_callback(vim.g.save_with_leaf_dir):with_noremap():with_desc 'Session: Save',
 
   -- Plugin: treehopper
   ['o|m'] = map_cu("lua require('tsht').nodes()"):with_silent():with_desc 'jump: Operate across syntax tree',
