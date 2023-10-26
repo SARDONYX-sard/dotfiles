@@ -1,18 +1,9 @@
 local M = {}
 
 --- Load session automatically .
-function M.enable_autoload()
-  vim.api.nvim_create_autocmd('VimEnter', {
-    pattern = '*',
-    callback = function()
-      pcall(vim.fn.execute, 'PossessionLoad')
-    end,
-    nested = true,
-  })
-end
 
 ---Get `.git` directory.
----@return string|nil
+---@return string | nil
 local function get_git_dir()
   -- Run git command to get the root directory
   local git_root_cmd = io.popen 'git rev-parse --show-toplevel'
@@ -53,9 +44,9 @@ end
 --- Auto save sessions for non-temp files.
 --- Handwritten session save events
 --- (since the default session save does not seem to be able to save sessions specific to each project)
----@param event_name string|nil - default: 'VimLeave'
+---@param event_name string |nil - default: 'VimLeave'
 function M.enable_save_on(event_name)
-  vim.api.nvim_create_autocmd(event_name or 'VimLeave', {
+  vim.api.nvim_create_autocmd({ event_name or 'VimLeave' }, {
     pattern = '*',
     callback = function()
       local cur_buf_abs_path = vim.fn.expand '%:p'
@@ -67,20 +58,24 @@ function M.enable_save_on(event_name)
   })
 end
 
+--- Load session automatically .
+function M.enable_autoload()
+  vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+    pattern = '*',
+    callback = function()
+      pcall(vim.fn.execute, 'PossessionLoad')
+    end,
+    nested = true,
+  })
+end
+
 return function()
-  -- https://github.com/jedrzejboczar/possession.nvim#configuration
+  -- https: //github.com/jedrzejboczar/possession.nvim#configuration
   require('possession').setup {
-    silent = false,
-    load_silent = true,
-    debug = false,
-    logfile = false,
-    prompt_no_cr = false,
+    load_silent = false,
     autosave = {
-      current = true, -- or fun(name): boolean
-      tmp = false, -- or fun(): boolean
-      tmp_name = 'tmp', -- or fun(): string
       on_load = false,
-      on_quit = true,
+      on_quit = false,
     },
     commands = {
       save = 'PossessionSave',
@@ -94,41 +89,22 @@ return function()
     },
     plugins = {
       close_windows = {
-        preserve_layout = true, -- or fun(win): boolean
+        preserve_layout = true,
         match = {
           floating = true,
-          custom = false, -- or fun(win): boolean
+          custom = false,
         },
       },
+      dapui = false,
       delete_buffers = true,
-    },
-    telescope = {
-      list = {
-        default_action = 'load',
-        mappings = {
-          save = { n = '<c-x>', i = '<c-x>' },
-          load = { n = '<c-v>', i = '<c-v>' },
-          delete = { n = '<c-t>', i = '<c-t>' },
-          rename = { n = '<c-r>', i = '<c-r>' },
-        },
-      },
     },
   }
 
-  --- Do not want session to load if a file path, etc., is passed as an argument.
-  --- @return boolean
-  local contain_path_in_arg = function()
-    return vim.fn.argc() > 0
-  end
-
-  if not contain_path_in_arg() then
-    M.enable_autoload()
-  end
   M.enable_save_on()
+  if vim.fn.argc() <= 0 then
+    vim.fn.execute 'PossessionLoad'
+  end
 
-  vim.keymap.set('n', '<leader>sc', ':PossessionClose<CR>', { silent = true, desc = 'Session: Close' })
-  vim.keymap.set('n', '<leader>sd', ':PossessionDelete<CR>', { silent = true, desc = 'Session: Delete' })
-  vim.keymap.set('n', '<leader>sl', ':Telescope possession list<CR>', { silent = true, desc = 'Session: List' })
-  vim.keymap.set('n', '<leader>sr', ':PossessionLoad<CR>', { silent = true, desc = 'Session: Restore' })
-  vim.keymap.set('n', '<leader>ss', M.save_with_leaf_dir, { silent = true, desc = 'Session: Save' })
+  -- For PossessionSave keymap
+  vim.g.save_with_leaf_dir = M.save_with_leaf_dir
 end

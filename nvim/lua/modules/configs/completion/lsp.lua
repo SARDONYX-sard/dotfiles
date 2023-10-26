@@ -2,7 +2,9 @@ return function()
   local nvim_lsp = require 'lspconfig'
   local mason = require 'mason'
   local mason_lspconfig = require 'mason-lspconfig'
-  require('neodev').setup() -- Setup neovim lua configuration
+  require('neodev').setup {
+    library = { plugins = { 'nvim-dap-ui' }, types = true },
+  } -- Setup neovim lua configuration
 
   require('lspconfig.ui.windows').default_options.border = 'single'
 
