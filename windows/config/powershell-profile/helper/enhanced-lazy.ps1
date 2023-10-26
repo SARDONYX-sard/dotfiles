@@ -1,6 +1,7 @@
 # Lazy loading(https://gist.github.com/hyrious/65c85889e18e916fe0a170f919afb5c1)
 $local:LazyLoadProfile = [PowerShell]::Create()
 [void]$LazyLoadProfile.AddScript(@"
+  Import-Module posh-git
   @("behaviors", "external-modules-settings") | ForEach-Object {
     $local:ImportFullDirectory = "$HelperDir\$_";
     if (Test-Path $ImportFullDirectory) {
@@ -33,6 +34,13 @@ $null = Register-ObjectEvent -InputObject $LazyLoadProfile -EventName Invocation
     }
   }
 
+  if ($PSVersionTable.PSEdition -eq "Core") {
+    Set-PSReadLineOption -PredictionSource HistoryAndPlugin
+    # For VSCode terminl
+    if ($Host.UI.RawUI.WindowSize.Height -ge 15) {
+      Set-PSReadLineOption -PredictionViewStyle ListView
+    }
+  }
   $LazyLoadProfile.Dispose()
   $LazyLoadProfileRunspace.Close()
   $LazyLoadProfileRunspace.Dispose()
