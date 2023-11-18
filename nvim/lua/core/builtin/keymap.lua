@@ -4,15 +4,6 @@ vim.keymap.set('n', ':', ';', {})
 vim.keymap.set('v', ';', ':', { desc = 'command' })
 vim.keymap.set('v', ':', ';', {})
 
--- Move current line to up/down `Alt+j/k` like VSCode
--- - Ref: https://vim.fandom.com/wiki/Moving_lines_up_or_down
-vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { silent = true, desc = 'move line down' })
-vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', { silent = true, desc = 'move line up' })
-vim.keymap.set('i', '<A-j>', '<Esc>:m .-2<CR>==', { silent = true, desc = 'move line down' })
-vim.keymap.set('i', '<A-k>', '<Esc>:m .-2<CR>==', { silent = true, desc = 'move line up' })
-vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { silent = true, desc = 'move line down' })
-vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { silent = true, desc = 'move line up' })
-
 -- See: https://github.com/vscode-neovim/vscode-neovim/issues/121#issuecomment-1505164619
 if vim.g.vscode then
   vim.api.nvim_set_keymap('x', 'gc', '<Plug>VSCodeCommentary', {})
@@ -26,9 +17,18 @@ else
   vim.keymap.set('n', '<leader>q', ':q!<CR>', { silent = true, desc = 'Quit window(buffers)' })
   vim.keymap.set('n', '<leader>w', ':w!<CR>', { silent = true, desc = 'Write file' })
 
+  -- Move current line to up/down `Alt+j/k` like VSCode
+  -- - Ref: https://vim.fandom.com/wiki/Moving_lines_up_or_down
+  vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { silent = true, desc = 'Move line down' })
+  vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', { silent = true, desc = 'Move line up' })
+  vim.keymap.set('i', '<A-j>', '<Esc>:m .-2<CR>==', { silent = true, desc = 'Move line down' })
+  vim.keymap.set('i', '<A-k>', '<Esc>:m .-2<CR>==', { silent = true, desc = 'Move line up' })
+  vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { silent = true, desc = 'Move line down' })
+  vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { silent = true, desc = 'Move line up' })
+
   -- Highlight keymaps
   --
-  -- quote string refferences
+  -- quote string references
   -- `:help :put`
   -- See: https://stackoverflow.com/questions/24164365/vimscript-quotes-in-strings-when-used-as-expressions
   vim.keymap.set(
