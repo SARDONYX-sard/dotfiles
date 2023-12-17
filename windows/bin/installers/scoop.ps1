@@ -115,9 +115,7 @@ scoop install shellcheck # Shell linter
 # Convenience
 # --------------------------------------------------------------------------------------------------
 # Helper
-scoop install capture2text    # Can read text from video.
 scoop install hugo            # Static site generator
-scoop install resource-hacker # exe icon edit
 scoop install luacheck        # lua package manager(to use neovim lua ckeck)
 scoop install git-filter-repo # The subcommand `git filter-repo` can be used to modify the git history.
 
@@ -156,7 +154,6 @@ scoop install npm-completion
 
 # scoop install imagemagick
 scoop install pandoc      # Markdown to PDF
-scoop install screentogif
 
 
 # --------------------------------------------------------------------------------------------------
@@ -195,6 +192,5 @@ scoop install hyperfine # A benchmarking tool written in rust.(https://github.co
 if (! $Light) {
   scoop install perl     # For wasm-pack(cargo Rust WebAssembly)
   scoop install deno
-  scoop install python27 # latest python version (e.g. python2.7) for other software.
   scoop install llvm     # Foundation for creating programming languages.(clang.exe)
 }
