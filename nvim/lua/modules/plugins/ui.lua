@@ -19,7 +19,7 @@ if not vim.g.vscode then
   ui['j-hui/fidget.nvim'] = {
     lazy = true,
     event = 'LspAttach',
-    tag = 'legacy', -- Suppress waring
+    tag = 'v1.0.0',
     config = require 'ui.fidget',
   }
   ui['lewis6991/gitsigns.nvim'] = {
