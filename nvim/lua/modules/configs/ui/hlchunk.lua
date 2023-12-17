@@ -23,7 +23,6 @@ return function()
 
   require('hlchunk').setup {
     chunk = {
-      style = '#BB0000',
       exclude_filetypes = exclude_filetypes,
       notify = false,
     },
@@ -33,14 +32,14 @@ return function()
       notify = false,
     },
     line_num = {
-      style = '#6b8f81', ---@type '#008080'|'#8b8f81'|'#6b8f81' - Candidate colors.
+      style = '#6b8f81', ---@type '#008080' | '#8b8f81' | '#6b8f81' - Candidate colors.
       notify = false,
     },
     blank = {
       chars = { '·' },
       exclude_filetypes = exclude_filetypes,
       style = {
-        vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID 'Whitespace'), 'fg', 'gui'),
+        vim.api.nvim_get_hl(0, { name = 'Whitespace' }),
       },
       notify = false,
     },

@@ -82,7 +82,6 @@ if not vim.g.vscode then
     dependencies = {
       { 'nvim-treesitter/nvim-treesitter-textobjects' },
       { 'mrjones2014/nvim-ts-rainbow' },
-      { 'JoosepAlviste/nvim-ts-context-commentstring' },
       { 'mfussenegger/nvim-treehopper' },
       { 'andymass/vim-matchup' },
       {
