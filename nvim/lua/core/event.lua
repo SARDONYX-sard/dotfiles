@@ -13,6 +13,17 @@ function autocmd.nvim_create_augroups(definitions)
   end
 end
 
+-- defer setting LSP-related keymaps till LspAttach
+local mapping = require 'keymap.completion'
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('LspKeymapLoader', { clear = true }),
+  callback = function(event)
+    if not _G._debugging then
+      mapping.lsp(event.buf)
+    end
+  end,
+})
+
 -- auto close NvimTree
 vim.api.nvim_create_autocmd('BufEnter', {
   group = vim.api.nvim_create_augroup('NvimTreeClose', { clear = true }),
@@ -21,7 +32,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
     local layout = vim.api.nvim_call_function('winlayout', {})
     if
       layout[1] == 'leaf'
-      and vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(layout[2]), 'filetype') == 'NvimTree'
+      and vim.api.nvim_get_option_value('filetype', { buf = vim.api.nvim_win_get_buf(layout[2]) }) == 'NvimTree'
       and layout[3] == nil
     then
       vim.api.nvim_command [[confirm quit]]
@@ -106,11 +117,11 @@ function autocmd.load_autocmds()
         '*',
         [[if &cursorline && &filetype !~# '^\(dashboard\|clap_\)' && ! &pvw | setlocal nocursorline | endif]],
       },
-      -- Force write shada on leaving nvim
+      -- Attempt to write shada when leaving nvim
       {
         'VimLeave',
         '*',
-        [[if has('nvim') | wshada! | else | wviminfo! | endif]],
+        [[if has('nvim') | wshada | else | wviminfo! | endif]],
       },
       -- Check if file changed when its window is focus, more eager than 'autoread'
       { 'FocusGained', '* checktime' },
@@ -141,8 +152,7 @@ function autocmd.load_autocmds()
       },
     },
   }
-
-  autocmd.nvim_create_augroups(definitions)
+  autocmd.nvim_create_augroups(require('modules.utils').extend_config(definitions, 'user.event'))
 end
 
 autocmd.load_autocmds()
