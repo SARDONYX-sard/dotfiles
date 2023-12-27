@@ -1,3 +1,0 @@
-return {
-  autocmd = { enabled = true },
-}

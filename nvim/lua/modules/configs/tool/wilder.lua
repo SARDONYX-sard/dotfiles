@@ -1,9 +1,7 @@
 return function()
 	local wilder = require("wilder")
-	local colors = require("modules.utils").get_palette()
 	local icons = { ui = require("modules.utils.icons").get("ui") }
 
-	wilder.setup({ modes = { ":", "/", "?" } })
 	wilder.set_option("use_python_remote_plugin", 0)
 	wilder.set_option("pipeline", {
 		wilder.branch(
@@ -25,13 +23,12 @@ return function()
 		),
 	})
 
-	local match_hl = require("modules.utils").hl_to_rgb("String", false, colors.green)
-
 	local popupmenu_renderer = wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
 		border = "rounded",
 		highlights = {
-			border = "Title", -- highlight to use for the border
-			accent = wilder.make_hl("WilderAccent", "Pmenu", { { a = 0 }, { a = 0 }, { foreground = match_hl } }),
+			default = "Pmenu",
+			border = "PmenuBorder", -- highlight to use for the border
+			accent = wilder.make_hl("WilderAccent", "CmpItemAbbr", "CmpItemAbbrMatch"),
 		},
 		empty_message = wilder.popupmenu_empty_message_with_spinner(),
 		highlighter = wilder.lua_fzy_highlighter(),
@@ -49,8 +46,8 @@ return function()
 		},
 	}))
 	local wildmenu_renderer = wilder.wildmenu_renderer({
+		apply_incsearch_fix = false,
 		highlighter = wilder.lua_fzy_highlighter(),
-		apply_incsearch_fix = true,
 		separator = " | ",
 		left = { " ", wilder.wildmenu_spinner(), " " },
 		right = { " ", wilder.wildmenu_index() },
@@ -63,4 +60,6 @@ return function()
 			substitute = wildmenu_renderer,
 		})
 	)
+
+	require("modules.utils").load_plugin("wilder", { modes = { ":", "/", "?" } })
 end
