@@ -19,6 +19,10 @@ editor['kylechui/nvim-surround'] = {
   event = 'VeryLazy',
   config = require 'editor.nvim-surround',
 }
+editor['romainl/vim-cool'] = { -- Improved highlighting usability
+  lazy = true,
+  event = { 'CursorMoved', 'InsertEnter' },
+}
 
 if not vim.g.vscode then
   editor['rainbowhxch/accelerated-jk.nvim'] = {
@@ -48,10 +52,6 @@ if not vim.g.vscode then
     lazy = true,
     event = { 'CursorHold', 'CursorHoldI' },
     config = require 'editor.comment',
-  }
-  editor['romainl/vim-cool'] = { -- Improved highlighting usability
-    lazy = true,
-    event = { 'CursorMoved', 'InsertEnter' },
   }
   editor['RRethy/vim-illuminate'] = {
     lazy = true,
