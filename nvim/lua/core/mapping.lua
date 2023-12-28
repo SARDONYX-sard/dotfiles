@@ -36,7 +36,7 @@ local core_map = {
   ['n|<C-k>'] = map_cmd('<C-w>k'):with_noremap():with_desc 'window: Focus up',
   ['n|<C-l>'] = map_cmd('<C-w>l'):with_noremap():with_desc 'window: Focus right',
   ['n|<C-q>'] = map_cr('wq'):with_desc 'edit: Save file and quit',
-  ['n|<leader><leader>w'] = map_cr('w!'):with_desc 'edit: Force Save',
+  ['n|<leader>w'] = map_cr('w!'):with_desc 'edit: Force Save',
   ['n|<leader>o'] = map_cr('setlocal spell! spelllang=en_us'):with_desc 'edit: Toggle spell check',
   ['n|tj'] = map_cr('tabprevious'):with_noremap():with_silent():with_desc 'tab: Move to previous tab',
   ['n|tk'] = map_cr('tabnext'):with_noremap():with_silent():with_desc 'tab: Move to next tab',
