@@ -63,8 +63,8 @@ settings['palette_overwrite'] = {}
 
 -- Set the colorscheme to use here.
 -- Available values are: `catppuccin`, `catppuccin-latte`, `catppucin-mocha`, `catppuccin-frappe`, `catppuccin-macchiato`.
----@type string
-settings['colorscheme'] = 'catppuccin-mocha'
+---@type 'catppuccin'|'catppuccin-latte'|'catppucin-mocha'|'catppuccin-frappe'|'catppuccin-macchiato'|'onedark'|'nord'
+settings['colorscheme'] = 'onedark'
 
 -- Set it to true if your terminal has transparent background.
 ---@type boolean
@@ -197,13 +197,13 @@ settings['neovide_config'] = {
   cursor_animation_length = 0.03,
   cursor_antialiasing = true,
   cursor_trail_length = 0.05,
-  cursor_vfx_mode = 'wireframe',
+  cursor_vfx_mode = 'railgun',
   cursor_vfx_opacity = 200.0,
   cursor_vfx_particle_density = 5.0,
   cursor_vfx_particle_lifetime = 1.2,
   cursor_vfx_particle_speed = 20.0,
   no_idle = true,
-  refresh_rate = 60,
+  refresh_rate = 120,
   transparency = 0.6,
 }
 
