@@ -64,7 +64,7 @@ settings['palette_overwrite'] = {}
 -- Set the colorscheme to use here.
 -- Available values are: `catppuccin`, `catppuccin-latte`, `catppucin-mocha`, `catppuccin-frappe`, `catppuccin-macchiato`.
 ---@type 'catppuccin'|'catppuccin-latte'|'catppuccin-mocha'|'catppuccin-frappe'|'catppuccin-macchiato'|'onedark'|'nord'
-settings['colorscheme'] = 'catppuccin-mocha'
+settings['colorscheme'] = 'catppuccin-frappe'
 
 -- Set it to true if your terminal has transparent background.
 ---@type boolean
