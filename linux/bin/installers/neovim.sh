@@ -82,14 +82,14 @@ fi
 info "Installing neovim..."
 sudo mv -f "${extract_dir}/bin/nvim" /usr/local/bin/
 sudo mkdir -p /usr/share/nvim
-sudo mv -f "${extract_dir}/share/" "/usr/share/nvim"
+sudo mv -f "${extract_dir}/share/nvim" "/usr/share/"
 
 if [[ -e "${nvim_share}" ]]; then
   info "move ${nvim_share} completed."
   info "Removing tmp & downloaded files..."
   remove_if_exists "${extract_dir}" "${tar_path}"
 else
-  red "Failed to move ${nvim_share}"
+  err "Failed to move ${nvim_share}"
   remove_if_exists "${tar_path}"
   info "Remain ${extract_dir} to retry install."
 fi
