@@ -1,3 +1,4 @@
+# vscode://file/$HOME/.gitconfig
 [user]
 #! Hard-coded the user name for UFN restriction.
 #! You need to change it to your windows user name
@@ -45,6 +46,7 @@
   df = "!f() { args=$@; [ -z \"$args\" ] && args=HEAD; ([ \"$args\" = \"HEAD\" ] && git status --short || git diff --name-status $args | sed 's/\t/  /')  | cut -c 4- | xargs git diff --color=always $args -- --multi --height 90% | cut -c 4-; }; f"
   delete-merged-branch = "!f() { branch=${1:-main}; git checkout main; git branch --merged|egrep -v '\\*|develop|main|master'|xargs --max-args=1 --no-run-if-empty git branch -d; };f"
   dfw = diff --word-diff# Display word-level differences in color.
+  dlg = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
   edit = config --global --edit
   ffs = flow feature start
   fix = commit --fixup# Can fix any previous commit. (e.g. git fix <sha>)
@@ -56,7 +58,7 @@
   mg = merge --no-ff
   # Create a Pull Request on the current branch.
   pr = !"start \"$(git remote get-url origin | sed 's/\\/git\\//\\//;s/\\.git$/\\/compare\\//')$(git config gitflow.branch.develop | tr -d \\\\r\\\\n)...$(git rev-parse --abbrev-ref HEAD | tr -d \\\\r\\\\n)?expand=1\""
-  pu = !git push origin $(git branch --show-current)# Push to remote branch t with same name as current branch.
+  ps = !git push origin $(git branch --show-current)# Push to remote branch t with same name as current branch.
   rb = rebase
   rba = rebase --abort
   rbc = rebase --continue
