@@ -53,22 +53,32 @@ function! ModeCurrent() abort
     return l:current_status_mode
 endfunction
 
+let ff_table = {'dos' : 'CRLF', 'unix' : 'LF', 'mac' : 'CR' }
+
+function! FileSize(bytes)
+    let l:bytes = a:bytes | let l:sizes = ['B', 'KB', 'MB', 'GB'] | let l:i = 0
+    while l:bytes >= 1024 | let l:bytes = l:bytes / 1024.0 | let l:i += 1 | endwhile
+    return l:bytes > 0 ? printf(' %.1f%s ', l:bytes, l:sizes[l:i]) : ''
+endfunction
+
 set laststatus=2
 set noshowmode
 set statusline=
 set statusline+=%0*\ %{ModeCurrent()}
-set statusline+=%3*\                                     " Separator
-set statusline+=%0*\ %n\                                 " Buffer number
-set statusline+=%1*\ %<%F%m%r%h%w\                       " File path, modified, readonly, helpfile, preview
-set statusline+=%=                                       " Right Side
-set statusline+=%2*\ %Y\                                 " FileType
-set statusline+=%3*│                                     " Separator
-set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
-set statusline+=\ (%{&ff})                               " FileFormat (dos/unix..)
-set statusline+=%3*│                                     " Separator
-set statusline+=%2*\ \%v                                 " Colomn number
-set statusline+=%3*:                                     " Separator
-set statusline+=%1*\%02l/%L\ (%3p%%)\                    " Line number / total lines, percentage of document
+set statusline+=%3*\                                          " Separator
+set statusline+=%0*\ %n\                                      " Buffer number
+set statusline+=%1*\ %<%F%m%r%h%w\                            " File path, modified, readonly, helpfile, preview
+set statusline+=%=                                            " Right Side
+set statusline+=%2*\ %Y                                       " FileType
+set statusline+=%3*│                                         " Separator
+set statusline+=%2*\%{''.(&fenc!=''?&fenc:&enc).''}           " Encoding
+set statusline+=\(%{ff_table[&ff]})                           " FileFormat (CRLF/LF/CR)
+set statusline+=%3*│                                         " Separator
+set statusline+=%1*\%01l/%L                                   " Line number / total lines
+set statusline+=%3*:                                          " Separator
+set statusline+=%2*\%v                                        " Colomn number
+set statusline+=%2*\(%p%%)                                    " Percentage of document
+set statusline+=%{FileSize(line2byte('$')+len(getline('$')))} " File size
 
 hi User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
 hi User2 ctermfg=007 ctermbg=236 guibg=#303030 guifg=#adadad
@@ -118,16 +128,41 @@ autocmd GUIEnter * :set columns=200
 " Key config
 " ----------------------------------------------------------------
 map <Space> <Leader>
-map <Leader>q :quit!<CR>
+map <Leader>q :quitall!<CR>
 map <Leader>w :write<CR>
 
-nmap <Leader>rv :so %<CR>                                " Reload .vimrc
-nmap <silent> <Leader>V :!start explorer /select,%:p<CR> " Open current dir with exploer
-nmap <silent> <Leader>c :bd<CR>                          " delete buffer
+nmap <Leader>rv :so %<CR>                                " - Reload .vimrc
+nmap <silent> <Leader>V :!start explorer /select,%:p<CR> " - Open current dir with exploer
+nmap <silent> <Leader>c :bd<CR>                          " - Delete buffer
 nmap <silent> <Leader>v :edit ~/.vimrc<CR>
 
 nnoremap ; :
 vnoremap ; :
+
+" `jk`(insert) => normal mode
+inoremap jj <Esc>
+inoremap jk <Esc>
+inoremap kj <Esc>
+
+" - Move current line to up/down `Alt+j/k`
+" Ref: https://vim.fandom.com/wiki/Moving_lines_up_or_down
+nnoremap <silent> <A-j> :m .+1<CR>==
+nnoremap <silent> <A-k> :m .-2<CR>==
+inoremap <silent> <A-j> <Esc>:m .+1<CR>==gi
+inoremap <silent> <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <silent> <A-j> :m '>+1<CR>gv=gv
+vnoremap <silent> <A-k> :m '<-2<CR>gv=gv
+
+" - Automatically close parentheses, etc.
+inoremap { {}<LEFT>
+inoremap [ []<LEFT>
+inoremap ( ()<LEFT>
+inoremap " ""<LEFT>
+inoremap ' ''<LEFT>
+
+" - Switch to alternate file
+nnoremap <S-h> :bprevious<CR>
+nnoremap <S-l> :bnext<CR>
 
 " --- Explore
 let g:netrw_altv = 1
@@ -160,31 +195,6 @@ augroup AutoStartExplore
 augroup END
 noremap <silent> <Leader>e :call ToggleNetrw()<CR>
 " --- Explore end
-
-" `jk`(insert) => normal mode
-inoremap jj <Esc>
-inoremap jk <Esc>
-inoremap kj <Esc>
-
-" - Move current line to up/down `Alt+j/k`
-" Ref: https://vim.fandom.com/wiki/Moving_lines_up_or_down
-nnoremap <silent> <A-j> :m .+1<CR>==
-nnoremap <silent> <A-k> :m .-2<CR>==
-inoremap <silent> <A-j> <Esc>:m .+1<CR>==gi
-inoremap <silent> <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <silent> <A-j> :m '>+1<CR>gv=gv
-vnoremap <silent> <A-k> :m '<-2<CR>gv=gv
-
-" - automatically close parentheses, etc.
-inoremap { {}<LEFT>
-inoremap [ []<LEFT>
-inoremap ( ()<LEFT>
-inoremap " ""<LEFT>
-inoremap ' ''<LEFT>
-
-" - Switch to alternate file
-nnoremap <S-h> :bprevious<CR>
-nnoremap <S-l> :bnext<CR>
 
 " Return the focused window to Explorer.
 autocmd VimEnter * execute 'wincmd p'
