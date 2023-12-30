@@ -185,3 +185,6 @@ inoremap ' ''<LEFT>
 " - Switch to alternate file
 nnoremap <S-h> :bprevious<CR>
 nnoremap <S-l> :bnext<CR>
+
+" Return the focused window to Explorer.
+autocmd VimEnter * execute 'wincmd p'

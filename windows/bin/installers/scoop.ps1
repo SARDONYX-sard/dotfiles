@@ -63,7 +63,8 @@ scoop bucket add versions
 scoop bucket add nerd-fonts # For Terminal(oh-my-posh design) font(https://github.com/matthewjberger/scoop-nerd-fonts)
 # scoop bucket add games # Option Citra(3DS Emu) etc.
 
-scoop bucket  add myBuket https://github.com/amano41/scoop-bucket.git # For keyhac
+scoop bucket add jp https://github.com/dooteeen/scoop-for-jp # To use a special gvim with background transparency applied.
+scoop bucket add myBuket https://github.com/amano41/scoop-bucket.git # For keyhac
 
 
 # --------------------------------------------------------------------------------------------------
@@ -160,7 +161,7 @@ scoop install pandoc      # Markdown to PDF
 # Editor
 # --------------------------------------------------------------------------------------------------
 scoop install neovim
-# scoop install notepadplusplus
+scoop install vim-kaoriya # Transparently applied version of gvim.exe
 
 # Editor helper
 scoop install ctags # For jump to reference
