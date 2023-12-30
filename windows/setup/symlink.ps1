@@ -53,6 +53,7 @@ name(option):
 $files = @(
   # vim
   @{ target = "init.vim"; path = ""; name = ".vimrc" }
+  @{ target = "gvimrc.vim"; path = ""; name = ".gvimrc" }
   # neovim
   @{ target = "nvim/lua"; fullpath = [IO.Path]::Combine($HOME, "AppData/Local/nvim/lua"); }
   @{ target = "nvim/ftplugin"; fullpath = [IO.Path]::Combine($HOME, "AppData/Local/nvim/ftplugin"); }
