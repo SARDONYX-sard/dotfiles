@@ -202,6 +202,8 @@ settings['neovide_config'] = {
   cursor_animation_length = 0.03,
   cursor_antialiasing = true,
   cursor_trail_length = 0.05,
+  -- NOTE: Only for the railgun vfx mode.
+  ---@type 'railgun'|'torpedo'|'pixiedust'|'sonicboom'|'ripple'|'wireframe'
   cursor_vfx_mode = 'railgun',
   cursor_vfx_opacity = 200.0,
   cursor_vfx_particle_density = 5.0,
