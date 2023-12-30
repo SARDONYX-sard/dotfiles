@@ -1,3 +1,11 @@
+" Load last open buffer, if no vim args
+if argc() == 0
+    " autocmd VimEnter to load the last buffer
+    autocmd VimEnter * nested :e #<1
+    " autocmd BufReadPost to change the working directory to the last buffer's directory
+    autocmd BufReadPost * execute "cd " expand("%:p:h")
+endif
+"
 " References:
 " [1] https://github.com/asvetliakov/vscode-neovim/issues/103
 " [2] https://github.com/Microsoft/WSL/issues/892
@@ -79,6 +87,7 @@ set statusline+=%3*:                                          " Separator
 set statusline+=%2*\%v                                        " Colomn number
 set statusline+=%2*\(%p%%)                                    " Percentage of document
 set statusline+=%{FileSize(line2byte('$')+len(getline('$')))} " File size
+" Got to GUI settings(when hover path, <Ctrl-w> + F): $HOME/.gvimrc
 
 hi User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
 hi User2 ctermfg=007 ctermbg=236 guibg=#303030 guifg=#adadad
