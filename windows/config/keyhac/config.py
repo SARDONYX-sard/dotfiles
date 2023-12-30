@@ -63,11 +63,15 @@ def show_app_list(keymap_global: KeymapPair, keymap: Keymap):
             dl_dir = "E:\\ダウンロード"
 
             shell = keymap.ShellExecuteCommand
-            shell_neovide = shell(None, "neovide.exe", "", "") if is_win else None
+
+            def win_shell(proc: str):
+                return shell(None, proc, "", "") if is_win else None
+
             apps = [
-                ("-- Editor --", shell_neovide),
-                ("Neovide", shell_neovide),
-                ("Notepad", shell(None, "notepad.exe", "", "") if is_win else None),
+                ("-- Editor --", win_shell("neovide")),
+                ("Vim", win_shell("gvim")),
+                ("Neovide", win_shell("neovide")),
+                ("Notepad", win_shell("notepad.exe")),
                 ("VSCode", shell(None, "code", "", "")),
                 #
                 (
