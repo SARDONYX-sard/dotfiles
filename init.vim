@@ -5,7 +5,7 @@ if argc() == 0
     " autocmd BufReadPost to change the working directory to the last buffer's directory
     autocmd BufReadPost * execute "cd " expand("%:p:h")
 endif
-"
+
 " References:
 " [1] https://github.com/asvetliakov/vscode-neovim/issues/103
 " [2] https://github.com/Microsoft/WSL/issues/892
@@ -112,7 +112,8 @@ set fileformats=unix,dos,mac
 set gcr=a:blinkon0             " - Disable cursor blink
 set history=1000               " - Store lots of :cmdline history
 set list
-set listchars=extends:»,nbsp:%,precedes:«,space:·,tab:»-,trail:-
+set listchars=extends:»,nbsp:%,precedes:«,space:·,tab:￫\ ,trail:-
+" set listchars=extends:»,nbsp:%,precedes:«,space:·,tab:\|\ ,trail:-
 set mouse=a                    " - use mouse
 set number                     " - Show line numbers
 set ruler                      " - Show line and column number
