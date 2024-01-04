@@ -113,16 +113,16 @@ set gcr=a:blinkon0             " - Disable cursor blink
 set history=1000               " - Store lots of :cmdline history
 set list
 set listchars=extends:»,nbsp:%,precedes:«,space:·,tab:￫\ ,trail:-
-" set listchars=extends:»,nbsp:%,precedes:«,space:·,tab:\|\ ,trail:-
 set mouse=a                    " - use mouse
+set nobackup                   " - Do not create backup file
+set noswapfile                 " - Disable swp file output
+set noswapfile                 " - Do not create swap file
+set noundofile                 " - undo file output disabled
+set novisualbell               " - No flash
 set number                     " - Show line numbers
 set ruler                      " - Show line and column number
 set showcmd                    " - Show incomplete cmds down the bottom
 set showmode                   " - Show current mode down the bottom
-" set spell                      " - Enable spell check
-set nobackup                   " - Do not create backup file
-set noswapfile                 " - Do not create swap file
-set novisualbell               " - No flash
 set wildmenu                   " - Show completion list in Command Mode
 
 colorscheme slate " slate|evening
