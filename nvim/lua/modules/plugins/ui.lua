@@ -39,14 +39,12 @@ ui['nvim-lualine/lualine.nvim'] = {
 
 -- Avoid error
 -- `neodim/ts_override.lua:21'get_highlig ht_state' (a nil value)`
-if vim.loop.os_uname().sysname ~= 'Linux' then
-  ui['zbirenbaum/neodim'] = {
-    lazy = true,
-    commit = '9477da0',
-    event = 'LspAttach',
-    config = require 'ui.neodim',
-  }
-end
+--[[ ui['zbirenbaum/neodim'] = {
+  lazy = true,
+  commit = '9477da0',
+  event = 'LspAttach',
+  config = require 'ui.neodim',
+} ]]
 
 ui['karb94/neoscroll.nvim'] = {
   lazy = true,
