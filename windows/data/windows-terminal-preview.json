@@ -1,6 +1,6 @@
 {
   "$help": "https://aka.ms/terminal-documentation",
-  "$schema": "https://aka.ms/terminal-profiles-schema",
+  "$schema": "https://aka.ms/terminal-profiles-schema-preview",
   "actions": [
     {
       "command": "unbound",
@@ -123,7 +123,7 @@
       {
         "commandline": "wsl -d kali-linux --user sardonyx kex --wtstart -m",
         "guid": "{55ca431b-3a87-5fb3-83cd-11ececc031d2}",
-        "hidden": false,
+        "hidden": true,
         "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Kali-dragon-icon.svg/2048px-Kali-dragon-icon.svg.png",
         "name": "Win-KeX"
       },
