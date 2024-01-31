@@ -51,6 +51,7 @@ export HOME_DIR
 # git
 mkdir -p "$HOME"/.config/git
 sudo ln -sf "$HOME_DIR"/dotfiles/common/data/git/gitignore-global.txt "$HOME"/.config/git/ignore
+sudo ln -sf "$HOME_DIR"/dotfiles/common/data/git/git-config.txt "$HOME"/.gitconfig
 
 # vim
 sudo ln -sf "$HOME_DIR"/dotfiles/init.vim "$HOME"/.vimrc
