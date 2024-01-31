@@ -65,8 +65,9 @@ $files = @(
   @{ target = "windows\data\windows-terminal.json"; fullpath = $terminalPath; name = "settings.json" } # mode = "copy" }
   @{ target = "windows\data\windows-terminal-preview.json"; fullpath = $terminalPreviewPath; name = "settings.json" } # mode = "copy" }
 
-  # global gitignore
+  # global git
   @{ target = "common\data\git\gitignore-global.txt"; fullpath = [IO.Path]::Combine($HOME, ".config/git/ignore"); name = "ignore" } # mode = "copy" }
+  @{ target = "common\data\git\git-config.txt"; path = ""; name = ".gitconfig" }
 
   # Other
   @{ target = "windows\config\keyhac"; fullpath = [IO.Path]::Combine($env:AppData, "Keyhac"); }
