@@ -13,6 +13,7 @@
   ignorecase = false
   quotepath = false
   safecrlf = true
+  symlinks = true
 [color]
   ui = auto
 [credential]
@@ -75,6 +76,6 @@
   stt = status -uno# Display status of files other than Untracked files.
   sv = stash push --include-untracked# Save all uncommitted files.
   # Delete all merged branches that are not in remote.
-  sync = !git stash push --include-untracked && git fetch -p && git push origin --tags && git delete-merged-branch && git stash pop
+  sync = !git stash push --include-untracked && git fetch -p && git pull && git push origin --tags && git delete-merged-branch && git stash pop
   undo = reset HEAD~1
   unstage = reset# unstaged all files.
