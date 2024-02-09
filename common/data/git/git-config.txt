@@ -27,6 +27,8 @@
 [merge]
   conflictstyle = diff3
   defaultToUpstream = true
+[pull]
+	autostash = true
 [push]
   default = current
 [rebase]

@@ -10,6 +10,7 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
     @{ name = "gc"; option = "commit" }
     @{ name = "gl"; option = "log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'" }
     @{ name = "gp"; option = "push" }
+    @{ name = "gpf"; option = "push --force" }
 
     @{ name = "ga"; option = "add" }
     @{ name = "gpl"; option = "pull" }
