@@ -102,6 +102,7 @@ endif
 
 " Display options
 set autoread                   " - Reload files changed outside vim
+au CursorHold * checktime
 set backspace=indent,eol,start " - Press `backspace`(insert mode) => delete character
 set belloff=all                " - No sounds
 set clipboard+=unnamed         " - Yank action == clipboard
@@ -206,5 +207,3 @@ augroup END
 noremap <silent> <Leader>e :call ToggleNetrw()<CR>
 " --- Explore end
 
-" Return the focused window to Explorer.
-autocmd VimEnter * execute 'wincmd p'
