@@ -122,6 +122,7 @@ set noundofile                 " - undo file output disabled
 set novisualbell               " - No flash
 set number                     " - Show line numbers
 set ruler                      " - Show line and column number
+set shortmess-=S               " - Removing the S flag will show [number currently in focus/number of matches].
 set showcmd                    " - Show incomplete cmds down the bottom
 set showmode                   " - Show current mode down the bottom
 set wildmenu                   " - Show completion list in Command Mode
@@ -207,3 +208,13 @@ augroup END
 noremap <silent> <Leader>e :call ToggleNetrw()<CR>
 " --- Explore end
 
+"Binary Edit (xxd) mode (invoked by invoking vim -b or opening the *.bin,*.hkx file)
+augroup BinaryXXD
+    autocmd!
+    autocmd BufReadPre  *.bin,*.exe,*.hkx let &binary =1
+    autocmd BufReadPost * if &binary | silent %!xxd -g 1
+    autocmd BufReadPost * set ft=xxd | endif
+    autocmd BufWritePre * if &binary | %!xxd -r | endif
+    autocmd BufWritePost * if &binary | silent %!xxd -g 1
+    autocmd BufWritePost * set nomod | endif
+augroup END
