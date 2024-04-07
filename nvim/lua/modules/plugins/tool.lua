@@ -112,6 +112,8 @@ tool['mfussenegger/nvim-dap'] = {
       config = require 'tool.dap.dapui',
     },
     { 'jay-babu/mason-nvim-dap.nvim' },
+    { 'mfussenegger/nvim-dap' },
+    { 'nvim-neotest/nvim-nio' },
   },
 }
 
