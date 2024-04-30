@@ -1,7 +1,7 @@
 --- inlay_hint manager
 --- NOTE: Neovim inlay hint supported >=0.10
 ---
---- The following versions are assumed Neovim v0.10.0-dev-988+g1ef60ea65
+--- The following versions are assumed NVIM v0.10.0-dev-3045+gefaf37a2b
 local M = {}
 
 ---@param event string
@@ -19,7 +19,7 @@ local function inlay_hint_on(event, is_enabled)
       local supported_inlayhint = client and client.server_capabilities and client.server_capabilities.inlayHintProvider
 
       if supported_inlayhint then
-        vim.lsp.inlay_hint.enable(args.buf, is_enabled)
+        vim.lsp.inlay_hint.enable(is_enabled)
       end
     end,
   })
@@ -46,7 +46,7 @@ function M.toggle_inlayhint_key(mode, key)
   end
 
   vim.keymap.set(mode or 'n', key or '<leader>lh', function()
-    vim.lsp.inlay_hint.enable(vim.api.nvim_get_current_buf(), not vim.lsp.inlay_hint.is_enabled())
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
   end, { silent = true, desc = 'lsp: Toggle inlayhint' })
 end
 
