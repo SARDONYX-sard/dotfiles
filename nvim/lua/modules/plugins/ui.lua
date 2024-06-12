@@ -66,11 +66,14 @@ ui['dstein64/nvim-scrollview'] = {
   event = { 'BufReadPost', 'BufAdd', 'BufNewFile' },
   config = require 'ui.scrollview',
 }
-ui['edluffy/specs.nvim'] = {
-  lazy = true,
-  event = 'CursorMoved',
-  config = require 'ui.specs',
-}
+
+-- Turn of to avoid col bug: https://github.com/edluffy/specs.nvim/issues/31
+-- ui['edluffy/specs.nvim'] = {
+--   lazy = true,
+--   event = 'CursorMoved',
+--   config = require 'ui.specs',
+-- }
+
 ui['navarasu/onedark.nvim'] = {
   lazy = true,
   event = { 'BufReadPost', 'BufAdd', 'BufNewFile' },
