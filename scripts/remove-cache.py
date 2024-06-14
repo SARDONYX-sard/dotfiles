@@ -7,6 +7,7 @@
 - Remove all cache add blacklist
     python3 remove-cache.py --blacklist "npm,go"
 """
+
 import argparse
 from os import system
 from shutil import which
@@ -16,11 +17,11 @@ from typing import Literal
 
 libs = [
     # Utils
-    {"name": "cargo", "command": "cargo cache --autoclean"},
-    {"name": "go", "command": "go clean --modcache"},
-    {"name": "npm", "command": "npm cache verify"},
-    {"name": "pnpm", "command": "pnpm cache clean"},
-    {"name": "yarn", "command": "yarn cache clean"},
+    {"name": "cargo", "command": "cargo cache --autoclean", "description": "cargo "},
+    {"name": "go", "command": "go clean --modcache", "description": "go "},
+    {"name": "npm", "command": "npm cache verify", "description": "npm"},
+    {"name": "pnpm", "command": "pnpm cache clean", "description": "pnpm"},
+    {"name": "yarn", "command": "yarn cache clean", "description": "yarn"},
 ]
 
 
@@ -69,6 +70,7 @@ def libs_cmd_exec(
             continue
 
         if name not in blacklist:
+            print("Cleaning caches...")
             system(command)
         print("")
 
@@ -94,7 +96,7 @@ def get_args():
 
 def main():
     args = get_args()
-    black_list = list(args.black_list.split(","))
+    black_list = list(args.blacklist.split(","))
     libs_cmd_exec(libs, black_list, args.dry_run)
     print(color("Successes: Finished working on all libraries.", "green"))
 
