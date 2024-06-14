@@ -25,7 +25,7 @@
 [init]
   defaultBranch = main
 [merge]
-  conflictstyle = diff3
+	conflictStyle = zdiff3
   defaultToUpstream = true
 [pull]
   autostash = true
