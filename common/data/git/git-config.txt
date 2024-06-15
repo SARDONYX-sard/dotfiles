@@ -17,6 +17,7 @@
 [color]
   ui = auto
 [credential]
+  helper = cache --timeout 30000
   helper = manager
 [credential "helperselector"]
   selected = manager
@@ -25,7 +26,7 @@
 [init]
   defaultBranch = main
 [merge]
-	conflictStyle = zdiff3
+  conflictStyle = zdiff3
   defaultToUpstream = true
 [pull]
   autostash = true
