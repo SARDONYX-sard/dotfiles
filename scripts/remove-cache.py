@@ -17,11 +17,11 @@ from typing import Literal
 
 libs = [
     # Utils
-    {"name": "cargo", "command": "cargo cache --autoclean", "description": "cargo "},
-    {"name": "go", "command": "go clean --modcache", "description": "go "},
-    {"name": "npm", "command": "npm cache verify", "description": "npm"},
-    {"name": "pnpm", "command": "pnpm cache clean", "description": "pnpm"},
-    {"name": "yarn", "command": "yarn cache clean", "description": "yarn"},
+    {"name": "cargo", "command": "cargo cache --autoclean"},
+    {"name": "go", "command": "go clean --modcache"},
+    {"name": "npm", "command": "npm cache verify"},
+    {"name": "pnpm", "command": "pnpm store prune"},
+    {"name": "yarn", "command": "yarn cache clean"},
 ]
 
 
@@ -55,13 +55,11 @@ def libs_cmd_exec(
     if blacklist is None:
         blacklist = []
     for lib in libraries:
-        [name, description, command] = [lib["name"], lib["description"], lib["command"]]
+        [name, command] = [lib["name"], lib["command"]]
         name_title = color("Name", "green")
-        description_title = color("Description", "cyan")
+
         print(83 * "-")
         print(f"{name_title}: {name}")
-        if description:
-            print(f"{description_title}: {description}")
 
         if is_debug:
             print(f"execute command: {command}")
@@ -70,7 +68,7 @@ def libs_cmd_exec(
             continue
 
         if name not in blacklist:
-            print("Cleaning caches...")
+            print(color("Cleaning cache...", "cyan"))
             system(command)
         print("")
 
