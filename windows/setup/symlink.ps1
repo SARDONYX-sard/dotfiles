@@ -65,6 +65,14 @@ $files = @(
   @{ target = "windows\data\windows-terminal.json"; fullpath = $terminalPath; name = "settings.json" } # mode = "copy" }
   @{ target = "windows\data\windows-terminal-preview.json"; fullpath = $terminalPreviewPath; name = "settings.json" } # mode = "copy" }
 
+  # NuShell
+  if (Get-Command nu -ErrorAction SilentlyContinue) {
+    @{ target = "common/nushell/config.nu"; fullpath = [IO.Path]::Combine($HOME, "AppData/Roaming/nushell/config.nu"); }
+    @{ target = "common/nushell/env.nu"; fullpath = [IO.Path]::Combine($HOME, "AppData/Roaming/nushell/env.nu"); }
+  }
+
+  @{ target = "nvim/init.lua"; fullpath = [IO.Path]::Combine($HOME, "AppData/Local/nvim/init.lua"); }
+
   # global git
   @{ target = "common\data\git\gitignore-global.txt"; fullpath = [IO.Path]::Combine($HOME, ".config/git/ignore"); name = "ignore" } # mode = "copy" }
   @{ target = "common\data\git\git-config.txt"; path = ""; name = ".gitconfig" }
@@ -73,7 +81,7 @@ $files = @(
   @{ target = "windows\config\keyhac"; fullpath = [IO.Path]::Combine($env:AppData, "Keyhac"); }
   @{ target = "$HOME\scoop\apps\keyhac\current\keyhac.exe"; fullpath = [IO.Path]::Combine($env:AppData, "Microsoft\Windows/Start Menu\Programs\Startup\keyhac.exe"); }
 
-  if (Test-Path navi) {
+  if (Get-Command navi -ErrorAction SilentlyContinue) {
     @{ target = "common\data\navi-config.yml"; fullpath = "$(navi info config-path | Write-Output)"; name = "config.yml" } #manual
   }
 
