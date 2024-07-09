@@ -866,6 +866,12 @@ $env.config = {
 }
 
 # Aliases
-alias c = clear
-alias ll = ls -l
-alias lla = ls -la
+alias ..  = cd ../..
+alias ... = cd ../../..
+alias c   = clear
+alias dc  = docker-compose
+alias dk  = docker
+alias l   = ls -d
+alias la  = ls -ad
+alias ll  = ls -al
+alias lla = ls -ald
