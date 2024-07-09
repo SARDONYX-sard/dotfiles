@@ -15,6 +15,32 @@ with_vscode['monaqa/dial.nvim'] = {
   event = 'VeryLazy',
   config = function()
     -- https://github.com/monaqa/dial.nvim
+    local augend = require 'dial.augend'
+    require('dial.config').augends:register_group {
+      default = {
+        augend.constant.alias.alpha,
+        augend.constant.alias.Alpha,
+        augend.constant.alias.bool,
+        augend.date.alias['%Y/%m/%d'],
+        augend.integer.alias.binary,
+        augend.integer.alias.decimal,
+        augend.integer.alias.hex,
+        augend.semver.alias.semver,
+      },
+      typescript = {
+        augend.integer.alias.decimal,
+        augend.integer.alias.hex,
+        augend.constant.new { elements = { 'let', 'const' } },
+      },
+      visual = {
+        augend.integer.alias.decimal,
+        augend.integer.alias.hex,
+        augend.date.alias['%Y/%m/%d'],
+        augend.constant.alias.alpha,
+        augend.constant.alias.Alpha,
+      },
+    }
+
     vim.keymap.set('n', '<C-a>', function()
       require('dial.map').manipulate('increment', 'normal')
     end)
