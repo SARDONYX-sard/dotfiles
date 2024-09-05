@@ -1,3 +1,7 @@
+" NOTE:
+" - syntax highlight will not work unless you put it in gvim.
+" - No plugins are used to achieve portability with a single file (so there is a mix of scripts that should not be written here).
+
 " Load last open buffer, if no vim args
 if argc() == 0
     " autocmd VimEnter to load the last buffer
@@ -176,7 +180,8 @@ inoremap ' ''<LEFT>
 nnoremap <S-h> :bprevious<CR>
 nnoremap <S-l> :bnext<CR>
 
-" --- Explore
+" //////////////////////////////////////////////////////////////////////////////
+" Explore
 let g:netrw_altv = 1
 let g:netrw_banner = 0
 let g:netrw_browse_split = 3
@@ -206,8 +211,8 @@ augroup AutoStartExplore
     autocmd VimEnter * :call ToggleNetrw()
 augroup END
 noremap <silent> <Leader>e :call ToggleNetrw()<CR>
-" --- Explore end
 
+" //////////////////////////////////////////////////////////////////////////////
 "Binary Edit (xxd) mode (invoked by invoking vim -b or opening the *.bin,*.hkx file)
 augroup BinaryXXD
     autocmd!
@@ -219,6 +224,7 @@ augroup BinaryXXD
     autocmd BufWritePost * set nomod | endif
 augroup END
 
+" //////////////////////////////////////////////////////////////////////////////
 " Better gx to open URLs.
 " Ref: https://gist.github.com/habamax/0a6c1d2013ea68adcf2a52024468752e
 func! BetterGx() abort
@@ -295,120 +301,4 @@ func! BetterGx() abort
 endfunc
 
 nnoremap <silent> gx :call BetterGx()<CR>
-
-" //////////////////////////////////////////////////////////////////////////////
-" Papyrus syntax file
-" Filename:     papyrus.vim
-" Language:     TES5 Papyrus scripting language
-" Maintainer:   Sirtaj Singh Kang <sirtaj@sirtaj.net>
-" Version:      1.0
-" License: All parts of this plugin are under the public domain. I request that you drop me a note if you redistribute this with modifications, but you are under no legal obligation to do so.
-"
-" This is based on various references at http://www.creationkit.com/
-
-if version < 600
-    syntax clear
-elseif exists("b:current_syntax")
-    finish
-endif
-
-syn case ignore
-
-syn keyword papyrusScript       ScriptName Extends
-
-syn keyword papyrusKeyword      Event EndEvent
-syn keyword papyrusKeyword      Function EndFunction
-syn keyword papyrusKeyword      State EndState Return
-
-syn keyword papyrusConditional  If ElseIf Else EndIf
-syn keyword papyrusRepeat       While EndWhile
-syn keyword papyrusImport       Import
-
-syn keyword papyrusTodo         TODO FIXME XXX
-syn region  papyrusComment      start=/{/ end=/}/ contains=papyrusTodo
-syn match   papyrusComment      /;.*$/ contains=papyrusTodo
-
-syn keyword papyrusType         Bool Boolean Int Integer Float String
-syn keyword papyrusConstant     None    Self Parent
-syn keyword papyrusBoolean      true false
-
-syn keyword papyrusStorage      Global Native Property EndProperty Auto AutoReadOnly
-syn keyword papyrusOperator     Length New As
-syn match   papyrusOperator     /[-+*/,=%.!<>]/
-syn match   papyrusOperator     /[-+*/<>!=%]=/
-syn match   papyrusOperator     /&&/
-syn match   papyrusOperator     /||/
-syn match   papyrusOperator     /\[\s*\]/
-syn match   papyrusOperator     /(\s*)/
-
-
-syn match   papyrusNumber       /[0-9]\+/
-syn match   papyrusNumber       /[0-9]*\.[0-9]\+/
-syn match   papyrusNumber       /-[0-9]\+/
-syn match   papyrusNumber       /0x[0-9abcdef]\+/
-
-syn match   papyrusNumber       /-[0-9]\+\.[0-9]+/
-syn match   papyrusNumber       /-[0-9]*\.[0-9]+/
-syn match   papyrusNumber       /-0x[0-9abcdef]\+/
-
-syn region  papyrusString      start=/"/ skip=/\\"/ end=/"/
-syn region  papyrusArray        start=/\[/ end=/\]/ contains=ALL contained
-
-" Basic TES5 Script types via http://www.creationkit.com/Category:Script_Objects
-syn keyword papyrusScriptType    Action Activator ActiveMagicEffect Actor ActorBase Alias
-syn keyword papyrusScriptType    Ammo Apparatus Armor ArmorAddon AssociationType Book
-syn keyword papyrusScriptType    Cell Class ColorForm CombatStyle ConstructibleObject Container
-syn keyword papyrusScriptType    Debug Door EffectShader Enchantment EncounterZone Explosion
-syn keyword papyrusScriptType    Faction Flora Form FormList Furniture Game GlobalVariable
-syn keyword papyrusScriptType    Hazard HeadPart Idle ImageSpaceModifier ImpactDataSet Ingredient Input
-syn keyword papyrusScriptType    Key Keyword LeveledActor LeveledItem LeveledSpell Light Location LocationAlias LocationRefType
-syn keyword papyrusScriptType    MagicEffect Math Message MiscObject MusicType ObjectReference Outfit
-syn keyword papyrusScriptType    Package Perk Potion Projectile Quest
-syn keyword papyrusScriptType    Race ReferenceAlias
-syn keyword papyrusScriptType    Scene Scroll Shout SKSE SoulGem Sound SoundCategory Spell Static StringUtil
-syn keyword papyrusScriptType    TalkingActivator TextureSet Topic TopicInfo
-syn keyword papyrusScriptType    UI Utility
-syn keyword papyrusScriptType    VisualEffect VoiceType
-syn keyword papyrusScriptType    Weapon Weather WordOfPower WorldSpace
-
-
-" Not currently used
-syn match   papyrusIdentifier   "\s*[a-zA-z_][a-zA-Z0-9_]*" contained
-
-" Define the default highlighting.
-if version >= 508 || !exists("did_papyrus_syn_inits")
-    if version < 508
-        let did_papyrus_syn_inits = 1
-        command -nargs=+ HiLink hi link <args>
-    else
-        command -nargs=+ HiLink hi def link <args>
-    endif
-
-
-    HiLink papyrusScript Keyword
-    HiLink papyrusKeyword Keyword
-    HiLink papyrusScriptType Type
-    HiLink papyrusType Type
-    HiLink papyrusBoolean Boolean
-    HiLink papyrusConditional Conditional
-    HiLink papyrusRepeat Repeat
-    HiLink papyrusStorage StorageClass
-
-    HiLink papyrusImport Import
-
-    HiLink papyrusComment   Comment
-    HiLink papyrusTodo Todo
-
-    HiLink papyrusConstant  Constant
-    HiLink papyrusNull  Constant
-    HiLink papyrusOperator Operator
-    HiLink papyrusNumber Number
-    HiLink papyrusString String
-
-
-    delcommand HiLink
-endif
-let b:current_syntax = "papyrus"
-au BufRead,BufNewFile *.psc set filetype=papyrus
-
 " //////////////////////////////////////////////////////////////////////////////
