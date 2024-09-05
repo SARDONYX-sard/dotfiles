@@ -24,11 +24,6 @@ editor['m4xshen/autoclose.nvim'] = {
   event = 'InsertEnter',
   config = require 'editor.autoclose',
 }
-editor['max397574/better-escape.nvim'] = {
-  lazy = true,
-  event = { 'CursorHold', 'CursorHoldI' },
-  config = require 'editor.better-escape',
-}
 editor['LunarVim/bigfile.nvim'] = {
   lazy = false,
   config = require 'editor.bigfile',

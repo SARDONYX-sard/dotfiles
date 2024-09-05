@@ -2,66 +2,74 @@ return function()
   local icons = {
     ui = require('modules.utils.icons').get 'ui',
     misc = require('modules.utils.icons').get 'misc',
+    git = require('modules.utils.icons').get('git', true),
+    cmp = require('modules.utils.icons').get('cmp', true),
   }
 
   require('modules.utils').load_plugin('which-key', {
+    preset = 'classic',
+    delay = vim.o.timeoutlen,
+    triggers = {
+      { '<auto>', mode = 'nixso' },
+    },
     plugins = {
+      marks = true,
+      registers = true,
+      spelling = {
+        enabled = true,
+        suggestions = 20,
+      },
       presets = {
-        operators = false,
         motions = false,
-        text_objects = false,
-        windows = false,
-        nav = false,
+        operators = false,
+        text_objects = true,
+        windows = true,
+        nav = true,
         z = true,
         g = true,
       },
     },
-
+    win = {
+      border = 'none',
+      padding = { 1, 2 },
+      wo = { winblend = 0 },
+    },
+    expand = 1,
     icons = {
+      group = '',
+      rules = false,
+      colors = false,
       breadcrumb = icons.ui.Separator,
       separator = icons.misc.Vbar,
-      group = icons.misc.Add,
+      keys = {
+        C = 'C-',
+        M = 'A-',
+        S = 'S-',
+        BS = '<BS> ',
+        CR = '<CR> ',
+        NL = '<NL> ',
+        Esc = '<Esc> ',
+        Tab = '<Tab> ',
+        Up = '<Up> ',
+        Down = '<Down> ',
+        Left = '<Left> ',
+        Right = '<Right> ',
+        Space = '<Space> ',
+        ScrollWheelUp = '<ScrollWheelUp> ',
+        ScrollWheelDown = '<ScrollWheelDown> ',
+      },
     },
-
-    window = {
-      border = 'none',
-      position = 'bottom',
-      margin = { 1, 0, 1, 0 },
-      padding = { 1, 1, 1, 1 },
-      winblend = 0,
+    spec = {
+      { '<leader><space>', group = 'Jump' },
+      { '<leader>b', group = icons.ui.FolderOpen .. ' Buffer' },
+      { '<leader>d', group = icons.ui.Bug .. ' Debug' },
+      { '<leader>f', group = icons.ui.Telescope .. ' Fuzzy Find' },
+      { '<leader>g', group = icons.git.Git .. ' Git' },
+      { '<leader>l', group = icons.misc.LspAvailable .. ' Lsp' },
+      { '<leader>n', group = icons.ui.FolderOpen .. ' Nvim Tree' },
+      { '<leader>p', group = icons.ui.Package .. ' Package' },
+      { '<leader>s', group = icons.cmp.tmux .. 'Session' },
+      { '<leader>S', group = icons.ui.Search .. ' Search' },
     },
   })
-
-  require('which-key').register {
-    ['<leader><space>'] = {
-      name = '+Diff/Save',
-    },
-    ['<leader>b'] = {
-      name = '+Buffer',
-    },
-    ['<leader>d'] = {
-      name = '+Debug',
-    },
-    ['<leader>f'] = {
-      name = '+Find',
-    },
-    ['<leader>h'] = {
-      name = '+Git hunk',
-    },
-    ['<leader>l'] = {
-      name = '+Lsp (Manager)',
-    },
-    ['<leader>n'] = {
-      name = '+FileTree',
-    },
-    ['<leader>p'] = {
-      name = '+Plugins',
-    },
-    ['<leader>s'] = {
-      name = '+Session',
-    },
-    ['<leader>t'] = {
-      name = '+Lsp (Action)',
-    },
-  }
 end

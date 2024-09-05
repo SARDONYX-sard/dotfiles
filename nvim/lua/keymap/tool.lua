@@ -66,20 +66,20 @@ local plug_map = {
 
   -- Plugin: trouble
   ['n|gt'] = map_cr('TroubleToggle'):with_noremap():with_silent():with_desc 'lsp: Toggle trouble list',
-  ['n|<leader>tr'] = map_cr('TroubleToggle lsp_references')
+  ['n|<leader>lr'] = map_cr('TroubleToggle lsp_references')
     :with_noremap()
     :with_silent()
     :with_desc 'lsp: Show lsp references',
-  ['n|<leader>td'] = map_cr('TroubleToggle document_diagnostics')
+  ['n|<leader>ld'] = map_cr('TroubleToggle document_diagnostics')
     :with_noremap()
     :with_silent()
     :with_desc 'lsp: Show document diagnostics',
-  ['n|<leader>tw'] = map_cr('TroubleToggle workspace_diagnostics')
+  ['n|<leader>lw'] = map_cr('TroubleToggle workspace_diagnostics')
     :with_noremap()
     :with_silent()
     :with_desc 'lsp: Show workspace diagnostics',
-  ['n|<leader>tq'] = map_cr('TroubleToggle quickfix'):with_noremap():with_silent():with_desc 'lsp: Show quickfix list',
-  ['n|<leader>tl'] = map_cr('TroubleToggle loclist'):with_noremap():with_silent():with_desc 'lsp: Show loclist',
+  ['n|<leader>lq'] = map_cr('TroubleToggle quickfix'):with_noremap():with_silent():with_desc 'lsp: Show quickfix list',
+  ['n|<leader>ll'] = map_cr('TroubleToggle loclist'):with_noremap():with_silent():with_desc 'lsp: Show loclist',
 
   -- Plugin: telescope
   ['n|<C-p>'] = map_callback(function()
