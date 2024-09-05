@@ -19,9 +19,8 @@
   ui = auto
 [credential]
   helper = cache --timeout 30000
-  helper = manager
-[credential "helperselector"]
-  selected = manager
+[credential "https://github.com"] # Without this, every time we push, we will be prompted to select an account.
+  username = SARDONYX-sard
 [delta]
   navigate = true    # use n and N to move between diff sections
     # delta detects terminal colors automatically; set one of these to disable auto-detection
