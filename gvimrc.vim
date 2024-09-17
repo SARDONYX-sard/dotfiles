@@ -4,7 +4,7 @@
 "
 " INFO: Read a configuration file from PowerShell from an arbitrary location.(gvimrc.vim -> .gvimrc)
 " ```powershell
-" New-Item -Type SymbolicLink -Target "$HOME/dotfiles/gvimrc.vim -Path $HOME/.gvimrc
+" sudo New-Item -Type SymbolicLink -Target "$HOME/dotfiles/gvimrc.vim" -Path $HOME/.gvimrc"
 " ```
 
 " colorscheme slate " slate|evening
