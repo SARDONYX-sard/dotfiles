@@ -211,7 +211,7 @@ settings['neovide_config'] = {
   cursor_vfx_particle_speed = 20.0,
   no_idle = true,
   refresh_rate = 120,
-  transparency = 0.6,
+  transparency = 0.8,
 }
 
 return require('modules.utils').extend_config(settings, 'user.settings')
