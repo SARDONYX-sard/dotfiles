@@ -90,6 +90,6 @@
   stt = status -uno# Display status of files other than Untracked files.
   sv = stash push --include-untracked# Save all uncommitted files.
   # Delete all merged branches that are not in remote.
-  sync = "!prev_branch=$(git rev-parse --abbrev-ref HEAD); git stash -u && git switch main && git fetch -p && git pull && git push origin --tags && git delete-merged-branch && [ -z \"$(git status --porcelain)\" ] || git stash pop && git switch $prev_branch"
+  sync = "!prev_branch=$(git rev-parse --abbrev-ref HEAD); git stash -u && git switch main && git fetch -p && git pull && git push origin --tags && git delete-merged-branch && [ -z \"$(git status --porcelain)\" ] || git stash pop || git switch $prev_branch"
   undo = reset HEAD~1
   unstage = reset# unstaged all files.
