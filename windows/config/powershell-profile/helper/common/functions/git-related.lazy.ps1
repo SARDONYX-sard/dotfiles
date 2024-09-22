@@ -7,14 +7,15 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
     @{ name = "cl"; option = "clone" }
     @{ name = "gitConf"; option = "config --global -e" }
 
+    @{ name = "gA"; option = "add -A" }
+    @{ name = "ga"; option = "add" }
     @{ name = "gc"; option = "commit" }
     @{ name = "gl"; option = "log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'" }
     @{ name = "gp"; option = "push" }
     @{ name = "gpf"; option = "push --force" }
-
-    @{ name = "ga"; option = "add" }
     @{ name = "gpl"; option = "pull" }
-    @{ name = "gs"; option = "status --short" }
+    @{ name = "gs"; option = "sync" } # need .gitconfig alias
+    @{ name = "gst"; option = "status --short" }
   ) |
   ForEach-Object {
     New-DynamicFunction -CommandName $_.name -FunctionBody  "git $($_.option) `$args"
