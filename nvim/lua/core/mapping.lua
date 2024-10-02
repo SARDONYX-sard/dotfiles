@@ -6,6 +6,9 @@ local map_callback = bind.map_callback
 
 local core_map = {
   ['n|;'] = map_cmd(':'):with_noremap():with_desc 'command',
+  ['i|jj'] = map_cmd('<ESC>'):with_noremap():with_desc 'escape',
+  ['i|jk'] = map_cmd('<ESC>'):with_noremap():with_desc 'escape',
+  ['i|kj'] = map_cmd('<ESC>'):with_noremap():with_desc 'escape',
   -- NOTE: For some reason the lsp key does not work when this is enabled
   -- ['n|:'] = map_cmd(';'):with_desc '',
 
