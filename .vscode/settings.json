@@ -135,8 +135,5 @@
   "Lua.hint.setType": true,
   "python.analysis.typeCheckingMode": "strict",
   "python.envFile": "${workspaceFolder}/.env",
-  "python.formatting.provider": "none",
-  "python.linting.enabled": true,
-  "python.linting.lintOnSave": true,
-  "python.linting.pycodestyleEnabled": false
+  "stylua.targetReleaseVersion": "latest"
 }
