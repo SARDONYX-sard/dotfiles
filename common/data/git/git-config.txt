@@ -18,9 +18,14 @@
 [color]
   ui = auto
 [credential]
-  helper = cache --timeout 30000
+  helper = cache --timeout 300000
 [credential "https://github.com"] # Without this, every time we push, we will be prompted to select an account.
   username = SARDONYX-sard
+  helper = cache --timeout 300000
+#   helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+  helper = cache --timeout 300000
+#   helper = !gh auth git-credential
 [delta]
   navigate = true    # use n and N to move between diff sections
     # delta detects terminal colors automatically; set one of these to disable auto-detection
