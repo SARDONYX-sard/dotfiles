@@ -50,7 +50,7 @@
 [pager]
   difftool = true
 [http]
-  postBuffer = 524288000
+	postBuffer = 524288000
 [init]
   defaultBranch = main
 [merge]
