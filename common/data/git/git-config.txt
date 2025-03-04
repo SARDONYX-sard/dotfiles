@@ -1,10 +1,14 @@
 # vscode://file/$HOME/.gitconfig
+
 [user]
 #! Hard-coded the user name for UFN restriction.
 #! You need to change it to your windows user name
   name = SARDONYX-sard
   email = 68905624+SARDONYX-sard@users.noreply.github.com
   signingkey = 2AC095678D950003!# gpg sign ID
+
+[branch]
+  sort = -committerdate
 [core]
   autocrlf = false
   eol = lf
@@ -17,39 +21,63 @@
   symlinks = true
 [color]
   ui = auto
+[column]
+  ui = auto
+[commit]
+  verbose = true
 [credential]
-  helper = cache --timeout 300000
-[credential "https://github.com"] # Without this, every time we push, we will be prompted to select an account.
+  helper = cache --timeout=300000
   username = SARDONYX-sard
-  helper = cache --timeout 300000
-#   helper = !gh auth git-credential
-[credential "https://gist.github.com"]
-  helper = cache --timeout 300000
-#   helper = !gh auth git-credential
+[credential "https://github.com"] # Without this, every time we push, we will be prompted to select an account.
+  helper = cache --timeout=300000
+  # helper = !gh auth git-credential
 [delta]
   navigate = true    # use n and N to move between diff sections
     # delta detects terminal colors automatically; set one of these to disable auto-detection
     # dark = true
     # light = true
+[dif]
+  tool = difftastic
 [diff]
-  colorMoved = default
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+  renames = true
+[difftool]
+  prompt = false
+[difftool "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+  difftool = true
 [http]
   postBuffer = 524288000
 [init]
   defaultBranch = main
 [merge]
-  conflictStyle = zdiff3
+  # conflictStyle = zdiff3 # Temporarily turned off because the git pkg of the Docker container is often less than 2.35.
   defaultToUpstream = true
 [pack]
   windowMemory = 100m
   packSizeLimit = 100m
   threads = 1
 [pull]
-  autostash = true
+  autoSquash = true
+  autoStash = true
+  updateRefs = true
 [push]
-  default = current
+  default = simple
+  autoSetupRemote = true
+  followTags = true
 [rebase]
+  autoSquash = true
+  autoStash = true
+  updateRefs = true
   stat = true
+[rerere]
+  enabled = true
+  autoupdate = true
+[tag]
+  sort = version:refname
 [alias]                   # `!`: Meaning run an external command instead of a git subcommand.
   aa = add -A .# Staged all files.
   amend = commit --amend -m# Rewrite the latest commit message that has not been pushed
@@ -98,3 +126,5 @@
   sync = "!prev_branch=$(git rev-parse --abbrev-ref HEAD); git stash -u && git switch main && git fetch -p && git pull && git push origin --tags && git delete-merged-branch && [ -z \"$(git status --porcelain)\" ] || git stash pop || git switch $prev_branch"
   undo = reset HEAD~1
   unstage = reset# unstaged all files.
+[credential "helperselector"]
+  selected = manager
