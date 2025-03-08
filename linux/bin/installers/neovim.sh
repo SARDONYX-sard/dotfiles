@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# set -eu
+
 function check_deps() {
   declare -a deps=("command" "tar" "curl" "arch")
   local no_deps="false"
@@ -67,13 +69,17 @@ if [[ "${force}" == "true" ]]; then
   remove_if_exists "${nvim_share}" "/usr/local/bin/nvim"
 fi
 
-extract_dir="${HOME}/nvim-linux64/"
-tar_filename="nvim-linux64.tar.gz"
+file_stem="nvim-linux-x86_64"
+extract_dir="${HOME}/${file_stem}"
+tar_filename="${file_stem}.tar.gz"
 tar_path="${HOME}/${tar_filename}"
 
 if [[ ! -e "${extract_dir}" ]]; then
   info "Not found cache. Download start."
-  curl -OL https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz \
+
+  # https://github.com/neovim/neovim/releases
+  # curl -OL https://github.com/neovim/neovim/releases/download/nightly/"${tar_filename}" \
+  curl -OL https://github.com/neovim/neovim/releases/download/v0.10.4/"${tar_filename}" \
     --output-dir "${HOME}" -o "${tar_filename}"
   info "Extracting ${tar_filename}..."
   tar zxf "${tar_path}" -C "${HOME}"
