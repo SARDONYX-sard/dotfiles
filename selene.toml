@@ -8,3 +8,4 @@ std = "lua51+vim"
 [rules]
 global_usage = "allow"        # _G.sample()
 multiple_statements = "allow"
+mixed_table = "allow"
