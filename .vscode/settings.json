@@ -6,7 +6,7 @@
     "editor.defaultFormatter": "JohnnyMorganz.stylua"
   },
   "[python]": {
-    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.formatOnType": false,
     "editor.tabSize": 4
   },
