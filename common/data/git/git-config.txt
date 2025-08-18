@@ -50,7 +50,7 @@
 [pager]
   difftool = true
 [http]
-	postBuffer = 524288000
+  postBuffer = 524288000
 [init]
   defaultBranch = main
 [merge]
@@ -78,6 +78,8 @@
   autoupdate = true
 [tag]
   sort = version:refname
+[url "git@github.com:"] # http to ssh
+  insteadOf = https://github.com
 [alias]                   # `!`: Meaning run an external command instead of a git subcommand.
   aa = add -A .# Staged all files.
   amend = commit --amend -m# Rewrite the latest commit message that has not been pushed
