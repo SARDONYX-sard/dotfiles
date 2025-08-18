@@ -3,6 +3,8 @@
 https://sites.google.com/site/craftware/
 """
 
+import ctypes
+from ctypes import wintypes
 import os
 from typing import Callable, Dict, Union
 
@@ -67,7 +69,7 @@ def show_app_list(keymap_global: KeymapPair, keymap: Keymap):
             def win_shell(proc: str):
                 return shell(None, proc, "", "") if is_win else None
 
-            apps = [
+            apps = [  # type: ignore
                 ("-- Editor --", win_shell("neovide")),
                 ("Vim", win_shell("gvim")),
                 ("Neovide", win_shell("neovide")),
@@ -83,7 +85,7 @@ def show_app_list(keymap_global: KeymapPair, keymap: Keymap):
                 ("Twitter", shell(None, "https://twitter.com/", "", "")),
             ]
 
-            item, _ = keymap.popListWindow([("App", cblister_FixedPhrase(apps))])
+            item, _ = keymap.popListWindow([("App", cblister_FixedPhrase(apps))])  # type: ignore
             if item:
                 item[1]()
 
@@ -166,26 +168,20 @@ def virtual_mouse(keymap_global: KeymapPair, keymap: Keymap):
 
 
 def cmd_keymap(keymap_global: KeymapPair, keymap: Keymap):
-    def close():
-        keymap.InputKeyCommand("Alt-F4")()
-
     def shutdown():
         os.system("shutdown -s")
 
-    def sleep():  # https://qiita.com/sharow/items/ef78f2f5a8053f6a7a41
-        shellExecute(
-            None,
-            "powershell.exe",
-            "-NoProfile -Command \"Add-Type -Assembly System.Windows.Forms;\
-[System.Windows.Forms.Application]::SetSuspendState('Suspend', $false, $false);\"",
-            "",
-        )
-
-    def win_terminal():
-        shellExecute(None, "wt.exe", "", None)
-
-    def win_terminal_as_admin():
-        shellExecute(None, "sudo", "wt.exe", None)
+    def sleep():
+        powr_prof = ctypes.WinDLL("PowrProf.dll")
+        powr_prof.SetSuspendState.argtypes = [
+            wintypes.BOOL,
+            wintypes.BOOL,
+            wintypes.BOOL,
+        ]
+        powr_prof.SetSuspendState.restype = wintypes.BOOL
+        # fn(bHibernate, bForce, bWakeupEventsDisabled) -> fail is 0
+        # https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-setsuspendstate
+        powr_prof.SetSuspendState(False, False, False)
 
     def clear_trash():
         shellExecute(
@@ -195,6 +191,12 @@ def cmd_keymap(keymap_global: KeymapPair, keymap: Keymap):
             None,
         )
 
+    def close():
+        keymap.InputKeyCommand("Alt-F4")()
+
+    def win_terminal_as_admin():
+        shellExecute(None, "sudo", "wt.exe", None)
+
     def open_task_manager():
         keymap.InputKeyCommand("LCtrl-LShift-Escape")()
 
@@ -202,9 +204,8 @@ def cmd_keymap(keymap_global: KeymapPair, keymap: Keymap):
     keymap_global["U0-Pause"] = shutdown
     keymap_global["U0-Period"] = open_task_manager
     keymap_global["U0-ScrollLock"] = sleep
-    keymap_global["U0-Slash"] = clear_trash
-    keymap_global["U0-T"] = win_terminal
     keymap_global["U0-Shift-T"] = win_terminal_as_admin
+    keymap_global["U0-Slash"] = clear_trash
 
 
 def input_keymap(keymap_global: KeymapPair, keymap: Keymap):
