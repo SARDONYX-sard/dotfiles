@@ -3,8 +3,6 @@
 https://sites.google.com/site/craftware/
 """
 
-import ctypes
-from ctypes import wintypes
 import os
 from typing import Callable, Dict, Union
 
@@ -171,17 +169,17 @@ def cmd_keymap(keymap_global: KeymapPair, keymap: Keymap):
     def shutdown():
         os.system("shutdown -s")
 
-    def sleep():
-        powr_prof = ctypes.WinDLL("PowrProf.dll")
-        powr_prof.SetSuspendState.argtypes = [
-            wintypes.BOOL,
-            wintypes.BOOL,
-            wintypes.BOOL,
-        ]
-        powr_prof.SetSuspendState.restype = wintypes.BOOL
-        # fn(bHibernate, bForce, bWakeupEventsDisabled) -> fail is 0
-        # https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-setsuspendstate
-        powr_prof.SetSuspendState(False, False, False)
+    # There is a bug in keyhac itself that causes UserKey (Rshift) to be pressed
+    # every time after resuming when using the native API via dll, so I will
+    # refrain from doing so.
+    def sleep():  # https://qiita.com/sharow/items/ef78f2f5a8053f6a7a41
+        shellExecute(
+            None,
+            "powershell.exe",
+            "-NoProfile -Command \"Add-Type -Assembly System.Windows.Forms;\
+[System.Windows.Forms.Application]::SetSuspendState('Suspend', $false, $false);\"",
+            "",
+        )
 
     def clear_trash():
         shellExecute(
