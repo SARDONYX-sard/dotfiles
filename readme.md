@@ -34,6 +34,7 @@ English | [日本語](./docs/i18n/jp/readme.md)
   - [Things you have to do manually](#things-you-have-to-do-manually)
     - [Windows-Terminal](#windows-terminal)
     - [.gitconfig](#gitconfig)
+    - [Recommend gpg conf](#recommend-gpg-conf)
   - [How it works(Too old..)](#how-it-workstoo-old)
   - [Reference site](#reference-site)
   - [License](#license)
@@ -125,7 +126,7 @@ docker-compose up
 - Some settings are in Japanese and may not be suitable for English speakers.
 
 - This project is based on the dotfiles project from
-  [here](https://github.com/LumaKernel/dotfiles). A huge thanks to him...
+  [Go](https://github.com/LumaKernel/dotfiles). A huge thanks to him...
 
 ## Things you have to do manually
 
@@ -150,6 +151,17 @@ docker-compose up
 ```bash
 git config --global user.name "Your name"
 git config --global user.email "Your email address"
+```
+
+### Recommend gpg conf
+
+- ~/.gnupg/gpg-agent.conf
+
+pass 1 day cache(When use `git commit -S -m <msg>`)
+
+```conf
+default-cache-ttl 86400
+max-cache-ttl 86400
 ```
 
 ## How it works(Too old..)

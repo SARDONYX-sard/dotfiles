@@ -79,7 +79,10 @@
 [tag]
   sort = version:refname
 [url "git@github.com:"] # http to ssh
-  insteadOf = https://github.com
+  pushInsteadOf = git://github.com/
+  pushInsteadOf = https://github.com/
+[url "git://github.com/"] # Avoid git clone ssh hang up
+  insteadOf = https://github.com/
 [alias]                   # `!`: Meaning run an external command instead of a git subcommand.
   aa = add -A .# Staged all files.
   amend = commit --amend -m# Rewrite the latest commit message that has not been pushed
