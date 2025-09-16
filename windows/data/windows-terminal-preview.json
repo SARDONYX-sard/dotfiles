@@ -1,245 +1,253 @@
 {
-    "$help": "https://aka.ms/terminal-documentation",
-    "$schema": "https://aka.ms/terminal-profiles-schema-preview",
-    "actions": 
-    [
-        {
-            "command": "find",
-            "id": "User.find"
-        },
-        {
-            "command": 
-            {
-                "action": "splitPane",
-                "split": "right",
-                "splitMode": "duplicate"
-            },
-            "id": "User.splitPane.FEF0D40B"
-        },
-        {
-            "command": 
-            {
-                "action": "scrollDown"
-            },
-            "id": "User.scrollDown.0"
-        },
-        {
-            "command": 
-            {
-                "action": "scrollUp"
-            },
-            "id": "User.scrollUp.0"
-        }
-    ],
-    "copyFormatting": "none",
-    "copyOnSelect": true,
-    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-    "keybindings": 
-    [
-        {
-            "id": null,
-            "keys": "alt+enter"
-        },
-        {
-            "id": "User.find",
-            "keys": "ctrl+shift+f"
-        },
-        {
-            "id": "User.scrollDown.0",
-            "keys": "ctrl+shift+j"
-        },
-        {
-            "id": "User.splitPane.FEF0D40B",
-            "keys": "ctrl+shift+l"
-        },
-        {
-            "id": "User.scrollUp.0",
-            "keys": "ctrl+shift+k"
-        }
-    ],
-    "newTabMenu": 
-    [
-        {
-            "type": "remainingProfiles"
-        }
-    ],
-    "profiles": 
+  "$help": "https://aka.ms/terminal-documentation",
+  "$schema": "https://aka.ms/terminal-profiles-schema-preview",
+  "actions": [
     {
-        "defaults": 
-        {
-            "colorScheme": "Campbell (modified)",
-            "font": 
-            {
-                "face": "CodeNewRoman NF"
-            },
-            "opacity": 81
-        },
-        "list": 
-        [
-            {
-                "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u81ea\u7136\\\u8776\\cat-and-butterfly.png",
-                "backgroundImageOpacity": 0,
-                "bellStyle": "none",
-                "colorScheme": "One Dark",
-                "commandline": "pwsh.exe -nologo",
-                "font": 
-                {
-                    "face": "CodeNewRoman NF"
-                },
-                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-                "hidden": false,
-                "icon": "ms-appx:///ProfileIcons/pwsh.png",
-                "name": "PowerShell Core",
-                "opacity": 65,
-                "source": "Windows.Terminal.PowershellCore",
-                "useAcrylic": false
-            },
-            {
-                "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u81ea\u7136\\\u8776\\cat-and-butterfly.png",
-                "backgroundImageOpacity": 0,
-                "bellStyle": "none",
-                "colorScheme": "Campbell (modified)",
-                "commandline": "pwsh.exe -NoExit -Command \"&{Import-Module \"\"\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\Tools\\Microsoft.VisualStudio.DevShell.dll\"\"\"; Enter-VsDevShell 3f90b5ca -SkipAutomaticLocation -DevCmdArguments \"\"\"-arch=x64 -host_arch=x64\"\"\"}\"",
-                "font": 
-                {
-                    "face": "CodeNewRoman NF"
-                },
-                "guid": "{5fd8dc38-7764-4530-b21b-dbc14d674d7d}",
-                "hidden": false,
-                "icon": "ms-appx:///ProfileIcons/pwsh.png",
-                "name": "VS Studio2022 pwsh",
-                "opacity": 65,
-                "startingDirectory": "%USERPROFILE%",
-                "useAcrylic": false
-            },
-            {
-                "antialiasingMode": "grayscale",
-                "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u81ea\u7136\\nature-3082832_960_720.jpg",
-                "backgroundImageOpacity": 0,
-                "bellStyle": "none",
-                "colorScheme": "Campbell (modified)",
-                "commandline": "powershell.exe -nologo",
-                "font": 
-                {
-                    "face": "CodeNewRoman NF"
-                },
-                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "hidden": true,
-                "name": "Windows PowerShell",
-                "opacity": 75,
-                "useAcrylic": false
-            },
-            {
-                "backgroundImage": "C:\\Users\\SARDONYX\\OneDrive\\\u753b\u50cf\\\u548c\u98a8\\\u7d05\u8449\\Wallpaper 4k Red Leaves Tree 4k 4k-wallpapers, hd-wallpapers, leaves wallpapers, nature wallpapers, tree wallpapers.jpg",
-                "backgroundImageOpacity": 0,
-                "bellStyle": "none",
-                "colorScheme": "Campbell (modified)",
-                "font": 
-                {
-                    "face": "CodeNewRoman NF"
-                },
-                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "hidden": true,
-                "icon": "\ue700",
-                "name": "\u30b3\u30de\u30f3\u30c9 \u30d7\u30ed\u30f3\u30d7\u30c8",
-                "opacity": 75,
-                "useAcrylic": false
-            },
-            {
-                "bellStyle": "none",
-                "commandline": "wsl.exe ~ -d kali-linux --user sardonyx",
-                "guid": "{46ca431a-3a87-5fb3-83cd-11ececc031d2}",
-                "hidden": false,
-                "name": "kali-linux",
-                "source": "Windows.Terminal.Wsl"
-            },
-            {
-                "commandline": "wsl -d kali-linux --user sardonyx kex --wtstart -m",
-                "guid": "{55ca431b-3a87-5fb3-83cd-11ececc031d2}",
-                "hidden": true,
-                "name": "Win-KeX"
-            },
-            {
-                "guid": "{16208362-94fc-5b1f-a491-5b2624d5ab56}",
-                "hidden": true,
-                "name": "Visual Studio Debug Console",
-                "source": "VSDebugConsole"
-            }
-        ]
+      "command": "find",
+      "id": "User.find"
     },
-    "schemes": 
-    [
+    {
+      "command": {
+        "action": "scrollDown"
+      },
+      "id": "User.scrollDown.0"
+    },
+    {
+      "command": {
+        "action": "splitPane",
+        "split": "right",
+        "splitMode": "duplicate"
+      },
+      "id": "User.splitPane.FEF0D40B"
+    },
+    {
+      "command": {
+        "action": "scrollUp"
+      },
+      "id": "User.scrollUp.0"
+    }
+  ],
+  "copyFormatting": "none",
+  "copyOnSelect": true,
+  "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+  "keybindings": [
+    {
+      "id": "",
+      "keys": "alt+enter"
+    },
+    {
+      "id": "User.find",
+      "keys": "ctrl+shift+f"
+    },
+    {
+      "id": "User.scrollDown.0",
+      "keys": "ctrl+shift+j"
+    },
+    {
+      "id": "User.splitPane.FEF0D40B",
+      "keys": "ctrl+shift+l"
+    },
+    {
+      "id": "User.scrollUp.0",
+      "keys": "ctrl+shift+k"
+    }
+  ],
+  "newTabMenu": [
+    {
+      "type": "remainingProfiles"
+    },
+    {
+      "allowEmpty": false,
+      "entries": [
         {
-            "background": "#1C1E20",
-            "black": "#0C0C0C",
-            "blue": "#0037DA",
-            "brightBlack": "#767676",
-            "brightBlue": "#3B78FF",
-            "brightCyan": "#61D6D6",
-            "brightGreen": "#16C60C",
-            "brightPurple": "#B4009E",
-            "brightRed": "#E74856",
-            "brightWhite": "#F2F2F2",
-            "brightYellow": "#F9F1A5",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#3A96DD",
-            "foreground": "#FFFFFF",
-            "green": "#13A10E",
-            "name": "Campbell (modified)",
-            "purple": "#881798",
-            "red": "#C50F1F",
-            "selectionBackground": "#FFFFFF",
-            "white": "#CCCCCC",
-            "yellow": "#C19C00"
-        },
-        {
-            "background": "#1E2127",
-            "black": "#000000",
-            "blue": "#61AFEF",
-            "brightBlack": "#5C6370",
-            "brightBlue": "#61AFEF",
-            "brightCyan": "#56B6C2",
-            "brightGreen": "#98C379",
-            "brightPurple": "#C678DD",
-            "brightRed": "#E06C75",
-            "brightWhite": "#FFFFFF",
-            "brightYellow": "#D19A66",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#56B6C2",
-            "foreground": "#5C6370",
-            "green": "#98C379",
-            "name": "One Dark",
-            "purple": "#C678DD",
-            "red": "#E06C75",
-            "selectionBackground": "#FFFFFF",
-            "white": "#ABB2BF",
-            "yellow": "#D19A66"
-        },
-        {
-            "background": "#F9F9F9",
-            "black": "#000000",
-            "blue": "#4078F2",
-            "brightBlack": "#383A42",
-            "brightBlue": "#4078F2",
-            "brightCyan": "#0184BC",
-            "brightGreen": "#50A14F",
-            "brightPurple": "#A626A4",
-            "brightRed": "#E45649",
-            "brightWhite": "#FFFFFF",
-            "brightYellow": "#986801",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#0184BC",
-            "foreground": "#383A42",
-            "green": "#50A14F",
-            "name": "One Light",
-            "purple": "#A626A4",
-            "red": "#E45649",
-            "selectionBackground": "#FFFFFF",
-            "white": "#A0A1A7",
-            "yellow": "#986801"
+          "commandline": null,
+          "name": null,
+          "source": "Windows.Terminal.SSH",
+          "type": "matchProfiles"
         }
-    ],
-    "themes": [],
-    "trimBlockSelection": true,
-    "useAcrylicInTabRow": true
+      ],
+      "icon": "\ue969",
+      "inline": "auto",
+      "name": "SSH",
+      "type": "folder"
+    }
+  ],
+  "profiles": {
+    "defaults": {
+      "colorScheme": "Campbell (modified)",
+      "font": {
+        "face": "CodeNewRoman NF"
+      },
+      "opacity": 81
+    },
+    "list": [
+      {
+        "backgroundImageOpacity": 0,
+        "bellStyle": "none",
+        "colorScheme": "One Dark",
+        "commandline": "pwsh.exe -nologo",
+        "font": {
+          "face": "CodeNewRoman NF"
+        },
+        "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+        "hidden": false,
+        "icon": "ms-appx:///ProfileIcons/pwsh.png",
+        "name": "PowerShell Core",
+        "opacity": 65,
+        "source": "Windows.Terminal.PowershellCore",
+        "useAcrylic": false
+      },
+      {
+        "backgroundImageOpacity": 0,
+        "bellStyle": "none",
+        "colorScheme": "Campbell (modified)",
+        "commandline": "pwsh.exe -NoExit -Command \"&{Import-Module \"\"\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\Tools\\Microsoft.VisualStudio.DevShell.dll\"\"\"; Enter-VsDevShell 3f90b5ca -SkipAutomaticLocation -DevCmdArguments \"\"\"-arch=x64 -host_arch=x64\"\"\"}\"",
+        "font": {
+          "face": "CodeNewRoman NF"
+        },
+        "guid": "{5fd8dc38-7764-4530-b21b-dbc14d674d7d}",
+        "hidden": false,
+        "icon": "ms-appx:///ProfileIcons/pwsh.png",
+        "name": "VS Studio2022 pwsh",
+        "opacity": 65,
+        "startingDirectory": "%USERPROFILE%",
+        "useAcrylic": false
+      },
+      {
+        "antialiasingMode": "grayscale",
+        "backgroundImageOpacity": 0,
+        "bellStyle": "none",
+        "colorScheme": "Campbell (modified)",
+        "commandline": "powershell.exe -nologo",
+        "font": {
+          "face": "CodeNewRoman NF"
+        },
+        "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+        "hidden": true,
+        "name": "Windows PowerShell",
+        "opacity": 75,
+        "useAcrylic": false
+      },
+      {
+        "backgroundImageOpacity": 0,
+        "bellStyle": "none",
+        "colorScheme": "Campbell (modified)",
+        "font": {
+          "face": "CodeNewRoman NF"
+        },
+        "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+        "hidden": true,
+        "icon": "\ue700",
+        "name": "\u30b3\u30de\u30f3\u30c9 \u30d7\u30ed\u30f3\u30d7\u30c8",
+        "opacity": 75,
+        "useAcrylic": false
+      },
+      {
+        "bellStyle": "none",
+        "commandline": "wsl.exe ~ -d kali-linux --user sardonyx",
+        "guid": "{46ca431a-3a87-5fb3-83cd-11ececc031d2}",
+        "hidden": false,
+        "name": "kali-linux",
+        "source": "Windows.Terminal.Wsl"
+      },
+      {
+        "commandline": "wsl -d kali-linux --user sardonyx kex --wtstart -m",
+        "guid": "{55ca431b-3a87-5fb3-83cd-11ececc031d2}",
+        "hidden": true,
+        "name": "Win-KeX"
+      },
+      {
+        "guid": "{16208362-94fc-5b1f-a491-5b2624d5ab56}",
+        "hidden": true,
+        "name": "Visual Studio Debug Console",
+        "source": "VSDebugConsole"
+      },
+      {
+        "guid": "{f6daa473-6f22-542b-848b-e6c4d34d2bd0}",
+        "hidden": false,
+        "name": "SSH - VM-Win10",
+        "source": "Windows.Terminal.SSH"
+      },
+      {
+        "guid": "{e4063e4e-614d-5682-86f3-f1bdcb157b38}",
+        "hidden": false,
+        "name": "SSH - VM-Arch",
+        "source": "Windows.Terminal.SSH"
+      }
+    ]
+  },
+  "schemes": [
+    {
+      "background": "#1C1E20",
+      "black": "#0C0C0C",
+      "blue": "#0037DA",
+      "brightBlack": "#767676",
+      "brightBlue": "#3B78FF",
+      "brightCyan": "#61D6D6",
+      "brightGreen": "#16C60C",
+      "brightPurple": "#B4009E",
+      "brightRed": "#E74856",
+      "brightWhite": "#F2F2F2",
+      "brightYellow": "#F9F1A5",
+      "cursorColor": "#FFFFFF",
+      "cyan": "#3A96DD",
+      "foreground": "#FFFFFF",
+      "green": "#13A10E",
+      "name": "Campbell (modified)",
+      "purple": "#881798",
+      "red": "#C50F1F",
+      "selectionBackground": "#FFFFFF",
+      "white": "#CCCCCC",
+      "yellow": "#C19C00"
+    },
+    {
+      "background": "#1E2127",
+      "black": "#000000",
+      "blue": "#61AFEF",
+      "brightBlack": "#5C6370",
+      "brightBlue": "#61AFEF",
+      "brightCyan": "#56B6C2",
+      "brightGreen": "#98C379",
+      "brightPurple": "#C678DD",
+      "brightRed": "#E06C75",
+      "brightWhite": "#FFFFFF",
+      "brightYellow": "#D19A66",
+      "cursorColor": "#FFFFFF",
+      "cyan": "#56B6C2",
+      "foreground": "#5C6370",
+      "green": "#98C379",
+      "name": "One Dark",
+      "purple": "#C678DD",
+      "red": "#E06C75",
+      "selectionBackground": "#FFFFFF",
+      "white": "#ABB2BF",
+      "yellow": "#D19A66"
+    },
+    {
+      "background": "#F9F9F9",
+      "black": "#000000",
+      "blue": "#4078F2",
+      "brightBlack": "#383A42",
+      "brightBlue": "#4078F2",
+      "brightCyan": "#0184BC",
+      "brightGreen": "#50A14F",
+      "brightPurple": "#A626A4",
+      "brightRed": "#E45649",
+      "brightWhite": "#FFFFFF",
+      "brightYellow": "#986801",
+      "cursorColor": "#FFFFFF",
+      "cyan": "#0184BC",
+      "foreground": "#383A42",
+      "green": "#50A14F",
+      "name": "One Light",
+      "purple": "#A626A4",
+      "red": "#E45649",
+      "selectionBackground": "#FFFFFF",
+      "white": "#A0A1A7",
+      "yellow": "#986801"
+    }
+  ],
+  "themes": [],
+  "trimBlockSelection": true,
+  "useAcrylicInTabRow": true
 }
