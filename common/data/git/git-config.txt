@@ -25,12 +25,6 @@
   ui = auto
 [commit]
   verbose = true
-[credential]
-  helper = cache --timeout=300000
-  username = SARDONYX-sard
-[credential "https://github.com"] # Without this, every time we push, we will be prompted to select an account.
-  helper = cache --timeout=300000
-  # helper = !gh auth git-credential
 [delta]
   navigate = true    # use n and N to move between diff sections
     # delta detects terminal colors automatically; set one of these to disable auto-detection
@@ -78,11 +72,9 @@
   autoupdate = true
 [tag]
   sort = version:refname
-[url "git@github.com:"] # http to ssh
+[url "git@github.com:"] # http to ssh (Avoid git clone ssh hang up)
   pushInsteadOf = git://github.com/
   pushInsteadOf = https://github.com/
-[url "git://github.com/"] # Avoid git clone ssh hang up
-  insteadOf = https://github.com/
 [alias]                   # `!`: Meaning run an external command instead of a git subcommand.
   aa = add -A .# Staged all files.
   amend = commit --amend -m# Rewrite the latest commit message that has not been pushed
