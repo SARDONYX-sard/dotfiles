@@ -1,120 +1,160 @@
 local tool = {}
+local settings = require("core.settings")
 
-tool['tpope/vim-fugitive'] = {
-  lazy = true,
-  cmd = { 'Git', 'G' },
+tool["tpope/vim-fugitive"] = {
+	lazy = true,
+	cmd = { "Git", "G" },
 }
--- only for fcitx5 user who uses non-English language during coding
+-- This is specifically for fcitx5 users who code in languages other than English
 -- tool["pysan3/fcitx5.nvim"] = {
 -- 	lazy = true,
 -- 	event = "BufReadPost",
 -- 	cond = vim.fn.executable("fcitx5-remote") == 1,
 -- 	config = require("tool.fcitx5"),
 -- }
-tool['nvim-tree/nvim-tree.lua'] = {
-  lazy = true,
-  cmd = {
-    'NvimTreeToggle',
-    'NvimTreeOpen',
-    'NvimTreeFindFile',
-    'NvimTreeFindFileToggle',
-    'NvimTreeRefresh',
-  },
-  config = require 'tool.nvim-tree',
+tool["Bekaboo/dropbar.nvim"] = {
+	lazy = false,
+	config = require("tool.dropbar"),
+	dependencies = {
+		"nvim-tree/nvim-web-devicons",
+		"nvim-telescope/telescope-fzf-native.nvim",
+	},
 }
-tool['ibhagwan/smartyank.nvim'] = {
-  lazy = true,
-  event = 'BufReadPost',
-  config = require 'tool.smartyank',
+tool["nvim-tree/nvim-tree.lua"] = {
+	lazy = true,
+	cmd = {
+		"NvimTreeToggle",
+		"NvimTreeOpen",
+		"NvimTreeFindFile",
+		"NvimTreeFindFileToggle",
+		"NvimTreeRefresh",
+	},
+	config = require("tool.nvim-tree"),
 }
-if vim.loop.os_uname().sysname == 'Linux' then
-  tool['michaelb/sniprun'] = {
-    lazy = true,
-    -- You need to cd to `~/.local/share/nvim/site/lazy/sniprun/` and execute `bash ./install.sh`,
-    -- if you encountered error about no executable sniprun found.
-    build = 'bash ./install.sh',
-    cmd = 'SnipRun',
-    config = require 'tool.sniprun',
-  }
+tool["ibhagwan/smartyank.nvim"] = {
+	lazy = true,
+	event = "BufReadPost",
+	config = require("tool.smartyank"),
+}
+tool["akinsho/toggleterm.nvim"] = {
+	lazy = true,
+	cmd = {
+		"ToggleTerm",
+		"ToggleTermSetName",
+		"ToggleTermToggleAll",
+		"ToggleTermSendVisualLines",
+		"ToggleTermSendCurrentLine",
+		"ToggleTermSendVisualSelection",
+	},
+	config = require("tool.toggleterm"),
+}
+tool["folke/trouble.nvim"] = {
+	lazy = true,
+	cmd = { "Trouble", "TroubleToggle", "TroubleRefresh" },
+	config = require("tool.trouble"),
+}
+tool["folke/which-key.nvim"] = {
+	lazy = true,
+	event = { "CursorHold", "CursorHoldI" },
+	config = require("tool.which-key"),
+}
+tool["gelguy/wilder.nvim"] = {
+	lazy = true,
+	event = "CmdlineEnter",
+	config = require("tool.wilder"),
+	dependencies = "romgrk/fzy-lua-native",
+}
+if settings.use_chat then
+	tool["olimorris/codecompanion.nvim"] = {
+		lazy = true,
+		event = "VeryLazy",
+		config = require("tool.codecompanion"),
+		dependencies = {
+			{ "ravitemer/codecompanion-history.nvim" },
+		},
+	}
 end
-tool['akinsho/toggleterm.nvim'] = {
-  lazy = true,
-  cmd = {
-    'ToggleTerm',
-    'ToggleTermSetName',
-    'ToggleTermToggleAll',
-    'ToggleTermSendVisualLines',
-    'ToggleTermSendCurrentLine',
-    'ToggleTermSendVisualSelection',
-  },
-  config = require 'tool.toggleterm',
-}
-tool['folke/trouble.nvim'] = {
-  lazy = true,
-  cmd = { 'Trouble', 'TroubleToggle', 'TroubleRefresh' },
-  config = require 'tool.trouble',
-}
-tool['folke/which-key.nvim'] = {
-  lazy = true,
-  event = { 'CursorHold', 'CursorHoldI' },
-  config = require 'tool.which-key',
-}
-tool['gelguy/wilder.nvim'] = {
-  lazy = true,
-  event = 'CmdlineEnter',
-  config = require 'tool.wilder',
-  dependencies = { 'romgrk/fzy-lua-native' },
+-- Needs `fzf` installed and in $PATH
+tool["ibhagwan/fzf-lua"] = {
+	lazy = true,
+	cond = (settings.search_backend == "fzf"),
+	cmd = "FzfLua",
+	config = require("tool.fzf-lua"),
+	dependencies = { "nvim-tree/nvim-web-devicons" },
 }
 
 ----------------------------------------------------------------------
 --                        Telescope Plugins                         --
 ----------------------------------------------------------------------
-tool['nvim-telescope/telescope.nvim'] = {
-  lazy = true,
-  cmd = 'Telescope',
-  config = require 'tool.telescope',
-  dependencies = {
-    { 'nvim-tree/nvim-web-devicons' },
-    { 'nvim-lua/plenary.nvim' },
-    { 'debugloop/telescope-undo.nvim' },
-    {
-      'ahmedkhalf/project.nvim',
-      event = { 'CursorHold', 'CursorHoldI' },
-      config = require 'tool.project',
-    },
-    { 'jvgrootveld/telescope-zoxide' },
-    { 'nvim-telescope/telescope-frecency.nvim' },
-    { 'nvim-telescope/telescope-live-grep-args.nvim' },
-    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-  },
+local telescope_native = {
+	"nvim-telescope/telescope-fzf-native.nvim",
+	-- build fix: https://github.com/nvim-telescope/telescope-fzf-native.nvim/issues/122#issuecomment-2099160078
+	-- NOTE: required `zig` on Windows
+	build = vim.uv.os_uname().sysname == "Windows_NT" and [[
+      mkdir -p build
+      zig cc -target x86_64-windows-gnu -O3 -Wall -std=gnu99 -shared src/fzf.c -o libfzf.dll
+      Move-Item libfzf.dll build/ ; Move-Item libfzf.pdb build/
+    ]] or "make",
+}
+
+tool["nvim-telescope/telescope.nvim"] = {
+	lazy = true,
+	cmd = "Telescope",
+	config = require("tool.telescope"),
+	dependencies = {
+		{ "nvim-lua/plenary.nvim" },
+		{ "nvim-tree/nvim-web-devicons" },
+		{ "jvgrootveld/telescope-zoxide" },
+		{ "debugloop/telescope-undo.nvim" },
+		{ "nvim-telescope/telescope-frecency.nvim" },
+		{ "nvim-telescope/telescope-live-grep-args.nvim" },
+		telescope_native,
+		{
+			"ayamir/search.nvim",
+			config = require("tool.search"),
+		},
+		{
+			"DrKJeff16/project.nvim",
+			event = { "CursorHold", "CursorHoldI" },
+			config = require("tool.project"),
+		},
+		{
+			"aaronhallaert/advanced-git-search.nvim",
+			cmd = { "AdvancedGitSearch" },
+			dependencies = {
+				"tpope/vim-rhubarb",
+				"tpope/vim-fugitive",
+				"sindrets/diffview.nvim",
+			},
+		},
+	},
 }
 
 ----------------------------------------------------------------------
 --                           DAP Plugins                            --
 ----------------------------------------------------------------------
-tool['mfussenegger/nvim-dap'] = {
-  lazy = true,
-  cmd = {
-    'DapSetLogLevel',
-    'DapShowLog',
-    'DapContinue',
-    'DapToggleBreakpoint',
-    'DapToggleRepl',
-    'DapStepOver',
-    'DapStepInto',
-    'DapStepOut',
-    'DapTerminate',
-  },
-  config = require 'tool.dap',
-  dependencies = {
-    {
-      'rcarriga/nvim-dap-ui',
-      config = require 'tool.dap.dapui',
-    },
-    { 'jay-babu/mason-nvim-dap.nvim' },
-    { 'mfussenegger/nvim-dap' },
-    { 'nvim-neotest/nvim-nio' },
-  },
+tool["mfussenegger/nvim-dap"] = {
+	lazy = true,
+	cmd = {
+		"DapSetLogLevel",
+		"DapShowLog",
+		"DapContinue",
+		"DapToggleBreakpoint",
+		"DapToggleRepl",
+		"DapStepOver",
+		"DapStepInto",
+		"DapStepOut",
+		"DapTerminate",
+	},
+	config = require("tool.dap"),
+	dependencies = {
+		{ "jay-babu/mason-nvim-dap.nvim" },
+		{
+			"rcarriga/nvim-dap-ui",
+			dependencies = "nvim-neotest/nvim-nio",
+			config = require("tool.dap.dapui"),
+		},
+	},
 }
 
 return tool

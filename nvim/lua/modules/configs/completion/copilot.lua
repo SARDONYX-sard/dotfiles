@@ -15,7 +15,12 @@ return function()
 			},
 			filetypes = {
 				["dap-repl"] = false,
-				["big_file_disabled_ft"] = false,
+				["fugitive"] = false,
+				["fugitiveblame"] = false,
+				["git"] = false,
+				["gitcommit"] = false,
+				["log"] = false,
+				["toggleterm"] = false,
 			},
 		})
 	end, 100)
