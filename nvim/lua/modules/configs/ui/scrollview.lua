@@ -2,13 +2,22 @@ return function()
 	local icons = { diagnostics = require("modules.utils.icons").get("diagnostics", true) }
 
 	require("modules.utils").load_plugin("scrollview", {
-		scrollview_mode = "virtual",
-		excluded_filetypes = { "NvimTree", "terminal", "nofile", "aerial" },
+		mode = "virtual",
 		winblend = 0,
-		signs_on_startup = { "diagnostics", "folds", "marks", "search", "spell" },
+		signs_on_startup = { "folds", "marks", "search" },
 		diagnostics_error_symbol = icons.diagnostics.Error,
 		diagnostics_warn_symbol = icons.diagnostics.Warning,
 		diagnostics_info_symbol = icons.diagnostics.Information,
 		diagnostics_hint_symbol = icons.diagnostics.Hint,
+		excluded_filetypes = {
+			"alpha",
+			"fugitive",
+			"git",
+			"notify",
+			"NvimTree",
+			"TelescopePrompt",
+			"toggleterm",
+			"undotree",
+		},
 	})
 end

@@ -1,10 +1,5 @@
 local editor = {}
 
-editor['rainbowhxch/accelerated-jk.nvim'] = {
-  lazy = true,
-  event = 'VeryLazy',
-  config = require 'editor.accelerated-jk',
-}
 editor['olimorris/persisted.nvim'] = {
   lazy = true,
   cmd = {
@@ -24,14 +19,26 @@ editor['m4xshen/autoclose.nvim'] = {
   event = 'InsertEnter',
   config = require 'editor.autoclose',
 }
-editor['LunarVim/bigfile.nvim'] = {
+editor['pteroctopus/faster.nvim'] = {
   lazy = false,
-  config = require 'editor.bigfile',
   cond = require('core.settings').load_big_files_faster,
+  config = require 'editor.faster',
 }
 editor['ojroques/nvim-bufdel'] = {
   lazy = true,
   cmd = { 'BufDel', 'BufDelAll', 'BufDelOthers' },
+}
+-- NOTE: `flash.nvim` is a powerful plugin that can be used as partial or complete replacements for:
+--  > `hop.nvim`,
+--  > `wilder.nvim`
+--  > `nvim-treehopper`
+-- Considering its steep learning curve as well as backward compatibility issues...
+--  > We have no plan to remove the above plugins for the time being.
+-- But as usual, you can always tweak the plugin to your liking.
+editor['folke/flash.nvim'] = {
+  lazy = true,
+  event = { 'CursorHold', 'CursorHoldI' },
+  config = require 'editor.flash',
 }
 editor['numToStr/Comment.nvim'] = {
   lazy = true,
@@ -41,10 +48,17 @@ editor['numToStr/Comment.nvim'] = {
 editor['sindrets/diffview.nvim'] = {
   lazy = true,
   cmd = { 'DiffviewOpen', 'DiffviewClose' },
+  config = require 'editor.diffview',
 }
-editor['junegunn/vim-easy-align'] = {
+editor['echasnovski/mini.align'] = {
   lazy = true,
-  cmd = 'EasyAlign',
+  event = { 'CursorHold', 'CursorHoldI' },
+  config = require 'editor.align',
+}
+editor['echasnovski/mini.cursorword'] = {
+  lazy = true,
+  event = { 'BufReadPost', 'BufAdd', 'BufNewFile' },
+  config = require 'editor.cursorword',
 }
 editor['smoka7/hop.nvim'] = {
   lazy = true,
@@ -52,10 +66,10 @@ editor['smoka7/hop.nvim'] = {
   event = { 'CursorHold', 'CursorHoldI' },
   config = require 'editor.hop',
 }
-editor['RRethy/vim-illuminate'] = {
+editor['brenoprata10/nvim-highlight-colors'] = {
   lazy = true,
   event = { 'CursorHold', 'CursorHoldI' },
-  config = require 'editor.vim-illuminate',
+  config = require 'editor.highlight-colors',
 }
 editor['romainl/vim-cool'] = {
   lazy = true,
@@ -64,39 +78,43 @@ editor['romainl/vim-cool'] = {
 editor['lambdalisue/suda.vim'] = {
   lazy = true,
   cmd = { 'SudaRead', 'SudaWrite' },
-  config = require 'editor.suda',
+  init = require 'editor.suda',
 }
-
+editor['tpope/vim-sleuth'] = {
+  lazy = true,
+  event = { 'BufNewFile', 'BufReadPost', 'BufFilePost' },
+}
+editor['MagicDuck/grug-far.nvim'] = {
+  lazy = true,
+  cmd = 'GrugFar',
+  config = require 'editor.grug-far',
+}
 ----------------------------------------------------------------------
 --                  :treesitter related plugins                    --
 ----------------------------------------------------------------------
 editor['nvim-treesitter/nvim-treesitter'] = {
   lazy = true,
   build = function()
-    if #vim.api.nvim_list_uis() ~= 0 then
+    if #vim.api.nvim_list_uis() > 0 then
       vim.api.nvim_command [[TSUpdate]]
     end
   end,
   event = 'BufReadPre',
   config = require 'editor.treesitter',
   dependencies = {
-    { 'andymass/vim-matchup' },
     { 'mfussenegger/nvim-treehopper' },
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
     {
-      'abecodes/tabout.nvim',
-      config = require 'editor.tabout',
+      'andymass/vim-matchup',
+      init = require 'editor.matchup',
     },
     {
       'windwp/nvim-ts-autotag',
       config = require 'editor.autotag',
     },
     {
-      'NvChad/nvim-colorizer.lua',
-      config = require 'editor.colorizer',
-    },
-    {
       'hiphish/rainbow-delimiters.nvim',
+      submodules = false,
       config = require 'editor.rainbow_delims',
     },
     {

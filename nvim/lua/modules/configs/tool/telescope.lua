@@ -17,17 +17,14 @@ return function()
 			selection_caret = icons.ui.ChevronRight,
 			scroll_strategy = "limit",
 			results_title = false,
-			layout_strategy = "horizontal",
+			layout_strategy = "flex",
 			path_display = { "absolute" },
 			selection_strategy = "reset",
-			sorting_strategy = "ascending",
 			color_devicons = true,
 			file_ignore_patterns = { ".git/", ".cache", "build/", "%.class", "%.pdf", "%.mkv", "%.mp4", "%.zip" },
 			layout_config = {
 				horizontal = {
-					prompt_position = "top",
 					preview_width = 0.55,
-					results_width = 0.8,
 				},
 				vertical = {
 					mirror = false,
@@ -44,13 +41,6 @@ return function()
 			buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
 		},
 		extensions = {
-			aerial = {
-				show_lines = false,
-				show_nesting = {
-					["_"] = false, -- This key will be the default
-					lua = true, -- You can set the option for specific filetypes
-				},
-			},
 			fzf = {
 				fuzzy = false,
 				override_generic_sorter = true,
@@ -58,14 +48,12 @@ return function()
 				case_mode = "smart_case",
 			},
 			frecency = {
-				use_sqlite = false,
 				show_scores = true,
 				show_unindexed = true,
 				ignore_patterns = { "*.git/*", "*/tmp/*" },
 			},
 			live_grep_args = {
 				auto_quoting = true, -- enable/disable auto-quoting
-				-- define mappings, e.g.
 				mappings = { -- extend mappings
 					i = {
 						["<C-k>"] = lga_actions.quote_prompt(),
@@ -75,17 +63,18 @@ return function()
 			},
 			undo = {
 				side_by_side = true,
-				mappings = { -- this whole table is the default
+				mappings = {
 					i = {
-						-- IMPORTANT: Note that telescope-undo must be available when telescope is configured if
-						-- you want to use the following actions. This means installing as a dependency of
-						-- telescope in it's `requirements` and loading this extension from there instead of
-						-- having the separate plugin definition as outlined above. See issue #6.
 						["<cr>"] = require("telescope-undo.actions").yank_additions,
 						["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
 						["<C-cr>"] = require("telescope-undo.actions").restore,
 					},
 				},
+			},
+			advanced_git_search = {
+				diff_plugin = "diffview",
+				git_flags = { "-c", "delta.side-by-side=true" },
+				entry_default_author_or_date = "author", -- one of "author" or "date"
 			},
 		},
 	})
@@ -98,5 +87,5 @@ return function()
 	require("telescope").load_extension("undo")
 	require("telescope").load_extension("zoxide")
 	require("telescope").load_extension("persisted")
-	require("telescope").load_extension("aerial")
+	require("telescope").load_extension("advanced_git_search")
 end

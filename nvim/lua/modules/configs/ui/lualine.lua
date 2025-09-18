@@ -1,3 +1,45 @@
+local lsp_state = { progress = "" }
+local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪡", "󰪢", "󰪣", "󰪤", "󰪥", "", "" }
+
+vim.api.nvim_create_autocmd("LspProgress", {
+	group = vim.api.nvim_create_augroup("LualineLspProgress", { clear = true }),
+	pattern = { "begin", "report", "end" },
+	callback = function(args)
+		-- Get the payload
+		local data = args.data and args.data.params and args.data.params.value
+		if not data then
+			return
+		end
+
+		-- If it's the end event, clear; else build "<spinner> XX% <title> <loaded>"
+		if data.kind == "end" then
+			lsp_state.progress = ""
+		else
+			local pct = data.percentage or 0
+			local idx = 1 + ((pct - pct % 10) / 10)
+			local spinner = spinners[idx]
+
+			local progress = ""
+			if data.message then
+				local start, stop = data.message:find("^%d+/%d+")
+				if start then
+					progress = data.message:sub(start, stop)
+				end
+			end
+
+			lsp_state.progress = spinner
+				.. " "
+				.. tostring(pct)
+				.. "%% "
+				.. (data.title or "")
+				.. (progress ~= "" and " " .. progress or "")
+		end
+
+		-- Redraw statusline
+		pcall(vim.cmd.redrawstatus)
+	end,
+})
+
 return function()
 	local has_catppuccin = vim.g.colors_name:find("catppuccin") ~= nil
 	local colors = require("modules.utils").get_palette()
@@ -7,6 +49,7 @@ return function()
 		git_nosep = require("modules.utils.icons").get("git"),
 		misc = require("modules.utils.icons").get("misc", true),
 		ui = require("modules.utils.icons").get("ui", true),
+		aichat = require("modules.utils.icons").get("aichat", true),
 	}
 
 	local function custom_theme()
@@ -54,23 +97,6 @@ return function()
 		end
 	end
 
-	local mini_sections = {
-		lualine_a = { "filetype" },
-		lualine_b = {},
-		lualine_c = {},
-		lualine_x = {},
-		lualine_y = {},
-		lualine_z = {},
-	}
-	local outline = {
-		sections = mini_sections,
-		filetypes = { "aerial" },
-	}
-	local diffview = {
-		sections = mini_sections,
-		filetypes = { "DiffviewFiles" },
-	}
-
 	local conditionals = {
 		has_enough_room = function()
 			return vim.o.columns > 100
@@ -115,12 +141,10 @@ return function()
 			if has_catppuccin then
 				return function()
 					local guifg = colors[fg]
-					local guibg = gen_bg and require("modules.utils").hl_to_rgb("StatusLine", true, colors.mantle)
-						or colors[bg]
 					local nobg = special_nobg and require("core.settings").transparent_background
 					return {
 						fg = guifg and guifg or colors.none,
-						bg = (guibg and not nobg) and guibg or colors.none,
+						bg = nobg and colors.none or (not gen_bg and colors[bg] or nil),
 						gui = gui and gui or nil,
 					}
 				end
@@ -149,6 +173,7 @@ return function()
 			end,
 			padding = 0,
 			color = utils.gen_hl("surface1", true, true),
+			separator = { left = "", right = "" },
 		},
 
 		file_status = {
@@ -179,8 +204,8 @@ return function()
 
 		lsp = {
 			function()
-				local buf_ft = vim.api.nvim_get_option_value("filetype", { scope = "local" })
-				local clients = vim.lsp.get_active_clients()
+				local buf_ft = vim.bo.filetype
+				local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
 				local lsp_lists = {}
 				local available_servers = {}
 				if next(clients) == nil then
@@ -190,17 +215,48 @@ return function()
 					local filetypes = client.config.filetypes
 					local client_name = client.name
 					if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-						-- Avoid adding servers that already exists.
+						-- Avoid adding servers that already exist.
 						if not lsp_lists[client_name] then
 							lsp_lists[client_name] = true
 							table.insert(available_servers, client_name)
 						end
 					end
 				end
+
 				return next(available_servers) == nil and icons.misc.NoActiveLsp
-					or string.format("%s[%s]", icons.misc.LspAvailable, table.concat(available_servers, ", "))
+					or string.format(
+						"%s[%s] %s",
+						icons.misc.LspAvailable,
+						table.concat(available_servers, ", "),
+						lsp_state.progress
+					)
 			end,
 			color = utils.gen_hl("blue", true, true, nil, "bold"),
+			cond = conditionals.has_enough_room,
+		},
+
+		chat_progress = {
+			(function()
+				local processing = false
+				local animate_chars = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+				local animation_idx = 1
+				vim.api.nvim_create_autocmd("User", {
+					pattern = { "CodeCompanionRequestStarted", "CodeCompanionRequestFinished" },
+					group = vim.api.nvim_create_augroup("CodeCompanionHooks", { clear = true }),
+					callback = function(args)
+						processing = (args.match == "CodeCompanionRequestStarted")
+					end,
+				})
+
+				return function()
+					if not processing then
+						return ""
+					end
+					animation_idx = animation_idx % #animate_chars + 1
+					return string.format("%s %s", icons.aichat.Copilot, animate_chars[animation_idx])
+				end
+			end)(),
+			color = utils.gen_hl("yellow", true, true),
 			cond = conditionals.has_enough_room,
 		},
 
@@ -217,12 +273,12 @@ return function()
 					return venv
 				end
 
-				if vim.api.nvim_get_option_value("filetype", { scope = "local" }) == "python" then
-					local venv = os.getenv("CONDA_DEFAULT_ENV")
+				if vim.bo.filetype == "python" then
+					local venv = vim.env.CONDA_DEFAULT_ENV
 					if venv then
 						return icons.misc.PyEnv .. env_cleanup(venv)
 					end
-					venv = os.getenv("VIRTUAL_ENV")
+					venv = vim.env.VIRTUAL_ENV
 					if venv then
 						return icons.misc.PyEnv .. env_cleanup(venv)
 					end
@@ -235,14 +291,14 @@ return function()
 
 		tabwidth = {
 			function()
-				return icons.ui.Tab .. vim.api.nvim_get_option_value("shiftwidth", { scope = "local" })
+				return icons.ui.Tab .. vim.bo.tabstop
 			end,
 			padding = 1,
 		},
 
 		cwd = {
 			function()
-				return icons.ui.FolderWithHeart .. utils.abbreviate_path(vim.fs.normalize(vim.fn.getcwd()))
+				return icons.ui.FolderWithHeart .. utils.abbreviate_path(vim.fs.normalize(vim.uv.cwd()))
 			end,
 			color = utils.gen_hl("subtext0", true, true, nil, "bold"),
 		},
@@ -325,8 +381,10 @@ return function()
 				components.lsp,
 			},
 			lualine_x = {
+				components.chat_progress,
 				{
 					"encoding",
+					show_bomb = true,
 					fmt = string.upper,
 					padding = { left = 1 },
 					cond = conditionals.has_enough_room,
@@ -358,14 +416,6 @@ return function()
 			lualine_z = {},
 		},
 		tabline = {},
-		extensions = {
-			"quickfix",
-			"nvim-tree",
-			"nvim-dap-ui",
-			"toggleterm",
-			"fugitive",
-			outline,
-			diffview,
-		},
+		extensions = {},
 	})
 end
