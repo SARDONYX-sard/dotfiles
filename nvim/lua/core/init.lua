@@ -101,25 +101,21 @@ You're recommended to install PowerShell for better experience.]],
 end
 
 local load_core = function()
-	if vim.g.vscode then
-		require("core.pack")
-	else
-		createdir()
-		leader_map()
+	createdir()
+	leader_map()
 
-		gui_config()
-		neovide_config()
-		clipboard_config()
-		shell_config()
+	gui_config()
+	neovide_config()
+	clipboard_config()
+	shell_config()
 
-		require("core.options")
-		require("core.event")
-		require("core.pack")
-		require("keymap")
+	require("core.options")
+	require("core.event")
+	require("core.pack")
+	require("keymap")
 
-		vim.api.nvim_set_option_value("background", settings.background, {})
-		vim.cmd.colorscheme(settings.colorscheme)
-	end
+	vim.api.nvim_set_option_value("background", settings.background, {})
+	vim.cmd.colorscheme(settings.colorscheme)
 end
 
 load_core()
