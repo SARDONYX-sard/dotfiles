@@ -35,7 +35,8 @@ function Lazy:load_plugins()
 
 	local get_plugins_list = function()
 		local list = {}
-		local plugins_list = vim.split(fn.glob(modules_dir .. "/plugins/*.lua"), "\n")
+		local plugins_list = vim.g.vscode and { modules_dir .. "/plugins/with_vscode.lua" }
+			or vim.split(fn.glob(modules_dir .. "/plugins/*.lua"), "\n")
 		local user_plugins_list = vim.split(fn.glob(user_config_dir .. "/plugins/*.lua"), "\n", { trimempty = true })
 		vim.list_extend(plugins_list, user_plugins_list)
 		for _, f in ipairs(plugins_list) do
