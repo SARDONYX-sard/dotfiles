@@ -205,18 +205,18 @@ function! ToggleNetrw()
     endif
 endfunction
 
-augroup AutoStartExplore
-    autocmd!
-    autocmd TabNew * :call ToggleNetrw()
-    autocmd VimEnter * :call ToggleNetrw()
-augroup END
+" augroup AutoStartExplore
+"     autocmd!
+"     autocmd TabNew * :call ToggleNetrw()
+"     autocmd VimEnter * :call ToggleNetrw()
+" augroup END
 noremap <silent> <Leader>e :call ToggleNetrw()<CR>
 
 " //////////////////////////////////////////////////////////////////////////////
 "Binary Edit (xxd) mode (invoked by invoking vim -b or opening the *.bin,*.hkx file)
 augroup BinaryXXD
     autocmd!
-    autocmd BufReadPre  *.bin,*.exe,*.hkx let &binary =1
+    autocmd BufReadPre  *.bin,*.exe,*.hkt,*.hkx let &binary =1
     autocmd BufReadPost * if &binary | silent %!xxd -g 1
     autocmd BufReadPost * set ft=xxd | endif
     autocmd BufWritePre * if &binary | %!xxd -r | endif
