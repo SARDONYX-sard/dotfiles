@@ -8,17 +8,17 @@
     },
     {
       "command": {
-        "action": "scrollDown"
-      },
-      "id": "User.scrollDown.0"
-    },
-    {
-      "command": {
         "action": "splitPane",
         "split": "right",
         "splitMode": "duplicate"
       },
       "id": "User.splitPane.FEF0D40B"
+    },
+    {
+      "command": {
+        "action": "scrollDown"
+      },
+      "id": "User.scrollDown.0"
     },
     {
       "command": {
@@ -32,7 +32,7 @@
   "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
   "keybindings": [
     {
-      "id": "",
+      "id": null,
       "keys": "alt+enter"
     },
     {
@@ -98,20 +98,10 @@
         "useAcrylic": false
       },
       {
-        "backgroundImageOpacity": 0,
-        "bellStyle": "none",
-        "colorScheme": "Campbell (modified)",
-        "commandline": "pwsh.exe -NoExit -Command \"&{Import-Module \"\"\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\Tools\\Microsoft.VisualStudio.DevShell.dll\"\"\"; Enter-VsDevShell 3f90b5ca -SkipAutomaticLocation -DevCmdArguments \"\"\"-arch=x64 -host_arch=x64\"\"\"}\"",
-        "font": {
-          "face": "CodeNewRoman NF"
-        },
-        "guid": "{5fd8dc38-7764-4530-b21b-dbc14d674d7d}",
+        "guid": "{0c429f2b-b460-5587-91f6-112b2351fea8}",
         "hidden": false,
-        "icon": "ms-appx:///ProfileIcons/pwsh.png",
-        "name": "VS Studio2022 pwsh",
-        "opacity": 65,
-        "startingDirectory": "%USERPROFILE%",
-        "useAcrylic": false
+        "name": "Developer PowerShell for VS 18",
+        "source": "Windows.Terminal.VisualStudio"
       },
       {
         "antialiasingMode": "grayscale",
@@ -151,28 +141,16 @@
         "source": "Windows.Terminal.Wsl"
       },
       {
-        "commandline": "wsl -d kali-linux --user sardonyx kex --wtstart -m",
-        "guid": "{55ca431b-3a87-5fb3-83cd-11ececc031d2}",
-        "hidden": true,
-        "name": "Win-KeX"
-      },
-      {
         "guid": "{16208362-94fc-5b1f-a491-5b2624d5ab56}",
         "hidden": true,
         "name": "Visual Studio Debug Console",
         "source": "VSDebugConsole"
       },
       {
-        "guid": "{f6daa473-6f22-542b-848b-e6c4d34d2bd0}",
-        "hidden": false,
-        "name": "SSH - VM-Win10",
-        "source": "Windows.Terminal.SSH"
-      },
-      {
-        "guid": "{e4063e4e-614d-5682-86f3-f1bdcb157b38}",
-        "hidden": false,
-        "name": "SSH - VM-Arch",
-        "source": "Windows.Terminal.SSH"
+        "guid": "{c22ef8fa-5958-58b6-8d02-36fe9752834c}",
+        "hidden": true,
+        "name": "Developer Command Prompt for VS 18",
+        "source": "Windows.Terminal.VisualStudio"
       }
     ]
   },
