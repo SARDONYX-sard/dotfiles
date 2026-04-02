@@ -13,7 +13,9 @@
 .tmp
 .netbeans
 nbprojec
-.dccache
+.dccache/
+.cache/
+.xmake/
 
 # ------------------------------------------------------------------------------------------------------------------------------
 # Dynamicaly Generated Files

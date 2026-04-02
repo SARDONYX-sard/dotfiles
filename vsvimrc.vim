@@ -57,10 +57,11 @@ inoremap " ""<LEFT>
 inoremap ' ''<LEFT>
 
 " - Switch to alternate file
-nnoremap <S-h> :bprevious<CR>
-nnoremap <S-l> :bnext<CR>
+nnoremap <S-h> :vsc Window.NextDocumentWindow<CR>
+nnoremap <S-l> :vsc Window.PreviousDocumentWindow<CR>
 
-nnoremap <S-k> :vsc Edit.QuickInfo<CR> "Hover: https://github.com/VsVim/VsVim/issues/1015#issuecomment-12181052
+" Hover: https://github.com/VsVim/VsVim/issues/1015#issuecomment-12181052
+nnoremap <S-k> :vsc Edit.QuickInfo<CR>
 
 " //////////////////////////////////////////////////////////////////////////////
 " Better gx to open URLs.
