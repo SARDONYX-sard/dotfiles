@@ -12,6 +12,7 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
     @{ name = "gc"; option = "commit" }
     @{ name = "gl"; option = "log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'" }
     @{ name = "gp"; option = "push" }
+    @{ name = "gpa"; option = "push --all" }
     @{ name = "gpf"; option = "push --force" }
     @{ name = "gpl"; option = "pull" }
     @{ name = "gs"; option = "sync" } # need .gitconfig alias

@@ -130,6 +130,7 @@ set shortmess-=S               " - Removing the S flag will show [number current
 set showcmd                    " - Show incomplete cmds down the bottom
 set showmode                   " - Show current mode down the bottom
 set wildmenu                   " - Show completion list in Command Mode
+set modelines=0                " To avoid vulnerability.
 
 colorscheme slate " slate|evening
 
