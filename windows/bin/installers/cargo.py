@@ -25,16 +25,16 @@ libs = [
         "description": "Greps through binaries from various OSs and architectures.",
     },
     {
-        "name": "cargo-show-asm",
-        "url": "https://github.com/pacak/cargo-show-asm",
-        "description": "Displays the Assembly, LLVM-IR, MIR and WASM generated for Rust source code.",
-    },
-    {
         "name": "cargo-update",
         "url": "https://github.com/nabijaczleweli/cargo-update",
         "description": "Checking and applying updates to installed executables.",
     },
     {"name": "cargo-edit", "description": "cargo add command"},
+    {
+        "name": "cargo-binstall",
+        "url": "https://github.com/cargo-bins/cargo-binstall",
+        "description": "Install Rust binaries from the GitHub Releases of your favorite Rust tools.",
+    },
     {
         "name": "cargo-binutils",
         "url": "https://github.com/rust-embedded/cargo-binutils",
@@ -47,41 +47,15 @@ libs = [
         "description": "A new Rust project by leveraging a pre-existing git repository as a template.",
     },
     {
-        "name": "cargo-make",
-        "url": "https://github.com/sagiegurari/cargo-make",
-        "description": "Rust task runner and build tool.",
-    },
-    {
         "name": "git-cliff",
         "url": "https://github.com/orhun/git-cliff",
         "description": "generate changelog files.",
-    },
-    {
-        "name": "trunk",
-        "url": "https://github.com/thedodd/trunk",
-        "description": "Build, bundle & ship your Rust WASM application to the web.",
-    },
-    {
-        "name": "rustfilt",
-        "url": "https://github.com/luser/rustfilt",
-        "description": "Demangle Rust symbol names using rustc-demangle. ",
     },
     # WebAssembly
     {
         "name": "wasm-pack",
         "url": "https://github.com/luser/rustfilt",
         "description": "generated WebAssembly. WARN: need openssl & perl.",
-    },
-    # calculation + conversion. (e.g. cpc '1KB to Byte' => 1000 Byte)
-    {
-        "name": "cpc",
-        "url": "https://github.com/rustwasm/wasm-pack",
-        "description": "cpc parses and evaluates strings of math.",
-    },
-    {
-        "name": "choose",
-        "url": "https://github.com/theryangeary/choose",
-        "description": "similar to Python's list slices",
     },
 ]
 

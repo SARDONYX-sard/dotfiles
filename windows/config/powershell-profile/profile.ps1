@@ -2,6 +2,7 @@
 $executionTime = $(Measure-Command {
     $HelperDir = "$HOME/dotfiles/windows/config/powershell-profile/helper";
     . "$($HelperDir)/index.ps1" #! These files could not be lazily loaded.
+    . "$($HelperDir)/vi.ps1" # # It's 100 ms slower, but I want to start using vi right away
     function prompt {
       # This function is lazy load. Put off heavy processing to speed up startup.
       . "$($HelperDir)/shell-design.ps1"

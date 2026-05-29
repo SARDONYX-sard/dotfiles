@@ -26,7 +26,7 @@ function Set-KaliTheme {
     Write-Host "ms" -NoNewline -ForegroundColor DarkGray
     Write-Host ") " -NoNewline -ForegroundColor darkcyan
 
-    Write-Host (Get-Date -Format g)  -ForegroundColor DarkYellow
+    Write-Host ((Get-Date).ToString("yyyy-MM-dd(ddd) HH:mm:ss", [cultureinfo]::InvariantCulture))  -ForegroundColor DarkCyan
     if ($PSVersionTable.PSEdition -eq "Core") {
       Write-Host ("└─") -NoNewline -ForegroundColor DarkGreen
     }
