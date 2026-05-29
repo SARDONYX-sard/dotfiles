@@ -34,13 +34,6 @@ $null = Register-ObjectEvent -InputObject $LazyLoadProfile -EventName Invocation
     }
   }
 
-  if ($PSVersionTable.PSEdition -eq "Core") {
-    Set-PSReadLineOption -PredictionSource HistoryAndPlugin
-    # For VSCode terminl
-    if ($Host.UI.RawUI.WindowSize.Height -ge 15) {
-      Set-PSReadLineOption -PredictionViewStyle ListView
-    }
-  }
   $LazyLoadProfile.Dispose()
   $LazyLoadProfileRunspace.Close()
   $LazyLoadProfileRunspace.Dispose()

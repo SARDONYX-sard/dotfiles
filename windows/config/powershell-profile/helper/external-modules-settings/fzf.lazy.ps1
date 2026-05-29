@@ -5,6 +5,7 @@ if (Get-Command fzf -ErrorAction SilentlyContinue) {
     $env:FZF_DEFAULT_OPTS = "
     $defaultFZFopts --preview `"bat --pager=never --color=always --style=numbers --line-range :300 {}`""
 
+    # ctrl + t: search files.
     if ( Get-Command rg -ea 0 ) {
       $env:FZF_CTRL_T_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
     }

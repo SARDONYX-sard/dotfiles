@@ -10,14 +10,14 @@
 [branch]
   sort = -committerdate
 [core]
-  autocrlf = false
+	autocrlf = false
   eol = lf
   editor = code
   # editor = nvim
   ignorecase = false
   pager = delta # need `delta` command
   quotepath = false
-  safecrlf = true
+	safecrlf = false
   symlinks = true
 [color]
   ui = auto
