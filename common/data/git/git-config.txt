@@ -25,6 +25,7 @@
   ui = auto
 [commit]
   verbose = true
+	gpgsign = true
 [delta]
   navigate = true    # use n and N to move between diff sections
     # delta detects terminal colors automatically; set one of these to disable auto-detection
@@ -72,6 +73,7 @@
   autoupdate = true
 [tag]
   sort = version:refname
+	gpgsign = true
 [url "git@github.com:"] # http to ssh (Avoid git clone ssh hang up)
   pushInsteadOf = git://github.com/
   pushInsteadOf = https://github.com/
