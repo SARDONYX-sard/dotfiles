@@ -4,7 +4,7 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
   Remove-Item alias:gp -Force # already used by Get-ItemProperty
 
   @(
-    @{ name = "cl"; option = "clone" }
+    @{ name = "cl"; option = "clone --recursive -j" }
     @{ name = "gitConf"; option = "config --global -e" }
 
     @{ name = "ga"; option = "add -A" }
