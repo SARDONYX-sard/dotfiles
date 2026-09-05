@@ -76,7 +76,23 @@ Set-ExecutionPolicy RemoteSigned
 
 ### Linux
 
-Select either command.
+first deps.(Kali WSL user)
+
+```shell
+sudo wget https://archive.kali.org/archive-keyring.gpg -O /usr/share/keyrings/kali-archive-keyring.gpg;
+sudo apt apt --fix-broken install
+apt update
+touch ~/.hushlogin
+sudo apt install python3
+```
+
+Convenience(On powershell)
+
+```shell
+kali config --default-user sardonyx
+```
+
+Select either command
 
 - **Recommended command**(The development language is put in manually.)
 
@@ -106,12 +122,10 @@ docker-compose up
 ## Progress
 
 - Completed
-
   - Windows settings
   - Linux settings
 
 - Incomplete
-
   - Minor bug fixes
   - Unchecked reproducibility (especially WSL)
   - Add test code
