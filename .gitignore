@@ -3,3 +3,5 @@ keyhac.ini
 
 .luarc.json
 nvim/plugin/
+
+.venv/

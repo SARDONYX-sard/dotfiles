@@ -133,7 +133,6 @@
   "Lua.codeLens.enable": true,
   "Lua.hint.enable": true,
   "Lua.hint.setType": true,
-  "python.analysis.typeCheckingMode": "strict",
   "python.envFile": "${workspaceFolder}/.env",
   "stylua.targetReleaseVersion": "latest"
 }
