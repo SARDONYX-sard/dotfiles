@@ -1,109 +1,82 @@
-"""KeyHac config
+"""Keyhac 2 configuration.
 
-https://sites.google.com/site/craftware/
+Original v1 configuration migrated to Keyhac 2.
 """
 
-import os
-from typing import Callable, Dict, Union
+import subprocess
 
-# pyauto  ref: (https://github.com/crftwr/pyauto/blob/master/doc/pyauto.py)
-# import pyauto
-from keyhac import shellExecute, cblister_FixedPhrase, Keymap
 from keyhac import (
-    VK_OEM_1,
-    VK_OEM_102,
-    VK_OEM_6,
-    VK_OEM_3,
-    VK_OEM_4,
-    VK_OEM_5,
-    VK_OEM_7,
-    VK_OEM_PLUS,
-    VK_OEM_MINUS,
+    getLogger,
+    InputText,
+    Keymap,
+    KeyTable,
+    MouseButtonDown,
+    MouseButtonUp,
+    MouseMove,
+    MoveWindow,
+    PlaybackRecordedKeys,
+    StartRecordingKeys,
+    StopRecordingKeys,
+    ToggleRecordingKeys,
 )
 
-KeymapPair = Dict[str, Union[str, Callable[[], None], Callable[[], str]]]
+
+# Since these definitions were lost in keyhac v2, we'll need to define them ourself.
+VK_OEM_1 = 186
+VK_OEM_PLUS = 187
+VK_OEM_MINUS = 189
+VK_OEM_3 = 192
+VK_OEM_4 = 219
+VK_OEM_5 = 220
+VK_OEM_6 = 221
+VK_OEM_7 = 222
+VK_OEM_102 = 226
+
+# 全角
+VK_OEM_AUTO = 243
+# 半角
+VK_OEM_ENLW = 244
+
+
+logger = getLogger("Config")
 
 
 def configure(keymap: Keymap):
-    keymap_global = keymap.defineWindowKeymap()
-    keymap.quote_mark = "> "
-    keymap.defineModifier(235, "User0")  # User modifier key definition
-    keymap.replaceKey("RShift", 235)  # Simple key replacement
+    """Configure Keyhac.
 
-    keymap.editor = "nvim.exe" if os.name == "nt" else "nvim"
-    keymap.setFont("MS Gothic", 12)
-    keymap.setTheme("black")
+    Args:
+        keymap: Keyhac keymap instance.
+    """
+    is_win = keymap.platform == "windows"
+    keymap.editor = "nvim.exe" if is_win else "nvim"
 
-    is_win = os.name == "nt"
+    # ------------------------------------------------------------------
+    # Keep the original RShift -> User0 mapping on Windows. macOS has Fn as a usable modifier.
+    if is_win:
+        keymap.replace_key("RShift", 235)
+        keymap.define_modifier(235, "User0")
+
+    # Windows-only commands
+    keymap_global = keymap.define_keytable(focus_path_pattern="*")
+
     if is_win:
         cmd_keymap(keymap_global, keymap)
 
-    input_keymap(keymap_global, keymap)
+    # Global key bindings
+    input_keymap(keymap_global)
     jis_to_us_keyboard(keymap_global)
-    macro_key(keymap_global, keymap)
-    show_app_list(keymap_global, keymap)
+    macro_key(keymap_global)
     turn_off_clipboard(keymap)
     vim_keybinding(keymap_global)
-    virtual_mouse(keymap_global, keymap)
-    window_moving(keymap_global, keymap)
+    virtual_mouse(keymap_global)
+    window_moving(keymap_global)
 
 
-def show_app_list(keymap_global: KeymapPair, keymap: Keymap):
-    """USER0-Space : Application launcher using custom list window"""
-
-    def command_pop_application_list():
-        # For toggle window.
-        if keymap.isListWindowOpened():
-            keymap.cancelListWindow()
-            return
-
-        def pop_application_list():
-            is_win = os.name == "nt"
-            # config
-            dl_dir = "E:\\ダウンロード"
-
-            shell = keymap.ShellExecuteCommand
-
-            def win_shell(proc: str):
-                return shell(None, proc, "", "") if is_win else None
-
-            apps = [  # type: ignore
-                ("-- Editor --", win_shell("neovide")),
-                ("Vim", win_shell("gvim")),
-                ("Neovide", win_shell("neovide")),
-                ("Notepad", win_shell("notepad.exe")),
-                ("VSCode", shell(None, "code", "", "")),
-                #
-                (
-                    "-- Explorer --",
-                    shell(None, "explorer.exe", dl_dir, "") if is_win else None,
-                ),
-                #
-                ("-- Web --", shell(None, "https://www.google.com/", "", "")),
-                ("Twitter", shell(None, "https://twitter.com/", "", "")),
-            ]
-
-            item, _ = keymap.popListWindow([("App", cblister_FixedPhrase(apps))])  # type: ignore
-            if item:
-                item[1]()
-
-        # Because the blocking procedure cannot be executed in the key-hook,
-        keymap.delayedCall(pop_application_list, 0)
-
-    keymap_global["U0-Shift-Space"] = command_pop_application_list
+# ============================================================================
 
 
-def jis_to_us_keyboard(keymap_global: KeymapPair):
-    """
-    Replacement key to use US keyboard with Japanese IME status.
-    - See:
-        - https://kts.sakaiweb.com/virtualkeycodes.html
-        - https://github.com/dezz/ULE4JIS/blob/master/Ule4Jis/USonJISStrategy.cpp
-    """
-
-    # 半角/全角
-    VK_OEM_AUTO = 243
-    VK_OEM_ENLW = 244
+def jis_to_us_keyboard(keymap_global: KeyTable):
+    """Replace JIS keyboard output with US keyboard layout behavior."""
 
     keymap_global["Shift-2"] = f"{VK_OEM_3}"  # to @
     keymap_global["Shift-6"] = f"{VK_OEM_7}"  # to ^
@@ -114,89 +87,178 @@ def jis_to_us_keyboard(keymap_global: KeymapPair):
     keymap_global[f"Shift-{VK_OEM_MINUS}"] = f"Shift-{VK_OEM_102}"  # = to _
     keymap_global[f"{VK_OEM_7}"] = f"Shift-{VK_OEM_MINUS}"  # ^ to =
     keymap_global[f"Shift-{VK_OEM_7}"] = f"Shift-{VK_OEM_PLUS}"  # ~ to +
-    keymap_global[f"{VK_OEM_AUTO}"] = f"Shift-{VK_OEM_3}"  # 半角/全角 to `
-    keymap_global[f"{VK_OEM_ENLW}"] = f"Shift-{VK_OEM_3}"  # 半角/全角 to `
-    keymap_global[f"Shift-{VK_OEM_AUTO}"] = f"Shift-{VK_OEM_7}"  # 半角/全角 to ~
-    keymap_global[f"Shift-{VK_OEM_ENLW}"] = f"Shift-{VK_OEM_7}"  # shift-半角 to ~
+
+    keymap_global[f"({VK_OEM_AUTO})"] = f"Shift-{VK_OEM_3}"  # 半角/全角 to `
+    keymap_global[f"({VK_OEM_ENLW})"] = f"Shift-{VK_OEM_3}"  # 半角/全角 to `
+
+    keymap_global[f"Shift-({VK_OEM_AUTO})"] = f"Shift-{VK_OEM_7}"  # shift-半角 to ~
+    keymap_global[f"Shift-({VK_OEM_ENLW})"] = f"Shift-{VK_OEM_7}"  # shift-半角 to ~
+
     keymap_global[f"{VK_OEM_3}"] = f"{VK_OEM_4}"  # @ to [
     keymap_global[f"{VK_OEM_4}"] = f"{VK_OEM_6}"  # to ]
     keymap_global[f"Shift-{VK_OEM_3}"] = f"Shift-{VK_OEM_4}"  # to {
     keymap_global[f"Shift-{VK_OEM_4}"] = f"Shift-{VK_OEM_6}"  # to }
+
     keymap_global[f"Shift-{VK_OEM_PLUS}"] = f"{VK_OEM_1}"  # + to :
     keymap_global[f"{VK_OEM_1}"] = "Shift-7"  # : to '
     keymap_global[f"Shift-{VK_OEM_1}"] = "Shift-2"  # shift-: to "
+
     keymap_global[f"{VK_OEM_6}"] = f"{VK_OEM_102}"  # ] to \
     keymap_global[f"Shift-{VK_OEM_6}"] = f"Shift-{VK_OEM_5}"  # shift-] to |
 
 
-def vim_keybinding(keymap_global: KeymapPair):
+def vim_keybinding(keymap_global: KeyTable):
+    """Install Vim-like key bindings.
+
+    Args:
+        keymap_global: Global key table.
+    """
+
     keymap_global["LShift-Alt-H"] = "Left"
     keymap_global["LShift-Alt-J"] = "Down"
     keymap_global["LShift-Alt-K"] = "Up"
     keymap_global["LShift-Alt-L"] = "Right"
+
     keymap_global["LCtrl-H"] = "Back"
     keymap_global["LCtrl-M"] = "Enter"
-    keymap_global[f"LCtrl-{VK_OEM_3}"] = "Escape"  # Ctrl-{ to Esc
+    keymap_global[f"LCtrl-{VK_OEM_3}"] = "Escape"
 
 
-def window_moving(keymap_global: KeymapPair, keymap: Keymap):
-    """USER0-Ctrl-Up/Down/Left/Right : Move active window to screen edges"""
-    keymap_global["U0-C-A"] = keymap.MoveWindowToMonitorEdgeCommand(0)
-    keymap_global["U0-C-D"] = keymap.MoveWindowToMonitorEdgeCommand(2)
-    keymap_global["U0-C-W"] = keymap.MoveWindowToMonitorEdgeCommand(1)
-    keymap_global["U0-C-S"] = keymap.MoveWindowToMonitorEdgeCommand(3)
+def window_moving(keymap_global: KeyTable):
+    """Move the active window to screen edges.
+
+    Args:
+        keymap_global: Global key table.
+    """
+
+    keymap_global["U0-C-A"] = MoveWindow(
+        direction="left",
+        distance=9999,
+        window_edge=True,
+        screen_edge=True,
+    )
+
+    keymap_global["U0-C-D"] = MoveWindow(
+        direction="right",
+        distance=9999,
+        window_edge=True,
+        screen_edge=True,
+    )
+
+    keymap_global["U0-C-W"] = MoveWindow(
+        direction="up",
+        distance=9999,
+        window_edge=True,
+        screen_edge=True,
+    )
+
+    keymap_global["U0-C-S"] = MoveWindow(
+        direction="down",
+        distance=9999,
+        window_edge=True,
+        screen_edge=True,
+    )
 
 
-def macro_key(keymap_global: KeymapPair, keymap: Keymap):
-    keymap_global["U0-0"] = keymap.command_RecordToggle
-    keymap_global["U0-1"] = keymap.command_RecordStart
-    keymap_global["U0-2"] = keymap.command_RecordStop
-    keymap_global["U0-3"] = keymap.command_RecordPlay
-    keymap_global["U0-4"] = keymap.command_RecordClear
+def macro_key(keymap_global: KeyTable):
+    """Install keyboard macro bindings.
+
+    Args:
+        keymap_global: Global key table.
+    """
+
+    keymap_global["U0-0"] = ToggleRecordingKeys()
+    keymap_global["U0-1"] = StartRecordingKeys()
+    keymap_global["U0-2"] = StopRecordingKeys()
+    keymap_global["U0-3"] = PlaybackRecordedKeys()
+
+    # Keyhac 2 does not expose a RecordClear action.
+    # The old U0-4 binding is therefore intentionally removed.
 
 
-def virtual_mouse(keymap_global: KeymapPair, keymap: Keymap):
-    """USER0-Alt-↑/↓/←/→/Space/PageUp/PageDown : Virtual mouse by keyboard."""
-    keymap_global["U0-Left"] = keymap.MouseMoveCommand(-10, 0)
-    keymap_global["U0-Right"] = keymap.MouseMoveCommand(10, 0)
-    keymap_global["U0-Up"] = keymap.MouseMoveCommand(0, -10)
-    keymap_global["U0-Down"] = keymap.MouseMoveCommand(0, 10)
-    keymap_global["D-U0-Space"] = keymap.MouseButtonDownCommand("left")
-    keymap_global["U-U0-Space"] = keymap.MouseButtonUpCommand("left")
+def virtual_mouse(keymap_global: KeyTable):
+    """Control the mouse using User0.
+
+    Args:
+        keymap_global: Global key table.
+    """
+
+    keymap_global["U0-Left"] = MouseMove(-10, 0)
+    keymap_global["U0-Right"] = MouseMove(10, 0)
+    keymap_global["U0-Up"] = MouseMove(0, -10)
+    keymap_global["U0-Down"] = MouseMove(0, 10)
+
+    keymap_global["D-U0-Space"] = MouseButtonDown("left")
+    keymap_global["U-U0-Space"] = MouseButtonUp("left")
 
 
-def cmd_keymap(keymap_global: KeymapPair, keymap: Keymap):
+def cmd_keymap(keymap_global: KeyTable, keymap: Keymap):
+    """Install Windows-specific commands.
+
+    Args:
+        keymap_global: Global key table.
+        keymap: Keyhac keymap instance.
+    """
+
     def shutdown():
-        os.system("shutdown -s")
+        """Shut down Windows.
 
-    # There is a bug in keyhac itself that causes UserKey (Rshift) to be pressed
-    # every time after resuming when using the native API via dll, so I will
-    # refrain from doing so.
-    def sleep():  # https://qiita.com/sharow/items/ef78f2f5a8053f6a7a41
-        shellExecute(
-            None,
-            "powershell.exe",
-            "-NoProfile -Command \"Add-Type -Assembly System.Windows.Forms;\
-[System.Windows.Forms.Application]::SetSuspendState('Suspend', $false, $false);\"",
-            "",
+        Raises:
+            OSError: If the shutdown command cannot be started.
+        """
+        subprocess.Popen(["shutdown", "-s"])
+
+    def sleep():
+        """Suspend Windows.
+
+        Raises:
+            OSError: If PowerShell cannot be started.
+        """
+        subprocess.Popen(
+            [
+                "powershell.exe",
+                "-NoProfile",
+                "-Command",
+                (
+                    "Add-Type -Assembly System.Windows.Forms;"
+                    "[System.Windows.Forms.Application]"
+                    "::SetSuspendState('Suspend', $false, $false);"
+                ),
+            ]
         )
 
     def clear_trash():
-        shellExecute(
-            None,
-            "cmd.exe",
-            "/c echo Y| powershell.exe -NoProfile -Command Clear-RecycleBin",
-            None,
+        """Clear the Windows recycle bin.
+
+        Raises:
+            OSError: If PowerShell cannot be started.
+        """
+        subprocess.Popen(
+            [
+                "powershell.exe",
+                "-NoProfile",
+                "-Command",
+                "Clear-RecycleBin -Force",
+            ]
         )
 
     def close():
-        keymap.InputKeyCommand("Alt-F4")()
+        """Close the active window."""
+        with keymap.get_input_context() as ctx:
+            ctx.send_key("Alt-F4")
 
     def win_terminal_as_admin():
-        shellExecute(None, "sudo", "wt.exe", None)
+        """Launch Windows Terminal through sudo.
+
+        Raises:
+            OSError: If sudo cannot be started.
+        """
+        subprocess.Popen(["sudo", "wt.exe"])
 
     def open_task_manager():
-        keymap.InputKeyCommand("LCtrl-LShift-Escape")()
+        """Open Windows Task Manager."""
+        with keymap.get_input_context() as ctx:
+            ctx.send_key("LCtrl-LShift-Escape")
 
     keymap_global["U0-C"] = close
     keymap_global["U0-Pause"] = shutdown
@@ -206,15 +268,22 @@ def cmd_keymap(keymap_global: KeymapPair, keymap: Keymap):
     keymap_global["U0-Slash"] = clear_trash
 
 
-def input_keymap(keymap_global: KeymapPair, keymap: Keymap):
-    keymap_global["U0-S"] = keymap.InputTextCommand("scoop search ")
-    keymap_global["U0-A"] = keymap.InputTextCommand("update-all-libs")
-    keymap_global["U0-D"] = keymap.InputTextCommand("…（´・ω・｀）")
-    keymap_global["U0-F"] = keymap.InputTextCommand(" --help")
-    keymap_global["U0-W"] = keymap.InputTextCommand("ほう…（´・ω・｀）?")
+def input_keymap(keymap_global: KeyTable):
+    """Install text insertion bindings.
+
+    Args:
+        keymap_global: Global key table.
+    """
+
+    keymap_global["U0-S"] = InputText("scoop search ")
+    keymap_global["U0-A"] = InputText("update-all-libs")
+    keymap_global["U0-D"] = InputText("…（´・ω・｀）")
+    keymap_global["U0-F"] = InputText(" --help")
+    keymap_global["U0-W"] = InputText("ほう…（´・ω・｀）?")
 
 
 def turn_off_clipboard(keymap: Keymap):
-    keymap.clipboard_history.enableHook(False)  # clipboard monitoring hook
-    keymap.clipboard_history.maxnum = 0
-    keymap.clipboard_history.quota = 0
+    """Disable persistent clipboard storage."""
+
+    keymap.clipboard_history.persist = False
+    keymap.clipboard_history.max_items = 0
