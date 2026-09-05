@@ -1,4 +1,4 @@
-Param([switch]$f, [switch]$force, [switch]$d, [switch]$isDebug)
+param([switch]$f, [switch]$force, [switch]$d, [switch]$isDebug)
 $force = $f.IsPresent -or $force.IsPresent
 $isDebug = $d.IsPresent -or $isDebug.IsPresent
 
@@ -21,7 +21,7 @@ $isDebug = $d.IsPresent -or $isDebug.IsPresent
 if ($isDebug -eq $false) {
   if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(
       [Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    Invoke-Expression "sudo $PsCommandPath $(if ($force) {"-force"})"
+    Invoke-Expression "sudo.ps1 $PsCommandPath $(if ($force) {"-force"})"
     exit $?
   }
 }
@@ -78,7 +78,7 @@ $files = @(
   @{ target = "common\data\git\git-config.txt"; path = ""; name = ".gitconfig" }
 
   # Other
-  @{ target = "windows\config\keyhac"; fullpath = [IO.Path]::Combine($env:AppData, "Keyhac"); }
+  @{ target = "windows/config/keyhac/config.py"; fullpath = [IO.Path]::Combine($HOME, ".keyhac/config.py"); }
   @{ target = "$HOME\scoop\apps\keyhac\current\keyhac.exe"; fullpath = [IO.Path]::Combine($env:AppData, "Microsoft\Windows/Start Menu\Programs\Startup\keyhac.exe"); }
 
   if (Get-Command navi -ErrorAction SilentlyContinue) {
@@ -142,7 +142,7 @@ function Set-Symlink {
       Write-Host "Already exists." -ForegroundColor Blue
       if ($force) {
         Write-Host "Recreating..." -ForegroundColor Yellow
-      (Get-Item $fullPathName).Delete()
+        (Get-Item $fullPathName).Delete()
       }
       else { return }
     }
@@ -177,7 +177,7 @@ function Set-Symlink {
     Write-Host "Already exists." -ForegroundColor Blue
     if ($force) {
       Write-Host "Recreating..." -ForegroundColor Yellow
-        (Get-Item $fullPathName).Delete()
+      (Get-Item $fullPathName).Delete()
     }
     else { return }
   }

@@ -1,354 +1,182 @@
-# flake8: noqa
-# ----------------------------------------------------------------
-# pyauto const (https://github.com/crftwr/pyauto/blob/master/pyauto_const.py)
-# --- window message -----------------------------
-from typing import Any, Callable
+# ref: https://crftwr.github.io/keyhac/doc/config-api.html
+from typing import Any, Callable, Literal, Protocol, TypeAlias
 
-WM_COMMAND = 0x0111
-WM_SYSCOMMAND = 0x0112
+KeyCode: TypeAlias = int
+KeyName: TypeAlias = str
+Key: TypeAlias = str | int
 
-# --- system command -----------------------------
-SC_SIZE = 0xF000
-SC_MOVE = 0xF010
-SC_MINIMIZE = 0xF020
-SC_MAXIMIZE = 0xF030
-SC_NEXTWINDOW = 0xF040
-SC_PREVWINDOW = 0xF050
-SC_CLOSE = 0xF060
-SC_VSCROLL = 0xF070
-SC_HSCROLL = 0xF080
-SC_MOUSEMENU = 0xF090
-SC_KEYMENU = 0xF100
-SC_RESTORE = 0xF120
-SC_TASKLIST = 0xF130
-SC_SCREENSAVE = 0xF140
-SC_HOTKEY = 0xF150
-SC_DEFAULT = 0xF160
-SC_MONITORPOWER = 0xF170
-SC_CONTEXTHELP = 0xF180
+Platform: TypeAlias = Literal["windows", "mac"]
 
-# --- virtual keycode ----------------------------
-VK_LBUTTON = 0x01
-VK_RBUTTON = 0x02
-VK_CANCEL = 0x03
-VK_MBUTTON = 0x04
-VK_BACK = 0x08
-VK_TAB = 0x09
-VK_CLEAR = 0x0C
-VK_RETURN = 0x0D
-VK_SHIFT = 0x10
-VK_CONTROL = 0x11
-VK_MENU = 0x12
-VK_PAUSE = 0x13
-VK_CAPITAL = 0x14
-VK_KANA = 0x15
-VK_HANGUL = 0x15
-VK_JUNJA = 0x17
-VK_FINAL = 0x18
-VK_HANJA = 0x19
-VK_KANJI = 0x19
-VK_ESCAPE = 0x1B
-VK_CONVERT = 0x1C
-VK_NONCONVERT = 0x1D
-VK_ACCEPT = 0x1E
-VK_MODECHANGE = 0x1F
-VK_SPACE = 0x20
-VK_PRIOR = 0x21
-VK_NEXT = 0x22
-VK_END = 0x23
-VK_HOME = 0x24
-VK_LEFT = 0x25
-VK_UP = 0x26
-VK_RIGHT = 0x27
-VK_DOWN = 0x28
-VK_SELECT = 0x29
-VK_PRINT = 0x2A
-VK_EXECUTE = 0x2B
-VK_SNAPSHOT = 0x2C
-VK_INSERT = 0x2D
-VK_DELETE = 0x2E
-VK_HELP = 0x2F
-VK_0 = 0x30
-VK_1 = 0x31
-VK_2 = 0x32
-VK_3 = 0x33
-VK_4 = 0x34
-VK_5 = 0x35
-VK_6 = 0x36
-VK_7 = 0x37
-VK_8 = 0x38
-VK_9 = 0x39
-VK_A = 0x41
-VK_B = 0x42
-VK_C = 0x43
-VK_D = 0x44
-VK_E = 0x45
-VK_F = 0x46
-VK_G = 0x47
-VK_H = 0x48
-VK_I = 0x49
-VK_J = 0x4A
-VK_K = 0x4B
-VK_L = 0x4C
-VK_M = 0x4D
-VK_N = 0x4E
-VK_O = 0x4F
-VK_P = 0x50
-VK_Q = 0x51
-VK_R = 0x52
-VK_S = 0x53
-VK_T = 0x54
-VK_U = 0x55
-VK_V = 0x56
-VK_W = 0x57
-VK_X = 0x58
-VK_Y = 0x59
-VK_Z = 0x5A
-VK_LWIN = 0x5B
-VK_RWIN = 0x5C
-VK_APPS = 0x5D
-VK_NUMPAD0 = 0x60
-VK_NUMPAD1 = 0x61
-VK_NUMPAD2 = 0x62
-VK_NUMPAD3 = 0x63
-VK_NUMPAD4 = 0x64
-VK_NUMPAD5 = 0x65
-VK_NUMPAD6 = 0x66
-VK_NUMPAD7 = 0x67
-VK_NUMPAD8 = 0x68
-VK_NUMPAD9 = 0x69
-VK_MULTIPLY = 0x6A
-VK_ADD = 0x6B
-VK_SEPARATOR = 0x6C
-VK_SUBTRACT = 0x6D
-VK_DECIMAL = 0x6E
-VK_DIVIDE = 0x6F
-VK_F1 = 0x70
-VK_F2 = 0x71
-VK_F3 = 0x72
-VK_F4 = 0x73
-VK_F5 = 0x74
-VK_F6 = 0x75
-VK_F7 = 0x76
-VK_F8 = 0x77
-VK_F9 = 0x78
-VK_F10 = 0x79
-VK_F11 = 0x7A
-VK_F12 = 0x7B
-VK_F13 = 0x7C
-VK_F14 = 0x7D
-VK_F15 = 0x7E
-VK_F16 = 0x7F
-VK_F17 = 0x80
-VK_F18 = 0x81
-VK_F19 = 0x82
-VK_F20 = 0x83
-VK_F21 = 0x84
-VK_F22 = 0x85
-VK_F23 = 0x86
-VK_F24 = 0x87
-VK_NUMLOCK = 0x90
-VK_SCROLL = 0x91
-VK_LSHIFT = 0xA0
-VK_RSHIFT = 0xA1
-VK_LCONTROL = 0xA2
-VK_RCONTROL = 0xA3
-VK_LMENU = 0xA4
-VK_RMENU = 0xA5
-VK_BROWSER_BACK = 0xA6
-VK_BROWSER_FORWARD = 0xA7
-VK_BROWSER_REFRESH = 0xA8
-VK_BROWSER_STOP = 0xA9
-VK_BROWSER_SEARCH = 0xAA
-VK_BROWSER_FAVORITES = 0xAB
-VK_BROWSER_HOME = 0xAC
-VK_VOLUME_MUTE = 0xAD
-VK_VOLUME_DOWN = 0xAE
-VK_VOLUME_UP = 0xAF
-VK_MEDIA_NEXT_TRACK = 0xB0
-VK_MEDIA_PREV_TRACK = 0xB1
-VK_MEDIA_STOP = 0xB2
-VK_MEDIA_PLAY_PAUSE = 0xB3
-VK_LAUNCH_MAIL = 0xB4
-VK_LAUNCH_MEDIA_SELECT = 0xB5
-VK_LAUNCH_APP1 = 0xB6
-VK_LAUNCH_APP2 = 0xB7
-VK_OEM_1 = 0xBA
-VK_OEM_PLUS = 0xBB
-VK_OEM_COMMA = 0xBC
-VK_OEM_MINUS = 0xBD
-VK_OEM_PERIOD = 0xBE
-VK_OEM_2 = 0xBF
-VK_OEM_3 = 0xC0
-VK_OEM_4 = 0xDB
-VK_OEM_5 = 0xDC
-VK_OEM_6 = 0xDD
-VK_OEM_7 = 0xDE
-VK_OEM_8 = 0xDF
-VK_OEM_102 = 0xE2
-VK_PROCESSKEY = 0xE5
-VK_PACKET = 0xE7
-VK_ATTN = 0xF6
-VK_CRSEL = 0xF7
-VK_EXSEL = 0xF8
-VK_EREOF = 0xF9
-VK_PLAY = 0xFA
-VK_ZOOM = 0xFB
-VK_NONAME = 0xFC
-VK_PA1 = 0xFD
-VK_OEM_CLEAR = 0xFE
-
-# ----------------------------------------------------------------
-# keyhac
-
-def shellExecute(
-    verb: str | None,
-    file: str,
-    param: str | None = None,
-    directory: str | None = None,
-    swmode: str | None = None,
-) -> None: ...
-def getDesktopPath() -> str: ...
-def getClipboardText() -> str: ...
-
-class JobItem:
-    def __init__(
+class KeyTable:
+    def __setitem__(
         self,
-        subthread_func: str | None = None,
-        finished_func: Callable[[Any], Any] | None = None,
+        key: str,
+        action: Any,
     ) -> None: ...
-    def cancel(self) -> None: ...
-    def pause(self) -> None: ...
-    def restart(self) -> None: ...
-    def isPaused(self) -> None: ...
-    def waitPaused(self) -> None: ...
+    def __getitem__(
+        self,
+        key: str,
+    ) -> Any: ...
+    def __delitem__(
+        self,
+        key: str,
+    ) -> None: ...
+    def __contains__(
+        self,
+        key: str,
+    ) -> bool: ...
 
-class JobQueue:
-    def __init__(self) -> None: ...
-    def cancel(self) -> None: ...
-    def cancelAll(self) -> None: ...
-    def check(self) -> None: ...
-    def checkAll(self) -> None: ...
-    def createDefaultQueue(self) -> None: ...
-    def defaultQueue(self) -> Callable[[JobQueue, str], None]: ...
-    def destroy(self) -> None: ...
-    def enqueue(self, item: str) -> None: ...
-    def join(self) -> None: ...
-    def joinAll(self) -> None: ...
-    def numItems(self) -> None: ...
-    def pause(self) -> None: ...
-    def restart(self) -> None: ...
+class ClipboardHistory:
+    persist: bool
+    max_items: int
 
-class CronItem:
-    def __init__(self, func: Callable[[Any], Any], interval: int) -> None: ...
-    def cancel(self) -> None: ...
-    def isCanceled(self) -> None: ...
+    def items(self) -> list[str]: ...
+    def get_current(self) -> str | None: ...
+    def set_current(self, index: int) -> None: ...
 
-class CronTable:
-    def __init__(self) -> None: ...
-    def destroy(self) -> None: ...
-    def add(self, item: str) -> None: ...
-    def remove(self, item: str) -> None: ...
-    def clear(self) -> None: ...
-    def numItems(self) -> None: ...
-    def cancel(self) -> None: ...
-    def join(self) -> None: ...
-    def joinAll(self) -> None: ...
-    def cancelAll(self) -> None: ...
-    def createDefaultCronTable(self) -> None: ...
-    def defaultCronTable(self) -> None: ...
-
-class cblister_FixedPhrase:
-    def __init__(self, apps: list[tuple[str, str]] | list[tuple[Any, Any]]) -> None: ...
+class InputContext:
+    def __enter__(self) -> "InputContext": ...
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc_value: BaseException | None,
+        traceback: Any,
+    ) -> None: ...
+    def send_key(self, key: str) -> None: ...
+    def send_text(self, text: str) -> None: ...
+    def send_mouse_move(
+        self,
+        dx: int,
+        dy: int,
+    ) -> None: ...
 
 class Keymap:
-    cblisters: list[tuple[str, cblister_FixedPhrase]]
-    clipboard_history: Clipboard_history
-    """clipboard history(default: *enabled*)"""
-    editor: str
-    """Text editor setting for editing config.py file."""
-    quote_mark: str
-    """Mark for quote pasting"""
+    platform: Platform
+    editor: str | Callable[[str], None]
+    clipboard_history: ClipboardHistory
 
-    def enableHook(self, enable: bool) -> None: ...
-    def setFont(self, name: str, size: int) -> None: ...
-    def setTheme(self, name: str) -> None: ...
-    def configure(self) -> None: ...
-    def editTextFile(self, filename: str) -> None: ...
-    def editConfigFile(self) -> None: ...
-    def updateKeymap(self) -> None: ...
-    def replaceKey(self, src: str, dst: int) -> None: ...
-    def defineModifier(self, vk: int, mod: str) -> None: ...
-    def defineWindowKeymap(
+    @classmethod
+    def get_instance(cls) -> "Keymap | None": ...
+    def define_keytable(
         self,
-        exe_name: str | None = None,
+        name: str | None = None,
+        focus_path_pattern: str | None = None,
+        custom_condition_func: Callable[[Any], bool] | None = None,
+        app: str | None = None,
+        title: str | None = None,
         class_name: str | None = None,
-        window_text: str | None = None,
-        check_func: str | None = None,
-    ) -> dict[str, str | Callable[[], None] | Callable[[], str]]: ...
-    def defineMultiStrokeKeymap(self, help_string: str | None = None) -> None: ...
-    def hookCall(self, func: Callable[[], None]) -> None: ...
-    def getTopLevelWindow(self) -> None: ...
-    def popBalloon(self, name: str, text: str, timeout: int | None = None) -> None: ...
-    def closeBalloon(self, name: str | None = None) -> None: ...
-    def InputKeyCommand(self, *keys: str | list[str]) -> Callable[[], None]: ...
-    def InputTextCommand(self, s: str) -> Callable[[], None]: ...
-    def command_RecordStart(self) -> None: ...
-    def command_RecordStop(self) -> None: ...
-    def command_RecordToggle(self) -> None: ...
-    def command_RecordClear(self) -> None: ...
-    def command_RecordPlay(self) -> None: ...
-    def MouseMoveCommand(self, delta_x: int, delta_y: int) -> Callable[[], None]: ...
-    def MouseButtonDownCommand(self, button: str = "left") -> Callable[[], None]: ...
-    def MouseButtonUpCommand(self, button: str = "left") -> Callable[[], None]: ...
-    def MouseButtonClickCommand(self, button: str = "left") -> Callable[[], None]: ...
-    def MouseWheelCommand(self, wheel: int) -> Callable[[], None]: ...
-    def MouseHorizontalWheelCommand(self, wheel: int) -> Callable[[], None]: ...
-    def MoveWindowCommand(self, delta_x: int, delta_y: int) -> Callable[[], None]: ...
-    def MoveWindowToMonitorEdgeCommand(self, direction: int) -> Callable[[], None]: ...
-    def ActivateWindowCommand(
+    ) -> KeyTable: ...
+    def define_modifier(
         self,
-        exe_name: str | None = None,
-        class_name: str | None = None,
-        window_text: str | None = None,
-        check_func: Callable[[Any], Any] | None = None,
-        force: bool = False,
+        key: Key,
+        mod: Key,
     ) -> None: ...
-    def ShellExecuteCommand(
+    def replace_key(
         self,
-        verb: str | None,
-        file: str,
-        param: str | None = None,
-        directory: str | None = None,
-        swmode: str | None = None,
-    ) -> Callable[[], None]: ...
-    def popListWindow(
-        self, listers: list[tuple[str, cblister_FixedPhrase]]
-    ) -> tuple[list[Callable[[], None]] | None, str]: ...
-    def cancelListWindow(self) -> None: ...
-    def isListWindowOpened(self) -> None: ...
-    def popClipboardList(self) -> None: ...
-    def command_ClipboardList(self) -> None: ...
-    def command_ClipboardRemove(self) -> None: ...
-    def command_ClipboardRotate(self) -> None: ...
-    def command_ReloadConfig(self) -> None: ...
-    def command_EditConfig(self) -> None: ...
-    def delayedCall(self, func: Callable[[], None], delay_time: int) -> None: ...
+        src: Key,
+        dst: Key,
+    ) -> None: ...
+    def get_input_context(
+        self,
+        replay: bool = False,
+    ) -> InputContext: ...
+    def edit_config(self) -> None: ...
+    def reload_config(self) -> None: ...
+    def find_window(
+        self,
+        app: str | None = None,
+        title: str | None = None,
+        class_name: str | None = None,
+    ) -> Any | None: ...
+    def get_active_window(self) -> Any | None: ...
+    def list_windows(self) -> list[Any]: ...
+    def configure(self) -> None: ...
 
-class Clipboard_history:
-    """
-    - Enable clipboard monitoring hook (Default:Enabled)
+class InputText:
+    def __init__(
+        self,
+        text: str,
+    ) -> None: ...
 
-    # Examples
+class MoveWindow:
+    def __init__(
+        self,
+        x: int | None = None,
+        y: int | None = None,
+        direction: Literal["left", "right", "up", "down", ""] = "",
+        distance: float = 10,
+        window_edge: bool = False,
+        screen_edge: bool = True,
+    ) -> None: ...
 
-      ```python
-      keymap.clipboard_history.enableHook(False)
-      ```
-    """
+class MouseMove:
+    def __init__(
+        self,
+        dx: int,
+        dy: int,
+    ) -> None: ...
 
-    maxnum: int
-    """Maximum number of clipboard history (Default:1000)"""
-    quota: int
-    """Total maximum size of clipboard history (Default: 10 * 1024 * 1024 == 10MB)"""
+class MouseButtonDown:
+    def __init__(
+        self,
+        button: Literal["left", "right", "middle"] = "left",
+    ) -> None: ...
 
-    def enableHook(self, enable_hook: bool) -> None: ...
+class MouseButtonUp:
+    def __init__(
+        self,
+        button: Literal["left", "right", "middle"] = "left",
+    ) -> None: ...
+
+class MouseButtonClick:
+    def __init__(
+        self,
+        button: Literal["left", "right", "middle"] = "left",
+    ) -> None: ...
+
+class StartRecordingKeys:
+    def __init__(self) -> None: ...
+
+class StopRecordingKeys:
+    def __init__(self) -> None: ...
+
+class ToggleRecordingKeys:
+    def __init__(self) -> None: ...
+
+class PlaybackRecordedKeys:
+    def __init__(self) -> None: ...
+
+class Logger(Protocol):
+    def debug(
+        self,
+        message: str,
+        *args: Any,
+        **kwargs: Any,
+    ) -> None: ...
+    def info(
+        self,
+        message: str,
+        *args: Any,
+        **kwargs: Any,
+    ) -> None: ...
+    def warning(
+        self,
+        message: str,
+        *args: Any,
+        **kwargs: Any,
+    ) -> None: ...
+    def error(
+        self,
+        message: str,
+        *args: Any,
+        **kwargs: Any,
+    ) -> None: ...
+    def exception(
+        self,
+        message: str,
+        *args: Any,
+        **kwargs: Any,
+    ) -> None: ...
+
+def getLogger(name: str) -> Logger: ...
+def configure(keymap: Keymap) -> None: ...
