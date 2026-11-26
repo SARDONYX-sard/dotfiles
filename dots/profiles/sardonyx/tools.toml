@@ -1,0 +1,181 @@
+#:schema ../../schemas/tools.schema.json
+# Merged over dots/core/tools.toml (tables merge, values replace).
+# Everything installed on SARDONYX's machines as of 2026-11-26.
+# `scoop_buckets` and `apt` replace the base lists (arrays are replaced, not merged).
+
+[install.scoop_buckets]
+via      = "scoop_bucket"
+packages = ["extras", "versions", "java", "jp"]
+
+[install.scoop_global]
+via      = "scoop_global"
+packages = ["git", "7zip-dark"]
+
+# Used by shared.toml (aliases, prompt, fzf, zoxide, ...).
+
+[install.cli]
+via = "scoop"
+packages = [
+  "7zip",
+  "aria2",
+  "delta",
+  "difftastic",
+  "dog",
+  "duf",
+  "dust",
+  "gping",
+  "sed",
+  "tre-command",
+  "xh",
+  "yq",
+  "zstd",
+]
+
+[install.dev]
+via = "scoop"
+packages = [
+  "act",
+  "ctags",
+  "direnv",
+  "dive",
+  "gh",
+  "git-filter-repo",
+  "gitui",
+  "gpg4win",
+  "hadolint",
+  "hyperfine",
+  "lazydocker",
+  "OpenSSH",
+  "shellcheck",
+  "shfmt",
+  "tokei",
+  "dockercompletion",
+]
+
+[install.editors]
+via      = "scoop"
+packages = ["neovim", "neovide", "vim-kaoriya"]
+
+[install.langs]
+via = "scoop"
+packages = [
+  "deno",
+  "go",
+  "nodejs-lts",
+  "python",
+  "perl",
+  "lua",
+  "luarocks",
+  "luacheck",
+  "zig",
+  "stack",
+  "temurin21-jdk",
+  "nasm",
+  "make",
+  "pkg-config",
+  "scons",
+  "xmake",
+  "iverilog",
+  "wasmtime",
+  "sqlite",
+  "innounp",
+  "lessmsi",
+  "dark",
+  "psutils",
+  "scriptcs",
+]
+
+# [install.docs]
+# via      = "scoop"
+# packages = ["pandoc", "hugo", "quarto"]
+
+[install.apps]
+via = "scoop"
+packages = [
+  "cascadeur",
+  # "cheat-engine",
+  "ghidra",
+  "komorebi",
+  "logexpert",
+  "qalculate",
+  "qemu",
+  "radare2",
+  "rainmeter",
+  "rapidee",
+  # "termshark",
+  "wireshark",
+]
+
+[install.cargo_cli]
+via = "cargo"
+packages = [
+  "eza",
+  "choose",
+  # "code-minimap",
+  "cpc",
+  "diskonaut",
+  "git-cliff",
+  "mdbook",
+  "ripgrep_all",
+  "typos-cli",
+  "flamegraph",
+  "tree-sitter-cli",
+]
+
+[install.cargo_dev]
+via = "cargo"
+packages = [
+  "bingrep",
+  "bloaty-metafile",
+  "blondie",
+  "bootimage",
+  "cargo-about",
+  "cargo-asm",
+  "cargo-benchcmp",
+  "cargo-binutils",
+  "cargo-bloat",
+  "cargo-bundle-licenses",
+  "cargo-deny",
+  "cargo-edit",
+  "cargo-expand",
+  "cargo-generate",
+  "cargo-insta",
+  "cargo-license",
+  "cargo-lichking",
+  "cargo-make",
+  "cargo-modules",
+  "cargo-nextest",
+  "cargo-plonk",
+  "cargo-rdme",
+  "cargo-release",
+  "cargo-smart-release",
+  "cargo-udeps",
+  "cargo-vcpkg",
+  "cargo-vet",
+  "cargo-wix",
+  "cargo-wizard",
+  "cargo-workspaces",
+  "cargo-zigbuild",
+  "cbindgen",
+  "cross",
+  "create-tauri-app",
+  "maram",
+  "parol",
+  "parol-ls",
+  "rustfilt",
+  "trunk",
+  "twiggy",
+  "vcpkg_cli",
+  "wasm-pack",
+  "xargo",
+]
+
+[install.apt]
+via      = "apt"
+packages = ["fd-find", "fzf", "zoxide", "neovim", "vim", "fish", "shellcheck", "git", "make", "gcc", "python3"]
+
+# [upgrade] / [clean]: run in file order by `dot upgrade` / `dot clean`. Entry forms:
+#   name = "command"  |  name = ["cmd1", "cmd2"]
+#   name = { cmd = "..." | [...], paths = [...], requires = "...", unless = "...", os = [...] }
+# Skipped when the program (first word, ignoring `sudo`) or `requires` is missing.
+# Commands run without a shell: no pipes, globbing or quoting.

@@ -1,0 +1,6 @@
+#:schema ../../../schemas/shared.schema.json
+# Merged over dots/core/shell/shared.toml (tables merge, values replace).
+
+[env]
+DOT_EDIT_MODE = "vi"
+DOT_BASH_EXEC = { value = "fish", requires = "fish", shells = ["bash"] }

@@ -1,0 +1,53 @@
+name: Release
+
+# Triggered by `cargo xtask release <x.y.z> --push` (pushes tag v<x.y.z>).
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, target: x86_64-pc-windows-msvc }   # crt-static (.cargo/config.toml)
+          - { os: windows-latest, target: aarch64-pc-windows-msvc }
+          - { os: ubuntu-latest, target: x86_64-unknown-linux-musl }  # musl = static binary
+          - { os: ubuntu-24.04-arm, target: aarch64-unknown-linux-musl }
+          - { os: macos-latest, target: aarch64-apple-darwin }
+          - { os: macos-latest, target: x86_64-apple-darwin }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: rustup toolchain install stable --profile minimal -t ${{ matrix.target }} && rustup default stable
+      - if: contains(matrix.target, 'musl')
+        run: sudo apt-get update && sudo apt-get install -y musl-tools
+      - run: cargo xtask dist --target ${{ matrix.target }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dot-${{ matrix.target }}
+          path: |
+            dist/*.zip
+            dist/*.tar.gz
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      # bootstrap/install.* verify downloads against SHA256SUMS.
+      - run: cd dist && sha256sum * > SHA256SUMS
+      - run: gh release create "$GITHUB_REF_NAME" dist/* --title "$GITHUB_REF_NAME" --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}

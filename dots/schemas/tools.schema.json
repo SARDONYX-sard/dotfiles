@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Tools",
+  "type": "object",
+  "properties": {
+    "clean": {
+      "description": "`dot clean`: caches to clean, in file order.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/Task"
+      }
+    },
+    "install": {
+      "description": "`dot install`: package groups in file order (put bucket/repo setup before the\ngroups that need it). Keyed by group name (`--only`/`--skip`).",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/ToolGroup"
+      }
+    },
+    "upgrade": {
+      "description": "`dot upgrade`: package managers / toolchains to update, in file order.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/Task"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "Cmds": {
+      "description": "One or more command lines.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "description": "Run in order; the task stops at the first failure.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "Task": {
+      "description": "A `dot clean` / `dot upgrade` entry: commands, directories to delete, or both.\n\nCommands are split on whitespace and run without a shell (no globbing,\nquoting or pipes). Programs are looked up in PATH (Windows `.cmd` works).",
+      "anyOf": [
+        {
+          "description": "Command line(s). Runs only if the program exists.",
+          "$ref": "#/$defs/Cmds"
+        },
+        {
+          "description": "Full form.",
+          "type": "object",
+          "properties": {
+            "cmd": {
+              "description": "Command line(s).",
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/Cmds"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "os": {
+              "description": "Restrict to these OS names. Empty = all.",
+              "type": "array",
+              "default": [],
+              "items": {
+                "enum": [
+                  "windows",
+                  "linux",
+                  "macos"
+                ]
+              }
+            },
+            "paths": {
+              "description": "Directories to delete (`~` allowed). Missing ones are skipped.",
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "string"
+              }
+            },
+            "requires": {
+              "description": "Command or path that must exist (default: the program of the first `cmd`,\nignoring a leading `sudo`).",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "unless": {
+              "description": "Skip when this command exists (e.g. pacman `unless = \"yay\"`).",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "ToolGroup": {
+      "description": "A group of packages installed with one package manager.",
+      "type": "object",
+      "properties": {
+        "cmd": {
+          "description": "Custom install command (packages are appended); overrides `via`.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "each": {
+          "description": "Run the command once per package instead of once with all of them.",
+          "type": "boolean",
+          "default": false
+        },
+        "os": {
+          "description": "Restrict to these OS names. Empty = all.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "enum": [
+              "windows",
+              "linux",
+              "macos"
+            ]
+          }
+        },
+        "packages": {
+          "description": "Package names (or bucket names for `scoop_bucket`).",
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "via": {
+          "description": "Package manager (sets the install command).",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Via"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "Via": {
+      "description": "Package manager with a built-in install command.",
+      "oneOf": [
+        {
+          "description": "`scoop install`",
+          "type": "string",
+          "const": "scoop"
+        },
+        {
+          "description": "`scoop install --global` (skipped unless run from an elevated shell)",
+          "type": "string",
+          "const": "scoop_global"
+        },
+        {
+          "description": "`scoop bucket add` (one per entry; e.g. `\"extras\"` or `\"name https://repo\"`)",
+          "type": "string",
+          "const": "scoop_bucket"
+        },
+        {
+          "description": "`winget install --exact --id` (one per entry)",
+          "type": "string",
+          "const": "winget"
+        },
+        {
+          "description": "`cargo binstall -y` when cargo-binstall is installed, else `cargo install`",
+          "type": "string",
+          "const": "cargo"
+        },
+        {
+          "description": "`sudo apt install -y`",
+          "type": "string",
+          "const": "apt"
+        },
+        {
+          "description": "`sudo pacman -S --needed --noconfirm`",
+          "type": "string",
+          "const": "pacman"
+        },
+        {
+          "description": "`brew install`",
+          "type": "string",
+          "const": "brew"
+        },
+        {
+          "description": "`pipx install`",
+          "type": "string",
+          "const": "pipx"
+        },
+        {
+          "description": "`npm install -g`",
+          "type": "string",
+          "const": "npm"
+        }
+      ]
+    }
+  }
+}

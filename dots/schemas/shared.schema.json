@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Shared",
+  "type": "object",
+  "properties": {
+    "alias": {
+      "description": "Aliases: `name = \"command\"` or `name = { cmd = \"...\", requires = \"...\", os = [...], shells = [...] }`.\nArguments are appended. pwsh gets a function (built-in aliases like `gc` are removed).",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/AliasRepr"
+      }
+    },
+    "env": {
+      "description": "Environment variables: `NAME = \"value\"` or `NAME = { value = \"...\", requires = \"cmd\" }`.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/EnvRepr"
+      }
+    },
+    "eval": {
+      "description": "Commands whose stdout is inlined into the generated script at `dot gen` time\n(e.g. `zoxide init`), so shells do not spawn them on startup.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Eval"
+      }
+    },
+    "path": {
+      "description": "PATH entries.",
+      "$ref": "#/$defs/PathSpec"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "AliasRepr": {
+      "anyOf": [
+        {
+          "description": "Command, always defined.",
+          "type": "string"
+        },
+        {
+          "description": "Command with conditions.",
+          "type": "object",
+          "properties": {
+            "cmd": {
+              "description": "Command; arguments given to the alias are appended.",
+              "type": "string"
+            },
+            "os": {
+              "description": "Restrict to these OSes (`unix` = not windows, `wsl` = Linux under WSL). Empty = all.",
+              "type": "array",
+              "default": [],
+              "items": {
+                "enum": [
+                  "windows",
+                  "linux",
+                  "macos",
+                  "unix",
+                  "wsl"
+                ]
+              }
+            },
+            "requires": {
+              "description": "Command name (looked up in PATH) or path (`~` allowed) that must exist.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "shells": {
+              "description": "Restrict to these shells. Empty = all.",
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Shell"
+              }
+            }
+          },
+          "required": [
+            "cmd"
+          ]
+        }
+      ]
+    },
+    "EnvRepr": {
+      "anyOf": [
+        {
+          "description": "Value, always set.",
+          "type": "string"
+        },
+        {
+          "description": "Value with conditions.",
+          "type": "object",
+          "properties": {
+            "os": {
+              "description": "Restrict to these OSes (`unix` = not windows, `wsl` = Linux under WSL). Empty = all.",
+              "type": "array",
+              "default": [],
+              "items": {
+                "enum": [
+                  "windows",
+                  "linux",
+                  "macos",
+                  "unix",
+                  "wsl"
+                ]
+              }
+            },
+            "requires": {
+              "description": "Command name (looked up in PATH) or path (`~` allowed) that must exist.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "shells": {
+              "description": "Restrict to these shells. Empty = all.",
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Shell"
+              }
+            },
+            "value": {
+              "description": "Value.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "value"
+          ]
+        }
+      ]
+    },
+    "Eval": {
+      "type": "object",
+      "properties": {
+        "bash": {
+          "description": "Command line for bash (split on whitespace, no shell quoting).",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fish": {
+          "description": "Command line for fish.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lazy": {
+          "description": "pwsh: move into `init.lazy.ps1`, loaded after the first prompt.",
+          "type": "boolean",
+          "default": false
+        },
+        "nu": {
+          "description": "Command line for nu.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "os": {
+          "description": "Restrict to these OSes (`unix` = not windows, `wsl` = Linux under WSL). Empty = all.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "enum": [
+              "windows",
+              "linux",
+              "macos",
+              "unix",
+              "wsl"
+            ]
+          }
+        },
+        "pwsh": {
+          "description": "Command line for pwsh.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "requires": {
+          "description": "Command name (looked up in PATH) or path (`~` allowed) that must exist.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "shells": {
+          "description": "Restrict to these shells. Empty = all.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Shell"
+          }
+        }
+      }
+    },
+    "PathSpec": {
+      "type": "object",
+      "properties": {
+        "prepend": {
+          "description": "Directories to prepend; earlier entries come first. `~` is expanded and\nmissing directories are skipped at generation time.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Shell": {
+      "type": "string",
+      "enum": [
+        "bash",
+        "fish",
+        "pwsh",
+        "nu"
+      ]
+    }
+  }
+}

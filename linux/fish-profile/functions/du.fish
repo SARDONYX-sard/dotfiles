@@ -1,1 +1,0 @@
-alias du='du -h'

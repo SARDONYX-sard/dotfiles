@@ -1,15 +1,12 @@
 {
   "recommendations": [
     "charliermarsh.ruff",
-    "johnnymorganz.stylua",
-    "kampfkarren.selene-vscode",
+    "Dylan23691.toml-analyzer",
     "ms-python.python",
     "ms-vscode.powershell",
     "rogalmic.bash-debug",
-    "shakram02.bash-beautify",
-    "slevesque.vscode-autohotkey",
+    "rust-lang.rust-analyzer",
     "sumneko.lua",
-    "tamasfe.even-better-toml",
     "timonwong.shellcheck",
     "yy0931.gitconfig-lsp"
   ]

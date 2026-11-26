@@ -1,0 +1,19 @@
+# SARDONYX's git identity and signing (linked to ~/.gitconfig.local by this profile).
+
+[user]
+  name = SARDONYX-sard
+  email = 68905624+SARDONYX-sard@users.noreply.github.com
+  signingkey = 2AC095678D950003!
+
+[commit]
+  gpgsign = true
+[tag]
+  gpgsign = true
+
+# Push over SSH even for https/git:// remotes (avoids clone hangs over ssh).
+[url "git@github.com:"]
+  pushInsteadOf = git://github.com/
+  pushInsteadOf = https://github.com/
+
+[credential "helperselector"]
+  selected = manager

@@ -1,0 +1,25 @@
+[package]
+name              = "dot_cli"
+version.workspace = true
+edition.workspace = true
+publish           = false
+
+[dependencies]
+anyhow.workspace       = true
+clap.workspace         = true
+dirs.workspace         = true
+dot_core.workspace     = true
+dot_prompt.workspace   = true
+dot_shellgen.workspace = true
+dot_tui.workspace      = true
+ignore.workspace       = true
+indexmap.workspace     = true
+rayon.workspace        = true
+schemars.workspace     = true
+serde_json.workspace   = true
+toml.workspace         = true
+which.workspace        = true
+
+[[bin]]
+name = "dot"
+path = "src/main.rs"

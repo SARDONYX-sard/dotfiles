@@ -1,0 +1,10 @@
+[package]
+name              = "dot_tui"
+version           = "0.0.0"
+edition.workspace = true
+publish           = false
+
+[dependencies]
+anyhow.workspace   = true
+dot_core.workspace = true
+ratatui.workspace  = true

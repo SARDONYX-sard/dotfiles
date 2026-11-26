@@ -1,1 +1,0 @@
-alias df='df -h'

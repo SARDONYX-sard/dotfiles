@@ -1,0 +1,57 @@
+# shellcheck shell=bash
+# ~/.bashrc  (shared aliases/env/PATH come from `dot gen`)
+
+[[ $- == *i* ]] || return
+
+HISTCONTROL=ignoreboth:erasedups
+HISTSIZE=10000
+HISTFILESIZE=20000
+shopt -s histappend checkwinsize globstar
+
+for f in /usr/share/bash-completion/bash_completion /etc/bash_completion; do
+  # shellcheck source=/dev/null
+  [[ -r $f ]] && { . "$f"; break; }
+done
+
+# shellcheck source=/dev/null
+[[ -r ~/.local/state/dot/gen/init.bash ]] && . ~/.local/state/dot/gen/init.bash
+
+# Line editing: vi when DOT_EDIT_MODE=vi (shared.toml [env]), else emacs.
+[[ ${DOT_EDIT_MODE:-} == vi ]] && set -o vi
+
+# Optional hand-off to another shell: set DOT_BASH_EXEC (e.g. "fish") in
+# shared.toml [env]. A `bash` started from that shell stays bash.
+if [[ -n ${DOT_BASH_EXEC:-} && -z ${DOT_BASH_EXECED:-} ]] && command -v "$DOT_BASH_EXEC" >/dev/null; then
+  export DOT_BASH_EXECED=1
+  exec "$DOT_BASH_EXEC"
+fi
+
+alias re='exec bash -l'
+
+# WSL: Windows' git.exe is ~20x faster than Linux git on /mnt/* (Windows filesystem).
+git() {
+  if [[ $PWD == /mnt/* ]] && command -v git.exe >/dev/null; then
+    git.exe "$@"
+  else
+    command git "$@"
+  fi
+}
+
+# --- prompt (auto-ls on directory change)
+__dot_prompt() {
+  local code=$?
+  if [[ $PWD != "$__dot_lastdir" ]]; then
+    [[ -n $__dot_lastdir ]] && ls
+    __dot_lastdir=$PWD
+  fi
+  if command -v dot >/dev/null; then
+    # Status line from `dot`; the input line starts with readline's mode string
+    # (`└─` / `└I` / `└N`, see inputrc), then `$` (`#` for root).
+    local mark='\[\e[36m\]$'
+    ((EUID == 0)) && mark='\[\e[31m\]#'
+    PS1="$(dot prompt --shell bash --status-only --status "$code")"$'\n'"$mark"'\[\e[0m\] '
+  else
+    PS1='\w\$ '
+  fi
+}
+PROMPT_COMMAND=__dot_prompt

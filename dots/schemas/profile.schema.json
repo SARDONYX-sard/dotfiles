@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProfileMeta",
+  "description": "`profile.toml`.",
+  "type": "object",
+  "properties": {
+    "description": {
+      "description": "One-line description shown by `dot profile list`.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "extends": {
+      "description": "Profiles to inherit from, applied in order before this one.",
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

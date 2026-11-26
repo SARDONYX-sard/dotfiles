@@ -1,0 +1,2 @@
+#:schema ../../schemas/profile.schema.json
+description = "SARDONYX's personal settings (vi mode, fish, gpg-signed git, full tool set)"

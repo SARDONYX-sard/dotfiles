@@ -1,0 +1,9 @@
+[package]
+name              = "dot_prompt"
+version           = "0.0.0"
+edition.workspace = true
+publish           = false
+
+[dependencies]
+dirs.workspace = true
+jiff.workspace = true

@@ -1,0 +1,133 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+  GIT_CONFIG_COUNT: 1
+  GIT_CONFIG_KEY_0: core.symlinks
+  GIT_CONFIG_VALUE_0: "false"
+
+jobs:
+  rust:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: rustup toolchain install stable --profile minimal -c clippy,rustfmt && rustup default stable
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+      - if: runner.os == 'Linux'
+        run: cargo fmt --all -- --check
+      - run: cargo clippy --workspace --all-targets --locked -- -D warnings
+      - run: cargo test --workspace --locked
+
+  configs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: rustup toolchain install stable --profile minimal && rustup default stable
+      - name: JSON Schemas are up to date
+        run: cargo run -q --locked -p dot_cli -- --root . schema && git diff --exit-code dots/schemas
+      - name: shellcheck
+        run: shellcheck dots/core/shell/bash/bashrc bootstrap/install.sh
+      - name: fish syntax
+        run: |
+          sudo apt-get install -y fish
+          for f in dots/core/shell/fish/config.fish dots/core/shell/fish/functions/*.fish; do fish --no-execute "$f"; done
+      - name: nvim surround tests
+        run: |
+          curl -fsSL https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz | tar xz -C /tmp
+          /tmp/nvim-linux-x86_64/bin/nvim --headless -u NONE -l dots/core/home/nvim/tests/surround_test.lua
+
+  powershell:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse with pwsh 7 and Windows PowerShell 5.1
+        shell: pwsh
+        run: |
+          # Arguments after `-Command <string>` do not reach $args, so use a script file.
+          $script = Join-Path $env:RUNNER_TEMP 'parse.ps1'
+          Set-Content $script @'
+          $bad = 0
+          foreach ($f in $args) {
+            $e = $null
+            [void][Management.Automation.Language.Parser]::ParseFile((Resolve-Path $f), [ref]$null, [ref]$e)
+            foreach ($x in $e) { "${f}:$($x.Extent.StartLineNumber): $($x.Message)"; $bad++ }
+          }
+          exit $bad
+          '@
+          $files = 'dots/core/shell/pwsh/profile.ps1', 'dots/core/shell/pwsh/functions.ps1', 'bootstrap/install.ps1'
+          foreach ($exe in 'pwsh', 'powershell') {
+            & $exe -NoProfile -File $script @files
+            if ($LASTEXITCODE) { exit 1 }
+          }
+
+  # Fresh-machine install: build the release archive (dot + dots/), serve it like
+  # GitHub Releases and run bootstrap in remote mode (`curl | sh` / `irm | iex`).
+  bootstrap:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest, target: x86_64-unknown-linux-musl }
+          - { os: macos-latest, target: aarch64-apple-darwin }
+          - { os: windows-latest, target: x86_64-pc-windows-msvc }
+    runs-on: ${{ matrix.os }}
+    env:
+      DOT_RELEASE_URL: http://127.0.0.1:8765
+    steps:
+      - uses: actions/checkout@v4
+      - run: rustup toolchain install stable --profile minimal -t ${{ matrix.target }} && rustup default stable
+      - if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y musl-tools
+      - name: Build the release archive
+        shell: bash
+        run: |
+          cargo xtask dist --target ${{ matrix.target }}
+          mkdir -p "$RUNNER_TEMP/rel"
+          cp dist/dot-${{ matrix.target }}.* "$RUNNER_TEMP/rel/"
+          cd "$RUNNER_TEMP/rel"
+          if command -v sha256sum >/dev/null; then sha256sum ./*; else shasum -a 256 ./*; fi | sed 's# \./# #; s# \*\./# *#' > SHA256SUMS
+          cat SHA256SUMS
+
+      - name: Bootstrap (curl | sh)
+        if: runner.os != 'Windows'
+        run: |
+          (cd "$RUNNER_TEMP/rel" && python3 -m http.server 8765 >/dev/null 2>&1 &)
+          sleep 2
+          export HOME="$RUNNER_TEMP/home" && mkdir -p "$HOME"
+          sh -s -- --yes < bootstrap/install.sh
+          sh -s -- --yes < bootstrap/install.sh 2>&1 | tee second.txt   # re-run keeps dots/ (message is on stderr)
+          grep -q 'keeping existing' second.txt
+          "$HOME/.local/bin/dot" deploy -n | tee plan.txt
+          if grep -E '^    ' plan.txt | grep -vE '^    ok$'; then exit 1; fi
+          test -L "$HOME/.gitconfig"
+
+      - name: Bootstrap (irm | iex; pwsh 7 then Windows PowerShell 5.1)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $srv = Start-Process python -ArgumentList '-m', 'http.server', '8765' -WorkingDirectory "$env:RUNNER_TEMP\rel" -PassThru
+          Start-Sleep 2
+          & ([scriptblock]::Create((Get-Content bootstrap/install.ps1 -Raw))) -Yes
+          powershell -NoProfile -Command '& ([scriptblock]::Create((Get-Content bootstrap/install.ps1 -Raw))) -Yes'
+          if ($LASTEXITCODE) { exit 1 }
+          $plan = & "$HOME\.local\bin\dot.exe" deploy -n
+          $plan
+          $bad = $plan | Where-Object { $_ -match '^\s{4}\S' -and $_ -notmatch '^\s{4}ok$' }
+          if ($bad) { exit 1 }
+          if (-not (Get-Item "$HOME\.gitconfig").LinkType) { exit 1 }
+          Stop-Process $srv
