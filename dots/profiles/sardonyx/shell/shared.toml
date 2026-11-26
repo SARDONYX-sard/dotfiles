@@ -4,3 +4,6 @@
 [env]
 DOT_EDIT_MODE = "vi"
 DOT_BASH_EXEC = { value = "fish", requires = "fish", shells = ["bash"] }
+
+[alias]
+x = "cargo xtask"
