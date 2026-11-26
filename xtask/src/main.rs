@@ -186,20 +186,28 @@ fn release(version: &str, dry_run: bool, push: bool) -> Result<()> {
     let old = workspace_version()?;
     if dry_run {
         println!(
-            "dry run: would bump {old} -> {version}, commit, tag {tag}{}",
+            "dry run: would {}tag {tag}{}",
+            if old == version {
+                String::new()
+            } else {
+                format!("bump {old} -> {version}, commit, ")
+            },
             if push { ", push" } else { "" }
         );
         return Ok(());
     }
 
-    let path = root().join("Cargo.toml");
-    let mut doc: toml_edit::DocumentMut = std::fs::read_to_string(&path)?.parse()?;
-    doc["workspace"]["package"]["version"] = toml_edit::value(version);
-    std::fs::write(&path, doc.to_string())?;
-    run("cargo", &["update", "--workspace"])?; // refresh Cargo.lock
+    // Already at this version (e.g. the first release): tag HEAD without a bump commit.
+    if old != version {
+        let path = root().join("Cargo.toml");
+        let mut doc: toml_edit::DocumentMut = std::fs::read_to_string(&path)?.parse()?;
+        doc["workspace"]["package"]["version"] = toml_edit::value(version);
+        std::fs::write(&path, doc.to_string())?;
+        run("cargo", &["update", "--workspace"])?; // refresh Cargo.lock
 
-    run("git", &["add", "Cargo.toml", "Cargo.lock"])?;
-    run("git", &["commit", "-m", &format!("chore(release): {tag}")])?;
+        run("git", &["add", "Cargo.toml", "Cargo.lock"])?;
+        run("git", &["commit", "-m", &format!("chore(release): {tag}")])?;
+    }
     run("git", &["tag", "-a", &tag, "-m", &tag])?;
     if push {
         run("git", &["push", "origin", "HEAD", "--follow-tags"])?;
