@@ -7,13 +7,14 @@ delay_ms  = 220
 repeat_ms = 7
 persist   = true
 
+# NOTE: {appdata} is ~/AppData/Roaming
 [pkg.gnupg]
 os = ["windows"]
+# [[pkg.gnupg.link]]
+# src = "home/gnupg/gpg-agent.conf"
+# dst = "{appdata}/gnupg/gpg-agent.conf"
 [[pkg.gnupg.link]]
-src = "home/gnupg/gpg-agent.conf"
-dst = "{appdata}/Roaming/gnupg/gpg-agent.conf"
-[[pkg.gnupg.link]]
-src = "{appdata}/Roaming/gnupg"
+src = "{appdata}/gnupg"
 dst = "~/.gnupg"
 
 # Personal git identity/signing, included by dots/core/home/git/config.
