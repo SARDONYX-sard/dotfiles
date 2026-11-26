@@ -1,0 +1,30 @@
+# Copy to ~/.gitconfig.local and fill in. Included last by dots/core/home/git/config,
+# so anything here overrides the shared settings.
+
+[user]
+  name = <name>
+  email = <email>
+  # signingkey = <gpg key id>     # `gpg --list-secret-keys --keyid-format=long`
+
+# Sign commits and tags (needs user.signingkey).
+# [commit]
+#   gpgsign = true
+# [tag]
+#   gpgsign = true
+
+# Push over SSH even for https/git:// remotes (needs an SSH key on GitHub).
+# [url "git@github.com:"]
+#   pushInsteadOf = git://github.com/
+#   pushInsteadOf = https://github.com/
+
+# Windows: Git Credential Manager.
+# [credential "helperselector"]
+#   selected = manager
+
+# Override shared defaults, e.g. the editor.
+# [core]
+#   editor = nvim
+
+# Different identity per directory.
+# [includeIf "gitdir:~/work/"]
+#   path = ~/.gitconfig.work

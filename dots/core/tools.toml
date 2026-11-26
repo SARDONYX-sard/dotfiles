@@ -1,0 +1,61 @@
+#:schema ../schemas/tools.schema.json
+# Package management: `dot install`, `dot upgrade`, `dot clean`.
+# Every entry is skipped when its package manager is not installed.
+# Base = what shell/shared.toml uses; personal tool sets live in profiles
+# (dots/profiles/<name>/tools.toml, merged over this file).
+
+# --- Windows (scoop)
+
+[install.scoop_buckets]
+via      = "scoop_bucket"
+packages = ["extras"] # psfzf, scoop-completion
+
+[install.shell]
+via = "scoop"
+packages = [
+  "bat",
+  "fd",
+  "fzf",
+  "lsd",
+  "nu",
+  "procs",
+  "ripgrep",
+  "sd",
+  "zoxide",
+  "psfzf",
+  "scoop-completion",
+  "scoop-search",
+]
+
+# --- Rust (any OS). Uses cargo-binstall when present.
+
+[install.cargo_bootstrap]
+via      = "cargo"
+packages = ["cargo-binstall", "cargo-update", "cargo-cache"]
+
+# --- Linux / WSL (apt)
+
+[install.apt]
+via      = "apt"
+packages = ["fzf", "zoxide", "fd-find", "bat", "ripgrep"]
+
+[clean]
+cargo = { cmd = "cargo cache --autoclean", requires = "cargo-cache" }
+go    = "go clean --modcache"
+npm   = "npm cache verify"
+pnpm  = "pnpm store prune"
+yarn  = "yarn cache clean"
+
+[upgrade]
+scoop  = ["scoop update *", "scoop cleanup * --cache"]
+winget = "winget upgrade --all"
+yay    = "yay -Syu --noconfirm"
+pacman = { cmd = "sudo pacman -Syu --noconfirm", unless = "yay" }
+apt    = ["sudo apt update -y", "sudo apt upgrade -y", "sudo apt autoremove -y"]
+brew   = "brew upgrade"
+rustup = "rustup update"
+cargo  = { cmd = "cargo install-update -a", requires = "cargo-install-update" }
+deno   = "deno upgrade"
+npm    = "npm up -g"
+pnpm   = "pnpm up -g"
+# pipx   = "pipx upgrade-all"

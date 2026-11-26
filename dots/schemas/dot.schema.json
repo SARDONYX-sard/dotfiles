@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Manifest",
+  "type": "object",
+  "properties": {
+    "keyrate": {
+      "description": "Defaults for `dot keyrate` (Windows).",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/KeyRate"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "pkg": {
+      "description": "Packages keyed by name. Each package is a group of links that can be\nenabled/disabled or restricted to an OS together.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/Package"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "Dst": {
+      "anyOf": [
+        {
+          "description": "Same destination on every OS.",
+          "type": "string"
+        },
+        {
+          "description": "Different destination per OS. A missing key skips the link on that OS.",
+          "type": "object",
+          "properties": {
+            "unix": {
+              "description": "Destination on Linux/macOS.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "windows": {
+              "description": "Destination on Windows.",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "KeyRate": {
+      "description": "Key repeat beyond the Windows settings UI limits (FilterKeys).",
+      "type": "object",
+      "properties": {
+        "delay_ms": {
+          "description": "Milliseconds before a held key starts repeating.",
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "persist": {
+          "description": "Store in the user profile so it survives sign-out/reboot.",
+          "type": "boolean",
+          "default": false
+        },
+        "repeat_ms": {
+          "description": "Milliseconds between repeats.",
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "delay_ms",
+        "repeat_ms"
+      ]
+    },
+    "Link": {
+      "type": "object",
+      "properties": {
+        "dst": {
+          "description": "Destination. Tokens: `~`, `{documents}`, `{appdata}`, `{localappdata}`.",
+          "$ref": "#/$defs/Dst"
+        },
+        "src": {
+          "description": "Source path, relative to this layer's root (`dots/core/` or the profile dir),\nor a template for files outside the repo: `~/...`, `{appdata}/...`, etc.\n(e.g. `~/.local/state/dot/gen/init.nu` from `dot gen`).",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "src",
+        "dst"
+      ]
+    },
+    "Package": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "description": "Set to false to skip this package (e.g. from a profile).",
+          "type": "boolean",
+          "default": true
+        },
+        "link": {
+          "description": "Symlinks to create.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Link"
+          }
+        },
+        "os": {
+          "description": "Restrict to these OS names. Empty = all.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "enum": [
+              "windows",
+              "linux",
+              "macos"
+            ]
+          }
+        },
+        "requires": {
+          "description": "Only link when this command (or `~/path`) exists, e.g. `\"fish\"`.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

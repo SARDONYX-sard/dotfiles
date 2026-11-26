@@ -1,0 +1,41 @@
+#:schema ../../schemas/dot.schema.json
+# Merged over dots/core/dot.toml; `src` is relative to this profile (tables merge, values replace).
+
+# `dot keyrate` (Windows): key repeat beyond the settings UI limits.
+[keyrate]
+delay_ms  = 220
+repeat_ms = 7
+persist   = true
+
+[pkg.gnupg]
+os = ["windows"]
+[[pkg.gnupg.link]]
+src = "home/gnupg/gpg-agent.conf"
+dst = "{appdata}/Roaming/gnupg/gpg-agent.conf"
+[[pkg.gnupg.link]]
+src = "{appdata}/Roaming/gnupg"
+dst = "~/.gnupg"
+
+# Personal git identity/signing, included by dots/core/home/git/config.
+[pkg.git_local]
+[[pkg.git_local.link]]
+src = "home/git/config.local"
+dst = "~/.gitconfig.local"
+
+# Key remapping (US -> JIS etc.).
+[pkg.keyhac]
+os = ["windows"]
+[[pkg.keyhac.link]]
+src = "home/keyhac/config.py"
+dst = "~/.keyhac/config.py"
+
+# Contains user/distro names (`wsl.exe -d kali-linux --user sardonyx`), fonts, GUIDs.
+# Stable and Preview share one settings file.
+[pkg.windows_terminal]
+os = ["windows"]
+[[pkg.windows_terminal.link]]
+src = "home/windows_terminal/settings.json"
+dst = "{localappdata}/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
+[[pkg.windows_terminal.link]]
+src = "home/windows_terminal/settings.json"
+dst = "{localappdata}/Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/settings.json"

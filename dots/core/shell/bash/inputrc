@@ -1,0 +1,36 @@
+# readline (bash). Manual: https://man.archlinux.org/man/readline.3
+
+# Vi mode is turned on by bashrc when DOT_EDIT_MODE=vi; the vi keymaps below
+# only apply then.
+set keyseq-timeout 200
+# The mode string starts the prompt's input line (bashrc prints `$ ` after it):
+# `└─$` emacs, `└I$` vi insert, `└N$` vi normal; it also sets the cursor shape.
+set show-mode-in-prompt on
+set emacs-mode-string "\1\e[32m\2└─\1\e[0m\2"
+set vi-ins-mode-string "\1\e[5 q\e[32m\2└\1\e[34m\2I\1\e[0m\2"
+set vi-cmd-mode-string "\1\e[1 q\e[32m\2└\1\e[33m\2N\1\e[0m\2"
+
+# completion
+set show-all-if-ambiguous on
+set completion-ignore-case on
+set menu-complete-display-prefix on
+set colored-stats on
+set visible-stats on
+set mark-symlinked-directories on
+set colored-completion-prefix on
+set echo-control-characters off
+TAB: menu-complete
+"\e[Z": menu-complete-backward
+
+set keymap vi-insert
+"jj": vi-movement-mode
+"jk": vi-movement-mode
+"\C-l": clear-screen
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+"\ev": edit-and-execute-command
+
+set keymap vi-command
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+"\ev": edit-and-execute-command

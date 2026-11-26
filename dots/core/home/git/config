@@ -1,0 +1,131 @@
+# Shared git settings (linked to ~/.gitconfig by `dot deploy`).
+# Identity, signing, credentials and other per-person/per-machine values go in
+# ~/.gitconfig.local, included at the end. Template: config.local.example
+# Write personal values there, not with `git config --global` (that edits this repo file):
+#   git config --file ~/.gitconfig.local user.email "<email>"
+
+[branch]
+  sort = -committerdate
+[core]
+	autocrlf = false
+  eol = lf
+  editor = code
+  # editor = nvim
+  ignorecase = false
+  pager = delta # need `delta` command
+  quotepath = false
+	safecrlf = false
+  symlinks = true
+[color]
+  ui = auto
+[column]
+  ui = auto
+[commit]
+  verbose = true
+[delta]
+  navigate = true    # use n and N to move between diff sections
+    # delta detects terminal colors automatically; set one of these to disable auto-detection
+    # dark = true
+    # light = true
+[diff]
+  tool = difftastic
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+  renames = true
+[difftool]
+  prompt = false
+[difftool "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+  difftool = true
+[http]
+  postBuffer = 524288000
+[init]
+  defaultBranch = main
+[merge]
+  autoStash = true # Also used by `git pull`(merge)
+  # conflictStyle = zdiff3 # Temporarily turned off because the git pkg of the Docker container is often less than 2.35.
+  defaultToUpstream = true
+[pack]
+  windowMemory = 100m
+  packSizeLimit = 100m
+  threads = 1
+# NOTE: `pull.autoStash`, `pull.autoSquash` and `pull.updateRefs` don't exist. `git pull` uses `merge.*`/`rebase.*` ones.
+[push]
+  default = simple
+  autoSetupRemote = true
+  followTags = true
+[rebase]
+  autoSquash = true
+  autoStash = true
+  updateRefs = true
+  stat = true
+[rerere]
+  enabled = true
+  autoupdate = true
+[tag]
+  sort = version:refname
+[alias]                   # `!`: Meaning run an external command instead of a git subcommand.
+  aa = add -A .# Staged all files.
+  amend = commit --amend -m# Rewrite the latest commit message that has not been pushed
+  # Show all aliases. (e.g. green_b= yellow_branch)
+  alias = "!f() { if [ \"$#\" -eq 0 ]; then git config --get-regexp ^alias\\. | cut --delimiter="." --fields=2 ; return; fi; ret=0; for a in \"$@\"; do git config --get-regexp ^alias\\.\"$a\"$; rettmp=$?; if [ $rettmp != 0 ]; then ret=$rettmp; printf \"\\e[31malias.$a is not defined as alias\\n\\e[m\"; fi; done; return $ret; }; f"
+  b = branch
+  brd = branch -d
+  cm = commit -m
+  ch = checkout
+  chb = checkout -b# Checkout & create a new branch.
+  chf = !git fetch && git checkout# Check fetch
+  cp = cherry-pick# Can bring in commits from another branch.
+  # Multiple commits from different branches can be selected and brought in.
+  # Select changed files with diff preview, then show diff of them.(require fzf) e.g. `git df`, `git df main..HEAD`
+  df = "!f() { args=${*:-HEAD}; if [ \"$args\" = HEAD ]; then files=$(git status --short | cut -c 4- | sed 's/.* -> //'); else files=$(git diff --name-only $args); fi; [ -z \"$files\" ] && return; printf '%s\\n' \"$files\" | fzf --multi --ansi --preview \"git diff --color=always $args -- {}\" --height 90% | xargs --no-run-if-empty git diff $args --; }; f"
+  # NOTE: Exclude only exact names.(Previous `egrep -v 'main'` also excluded e.g. `fix-maintenance`)
+  delete-merged-branch = "!f() { base=${1:-main}; git checkout \"$base\" && git for-each-ref --merged \"$base\" --format='%(refname:short)' refs/heads/ | grep -vxE \"develop|main|master|$base\" | xargs --max-args=1 --no-run-if-empty git branch -d; }; f"
+  dfw = diff --word-diff# Display word-level differences in color.
+  dlg = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
+  edit = config --global --edit
+  ffs = flow feature start
+  fix = commit --fixup# Can fix any previous commit. (e.g. git fix <sha>)
+  fixit = commit --amend --no-edit
+  fush = push --force-with-lease# Force push only when the remote is not updated by others.
+  # Display log with graph.
+  lg = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
+  lr = reflog# Log in order of [Sha]: [Offset from head]: [Commit message].
+  mg = merge --no-ff
+  # Print the web URL of the remote.(ssh/https) e.g. `git web-url`, `git web-url upstream`
+  web-url = "!f() { git remote get-url \"${1:-origin}\" | sed -E 's#^git@([^:]+):#https://\\1/#; s#^ssh://git@([^/]+)/#https://\\1/#; s#\\.git$##'; }; f"
+  # Open a URL by the browser.(Windows(Git Bash)/macOS/Linux)
+  open-url = "!f() { case \"$(uname -s)\" in MINGW*|MSYS*|CYGWIN*) start \"\" \"$1\";; Darwin) open \"$1\";; *) xdg-open \"$1\";; esac; }; f"
+  # Open the current branch(or commit) of the remote by the browser. e.g. `git browse`, `git browse upstream`
+  browse = "!f() { ref=$(git branch --show-current); [ -z \"$ref\" ] && ref=$(git rev-parse HEAD); git open-url \"$(git web-url \"${1:-origin}\")/tree/$ref\"; }; f"
+  # Create a Pull Request of the current branch by the browser.(base: gitflow develop > remote default branch > main)
+  pr = "!f() { base=$(git config gitflow.branch.develop); [ -z \"$base\" ] && base=$(git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed 's#^origin/##'); git open-url \"$(git web-url)/compare/${base:-main}...$(git branch --show-current)?expand=1\"; }; f"
+  ps = !git push origin $(git branch --show-current)# Push to remote branch t with same name as current branch.
+  rb = rebase
+  rba = rebase --abort
+  rbc = rebase --continue
+  rbs = rebase --skip
+  rv = revert# Commit to revert changes.
+  sa = stash apply# Apply saved changes (do not delete saved stashes).
+  # Preview patches also in stash list.(require fzf)
+  sl = !git stash list | fzf --preview 'echo {} | grep -oE \"stash@[{][0-9]+[}]\" | xargs git stash show -p --color=always' --height 90% | grep -oE 'stash@[{][0-9]+[}]'
+  sp = stash pop# Delete the saved stash and apply the saved changes.
+  # NOTE: `--no-run-if-empty`: If fzf is canceled, `git stash apply/drop` without args targets `stash@{0}`.
+  spa = !git sl | xargs --no-run-if-empty git stash apply# Apply after preview.
+  spd = !git sl | xargs --no-run-if-empty git stash drop# Drop after preview.
+  st = status
+  stl = lfs status# Check Git LFS(Large File Storage) status.(Pre-execution of `git lfs install` is required.)
+  stt = status -uno# Display status of files other than Untracked files.
+  sv = stash push --include-untracked# Save all uncommitted files.
+  # Delete all merged branches that are not in remote.
+  # NOTE: `git stash -u` returns 0 even if there is nothing to save. So compare `refs/stash` to know whether stashed.
+  sync = "!f() { prev=$(git rev-parse --abbrev-ref HEAD); before=$(git rev-parse -q --verify refs/stash); git stash push --include-untracked -m git-sync >/dev/null; after=$(git rev-parse -q --verify refs/stash); git switch main && git fetch -p && git pull && git push origin --tags && git delete-merged-branch; if git rev-parse -q --verify \"refs/heads/$prev\" >/dev/null; then git switch \"$prev\"; else echo \"[sync] '$prev' was deleted. Stay on $(git branch --show-current).\"; fi; if [ -n \"$after\" ] && [ \"$after\" != \"$before\" ]; then git stash pop --index || git stash pop || echo '[sync] Failed to pop. The changes remain in stash@{0}.'; fi; }; f"
+  undo = reset --soft HEAD~1
+  unstage = reset # unstaged all files.
+
+# Must stay last so personal values override the shared ones above.
+# Missing file = silently skipped.
+[include]
+  path = ~/.gitconfig.local

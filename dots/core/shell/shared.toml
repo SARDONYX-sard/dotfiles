@@ -1,0 +1,114 @@
+#:schema ../../schemas/shared.schema.json
+# Shared shell definitions. `dot gen` turns this into
+# ~/.local/state/dot/gen/init.{bash,fish,ps1,nu}.
+#
+# Conditions are evaluated at generation time:
+#   requires = "cmd" | "~/path"   skip unless the command/path exists
+#   os       = ["windows" | "linux" | "macos" | "unix" | "wsl"]
+#   shells   = ["bash" | "fish" | "pwsh" | "nu"]
+# Re-run `dot gen` after installing or removing tools.
+#
+# Personal settings go in dots/profiles/<name>/shell/shared.toml, e.g.
+#   DOT_EDIT_MODE = "vi"      line editing in every shell (unset = emacs-style)
+#   DOT_BASH_EXEC = "fish"    bash hands interactive sessions over to fish
+
+[env]
+EDITOR                     = { value = "nvim", requires = "nvim" }
+VISUAL                     = { value = "nvim", requires = "nvim" }
+DOCKER_CONTENT_TRUST       = "1"
+VIRTUAL_ENV_DISABLE_PROMPT = "1"
+FZF_DEFAULT_OPTS           = { value = '--tabstop=4 --preview "bat --pager=never --color=always --style=numbers --line-range :300 {}"', requires = "bat" }
+FZF_CTRL_T_COMMAND         = { value = 'rg --files --hidden --follow --glob "!.git/*"', requires = "rg" }
+
+[path]
+# Earlier entries end up first in PATH. Missing directories are skipped.
+prepend = [
+  "~/.local/bin",
+  "~/.cargo/bin",
+  "~/.asdf/shims",
+  "~/.deno/bin",
+  "~/.bun/bin",
+]
+
+[alias]
+c     = "clear"
+bb    = "cd -"
+".."  = { cmd = "cd ..", shells = ["bash", "fish", "pwsh"] } # nu: `..` is built in
+"..." = { cmd = "cd ../..", shells = ["bash", "fish", "pwsh"] }
+
+# --- modern replacements
+cat  = { cmd = "bat", requires = "bat" }
+vim  = { cmd = "nvim", requires = "nvim" }
+vi   = { cmd = "nvim", requires = "nvim" }
+fd   = { cmd = "fdfind", requires = "fdfind" } # Debian package name
+grep = { cmd = "rg", requires = "rg", os = ["windows"] }
+find = { cmd = "fd", requires = "fd", os = ["windows"] }
+ps   = { cmd = "procs", requires = "procs", os = ["windows"] }
+
+# --- ls (nu keeps its structured `ls`)
+ls  = { cmd = "lsd", requires = "lsd", shells = ["bash", "fish", "pwsh"] }
+l   = { cmd = "lsd -F", requires = "lsd", shells = ["bash", "fish", "pwsh"] }
+la  = { cmd = "lsd -aF", requires = "lsd", shells = ["bash", "fish", "pwsh"] }
+ll  = { cmd = "lsd -lF", requires = "lsd", shells = ["bash", "fish", "pwsh"] }
+lla = { cmd = "lsd -alF", requires = "lsd", shells = ["bash", "fish", "pwsh"] }
+
+# --- disk
+df  = { cmd = "df -h", os = ["unix"] }
+du  = { cmd = "du -h", os = ["unix"] }
+du1 = { cmd = "du -h -d1", os = ["unix"] }
+
+# --- git
+cl  = "git clone --recursive"
+ga  = "git add"
+gc  = "git commit"
+gp  = "git push"
+gpf = "git push --force-with-lease"
+gpl = "git pull"
+gs  = "git status --short"
+gl  = "git log --graph --date=short --decorate=short --pretty=format:'%C(green)%h %C(reset)%cd %C(blue)%cn %C(red)%d %C(reset)%s'"
+
+# --- container
+dk = { cmd = "docker", requires = "docker" }
+dc = { cmd = "docker compose", requires = "docker" }
+
+# --- dot built-ins (cross-shell replacements for old per-shell helpers)
+tolf  = { cmd = "dot tolf", requires = "dot" }
+color = { cmd = "dot colors", requires = "dot" }
+iio   = { cmd = "dot reveal", requires = "dot" } # reveal a path/command in the file manager
+start = { cmd = "dot reveal", requires = "dot", shells = ["bash", "fish", "nu"] } # pwsh: Start-Process
+ii    = { cmd = "dot reveal", requires = "dot", shells = ["bash", "fish", "nu"] } # pwsh keeps Invoke-Item
+which = { cmd = "dot which", requires = "dot", shells = ["pwsh"] }
+
+# --- misc
+"g+" = { cmd = "g++ -Wall -Wextra -Wpedantic -fsanitize=undefined -g", requires = "g++", shells = ["bash", "fish"] }
+
+# Output of these commands is inlined at generation time (no startup cost).
+# `lazy = true`: pwsh loads it after the first prompt (init.lazy.ps1).
+[[eval]]
+requires = "zoxide"
+lazy     = true
+bash     = "zoxide init bash --cmd cd"
+fish     = "zoxide init fish --cmd cd"
+pwsh     = "zoxide init powershell --cmd cd"
+nu       = "zoxide init nushell --cmd cd"
+
+[[eval]]
+requires = "atuin"
+fish     = "atuin init fish"
+nu       = "atuin init nu"
+
+[[eval]]
+requires = "/home/linuxbrew/.linuxbrew/bin/brew"
+bash     = "/home/linuxbrew/.linuxbrew/bin/brew shellenv bash"
+fish     = "/home/linuxbrew/.linuxbrew/bin/brew shellenv fish"
+
+[[eval]]
+requires = "rustup"
+lazy     = true
+pwsh     = "rustup completions powershell"
+fish     = "rustup completions fish"
+
+[[eval]]
+requires = "deno"
+lazy     = true
+pwsh     = "deno completions powershell"

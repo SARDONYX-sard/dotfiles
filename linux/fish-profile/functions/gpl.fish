@@ -1,1 +1,0 @@
-alias gpl="git pull"

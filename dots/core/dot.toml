@@ -1,0 +1,88 @@
+#:schema ../schemas/dot.schema.json
+# Base layer: link definitions. `src` is relative to this directory (dots/core/).
+# Destination tokens: ~, {documents}, {appdata}, {localappdata}
+# Personal additions/overrides: dots/profiles/<name>/dot.toml (`dot profile`).
+
+[pkg.git]
+[[pkg.git.link]]
+src = "home/git/config"
+dst = "~/.gitconfig"
+[[pkg.git.link]]
+src = "home/git/ignore"
+dst = "~/.config/git/ignore"
+
+[pkg.nvim]
+[[pkg.nvim.link]]
+src         = "home/nvim/init.lua"
+dst.windows = "{localappdata}/nvim/init.lua"
+dst.unix    = "~/.config/nvim/init.lua"
+[[pkg.nvim.link]]
+src         = "home/nvim/lua"
+dst.windows = "{localappdata}/nvim/lua"
+dst.unix    = "~/.config/nvim/lua"
+# Plugin versions pinned by lazy.nvim; updates are written back into the repo.
+[[pkg.nvim.link]]
+src         = "home/nvim/lazy-lock.json"
+dst.windows = "{localappdata}/nvim/lazy-lock.json"
+dst.unix    = "~/.config/nvim/lazy-lock.json"
+
+[pkg.vim]
+[[pkg.vim.link]]
+src = "home/vim/vimrc.vim"
+dst = "~/.vimrc"
+[[pkg.vim.link]]
+src = "home/vim/gvimrc.vim"
+dst = "~/.gvimrc"
+[[pkg.vim.link]]
+src = "home/vim/vsvimrc.vim"
+dst = "~/.vsvimrc"
+
+
+# Shell packages are linked only where the shell is installed (`requires`).
+# Opt out in a profile, e.g. `[pkg.nu] enabled = false`.
+
+# One profile for pwsh 7 and Windows PowerShell 5.1 (branches on PSEdition).
+[pkg.pwsh]
+requires = "pwsh"
+[[pkg.pwsh.link]]
+src         = "shell/pwsh/profile.ps1"
+dst.windows = "{documents}/PowerShell/Microsoft.PowerShell_profile.ps1"
+dst.unix    = "~/.config/powershell/Microsoft.PowerShell_profile.ps1"
+
+[pkg.powershell]
+os = ["windows"]
+[[pkg.powershell.link]]
+src = "shell/pwsh/profile.ps1"
+dst = "{documents}/WindowsPowerShell/Microsoft.PowerShell_profile.ps1"
+
+[pkg.nu]
+requires = "nu"
+[[pkg.nu.link]]
+src         = "shell/nu/config.nu"
+dst.windows = "{appdata}/nushell/config.nu"
+dst.unix    = "~/.config/nushell/config.nu"
+[[pkg.nu.link]]
+src         = "shell/nu/env.nu"
+dst.windows = "{appdata}/nushell/env.nu"
+dst.unix    = "~/.config/nushell/env.nu"
+# nu cannot conditionally `source`; its autoload dir is sourced automatically.
+[[pkg.nu.link]]
+src         = "~/.local/state/dot/gen/init.nu"
+dst.windows = "{appdata}/nushell/autoload/dot_gen.nu"
+dst.unix    = "~/.config/nushell/autoload/dot_gen.nu"
+
+[pkg.bash]
+os       = ["linux", "macos"]
+requires = "bash"
+[[pkg.bash.link]]
+src = "shell/bash/bashrc"
+dst = "~/.bashrc"
+[[pkg.bash.link]]
+src = "shell/bash/inputrc"
+dst = "~/.inputrc"
+
+[pkg.fish]
+requires = "fish"
+[[pkg.fish.link]]
+src = "shell/fish/config.fish"
+dst = "~/.config/fish/config.fish"

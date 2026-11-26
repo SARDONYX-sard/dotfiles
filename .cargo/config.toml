@@ -1,0 +1,18 @@
+[alias]
+# Release helpers: `cargo xtask dist`, `cargo xtask release <x.y.z>`.
+xtask       = "run --package xtask --"
+# Install `dot` from this checkout into ~/.cargo/bin (workspace root has no package).
+install-dot = "install --locked --path crates/dot_cli"
+
+# Statically link the C runtime so `dot.exe` runs without the VC++ redistributable.
+#
+# Not set for other OSes on purpose:
+# - Linux: releases use `*-unknown-linux-musl`, which is already static by default.
+#   `crt-static` on glibc targets breaks NSS (user/host lookup) and `dlopen`.
+# - macOS: Apple does not support statically linking libSystem; Rust rejects it,
+#   and the system libraries are always present anyway.
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]
+
+[target.aarch64-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]
