@@ -64,7 +64,7 @@ gc  = "git commit"
 gp  = "git push"
 gpf = "git push --force-with-lease"
 gpl = "git pull"
-gs  = "git status --short"
+gs  = "git sync"
 gl  = "git log --graph --date=short --decorate=short --pretty=format:'%C(green)%h %C(reset)%cd %C(blue)%cn %C(red)%d %C(reset)%s'"
 
 # --- container
