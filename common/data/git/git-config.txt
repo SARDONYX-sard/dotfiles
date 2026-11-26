@@ -31,9 +31,8 @@
     # delta detects terminal colors automatically; set one of these to disable auto-detection
     # dark = true
     # light = true
-[dif]
-  tool = difftastic
 [diff]
+  tool = difftastic
   algorithm = histogram
   colorMoved = plain
   mnemonicPrefix = true
@@ -49,16 +48,14 @@
 [init]
   defaultBranch = main
 [merge]
+  autoStash = true # Also used by `git pull`(merge)
   # conflictStyle = zdiff3 # Temporarily turned off because the git pkg of the Docker container is often less than 2.35.
   defaultToUpstream = true
 [pack]
   windowMemory = 100m
   packSizeLimit = 100m
   threads = 1
-[pull]
-  autoSquash = true
-  autoStash = true
-  updateRefs = true
+# NOTE: `pull.autoStash`, `pull.autoSquash` and `pull.updateRefs` don't exist. `git pull` uses `merge.*`/`rebase.*` ones.
 [push]
   default = simple
   autoSetupRemote = true
@@ -90,21 +87,29 @@
   chf = !git fetch && git checkout# Check fetch
   cp = cherry-pick# Can bring in commits from another branch.
   # Multiple commits from different branches can be selected and brought in.
-  df = "!f() { args=$@; [ -z \"$args\" ] && args=HEAD; ([ \"$args\" = \"HEAD\" ] && git status --short || git diff --name-status $args | sed 's/\t/  /')  | cut -c 4- | xargs git diff --color=always $args -- --multi --height 90% | cut -c 4-; }; f"
-  delete-merged-branch = "!f() { branch=${1:-main}; git checkout main; git branch --merged|egrep -v '\\*|develop|main|master'|xargs --max-args=1 --no-run-if-empty git branch -d; };f"
+  # Select changed files with diff preview, then show diff of them.(require fzf) e.g. `git df`, `git df main..HEAD`
+  df = "!f() { args=${*:-HEAD}; if [ \"$args\" = HEAD ]; then files=$(git status --short | cut -c 4- | sed 's/.* -> //'); else files=$(git diff --name-only $args); fi; [ -z \"$files\" ] && return; printf '%s\\n' \"$files\" | fzf --multi --ansi --preview \"git diff --color=always $args -- {}\" --height 90% | xargs --no-run-if-empty git diff $args --; }; f"
+  # NOTE: Exclude only exact names.(Previous `egrep -v 'main'` also excluded e.g. `fix-maintenance`)
+  delete-merged-branch = "!f() { base=${1:-main}; git checkout \"$base\" && git for-each-ref --merged \"$base\" --format='%(refname:short)' refs/heads/ | grep -vxE \"develop|main|master|$base\" | xargs --max-args=1 --no-run-if-empty git branch -d; }; f"
   dfw = diff --word-diff# Display word-level differences in color.
   dlg = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
   edit = config --global --edit
   ffs = flow feature start
   fix = commit --fixup# Can fix any previous commit. (e.g. git fix <sha>)
   fixit = commit --amend --no-edit
-  fush = push -f
+  fush = push --force-with-lease# Force push only when the remote is not updated by others.
   # Display log with graph.
   lg = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
   lr = reflog# Log in order of [Sha]: [Offset from head]: [Commit message].
   mg = merge --no-ff
-  # Create a Pull Request on the current branch.
-  pr = !"start \"$(git remote get-url origin | sed 's/\\/git\\//\\//;s/\\.git$/\\/compare\\//')$(git config gitflow.branch.develop | tr -d \\\\r\\\\n)...$(git rev-parse --abbrev-ref HEAD | tr -d \\\\r\\\\n)?expand=1\""
+  # Print the web URL of the remote.(ssh/https) e.g. `git web-url`, `git web-url upstream`
+  web-url = "!f() { git remote get-url \"${1:-origin}\" | sed -E 's#^git@([^:]+):#https://\\1/#; s#^ssh://git@([^/]+)/#https://\\1/#; s#\\.git$##'; }; f"
+  # Open a URL by the browser.(Windows(Git Bash)/macOS/Linux)
+  open-url = "!f() { case \"$(uname -s)\" in MINGW*|MSYS*|CYGWIN*) start \"\" \"$1\";; Darwin) open \"$1\";; *) xdg-open \"$1\";; esac; }; f"
+  # Open the current branch(or commit) of the remote by the browser. e.g. `git browse`, `git browse upstream`
+  browse = "!f() { ref=$(git branch --show-current); [ -z \"$ref\" ] && ref=$(git rev-parse HEAD); git open-url \"$(git web-url \"${1:-origin}\")/tree/$ref\"; }; f"
+  # Create a Pull Request of the current branch by the browser.(base: gitflow develop > remote default branch > main)
+  pr = "!f() { base=$(git config gitflow.branch.develop); [ -z \"$base\" ] && base=$(git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed 's#^origin/##'); git open-url \"$(git web-url)/compare/${base:-main}...$(git branch --show-current)?expand=1\"; }; f"
   ps = !git push origin $(git branch --show-current)# Push to remote branch t with same name as current branch.
   rb = rebase
   rba = rebase --abort
@@ -113,16 +118,18 @@
   rv = revert# Commit to revert changes.
   sa = stash apply# Apply saved changes (do not delete saved stashes).
   # Preview patches also in stash list.(require fzf)
-  sl = !git stash list | fzf --preview 'echo {} | grep -o stash@{.*} | xargs git stash show -p --color=always' --height 90% | grep -o stash@{.*}
+  sl = !git stash list | fzf --preview 'echo {} | grep -oE \"stash@[{][0-9]+[}]\" | xargs git stash show -p --color=always' --height 90% | grep -oE 'stash@[{][0-9]+[}]'
   sp = stash pop# Delete the saved stash and apply the saved changes.
-  spa = !git sl | xargs git stash apply# Apply after preview.
-  spd = !git sl | xargs git stash drop# Drop after preview.
+  # NOTE: `--no-run-if-empty`: If fzf is canceled, `git stash apply/drop` without args targets `stash@{0}`.
+  spa = !git sl | xargs --no-run-if-empty git stash apply# Apply after preview.
+  spd = !git sl | xargs --no-run-if-empty git stash drop# Drop after preview.
   st = status
   stl = lfs status# Check Git LFS(Large File Storage) status.(Pre-execution of `git lfs install` is required.)
   stt = status -uno# Display status of files other than Untracked files.
   sv = stash push --include-untracked# Save all uncommitted files.
   # Delete all merged branches that are not in remote.
-  sync = "!f() { prev_branch=$(git rev-parse --abbrev-ref HEAD); git stash -u; stashed=$?; git switch main && git fetch -p && git pull && git push origin --tags && git delete-merged-branch; git switch \"$prev_branch\"; [ $stashed -eq 0 ] && git stash pop; }; f"
+  # NOTE: `git stash -u` returns 0 even if there is nothing to save. So compare `refs/stash` to know whether stashed.
+  sync = "!f() { prev=$(git rev-parse --abbrev-ref HEAD); before=$(git rev-parse -q --verify refs/stash); git stash push --include-untracked -m git-sync >/dev/null; after=$(git rev-parse -q --verify refs/stash); git switch main && git fetch -p && git pull && git push origin --tags && git delete-merged-branch; if git rev-parse -q --verify \"refs/heads/$prev\" >/dev/null; then git switch \"$prev\"; else echo \"[sync] '$prev' was deleted. Stay on $(git branch --show-current).\"; fi; if [ -n \"$after\" ] && [ \"$after\" != \"$before\" ]; then git stash pop --index || git stash pop || echo '[sync] Failed to pop. The changes remain in stash@{0}.'; fi; }; f"
   undo = reset --soft HEAD~1
   unstage = reset # unstaged all files.
 [credential "helperselector"]

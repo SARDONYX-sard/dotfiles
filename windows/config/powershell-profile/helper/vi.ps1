@@ -1,4 +1,5 @@
 Set-PSReadLineOption -EditMode Vi
+Set-PSReadLineOption -BellStyle None # No beep (Console.Beep): VS Code settings cannot silence it.
 Set-PSReadLineOption -HistoryNoDuplicates # https://github.com/PowerShell/PSReadLine/blob/master/PSReadLine/SamplePSReadLineProfile.ps1
 
 if ($PSVersionTable.PSEdition -eq "Core") {
