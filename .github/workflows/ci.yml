@@ -12,6 +12,14 @@ env:
   GIT_CONFIG_VALUE_0: "false"
 
 jobs:
+  # Every action (also inside .github/actions/*) must be pinned in actions.lock.
+  # After changing any `uses:`, run `gh actions-lock` and commit the lockfile.
+  actions-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: github/gh-actions-lock@verify/v0.5.1
+
   rust:
     strategy:
       fail-fast: false
@@ -19,15 +27,10 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - run: rustup toolchain install stable --profile minimal -c clippy,rustfmt && rustup default stable
-      - uses: actions/cache@v4
+      - uses: actions/checkout@v7.0.1
+      - uses: $/.github/actions/setup-rust
         with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+          components: clippy,rustfmt
       - if: runner.os == 'Linux'
         run: cargo fmt --all -- --check
       - run: cargo clippy --workspace --all-targets --locked -- -D warnings
@@ -36,8 +39,8 @@ jobs:
   configs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: rustup toolchain install stable --profile minimal && rustup default stable
+      - uses: actions/checkout@v7.0.1
+      - uses: $/.github/actions/setup-rust
       - name: JSON Schemas are up to date
         run: cargo run -q --locked -p dot_cli -- --root . schema && git diff --exit-code dots/schemas
       - name: shellcheck
@@ -54,7 +57,7 @@ jobs:
   powershell:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7.0.1
       - name: Parse with pwsh 7 and Windows PowerShell 5.1
         shell: pwsh
         run: |
@@ -89,10 +92,11 @@ jobs:
     env:
       DOT_RELEASE_URL: http://127.0.0.1:8765
     steps:
-      - uses: actions/checkout@v4
-      - run: rustup toolchain install stable --profile minimal -t ${{ matrix.target }} && rustup default stable
-      - if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y musl-tools
+      - uses: actions/checkout@v7.0.1
+      - uses: $/.github/actions/setup-rust
+        with:
+          targets: ${{ matrix.target }}
+          cache-key: dist-${{ matrix.target }}
       - name: Build the release archive
         shell: bash
         run: |
@@ -112,7 +116,8 @@ jobs:
           sh -s -- --yes < bootstrap/install.sh
           sh -s -- --yes < bootstrap/install.sh 2>&1 | tee second.txt   # re-run keeps dots/ (message is on stderr)
           grep -q 'keeping existing' second.txt
-          "$HOME/.local/bin/dot" deploy -n | tee plan.txt
+          # --root: cwd is the checkout, which `dot` would otherwise prefer over ~/dotfiles.
+          "$HOME/.local/bin/dot" --root "$HOME/dotfiles" deploy -n | tee plan.txt
           if grep -E '^    ' plan.txt | grep -vE '^    ok$'; then exit 1; fi
           test -L "$HOME/.gitconfig"
 
@@ -125,7 +130,8 @@ jobs:
           & ([scriptblock]::Create((Get-Content bootstrap/install.ps1 -Raw))) -Yes
           powershell -NoProfile -Command '& ([scriptblock]::Create((Get-Content bootstrap/install.ps1 -Raw))) -Yes'
           if ($LASTEXITCODE) { exit 1 }
-          $plan = & "$HOME\.local\bin\dot.exe" deploy -n
+          # --root: cwd is the checkout, which `dot` would otherwise prefer over ~/dotfiles.
+          $plan = & "$HOME\.local\bin\dot.exe" --root "$HOME\dotfiles" deploy -n
           $plan
           $bad = $plan | Where-Object { $_ -match '^\s{4}\S' -and $_ -notmatch '^\s{4}ok$' }
           if ($bad) { exit 1 }

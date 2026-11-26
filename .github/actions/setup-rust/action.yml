@@ -1,0 +1,44 @@
+name: Setup Rust
+description: >
+  Rust toolchain via rustup (+ targets / components), musl-tools for *-musl targets
+  on Linux, and a cargo cache (registry, git deps, target/) keyed by Cargo.lock.
+
+inputs:
+  toolchain:
+    description: rustup toolchain
+    default: stable
+  targets:
+    description: Extra targets, comma separated (e.g. x86_64-unknown-linux-musl)
+    default: ""
+  components:
+    description: Extra components, comma separated (e.g. clippy,rustfmt)
+    default: ""
+  cache-key:
+    description: Extra cache key, to keep caches of different builds apart
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - name: rustup
+      shell: bash
+      env:
+        TOOLCHAIN: ${{ inputs.toolchain }}
+        TARGETS: ${{ inputs.targets }}
+        COMPONENTS: ${{ inputs.components }}
+      run: |
+        args=(--profile minimal)
+        if [ -n "$TARGETS" ]; then args+=(--target "$TARGETS"); fi
+        if [ -n "$COMPONENTS" ]; then args+=(--component "$COMPONENTS"); fi
+        rustup toolchain install "$TOOLCHAIN" "${args[@]}"
+        rustup default "$TOOLCHAIN"
+
+    - name: musl-tools
+      if: runner.os == 'Linux' && contains(inputs.targets, 'musl')
+      shell: bash
+      run: sudo apt-get update && sudo apt-get install -y musl-tools
+
+    - name: cargo cache
+      uses: Swatinem/rust-cache@v2.9.3
+      with:
+        key: ${{ inputs.cache-key }}

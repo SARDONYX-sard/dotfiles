@@ -25,12 +25,13 @@ jobs:
           - { os: macos-latest, target: x86_64-apple-darwin }
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - run: rustup toolchain install stable --profile minimal -t ${{ matrix.target }} && rustup default stable
-      - if: contains(matrix.target, 'musl')
-        run: sudo apt-get update && sudo apt-get install -y musl-tools
+      - uses: actions/checkout@v7.0.1
+      - uses: $/.github/actions/setup-rust
+        with:
+          targets: ${{ matrix.target }}
+          cache-key: dist-${{ matrix.target }}
       - run: cargo xtask dist --target ${{ matrix.target }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: dot-${{ matrix.target }}
           path: |
@@ -41,8 +42,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/download-artifact@v8.0.2
         with:
           path: dist
           merge-multiple: true
