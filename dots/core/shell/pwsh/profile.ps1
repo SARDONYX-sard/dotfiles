@@ -141,12 +141,41 @@ $null = $ExecutionContext.Events.SubscribeEvent($null, $null, 'PowerShell.OnIdle
   if ([IO.File]::Exists("$DotGenDir/init.lazy.ps1")) { . "$DotGenDir/init.lazy.ps1" }
   if ([IO.File]::Exists("$DotPwshDir/functions.ps1")) { . "$DotPwshDir/functions.ps1" }
 
-  foreach ($m in 'npm-completion', 'WSLTabCompletion', 'WslInterop', 'PSFzf') {
+  foreach ($m in 'npm-completion', 'WSLTabCompletion', 'WslInterop') {
     Import-Module $m -Global -ErrorAction Ignore
   }
-  if (Get-Module PSFzf) {
-    Set-PsFzfOption -PSReadlineChordProvider 'ctrl+t' -PSReadlineChordReverseHistory 'ctrl+r'
-    Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }
+
+  # PSFzf runs `fzf --version` on import. A native process started here (while
+  # PSReadLine is already waiting for a key) swallows the first keystroke, so load
+  # PSFzf on the first Ctrl+T / Ctrl+R / Tab instead and replay that key.
+  if (Find-Exe fzf) {
+    foreach ($k in 'ctrl+t', 'ctrl+r', 'Tab') {
+      Set-PSReadLineKeyHandler -Key $k -BriefDescription 'psfzfLazy' -ScriptBlock {
+        param($key, $arg)
+        if (-not (Get-Module PSFzf)) {
+          Import-Module PSFzf -Global -ErrorAction Ignore
+          if (-not (Get-Module PSFzf)) {
+            Set-PSReadLineKeyHandler -Key Tab -Function TabCompleteNext
+            Set-PSReadLineKeyHandler -Key 'ctrl+r' -Function ReverseSearchHistory
+            if ($key.Key -eq 'Tab') { [Microsoft.PowerShell.PSConsoleReadLine]::TabCompleteNext() }
+            elseif ($key.Key -eq 'R') { [Microsoft.PowerShell.PSConsoleReadLine]::ReverseSearchHistory() }
+            return
+          }
+          # PSFzf defaults to inline `--height=40%`: at the bottom of the window fzf scrolls
+          # the screen, and PSFzf then redraws the prompt at the pre-scroll row (cursor
+          # ends up off). 100% = fzf's fullscreen renderer, which restores the screen.
+          # `_PSFZF_FZF_DEFAULT_OPTS` is read by PSFzf only, so other shells keep inline fzf.
+          $env:_PSFZF_FZF_DEFAULT_OPTS = "$env:FZF_DEFAULT_OPTS --height=100%"
+          Set-PsFzfOption -PSReadlineChordProvider 'ctrl+t' -PSReadlineChordReverseHistory 'ctrl+r'
+          Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }
+        }
+        switch ($key.Key) {
+          'Tab' { Invoke-FzfTabCompletion }
+          'T' { Invoke-FzfPsReadlineHandlerProvider }
+          'R' { Invoke-FzfPsReadlineHandlerHistory }
+        }
+      }
+    }
   }
 
   # pwsh 7 only: PSReadLine 2.1+ predictions.
