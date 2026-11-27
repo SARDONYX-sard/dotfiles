@@ -4,7 +4,7 @@ members  = ["crates/*", "xtask"]
 
 # Release version of `dot` (dot_cli). Internal crates stay at 0.0.0.
 [workspace.package]
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 
 # Every dependency is declared once here; crates use `name.workspace = true`
